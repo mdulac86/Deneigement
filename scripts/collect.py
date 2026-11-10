@@ -331,8 +331,26 @@ def mm():
     return {'issued_at': None, 'days': out, 'periods': periods, 'hours': hours,
             'note': 'Tableau de données structurées publié par MétéoMédia (périodes nuit, matin, après-midi, soir). Quantités en fourchette; heure d’émission non publiée. Découpage horaire des périodes supposé 0-6-12-18 h.'}
 
+RELAY_MAX_H = 7
+
+def relayed(key):
+    """Lecture faite par le poste du bureau (scripts/pc_relay.py) si elle a moins de 7 h."""
+    relay = read(DATA / 'relay.json', {})
+    item = relay.get('sources', {}).get(key, {})
+    if item.get('status') != 'ok':
+        return None
+    when = dt.datetime.fromisoformat(item['fetched_at'])
+    if (NOW - when).total_seconds() > RELAY_MAX_H * 3600:
+        return None
+    return item
+
 def collect_source(key, fn, previous):
     name, url = SOURCES[key]
+    item = relayed(key)
+    if item:
+        r = item['result']
+        return {'id': key, 'name': name, 'url': url, 'status': 'ok', 'fetched_at': item['fetched_at'], 'relay': True,
+                **r, 'note': (r.get('note', '') + ' Lu par le poste du bureau.').strip()}
     try:
         result = fn()
         issued=result.get('issued_at')

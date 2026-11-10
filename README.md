@@ -45,9 +45,14 @@ la restriction et sans compter une ancienne donnée dans le consensus.
   page 7 jours : conditions, températures, pluie en mm et **neige en cm** par période
   (nuit, matin, après-midi, soir). Les 4 périodes donnent un total 00-24 h comparable;
   les cm entrent aussi dans le plan de sortie (répartis sur chaque heure de la période).
-- AccuWeather et Weather Underground refusent la lecture depuis les serveurs du
-  robot (HTTP 403). Le robot ne contourne pas ce refus : la dernière lecture
-  réussie reste affichée comme ancienne et exclue du consensus.
+- AccuWeather et Weather Underground refusent la lecture depuis les serveurs de
+  GitHub (HTTP 403), et MétéoMédia y répond par une page de vérification.
+- **Relais du bureau** (`scripts/pc_relay.py`) : une tâche planifiée Windows sur le
+  PC du bureau lit MétéoMédia et Weather Underground à 23 h 45, 5 h 45, 11 h 45 et
+  17 h 45, puis publie `data/relay.json`, ce qui relance le robot. Le robot utilise
+  ces lectures pendant 7 h. PC éteint = pas de nouvelle lecture : l'appli affiche
+  les données comme anciennes. Journal : `deneigement-relais.log` à côté du dossier.
+  AccuWeather refuse aussi le PC du bureau et reste exclu.
 - Climat Québec / MELCCFP : sommaire de la station automatique **7027660**,
   relevés quotidiens depuis le 1er octobre; relecture quotidienne de tous les mois
   de la saison afin de récupérer les corrections tardives. Saison jusqu'au 31 mai.

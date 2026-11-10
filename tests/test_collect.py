@@ -74,6 +74,19 @@ class CollectorTests(unittest.TestCase):
         self.assertEqual(m.amount('<1 cm'),[0,1])
         self.assertIsNone(m.amount('—'))
 
+    def test_relay_is_used_only_when_fresh(self):
+        import tempfile
+        d=Path(tempfile.mkdtemp())
+        res={'days':[{'date':'2026-11-11'}],'note':'Tableau.'}
+        def relay(hours):
+            (d/'relay.json').write_text(json.dumps({'sources':{'mm':{'status':'ok','fetched_at':(m.NOW-dt.timedelta(hours=hours)).isoformat(),'result':res}}}))
+        with patch.object(m,'DATA',d):
+            relay(2)
+            r=m.collect_source('mm',lambda:1/0,{})
+            self.assertEqual((r['status'],r['relay']),('ok',True))
+            relay(8)
+            self.assertEqual(m.collect_source('mm',lambda:1/0,{})['status'],'unavailable')
+
     def test_winter_rollover(self):
         self.assertEqual(m.season_year(dt.date(2027,2,1)),2026)
         self.assertEqual(m.season_year(dt.date(2027,11,1)),2027)

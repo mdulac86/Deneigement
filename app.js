@@ -5,7 +5,7 @@ const local=(v,opts={})=>v?new Intl.DateTimeFormat('fr-CA',{timeZone:'America/To
 const dayLabel=v=>new Intl.DateTimeFormat('fr-CA',{timeZone:'America/Toronto',weekday:'short',month:'short',day:'numeric'}).format(new Date(v+'T12:00:00-05:00'));
 const dateOnly=v=>v?new Intl.DateTimeFormat('fr-CA',{timeZone:'America/Toronto',day:'numeric',month:'short'}).format(new Date(v+'T12:00:00-05:00')):'—';
 let state=null,selected=0,map=null,timer=null,radarLayer='RADAR_1KM_RRAI';
-function stale(s){return s.status!=='ok'||(s.issued_at?Date.now()-Date.parse(s.issued_at)>18*3600000:Date.now()-Date.parse(s.fetched_at)>3*3600000)}
+function stale(s){return s.status!=='ok'||(s.issued_at?Date.now()-Date.parse(s.issued_at)>18*3600000:Date.now()-Date.parse(s.fetched_at)>(s.relay?7:3)*3600000)}
 function symbol(types){let t=types.join(' ');return /Verglas/.test(t)?'◈':/Pluie \/ neige/.test(t)?'🌨':/Neige/.test(t)?'❄':/Pluie/.test(t)?'🌧':'☁'}
 function displayQty(d){if(!d?.snow_cm)return '—';return d.snow_cm[0]===d.snow_cm[1]?n(d.snow_cm[0])+' cm':n(d.snow_cm[0])+'–'+n(d.snow_cm[1])+' cm'}
 async function load(){
