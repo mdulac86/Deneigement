@@ -14,6 +14,10 @@ import statistics
 import urllib.request
 from zoneinfo import ZoneInfo
 from bs4 import BeautifulSoup
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import models as nwp  # noqa: E402
+import plan as planner  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / 'data'
@@ -364,6 +368,25 @@ def changes(old, new):
                     items.append({'text':f"{s['name']} · {d['date']} : neige {p['snow_cm']} → {d['snow_cm']} cm (prévision tombée).", 'important':True})
     return items or [{'text':'Aucun changement important dans les données comparables depuis la dernière collecte.', 'important':False}]
 
+def serial_hours(hours):
+    return [{**h, 'time': h['time'].isoformat()} for h in hours]
+
+def forecast_plan(sources, days):
+    """Modèles horaires -> neige heure par heure (médiane) -> plan de sortie."""
+    met_src = next((s for s in sources if s['id'] == 'met' and s['status'] == 'ok'), {})
+    models = nwp.collect_models(fetch, met_src, LAT, LON, NOW)
+    ok = [x for x in models if x['status'] == 'ok']
+    hours = planner.hourly_consensus(ok, TZ)
+    cfg = planner.load_config()
+    plan = planner.build_plan(hours, cfg, NOW.astimezone(TZ)) if len(ok) >= 1 else []
+    # Totaux 00-24 h locaux par jour, seulement pour les heures couvertes par au moins 2 modèles.
+    for d in days:
+        hs = [h for h in hours if str(h['time'].date()) == d['date'] and h['n'] >= 2]
+        d['model_snow'] = {'median_cm': round(sum(h['snow_cm'] for h in hs), 1), 'min_cm': round(sum(h['lo'] for h in hs), 1),
+                           'max_cm': round(sum(h['hi'] for h in hs), 1), 'hours': len(hs), 'estimated': True} if len(hs) >= 12 else None
+    return {'models': models, 'hourly_snow': serial_hours([{k: h[k] for k in ('time', 'snow_cm', 'lo', 'hi', 'n')} for h in hours]),
+            'plan': plan, 'plan_config': cfg}
+
 def main():
     DATA.mkdir(exist_ok=True)
     previous = read(DATA/'weather.json',{})
@@ -379,9 +402,10 @@ def main():
     climate=collect_climate()
     result={'updated_at':stamp(),'location':{'name':'Saint-Prosper · Beauce','lat':LAT,'lon':LON,'timezone':'America/Toronto'},'threshold_cm':5,'sources':sources,'official_alerts':alerts,'climate':climate,'consensus':consensus(sources),'previous_at':previous.get('updated_at')}
     result['changes']=changes(previous,result)
+    result.update(forecast_plan(sources, result['consensus']))
     write(DATA/'weather.json',result)
     # Archives horaires durables : pas d'accumulation de prévisions présentée en relevé.
-    snapshot={'updated_at':stamp(),'sources':[{k:s[k] for k in ('id','status','issued_at','fetched_at','days','periods') if k in s} for s in sources], 'consensus':result['consensus'],'changes':result['changes']}
+    snapshot={'updated_at':stamp(),'sources':[{k:s[k] for k in ('id','status','issued_at','fetched_at','days','periods') if k in s} for s in sources], 'consensus':result['consensus'],'changes':result['changes'],'plan':result.get('plan'),'hourly_snow':result.get('hourly_snow'),'models':[{k:x[k] for k in ('id','status','issued_at','hours') if k in x} for x in result.get('models',[])]}
     write(DATA/'archive'/NOW.strftime('%Y-%m-%d')/NOW.strftime('%H.json'),snapshot)
     print(json.dumps({'sources':{s['id']:s['status'] for s in sources},'climate_last':climate['last_date'],'updated_at':stamp()},ensure_ascii=False))
     if not any(s['status']=='ok' for s in sources):

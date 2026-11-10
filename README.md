@@ -51,6 +51,29 @@ la restriction et sans compter une ancienne donnée dans le consensus.
   disponibles lus dans GetCapabilities, animation sur environ 2 heures. Rafraîchi
   lorsque l'onglet est ouvert. Fond Esri World Topographic Map, bibliothèque Leaflet.
 
+## Plan de sortie (modèles horaires)
+
+Le robot interroge aussi des modèles numériques gratuits, libres pour un usage
+commercial : **HRDPS 2,5 km** et **RDPS 10 km** d'Environnement Canada (MSC GeoMet,
+GetFeatureInfo au point), **GFS 0,25°** de la NOAA (THREDDS UCAR) et **MET Norway**
+(déjà collecté). Chaque modèle donne des mm d'eau et une température heure par
+heure; les cm de neige sont **estimés** (10:1 près de 0 °C, plus léger au froid,
+mélange entre 0,5 et 2 °C) et affichés comme tels. Un modèle indisponible est
+exclu, jamais compté comme zéro. Open-Meteo n'est pas utilisé : sa version
+gratuite est réservée à un usage non commercial.
+
+La médiane horaire des modèles donne l'heure où le seuil de 5 cm est atteint,
+la fin de la tempête et un plan (`scripts/plan.py`, règles dans `config/plan.json`) :
+
+- 4 h par machine jusqu'à 10 cm, +1,5 h par tranche de 10 cm de plus;
+- semaine : tout propre pour 6 h 00 → départ = 6 h 00 − durée, jamais avant
+  l'atteinte des 5 cm; nettoyage final à 7 h 30 si la neige cesse avant, sinon
+  9 h 00, sinon à la fin de la tempête; 2e tournée si 5 cm de plus tombent après le départ;
+- fin de semaine : commercial propre pour 7 h 45, résidentiel et locatif en
+  acte de présence, nettoyage complet plus tard.
+
+Le plan est une aide à la décision; il ne remplace pas une vérification au sol.
+
 ## Consensus : ce qui est calculé
 
 Les températures sont moyennées par date avec une fourchette entre fournisseurs.

@@ -1,0 +1,21 @@
+{
+  "seuil_cm": 5,
+  "duree": {
+    "base_h": 4,
+    "base_max_cm": 10,
+    "par_10cm_h": 1.5
+  },
+  "semaine": {
+    "echeance": "06:00",
+    "nettoyage_final": ["07:30", "09:00"]
+  },
+  "fin_de_semaine": {
+    "echeance": "07:45",
+    "nettoyage_final": ["09:00"],
+    "note": "Commercial propre pour 7 h 45. Résidentiel et locatif : acte de présence pendant la tournée, nettoyage complet plus tard."
+  },
+  "debut_nuit": "20:00",
+  "neige_min_cm_h": 0.1,
+  "pause_max_h": 3,
+  "final_min_cm": 1
+}
