@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-10T12:02:49.893920+00:00",
+  "updated_at": "2026-11-10T12:07:25.256341+00:00",
   "location": {
     "name": "Saint-Prosper · Beauce",
     "lat": 46.214,
@@ -13,7 +13,7 @@
       "name": "Environnement Canada",
       "url": "https://meteo.gc.ca/fr/location/index.html?coords=46.214,-70.486",
       "status": "ok",
-      "fetched_at": "2026-11-10T12:02:49.893920+00:00",
+      "fetched_at": "2026-11-10T12:07:25.256341+00:00",
       "issued_at": "2026-11-10T10:00:00Z",
       "days": [
         {
@@ -556,7 +556,7 @@
       "name": "MET Norway",
       "url": "https://api.met.no/weatherapi/locationforecast/2.0/compact?lat=46.214&lon=-70.486",
       "status": "ok",
-      "fetched_at": "2026-11-10T12:02:49.893920+00:00",
+      "fetched_at": "2026-11-10T12:07:25.256341+00:00",
       "issued_at": "2026-11-10T11:20:41Z",
       "days": [
         {
@@ -1466,7 +1466,7 @@
       "name": "meteoblue",
       "url": "https://www.meteoblue.com/fr/meteo/semaine/saint-prosper_canada_8672691",
       "status": "ok",
-      "fetched_at": "2026-11-10T12:02:49.893920+00:00",
+      "fetched_at": "2026-11-10T12:07:25.256341+00:00",
       "issued_at": null,
       "days": [
         {
@@ -1562,7 +1562,7 @@
   ],
   "official_alerts": {
     "status": "ok",
-    "fetched_at": "2026-11-10T12:02:49.893920+00:00",
+    "fetched_at": "2026-11-10T12:07:25.256341+00:00",
     "items": []
   },
   "climate": {
@@ -2327,14 +2327,10 @@
       "confidence_reason": "Accord qualitatif et couverture des sources; précision non encore validée. Fiabilité des cm au sol indéterminée."
     }
   ],
-  "previous_at": "2026-11-10T12:00:40.641607+00:00",
+  "previous_at": "2026-11-10T12:02:49.893920+00:00",
   "changes": [
     {
-      "text": "AccuWeather : disponibilité ok → stale.",
-      "important": false
-    },
-    {
-      "text": "Weather Underground : disponibilité ok → stale.",
+      "text": "Aucun changement important dans les données comparables depuis la dernière collecte.",
       "important": false
     }
   ]

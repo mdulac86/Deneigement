@@ -1,11 +1,11 @@
 {
-  "updated_at": "2026-11-10T12:02:49.893920+00:00",
+  "updated_at": "2026-11-10T12:07:25.256341+00:00",
   "sources": [
     {
       "id": "eccc",
       "status": "ok",
       "issued_at": "2026-11-10T10:00:00Z",
-      "fetched_at": "2026-11-10T12:02:49.893920+00:00",
+      "fetched_at": "2026-11-10T12:07:25.256341+00:00",
       "days": [
         {
           "date": "2026-11-10",
@@ -179,7 +179,7 @@
       "id": "met",
       "status": "ok",
       "issued_at": "2026-11-10T11:20:41Z",
-      "fetched_at": "2026-11-10T12:02:49.893920+00:00",
+      "fetched_at": "2026-11-10T12:07:25.256341+00:00",
       "days": [
         {
           "date": "2026-11-10",
@@ -453,7 +453,7 @@
       "id": "mb",
       "status": "ok",
       "issued_at": null,
-      "fetched_at": "2026-11-10T12:02:49.893920+00:00",
+      "fetched_at": "2026-11-10T12:07:25.256341+00:00",
       "days": [
         {
           "date": "2026-11-10",
@@ -972,11 +972,7 @@
   ],
   "changes": [
     {
-      "text": "AccuWeather : disponibilité ok → stale.",
-      "important": false
-    },
-    {
-      "text": "Weather Underground : disponibilité ok → stale.",
+      "text": "Aucun changement important dans les données comparables depuis la dernière collecte.",
       "important": false
     }
   ]
