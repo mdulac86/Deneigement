@@ -4,7 +4,7 @@ const n=v=>v==null?'—':new Intl.NumberFormat('fr-CA',{maximumFractionDigits:1}
 const local=(v,opts={})=>v?new Intl.DateTimeFormat('fr-CA',{timeZone:'America/Toronto',month:'short',day:'numeric',hour:'2-digit',minute:'2-digit',...opts}).format(new Date(v)):'Non publiée';
 const dayLabel=v=>new Intl.DateTimeFormat('fr-CA',{timeZone:'America/Toronto',weekday:'short',month:'short',day:'numeric'}).format(new Date(v+'T12:00:00-05:00'));
 const dateOnly=v=>v?new Intl.DateTimeFormat('fr-CA',{timeZone:'America/Toronto',day:'numeric',month:'short'}).format(new Date(v+'T12:00:00-05:00')):'—';
-let state=null,selected=0,map=null,radar=null,radarTimes=[],timer=null,radarLayer='RADAR_1KM_RRAI';
+let state=null,selected=0,map=null,timer=null,radarLayer='RADAR_1KM_RRAI';
 function stale(s){return s.status!=='ok'||(s.issued_at?Date.now()-Date.parse(s.issued_at)>18*3600000:Date.now()-Date.parse(s.fetched_at)>3*3600000)}
 function symbol(types){let t=types.join(' ');return /Verglas/.test(t)?'◈':/Pluie \/ neige/.test(t)?'🌨':/Neige/.test(t)?'❄':/Pluie/.test(t)?'🌧':'☁'}
 function displayQty(d){if(!d?.snow_cm)return '—';return d.snow_cm[0]===d.snow_cm[1]?n(d.snow_cm[0])+' cm':n(d.snow_cm[0])+'–'+n(d.snow_cm[1])+' cm'}
@@ -81,23 +81,61 @@ function renderWinter(){
 function renderWinterRows(){if(!state)return;const month=$('month-filter').value;const rows=state.climate.records.filter(r=>month==='all'||r.date.startsWith(month)).slice().reverse();$('winter-rows').innerHTML=rows.map(r=>'<tr><td>'+esc(r.date)+'</td><td>'+n(r.snow_cm)+(r.snow_cm!=null?' cm':'')+'</td><td>'+n(r.rain_mm)+(r.rain_mm!=null?' mm':'')+'</td><td>'+n(r.depth_cm)+(r.depth_cm!=null?' cm':'')+'</td><td>'+esc(r.snow_cm==null?'Non disponible':r.snow_flag||'Valeur publiée')+'</td></tr>').join('')||'<tr><td colspan="5">Aucun relevé disponible.</td></tr>'}
 function csv(){if(!state)return;const lines=['Date;Neige_cm;Pluie_mm;Neige_au_sol_cm;Indicateur;Source',...state.climate.records.map(r=>[r.date,r.snow_cm??'',r.rain_mm??'',r.depth_cm??'',r.snow_flag,r.source].map(x=>'"'+String(x).replaceAll('"','""')+'"').join(';'))];const blob=new Blob(['\ufeff'+lines.join('\r\n')],{type:'text/csv;charset=utf-8'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='Saint-Prosper-hiver-'+state.climate.season+'.csv';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)}
 function tab(name){document.querySelectorAll('.view').forEach(e=>e.hidden=e.id!==name);document.querySelectorAll('[data-tab]').forEach(e=>{e.classList.toggle('active',e.dataset.tab===name);e.setAttribute('aria-current',e.dataset.tab===name?'page':'false')});if(name==='radar'){initRadar();setTimeout(()=>map?.invalidateSize(),100)}}
-async function radarCapabilities(){
- const r=await fetch('https://geo.weather.gc.ca/geomet?service=WMS&version=1.3.0&request=GetCapabilities&layer='+radarLayer,{cache:'no-store'});if(!r.ok)throw Error('Radar non disponible');const xml=new DOMParser().parseFromString(await r.text(),'text/xml');
- const layers=[...xml.getElementsByTagName('Layer')],layer=layers.find(el=>[...el.children].some(c=>c.localName==='Name'&&c.textContent===radarLayer));
- const dimension=layer&&[...layer.getElementsByTagName('Dimension')].find(el=>el.getAttribute('name')==='time');if(!dimension)throw Error('Heures radar non disponibles');
- const parts=dimension.textContent.trim().split('/');
- if(parts.length===3){const start=Date.parse(parts[0]),end=Date.parse(parts[1]);const match=/PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?/.exec(parts[2]);const step=match?((+match[1]||0)*3600+(+match[2]||0)*60+(+match[3]||0))*1000:360000;if(!step)throw Error('Pas radar non reconnu');radarTimes=[];for(let t=Math.max(start,end-2*3600000);t<=end;t+=step)radarTimes.push(new Date(t).toISOString().replace('.000Z','Z'))}
- else radarTimes=dimension.textContent.trim().split(',').map(t=>t.trim());
- if(!radarTimes.length)throw Error('Aucune image radar datée');$('radar-time').max=radarTimes.length-1;$('radar-time').value=radarTimes.length-1;$('radar-error').textContent='';showRadar();
+const GEOMET='https://geo.weather.gc.ca/geomet',IEM='https://mesonet.agron.iastate.edu';
+const RADAR_SETS={
+ RADAR_1KM_RRAI:{obs:'RADAR_1KM_RRAI',extrap:'Radar_1km_RainPrecipRate-Extrapolation',cover:'RADAR_COVERAGE_RRAI.INV',model:'HRDPS.CONTINENTAL_RT'},
+ RADAR_1KM_RSNO:{obs:'RADAR_1KM_RSNO',extrap:'Radar_1km_SnowPrecipRate-Extrapolation',cover:'RADAR_COVERAGE_RSNO.INV',model:'HRDPS.CONTINENTAL_RT'},
+ Radar_1km_SfcPrecipType:{obs:'Radar_1km_SfcPrecipType',extrap:null,cover:'RADAR_COVERAGE_RRAI.INV',model:null}};
+let frames=[],nexradScans=[],layersOn={},capsCache={};
+function isoZ(t){return new Date(t).toISOString().replace('.000Z','Z')}
+async function layerTimes(name){
+ if(capsCache[name]&&Date.now()-capsCache[name].at<240000)return capsCache[name];
+ const r=await fetch(GEOMET+'?service=WMS&version=1.3.0&request=GetCapabilities&layer='+name,{cache:'no-store'});if(!r.ok)throw Error('Radar non disponible');
+ const xml=new DOMParser().parseFromString(await r.text(),'text/xml'),layer=[...xml.getElementsByTagName('Layer')].find(el=>[...el.children].some(c=>c.localName==='Name'&&c.textContent===name));
+ const dims=layer?[...layer.getElementsByTagName('Dimension')]:[],dim=dims.find(el=>el.getAttribute('name')==='time'),ref=dims.find(el=>el.getAttribute('name')==='reference_time');if(!dim)throw Error('Heures non disponibles pour '+name);
+ const parts=dim.textContent.trim().split('/');let times=[];
+ if(parts.length===3){const start=Date.parse(parts[0]),end=Date.parse(parts[1]),m=/PT(?:(\d+)H)?(?:(\d+)M)?/.exec(parts[2]),step=m?((+m[1]||0)*3600+(+m[2]||0)*60)*1000:360000;for(let t=start;t<=end&&step;t+=step)times.push(t)}
+ else times=dim.textContent.trim().split(',').map(t=>Date.parse(t.trim()));
+ return capsCache[name]={times,ref:ref?.getAttribute('default')||null,at:Date.now()};
 }
-function showRadar(){if(!map||!radarTimes.length)return;const time=radarTimes[+$('radar-time').value];if(radar)map.removeLayer(radar);radar=L.tileLayer.wms('https://geo.weather.gc.ca/geomet',{layers:radarLayer,format:'image/png',transparent:true,version:'1.3.0',time,opacity:.75,attribution:'Radar © Environnement et Changement climatique Canada'}).addTo(map);radar.on('tileerror',()=>{$('radar-error').textContent='Une image radar n’a pas chargé. Vérifie la carte officielle.'});$('radar-date').textContent=local(time);if(Date.now()-Date.parse(radarTimes.at(-1))>30*60000)$('radar-error').textContent='Dernière image radar âgée de plus de 30 minutes.';$('radar-legend').src='https://geo.weather.gc.ca/geomet?service=WMS&version=1.3.0&request=GetLegendGraphic&format=image/png&layer='+radarLayer;}
-async function initRadar(){if(map)return;if(typeof L==='undefined'){$('radar-error').textContent='Carte non disponible. Ouvre le radar officiel avec le lien ci-dessous.';return}map=L.map('map').setView([46.214,-70.486],8);L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}',{maxZoom:14,attribution:'Fond © Esri, HERE, Garmin, USGS, contributeurs'}).addTo(map);L.circleMarker([46.214,-70.486],{radius:7,color:'#fff',weight:2,fillColor:'#ffc766',fillOpacity:1}).addTo(map).bindPopup('Saint-Prosper · seuil de 5 cm');try{await radarCapabilities()}catch(e){$('radar-error').textContent=e.message+' · consulter le lien officiel.'}}
+async function loadNexrad(){
+ const end=new Date(),start=new Date(end-3.2*3600000),f=d=>d.toISOString().slice(0,16)+'Z';
+ const r=await fetch(IEM+'/json/radar.py?operation=list&radar=CBW&product=N0B&start='+f(start)+'&end='+f(end));if(!r.ok)throw Error('Radar NOAA non disponible');
+ nexradScans=((await r.json()).scans||[]).map(s=>Date.parse(s.ts));
+}
+async function radarCapabilities(){
+ const set=RADAR_SETS[radarLayer],obs=await layerTimes(set.obs);
+ const last=obs.times.at(-1);frames=obs.times.filter(t=>t>=last-3*3600000).map(t=>({time:t,kind:'obs',layer:set.obs}));
+ if(set.extrap){try{const ex=await layerTimes(set.extrap);ex.times.filter(t=>t>last).forEach(t=>frames.push({time:t,kind:'extrap',layer:set.extrap}))}catch{}}
+ if(set.model){try{const md=await layerTimes(set.model),after=frames.at(-1).time;md.times.filter(t=>t>after&&t<=after+6*3600000).forEach(t=>frames.push({time:t,kind:'model',layer:set.model,ref:md.ref}))}catch{}}
+ if($('radar-compare').checked){try{await loadNexrad()}catch(e){$('radar-error').textContent=e.message}}
+ const idx=frames.findIndex(f=>f.time===last);$('radar-time').max=frames.length-1;$('radar-time').value=idx;$('radar-error').textContent='';
+ if(Date.now()-last>30*60000)$('radar-error').textContent='Dernière image radar âgée de plus de 30 minutes.';
+ showRadar();
+}
+function setLayer(key,layer){if(layersOn[key])map.removeLayer(layersOn[key]);layersOn[key]=layer;if(layer)layer.addTo(map)}
+function nearestScan(t){let best=null;for(const s of nexradScans)if(Math.abs(s-t)<=7*60000&&(best==null||Math.abs(s-t)<Math.abs(best-t)))best=s;return best}
+function showRadar(){
+ if(!map||!frames.length)return;const f=frames[+$('radar-time').value],compare=$('radar-compare').checked,mix=+$('radar-mix').value/100;
+ const lastObs=frames.filter(x=>x.kind==='obs').at(-1).time,eccOpacity=compare?1-mix:.75;
+ const opts={layers:f.layer,format:'image/png',transparent:true,version:'1.3.0',time:isoZ(f.time),opacity:eccOpacity,attribution:'Radar © Environnement et Changement climatique Canada'};if(f.ref)opts.dim_reference_time=f.ref;
+ const main=L.tileLayer.wms(GEOMET,opts);main.on('tileerror',()=>{$('radar-error').textContent='Une image n’a pas chargé. Vérifie la carte officielle.'});setLayer('main',main);
+ const set=RADAR_SETS[radarLayer];
+ setLayer('cover',$('radar-cover').checked&&set.cover?L.tileLayer.wms(GEOMET,{layers:set.cover,format:'image/png',transparent:true,version:'1.3.0',time:isoZ(f.kind==='obs'?f.time:lastObs),opacity:.55}):null);
+ let noaa='';
+ if(compare&&f.kind==='obs'){const s=nearestScan(f.time);if(s){const d=new Date(s),ts=d.toISOString().slice(0,16).replace(/[-T:]/g,'');setLayer('nexrad',L.tileLayer(IEM+'/cache/tile.py/1.0.0/ridge::CBW-N0B-'+ts+'/{z}/{x}/{y}.png',{opacity:mix,maxNativeZoom:10,attribution:'NEXRAD KCBW © NOAA/NWS · IEM'}));noaa=' · NOAA '+local(s,{month:undefined,day:undefined})}else{setLayer('nexrad',null);noaa=' · NOAA : pas d’image à cette heure'}}
+ else{setLayer('nexrad',null);if(compare)noaa=' · NOAA : pas de prévision'}
+ const label=f.kind==='obs'?'Observé':f.kind==='extrap'?'Prévision radar (extrapolation)':'Modèle HRDPS';
+ $('radar-date').textContent=label+' · '+local(f.time)+noaa;$('radar-date').className=f.kind==='obs'?'':'forecast';
+ $('radar-legend').src=GEOMET+'?service=WMS&version=1.3.0&request=GetLegendGraphic&format=image/png&layer='+f.layer;
+}
+async function initRadar(){if(map)return;if(typeof L==='undefined'){$('radar-error').textContent='Carte non disponible. Ouvre le radar officiel avec le lien ci-dessous.';return}map=L.map('map').setView([46.214,-70.486],8);L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}',{maxZoom:14,attribution:'Fond © Esri, HERE, Garmin, USGS, contributeurs'}).addTo(map);L.circleMarker([46.214,-70.486],{radius:7,color:'#fff',weight:2,fillColor:'#ffc766',fillOpacity:1}).addTo(map).bindPopup('Saint-Prosper · seuil de 5 cm');L.circleMarker([46.039,-67.806],{radius:5,color:'#fff',weight:1,fillColor:'#8ac7eb',fillOpacity:1}).addTo(map).bindPopup('Radar NOAA KCBW · Caribou (Maine)');try{await radarCapabilities()}catch(e){$('radar-error').textContent=e.message+' · consulter le lien officiel.'}}
 function stopRadar(){clearInterval(timer);timer=null;$('radar-play').textContent='▶ Animer'}
 document.querySelectorAll('[data-tab]').forEach(b=>b.addEventListener('click',()=>{stopRadar();tab(b.dataset.tab)}));
 $('refresh').addEventListener('click',load);$('month-filter').addEventListener('change',renderWinterRows);$('csv').addEventListener('click',csv);
 $('radar-layer').addEventListener('change',async e=>{stopRadar();radarLayer=e.target.value;try{await radarCapabilities()}catch(err){$('radar-error').textContent=err.message}});
-$('radar-time').addEventListener('input',()=>{stopRadar();showRadar()});$('radar-home').addEventListener('click',()=>map?.setView([46.214,-70.486],8));
-$('radar-play').addEventListener('click',()=>{if(timer){stopRadar();return}if(!radarTimes.length)return;$('radar-play').textContent='Ⅱ Pause';timer=setInterval(()=>{$('radar-time').value=(+$('radar-time').value+1)%radarTimes.length;showRadar()},1100)});
+$('radar-time').addEventListener('input',()=>{stopRadar();showRadar()});$('radar-mix').addEventListener('input',showRadar);$('radar-cover').addEventListener('change',showRadar);$('radar-compare').addEventListener('change',async()=>{$('radar-mix-wrap').hidden=!$('radar-compare').checked;if($('radar-compare').checked){try{await loadNexrad()}catch(e){$('radar-error').textContent=e.message}}showRadar()});$('radar-home').addEventListener('click',()=>map?.setView([46.214,-70.486],8));
+$('radar-play').addEventListener('click',()=>{if(timer){stopRadar();return}if(!frames.length)return;$('radar-play').textContent='Ⅱ Pause';timer=setInterval(()=>{$('radar-time').value=(+$('radar-time').value+1)%frames.length;showRadar()},1100)});
 document.addEventListener('visibilitychange',()=>{if(document.hidden)stopRadar();else load()});setInterval(()=>{if(!document.hidden){load();if(map&&!$('radar').hidden)radarCapabilities().catch(()=>{})}},300000);
 if('serviceWorker'in navigator)navigator.serviceWorker.register('./sw.js').catch(()=>{});
 const hhmm=v=>v?new Intl.DateTimeFormat('fr-CA',{timeZone:'America/Toronto',hour:'numeric',minute:'2-digit'}).format(new Date(v)):'—';
