@@ -3,8 +3,8 @@
 Règles de l'équipe (config/plan.json) :
 - seuil de sortie : 5 cm de nouvelle neige;
 - 4 h par machine jusqu'à 10 cm, +1,5 h par tranche de 10 cm de plus;
-- semaine : tout propre pour 6 h 00, nettoyage final à 7 h 30 (après le déjeuner) ou 9 h 00;
-- fin de semaine : commercial propre pour 7 h 45, résidentiel/locatif en acte de présence.
+- semaine et fin de semaine : commercial propre pour 7 h 45, résidentiel/locatif en acte
+  de présence; nettoyage final à 9 h 00 ou à la fin de la tempête.
 
 Fonctions pures, sans réseau, testées dans tests/test_plan.py.
 """
@@ -181,8 +181,8 @@ def plan_event(ev, cfg, now):
         kind = 'deuxieme_tournee' if residual >= seuil else 'nettoyage_final'
         final = {'heure': iso(when), 'type': kind, 'neige_cm': residual,
                  'duree_h': duration_h(residual, cfg) if kind == 'deuxieme_tournee' else None}
-    if weekend(day if mode == 'matin' else dep.date()):
-        base['notes'].append(cfg['fin_de_semaine']['note'])
+    if rules.get('note'):
+        base['notes'].append(rules['note'])
     return {**base, 'mode': mode, 'echeance': iso(deadline), 'depart': iso(dep), 'duree_h': dur,
             'fin_tournee': iso(finish), 'neige_a_echeance_cm': round(cum_at(ev, deadline), 1) if deadline else None,
             'final': final, 'fin_de_semaine': weekend(day if mode == 'matin' else dep.date())}

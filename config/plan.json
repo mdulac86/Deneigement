@@ -6,12 +6,17 @@
     "par_10cm_h": 1.5
   },
   "semaine": {
-    "echeance": "06:00",
-    "nettoyage_final": ["07:30", "09:00"]
+    "echeance": "07:45",
+    "nettoyage_final": [
+      "09:00"
+    ],
+    "note": "Commercial propre pour 7 h 45. Résidentiel et locatif : acte de présence pendant la tournée, nettoyage complet plus tard."
   },
   "fin_de_semaine": {
     "echeance": "07:45",
-    "nettoyage_final": ["09:00"],
+    "nettoyage_final": [
+      "09:00"
+    ],
     "note": "Commercial propre pour 7 h 45. Résidentiel et locatif : acte de présence pendant la tournée, nettoyage complet plus tard."
   },
   "debut_nuit": "20:00",

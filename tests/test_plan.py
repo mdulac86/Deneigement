@@ -34,12 +34,13 @@ class PlanTests(unittest.TestCase):
         self.assertEqual(p.duration_h(20, self.cfg), 5.5)
         self.assertEqual(p.duration_h(25, self.cfg), 7)
 
-    def test_early_storm_goes_at_two(self):
-        # Mercredi : 2 cm/h de 22 h à 1 h -> 6 cm à 1 h, fin à 1 h.
+    def test_early_storm_leaves_for_745(self):
+        # Mercredi : 2 cm/h de 22 h à 1 h -> 6 cm, 4 h de tournée pour 7 h 45 -> départ 3 h 30.
         q = self.plan(series(at(10, 22), [2, 2, 2]))[0]
         self.assertEqual(q['statut'], 'sortie')
         self.assertEqual(q['mode'], 'matin')
-        self.assertEqual(q['depart'], at(11, 2).isoformat())
+        self.assertEqual(q['echeance'], at(11, 7, 45).isoformat())
+        self.assertEqual(q['depart'], at(11, 3, 30).isoformat())
         self.assertIsNone(q['final'])
 
     def test_late_threshold_goes_at_five(self):
@@ -49,10 +50,10 @@ class PlanTests(unittest.TestCase):
         self.assertTrue(any('après l’échéance' in n for n in q['notes']))
 
     def test_final_after_breakfast_or_nine(self):
-        # 5 cm à 1 h, puis 0,4 cm/h jusqu'à 7 h -> départ 2 h, final 7 h 30.
+        # 5 cm à 1 h, puis 0,4 cm/h jusqu'à 7 h -> départ 3 h 30, final 9 h.
         q = self.plan(series(at(10, 23), [2.5, 2.5] + [0.4] * 6))[0]
-        self.assertEqual(q['depart'], at(11, 2).isoformat())
-        self.assertEqual(q['final']['heure'], at(11, 7, 30).isoformat())
+        self.assertEqual(q['depart'], at(11, 3, 30).isoformat())
+        self.assertEqual(q['final']['heure'], at(11, 9).isoformat())
         self.assertEqual(q['final']['type'], 'nettoyage_final')
         # Fin à 8 h -> on attend 9 h.
         q = self.plan(series(at(10, 23), [2.5, 2.5] + [0.4] * 7))[0]
@@ -71,10 +72,10 @@ class PlanTests(unittest.TestCase):
         self.assertEqual(q['final']['heure'], at(11, 9).isoformat())
 
     def test_big_storm_leaves_earlier(self):
-        # 15 cm avant 6 h -> 5,5 h -> départ 0 h 30.
+        # 15 cm -> 5,5 h -> départ 2 h pour 7 h 45.
         q = self.plan(series(at(10, 21), [1.5] * 10))[0]
         self.assertEqual(q['duree_h'], 5.5)
-        self.assertEqual(q['depart'], at(11, 0, 30).isoformat())
+        self.assertEqual(q['depart'], at(11, 2).isoformat())
 
     def test_weekend_deadline_and_note(self):
         # Samedi 14 nov. : 2 cm/h de 0 h à 4 h -> échéance 7 h 45, 4 h -> départ 3 h 30.

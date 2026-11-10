@@ -66,11 +66,10 @@ La médiane horaire des modèles donne l'heure où le seuil de 5 cm est atteint,
 la fin de la tempête et un plan (`scripts/plan.py`, règles dans `config/plan.json`) :
 
 - 4 h par machine jusqu'à 10 cm, +1,5 h par tranche de 10 cm de plus;
-- semaine : tout propre pour 6 h 00 → départ = 6 h 00 − durée, jamais avant
-  l'atteinte des 5 cm; nettoyage final à 7 h 30 si la neige cesse avant, sinon
-  9 h 00, sinon à la fin de la tempête; 2e tournée si 5 cm de plus tombent après le départ;
-- fin de semaine : commercial propre pour 7 h 45, résidentiel et locatif en
-  acte de présence, nettoyage complet plus tard.
+- semaine et fin de semaine : commercial propre pour 7 h 45 → départ = 7 h 45 − durée,
+  jamais avant l'atteinte des 5 cm; résidentiel et locatif en acte de présence;
+- nettoyage final à 9 h 00 si la neige a cessé, sinon à la fin de la tempête;
+  2e tournée si 5 cm de plus tombent après le départ.
 
 Le plan est une aide à la décision; il ne remplace pas une vérification au sol.
 
