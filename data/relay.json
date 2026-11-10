@@ -1,10 +1,10 @@
 {
-  "fetched_at": "2026-11-10T22:48:38.578496+00:00",
+  "fetched_at": "2026-11-10T22:51:20.260372+00:00",
   "host": "poste du bureau",
   "sources": {
     "mm": {
       "status": "ok",
-      "fetched_at": "2026-11-10T22:48:38.578496+00:00",
+      "fetched_at": "2026-11-10T22:51:20.260372+00:00",
       "result": {
         "issued_at": null,
         "days": [
@@ -28,7 +28,7 @@
             ],
             "rain_mm": null,
             "ice_mm": null,
-            "condition": "Précipitations mixtes · Plutôt nuageux · Nuageux avec éclaircies · Ciel variable",
+            "condition": "PrÃ©cipitations mixtes Â· PlutÃ´t nuageux Â· Nuageux avec Ã©claircies Â· Ciel variable",
             "risk": "Pluie / neige",
             "snow_period": "00-24-local"
           },
@@ -42,7 +42,7 @@
             ],
             "rain_mm": null,
             "ice_mm": null,
-            "condition": "Ciel variable · Ciel variable · Ciel variable · Quelques flocons",
+            "condition": "Ciel variable Â· Ciel variable Â· Ciel variable Â· Quelques flocons",
             "risk": "Neige",
             "snow_period": "00-24-local"
           },
@@ -56,7 +56,7 @@
             ],
             "rain_mm": null,
             "ice_mm": null,
-            "condition": "Quelques flocons · Plutôt nuageux · Plutôt nuageux · Quelques flocons",
+            "condition": "Quelques flocons Â· PlutÃ´t nuageux Â· PlutÃ´t nuageux Â· Quelques flocons",
             "risk": "Neige",
             "snow_period": "00-24-local"
           },
@@ -70,7 +70,7 @@
             ],
             "rain_mm": null,
             "ice_mm": null,
-            "condition": "Faible neige · Quelques flocons · Nuageux avec averses · Précipitations mixtes",
+            "condition": "Faible neige Â· Quelques flocons Â· Nuageux avec averses Â· PrÃ©cipitations mixtes",
             "risk": "Pluie / neige",
             "snow_period": "00-24-local"
           },
@@ -84,7 +84,7 @@
             ],
             "rain_mm": null,
             "ice_mm": null,
-            "condition": "Précipitations mixtes · Nuageux · Nuageux · Plutôt nuageux",
+            "condition": "PrÃ©cipitations mixtes Â· Nuageux Â· Nuageux Â· PlutÃ´t nuageux",
             "risk": "Pluie / neige",
             "snow_period": "00-24-local"
           },
@@ -98,8 +98,8 @@
             ],
             "rain_mm": null,
             "ice_mm": null,
-            "condition": "Ciel variable · Ensoleillé avec passages nuageux · Ciel variable · Ciel variable",
-            "risk": "Sans risque hivernal identifié",
+            "condition": "Ciel variable Â· EnsoleillÃ© avec passages nuageux Â· Ciel variable Â· Ciel variable",
+            "risk": "Sans risque hivernal identifiÃ©",
             "snow_period": "00-24-local"
           },
           {
@@ -112,8 +112,8 @@
             ],
             "rain_mm": null,
             "ice_mm": null,
-            "condition": "Passages nuageux · Ensoleillé avec passages nuageux · Ensoleillé avec passages nuageux · Passages nuageux",
-            "risk": "Sans risque hivernal identifié",
+            "condition": "Passages nuageux Â· EnsoleillÃ© avec passages nuageux Â· EnsoleillÃ© avec passages nuageux Â· Passages nuageux",
+            "risk": "Sans risque hivernal identifiÃ©",
             "snow_period": "00-24-local"
           },
           {
@@ -126,8 +126,8 @@
             ],
             "rain_mm": null,
             "ice_mm": null,
-            "condition": "Passages nuageux · Ensoleillé avec passages nuageux · Ensoleillé avec passages nuageux · Généralement dégagé",
-            "risk": "Sans risque hivernal identifié",
+            "condition": "Passages nuageux Â· EnsoleillÃ© avec passages nuageux Â· EnsoleillÃ© avec passages nuageux Â· GÃ©nÃ©ralement dÃ©gagÃ©",
+            "risk": "Sans risque hivernal identifiÃ©",
             "snow_period": "00-24-local"
           },
           {
@@ -140,8 +140,8 @@
             ],
             "rain_mm": null,
             "ice_mm": null,
-            "condition": "Ciel variable · Plutôt nuageux · Nuageux avec éclaircies · Généralement dégagé",
-            "risk": "Sans risque hivernal identifié",
+            "condition": "Ciel variable Â· PlutÃ´t nuageux Â· Nuageux avec Ã©claircies Â· GÃ©nÃ©ralement dÃ©gagÃ©",
+            "risk": "Sans risque hivernal identifiÃ©",
             "snow_period": "00-24-local"
           },
           {
@@ -151,8 +151,8 @@
             "snow_cm": null,
             "rain_mm": null,
             "ice_mm": null,
-            "condition": "Passages nuageux · Ensoleillé · Ensoleillé",
-            "risk": "Sans risque hivernal identifié"
+            "condition": "Passages nuageux Â· EnsoleillÃ© Â· EnsoleillÃ©",
+            "risk": "Sans risque hivernal identifiÃ©"
           }
         ],
         "periods": [
@@ -177,7 +177,7 @@
             "date": "2026-11-11",
             "label": "Nuit",
             "start_h": 0,
-            "text": "Précipitations mixtes",
+            "text": "PrÃ©cipitations mixtes",
             "snow_cm": [
               0.0,
               0.0
@@ -194,7 +194,7 @@
             "date": "2026-11-11",
             "label": "Matin",
             "start_h": 6,
-            "text": "Plutôt nuageux",
+            "text": "PlutÃ´t nuageux",
             "snow_cm": [
               0.0,
               0.0
@@ -205,13 +205,13 @@
             ],
             "temp": 1.0,
             "pop": "40%",
-            "risk": "Sans risque hivernal identifié"
+            "risk": "Sans risque hivernal identifiÃ©"
           },
           {
             "date": "2026-11-11",
-            "label": "Après-midi",
+            "label": "AprÃ¨s-midi",
             "start_h": 12,
-            "text": "Nuageux avec éclaircies",
+            "text": "Nuageux avec Ã©claircies",
             "snow_cm": [
               0.0,
               0.0
@@ -222,7 +222,7 @@
             ],
             "temp": 4.0,
             "pop": "30%",
-            "risk": "Sans risque hivernal identifié"
+            "risk": "Sans risque hivernal identifiÃ©"
           },
           {
             "date": "2026-11-11",
@@ -239,7 +239,7 @@
             ],
             "temp": -1.0,
             "pop": "30%",
-            "risk": "Sans risque hivernal identifié"
+            "risk": "Sans risque hivernal identifiÃ©"
           },
           {
             "date": "2026-11-12",
@@ -256,7 +256,7 @@
             ],
             "temp": -4.0,
             "pop": "20%",
-            "risk": "Sans risque hivernal identifié"
+            "risk": "Sans risque hivernal identifiÃ©"
           },
           {
             "date": "2026-11-12",
@@ -273,11 +273,11 @@
             ],
             "temp": -2.0,
             "pop": "20%",
-            "risk": "Sans risque hivernal identifié"
+            "risk": "Sans risque hivernal identifiÃ©"
           },
           {
             "date": "2026-11-12",
-            "label": "Après-midi",
+            "label": "AprÃ¨s-midi",
             "start_h": 12,
             "text": "Ciel variable",
             "snow_cm": [
@@ -290,7 +290,7 @@
             ],
             "temp": 4.0,
             "pop": "30%",
-            "risk": "Sans risque hivernal identifié"
+            "risk": "Sans risque hivernal identifiÃ©"
           },
           {
             "date": "2026-11-12",
@@ -330,7 +330,7 @@
             "date": "2026-11-13",
             "label": "Matin",
             "start_h": 6,
-            "text": "Plutôt nuageux",
+            "text": "PlutÃ´t nuageux",
             "snow_cm": [
               0.0,
               0.0
@@ -341,13 +341,13 @@
             ],
             "temp": -1.0,
             "pop": "30%",
-            "risk": "Sans risque hivernal identifié"
+            "risk": "Sans risque hivernal identifiÃ©"
           },
           {
             "date": "2026-11-13",
-            "label": "Après-midi",
+            "label": "AprÃ¨s-midi",
             "start_h": 12,
-            "text": "Plutôt nuageux",
+            "text": "PlutÃ´t nuageux",
             "snow_cm": [
               0.0,
               0.0
@@ -358,7 +358,7 @@
             ],
             "temp": 3.0,
             "pop": "30%",
-            "risk": "Sans risque hivernal identifié"
+            "risk": "Sans risque hivernal identifiÃ©"
           },
           {
             "date": "2026-11-13",
@@ -413,7 +413,7 @@
           },
           {
             "date": "2026-11-14",
-            "label": "Après-midi",
+            "label": "AprÃ¨s-midi",
             "start_h": 12,
             "text": "Nuageux avec averses",
             "snow_cm": [
@@ -432,7 +432,7 @@
             "date": "2026-11-14",
             "label": "Soir",
             "start_h": 18,
-            "text": "Précipitations mixtes",
+            "text": "PrÃ©cipitations mixtes",
             "snow_cm": [
               0.0,
               0.0
@@ -449,7 +449,7 @@
             "date": "2026-11-15",
             "label": "Nuit",
             "start_h": 0,
-            "text": "Précipitations mixtes",
+            "text": "PrÃ©cipitations mixtes",
             "snow_cm": [
               0.0,
               0.0
@@ -477,11 +477,11 @@
             ],
             "temp": 2.0,
             "pop": "30%",
-            "risk": "Sans risque hivernal identifié"
+            "risk": "Sans risque hivernal identifiÃ©"
           },
           {
             "date": "2026-11-15",
-            "label": "Après-midi",
+            "label": "AprÃ¨s-midi",
             "start_h": 12,
             "text": "Nuageux",
             "snow_cm": [
@@ -494,13 +494,13 @@
             ],
             "temp": 4.0,
             "pop": "30%",
-            "risk": "Sans risque hivernal identifié"
+            "risk": "Sans risque hivernal identifiÃ©"
           },
           {
             "date": "2026-11-15",
             "label": "Soir",
             "start_h": 18,
-            "text": "Plutôt nuageux",
+            "text": "PlutÃ´t nuageux",
             "snow_cm": [
               0.0,
               0.0
@@ -511,7 +511,7 @@
             ],
             "temp": 2.0,
             "pop": "30%",
-            "risk": "Sans risque hivernal identifié"
+            "risk": "Sans risque hivernal identifiÃ©"
           },
           {
             "date": "2026-11-16",
@@ -528,13 +528,13 @@
             ],
             "temp": -3.0,
             "pop": "30%",
-            "risk": "Sans risque hivernal identifié"
+            "risk": "Sans risque hivernal identifiÃ©"
           },
           {
             "date": "2026-11-16",
             "label": "Matin",
             "start_h": 6,
-            "text": "Ensoleillé avec passages nuageux",
+            "text": "EnsoleillÃ© avec passages nuageux",
             "snow_cm": [
               0.0,
               0.0
@@ -545,11 +545,11 @@
             ],
             "temp": -2.0,
             "pop": "10%",
-            "risk": "Sans risque hivernal identifié"
+            "risk": "Sans risque hivernal identifiÃ©"
           },
           {
             "date": "2026-11-16",
-            "label": "Après-midi",
+            "label": "AprÃ¨s-midi",
             "start_h": 12,
             "text": "Ciel variable",
             "snow_cm": [
@@ -562,7 +562,7 @@
             ],
             "temp": 4.0,
             "pop": "20%",
-            "risk": "Sans risque hivernal identifié"
+            "risk": "Sans risque hivernal identifiÃ©"
           },
           {
             "date": "2026-11-16",
@@ -579,7 +579,7 @@
             ],
             "temp": 0.0,
             "pop": "20%",
-            "risk": "Sans risque hivernal identifié"
+            "risk": "Sans risque hivernal identifiÃ©"
           },
           {
             "date": "2026-11-17",
@@ -596,13 +596,13 @@
             ],
             "temp": -3.0,
             "pop": "10%",
-            "risk": "Sans risque hivernal identifié"
+            "risk": "Sans risque hivernal identifiÃ©"
           },
           {
             "date": "2026-11-17",
             "label": "Matin",
             "start_h": 6,
-            "text": "Ensoleillé avec passages nuageux",
+            "text": "EnsoleillÃ© avec passages nuageux",
             "snow_cm": [
               0.0,
               0.0
@@ -613,13 +613,13 @@
             ],
             "temp": -2.0,
             "pop": "20%",
-            "risk": "Sans risque hivernal identifié"
+            "risk": "Sans risque hivernal identifiÃ©"
           },
           {
             "date": "2026-11-17",
-            "label": "Après-midi",
+            "label": "AprÃ¨s-midi",
             "start_h": 12,
-            "text": "Ensoleillé avec passages nuageux",
+            "text": "EnsoleillÃ© avec passages nuageux",
             "snow_cm": [
               0.0,
               0.0
@@ -630,7 +630,7 @@
             ],
             "temp": 4.0,
             "pop": "20%",
-            "risk": "Sans risque hivernal identifié"
+            "risk": "Sans risque hivernal identifiÃ©"
           },
           {
             "date": "2026-11-17",
@@ -647,7 +647,7 @@
             ],
             "temp": -1.0,
             "pop": "20%",
-            "risk": "Sans risque hivernal identifié"
+            "risk": "Sans risque hivernal identifiÃ©"
           },
           {
             "date": "2026-11-18",
@@ -664,13 +664,13 @@
             ],
             "temp": -3.0,
             "pop": "10%",
-            "risk": "Sans risque hivernal identifié"
+            "risk": "Sans risque hivernal identifiÃ©"
           },
           {
             "date": "2026-11-18",
             "label": "Matin",
             "start_h": 6,
-            "text": "Ensoleillé avec passages nuageux",
+            "text": "EnsoleillÃ© avec passages nuageux",
             "snow_cm": [
               0.0,
               0.0
@@ -681,13 +681,13 @@
             ],
             "temp": -1.0,
             "pop": "10%",
-            "risk": "Sans risque hivernal identifié"
+            "risk": "Sans risque hivernal identifiÃ©"
           },
           {
             "date": "2026-11-18",
-            "label": "Après-midi",
+            "label": "AprÃ¨s-midi",
             "start_h": 12,
-            "text": "Ensoleillé avec passages nuageux",
+            "text": "EnsoleillÃ© avec passages nuageux",
             "snow_cm": [
               0.0,
               0.0
@@ -698,13 +698,13 @@
             ],
             "temp": 5.0,
             "pop": "10%",
-            "risk": "Sans risque hivernal identifié"
+            "risk": "Sans risque hivernal identifiÃ©"
           },
           {
             "date": "2026-11-18",
             "label": "Soir",
             "start_h": 18,
-            "text": "Généralement dégagé",
+            "text": "GÃ©nÃ©ralement dÃ©gagÃ©",
             "snow_cm": [
               0.0,
               0.0
@@ -715,7 +715,7 @@
             ],
             "temp": 1.0,
             "pop": "10%",
-            "risk": "Sans risque hivernal identifié"
+            "risk": "Sans risque hivernal identifiÃ©"
           },
           {
             "date": "2026-11-19",
@@ -732,13 +732,13 @@
             ],
             "temp": 0.0,
             "pop": "30%",
-            "risk": "Sans risque hivernal identifié"
+            "risk": "Sans risque hivernal identifiÃ©"
           },
           {
             "date": "2026-11-19",
             "label": "Matin",
             "start_h": 6,
-            "text": "Plutôt nuageux",
+            "text": "PlutÃ´t nuageux",
             "snow_cm": [
               0.0,
               0.0
@@ -749,13 +749,13 @@
             ],
             "temp": 1.0,
             "pop": "30%",
-            "risk": "Sans risque hivernal identifié"
+            "risk": "Sans risque hivernal identifiÃ©"
           },
           {
             "date": "2026-11-19",
-            "label": "Après-midi",
+            "label": "AprÃ¨s-midi",
             "start_h": 12,
-            "text": "Nuageux avec éclaircies",
+            "text": "Nuageux avec Ã©claircies",
             "snow_cm": [
               0.0,
               0.0
@@ -766,13 +766,13 @@
             ],
             "temp": 6.0,
             "pop": "30%",
-            "risk": "Sans risque hivernal identifié"
+            "risk": "Sans risque hivernal identifiÃ©"
           },
           {
             "date": "2026-11-19",
             "label": "Soir",
             "start_h": 18,
-            "text": "Généralement dégagé",
+            "text": "GÃ©nÃ©ralement dÃ©gagÃ©",
             "snow_cm": [
               0.0,
               0.0
@@ -783,7 +783,7 @@
             ],
             "temp": 0.0,
             "pop": "10%",
-            "risk": "Sans risque hivernal identifié"
+            "risk": "Sans risque hivernal identifiÃ©"
           },
           {
             "date": "2026-11-20",
@@ -800,13 +800,13 @@
             ],
             "temp": -1.0,
             "pop": "10%",
-            "risk": "Sans risque hivernal identifié"
+            "risk": "Sans risque hivernal identifiÃ©"
           },
           {
             "date": "2026-11-20",
             "label": "Matin",
             "start_h": 6,
-            "text": "Ensoleillé",
+            "text": "EnsoleillÃ©",
             "snow_cm": [
               0.0,
               0.0
@@ -817,13 +817,13 @@
             ],
             "temp": 1.0,
             "pop": "10%",
-            "risk": "Sans risque hivernal identifié"
+            "risk": "Sans risque hivernal identifiÃ©"
           },
           {
             "date": "2026-11-20",
-            "label": "Après-midi",
+            "label": "AprÃ¨s-midi",
             "start_h": 12,
-            "text": "Ensoleillé",
+            "text": "EnsoleillÃ©",
             "snow_cm": [
               0.0,
               0.0
@@ -834,7 +834,7 @@
             ],
             "temp": 6.0,
             "pop": "10%",
-            "risk": "Sans risque hivernal identifié"
+            "risk": "Sans risque hivernal identifiÃ©"
           }
         ],
         "hours": [
@@ -2039,12 +2039,12 @@
             "temp": 6.0
           }
         ],
-        "note": "Tableau de données structurées publié par MétéoMédia (périodes nuit, matin, après-midi, soir). Quantités en fourchette; heure d’émission non publiée. Découpage horaire des périodes supposé 0-6-12-18 h."
+        "note": "Tableau de donnÃ©es structurÃ©es publiÃ© par MÃ©tÃ©oMÃ©dia (pÃ©riodes nuit, matin, aprÃ¨s-midi, soir). QuantitÃ©s en fourchette; heure dâ€™Ã©mission non publiÃ©e. DÃ©coupage horaire des pÃ©riodes supposÃ© 0-6-12-18 h."
       }
     },
     "wu": {
       "status": "ok",
-      "fetched_at": "2026-11-10T22:48:38.578496+00:00",
+      "fetched_at": "2026-11-10T22:51:20.260372+00:00",
       "result": {
         "issued_at": null,
         "days": [
@@ -2056,7 +2056,7 @@
             "rain_mm": 0.0,
             "ice_mm": null,
             "condition": "Cloudy",
-            "risk": "Sans risque hivernal identifié"
+            "risk": "Sans risque hivernal identifiÃ©"
           },
           {
             "date": "2026-11-12",
@@ -2066,7 +2066,7 @@
             "rain_mm": 0.0,
             "ice_mm": null,
             "condition": "Cloudy",
-            "risk": "Sans risque hivernal identifié"
+            "risk": "Sans risque hivernal identifiÃ©"
           },
           {
             "date": "2026-11-13",
@@ -2079,7 +2079,7 @@
             "rain_mm": null,
             "ice_mm": null,
             "condition": "Cloudy",
-            "risk": "Sans risque hivernal identifié",
+            "risk": "Sans risque hivernal identifiÃ©",
             "snow_period": "jour-nuit-wu"
           },
           {
@@ -2093,7 +2093,7 @@
             "rain_mm": null,
             "ice_mm": null,
             "condition": "Cloudy",
-            "risk": "Sans risque hivernal identifié",
+            "risk": "Sans risque hivernal identifiÃ©",
             "snow_period": "jour-nuit-wu"
           },
           {
@@ -2104,7 +2104,7 @@
             "rain_mm": 0.0,
             "ice_mm": null,
             "condition": "Cloudy",
-            "risk": "Sans risque hivernal identifié"
+            "risk": "Sans risque hivernal identifiÃ©"
           },
           {
             "date": "2026-11-16",
@@ -2114,7 +2114,7 @@
             "rain_mm": 0.0,
             "ice_mm": null,
             "condition": "Partly Cloudy",
-            "risk": "Sans risque hivernal identifié"
+            "risk": "Sans risque hivernal identifiÃ©"
           },
           {
             "date": "2026-11-17",
@@ -2124,10 +2124,10 @@
             "rain_mm": 0.0,
             "ice_mm": null,
             "condition": "Partly Cloudy",
-            "risk": "Sans risque hivernal identifié"
+            "risk": "Sans risque hivernal identifiÃ©"
           }
         ],
-        "note": "Prévisions demandées à 46,21 N / 70,49 O. Heure d’émission non fournie. cm de neige affichés en unités métriques, sur la fenêtre jour-nuit du fournisseur (non comptés dans la moyenne 00-24 h)."
+        "note": "PrÃ©visions demandÃ©es Ã  46,21 N / 70,49 O. Heure dâ€™Ã©mission non fournie. cm de neige affichÃ©s en unitÃ©s mÃ©triques, sur la fenÃªtre jour-nuit du fournisseur (non comptÃ©s dans la moyenne 00-24 h)."
       }
     }
   }
