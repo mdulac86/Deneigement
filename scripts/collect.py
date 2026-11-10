@@ -402,7 +402,10 @@ def main():
     climate=collect_climate()
     result={'updated_at':stamp(),'location':{'name':'Saint-Prosper · Beauce','lat':LAT,'lon':LON,'timezone':'America/Toronto'},'threshold_cm':5,'sources':sources,'official_alerts':alerts,'climate':climate,'consensus':consensus(sources),'previous_at':previous.get('updated_at')}
     result['changes']=changes(previous,result)
-    result.update(forecast_plan(sources, result['consensus']))
+    try:
+        result.update(forecast_plan(sources, result['consensus']))
+    except Exception as e:  # Le plan ne doit jamais bloquer la collecte principale.
+        result.update({'models': [], 'hourly_snow': [], 'plan': [], 'plan_error': str(e)[:200]})
     write(DATA/'weather.json',result)
     # Archives horaires durables : pas d'accumulation de prévisions présentée en relevé.
     snapshot={'updated_at':stamp(),'sources':[{k:s[k] for k in ('id','status','issued_at','fetched_at','days','periods') if k in s} for s in sources], 'consensus':result['consensus'],'changes':result['changes'],'plan':result.get('plan'),'hourly_snow':result.get('hourly_snow'),'models':[{k:x[k] for k in ('id','status','issued_at','hours') if k in x} for x in result.get('models',[])]}

@@ -21,8 +21,8 @@ THREDDS = 'https://thredds.ucar.edu/thredds/ncss/grid/grib/NCEP/GFS/Global_0p25d
 HORIZON_H = 72
 
 ECCC_MODELS = {
-    'hrdps': ('HRDPS 2,5 km · ECCC', ['HRDPS.CONTINENTAL_PR'], ['HRDPS.CONTINENTAL_TT'], 48),
-    'rdps': ('RDPS 10 km · ECCC', ['RDPS.ETA_PR', 'RDPS.CONTINENTAL_PR'], ['RDPS.ETA_TT', 'RDPS.CONTINENTAL_TT'], HORIZON_H),
+    'hrdps': ('HRDPS 2,5 km · ECCC', ['HRDPS.CONTINENTAL_PR', 'HRDPS_2.5km_Precip-Accum'], ['HRDPS.CONTINENTAL_TT', 'HRDPS_2.5km_AirTemp_2m'], 48),
+    'rdps': ('RDPS 10 km · ECCC', ['RDPS_10km_Precip-Accum', 'RDPS.ETA_PR'], ['RDPS_10km_AirTemp_2m', 'RDPS.ETA_TT'], HORIZON_H),
 }
 
 
@@ -163,15 +163,18 @@ def gfs_model(fetch, lat, lon, now):
     else:
         raise ValueError(' · '.join(errors))
     temp, tunit = ncss_csv(fetch, 'Temperature_height_above_ground', lat, lon, now, {'vertCoord': 2})
+    # THREDDS « Best » : pas de 3 h. Le taux instantané est réparti sur chaque heure du pas.
+    times = [t for t in sorted(rate) if t in temp]
     hours = []
-    for t in sorted(rate):
-        if t not in temp:
+    for a, b in zip(times, times[1:]):
+        step = int((b - a).total_seconds() // 3600)
+        if not 1 <= step <= 6:
             continue
-        mm = max(0.0, rate[t] * 3600)  # kg m-2 s-1 -> mm/h
-        c = temp[t] - 273.15 if 'K' in tunit or temp[t] > 150 else temp[t]
-        hours.append({'time': zulu(t), 'precip_mm': round(mm, 2), 'temp': round(c, 1), 'snow_cm': snow_from_precip(mm, c)})
-    # Au-delà de 120 h le pas devient 3 h : on garde seulement les heures consécutives.
-    hours = [h for h, n in zip(hours, hours[1:] + [None]) if n and utc(n['time']) - utc(h['time']) == dt.timedelta(hours=1)]
+        mm = max(0.0, rate[a] * 3600)  # kg m-2 s-1 -> mm/h
+        c = temp[a] - 273.15 if 'K' in tunit or temp[a] > 150 else temp[a]
+        for k in range(step):
+            hours.append({'time': zulu(a + dt.timedelta(hours=k)), 'precip_mm': round(mm, 2), 'temp': round(c, 1),
+                          'snow_cm': snow_from_precip(mm, c)})
     if len(hours) < 6:
         raise ValueError(f'Série GFS trop courte ({len(hours)} h)')
     return {'issued_at': None, 'units': [unit, tunit], 'hours': hours}

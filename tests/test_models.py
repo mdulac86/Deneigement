@@ -19,7 +19,7 @@ CAPS = '''<?xml version="1.0"?><WMS_Capabilities xmlns="http://www.opengis.net/w
 def fake_geomet(url, json_data=False):
     q = dict(urllib.parse.parse_qsl(urllib.parse.urlsplit(url).query))
     if q['request'] == 'GetCapabilities':
-        if q['layer'].startswith('RDPS.ETA'):
+        if q['layer'].startswith('RDPS_10km'):
             raise OSError('400')
         return CAPS.format(name=q['layer'])
     t = m.utc(q['time'])
@@ -38,7 +38,7 @@ class ModelTests(unittest.TestCase):
 
     def test_geomet_accumulation_differences_and_fallback_layer(self):
         r = m.eccc_model('rdps', fake_geomet, 46.2, -70.5, NOW)
-        self.assertEqual(r['layers'], ['RDPS.CONTINENTAL_PR', 'RDPS.CONTINENTAL_TT'])
+        self.assertEqual(r['layers'], ['RDPS.ETA_PR', 'RDPS.ETA_TT'])
         self.assertEqual(len(r['hours']), 12)
         self.assertTrue(all(h['precip_mm'] == 1.0 and h['snow_cm'] == 1.3 for h in r['hours']))
 
@@ -53,7 +53,7 @@ class ModelTests(unittest.TestCase):
                 rows.append(f'{t},46.2,289.5,{271.15 if unit == "K" else 1/3600}')
             return '\n'.join(rows)
         r = m.gfs_model(fake, 46.2, -70.5, NOW)
-        self.assertEqual(len(r['hours']), 9)
+        self.assertEqual(len(r['hours']), 9)  # 10 pas horaires -> 9 intervalles
         self.assertEqual(r['hours'][0]['temp'], -2.0)
         self.assertEqual(r['hours'][0]['snow_cm'], 1.3)
 
