@@ -41,8 +41,13 @@ la restriction et sans compter une ancienne donnée dans le consensus.
 - meteoblue : cartes quotidiennes datées, conditions et températures.
 - MET Norway : API Locationforecast, licence CC BY 4.0; températures, conditions,
   vent et précipitations liquides par échéance. Pas de conversion arbitraire en neige.
-- MétéoMédia : lien direct présent; extraction automatique indisponible au moment
-  de la réalisation (réponse vide). Explicitement exclue des calculs.
+- MétéoMédia : tableau de données structurées (schema.org / CSVW) publié dans la
+  page 7 jours : conditions, températures, pluie en mm et **neige en cm** par période
+  (nuit, matin, après-midi, soir). Les 4 périodes donnent un total 00-24 h comparable;
+  les cm entrent aussi dans le plan de sortie (répartis sur chaque heure de la période).
+- AccuWeather et Weather Underground refusent la lecture depuis les serveurs du
+  robot (HTTP 403). Le robot ne contourne pas ce refus : la dernière lecture
+  réussie reste affichée comme ancienne et exclue du consensus.
 - Climat Québec / MELCCFP : sommaire de la station automatique **7027660**,
   relevés quotidiens depuis le 1er octobre; relecture quotidienne de tous les mois
   de la saison afin de récupérer les corrections tardives. Saison jusqu'au 31 mai.

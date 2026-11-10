@@ -1,4 +1,5 @@
 import datetime as dt
+import json
 import importlib.util
 from pathlib import Path
 import unittest
@@ -52,6 +53,26 @@ class CollectorTests(unittest.TestCase):
         self.assertEqual(m.risk('Neige mêlée de pluie'),'Pluie / neige')
         self.assertEqual(m.risk('Pluie verglaçante'),'Verglas / grésil')
         self.assertEqual(m.risk('AM Rain/Snow Showers'),'Pluie / neige')
+        self.assertEqual(m.risk('Précipitations mixtes'),'Pluie / neige')
+        self.assertEqual(m.risk('Quelques flocons'),'Neige')
+
+    def test_meteomedia_structured_table(self):
+        def col(name,vals):
+            return {'csvw:name':name,'csvw:cells':[{'csvw:value':v} for v in vals]}
+        parts=['Nuit','Matin','Après-midi','Soir']
+        data={'@type':'Dataset','name':'Prévisions météorologiques à court terme - Saint-Prosper, Québec','mainEntity':{'csvw:tableSchema':{'csvw:columns':[
+            col('date',['2026-11-12']*4+['2026-11-13']*4),col('timeOfDay',parts*2),
+            col('condition',['Faible neige','Neige','Quelques flocons','Ciel variable']*2),
+            col('temperature',['-2°C','-1°C','0°C','-3°C']*2),col('snow',['2-4 cm','1-3 cm','<1 cm','0 cm']*2),col('rain',['0 mm']*8)]}}}
+        html='<script type="application/ld+json">'+json.dumps(data)+'</script>'
+        with patch.object(m,'fetch',return_value=html):
+            with self.assertRaises(ValueError):  # 2 jours seulement : trop court
+                m.mm()
+        rows=m.mm_table(html)
+        self.assertEqual(rows[0]['snow'],'2-4 cm')
+        self.assertEqual(m.amount('2-4 cm'),[2,4])
+        self.assertEqual(m.amount('<1 cm'),[0,1])
+        self.assertIsNone(m.amount('—'))
 
     def test_winter_rollover(self):
         self.assertEqual(m.season_year(dt.date(2027,2,1)),2026)

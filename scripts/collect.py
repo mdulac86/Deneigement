@@ -72,9 +72,9 @@ def risk(text):
     t = text.lower()
     if re.search(r'vergla|freezing rain|ice pellets|grésil', t):
         return 'Verglas / grésil'
-    if ('neige' in t and 'pluie' in t) or 'sleet' in t or 'rain/snow' in t:
+    if ('neige' in t and 'pluie' in t) or 'sleet' in t or 'rain/snow' in t or 'mixte' in t or 'wintry mix' in t:
         return 'Pluie / neige'
-    if 'neige' in t or 'snow' in t:
+    if 'neige' in t or 'snow' in t or 'flocon' in t or 'flurr' in t:
         return 'Neige'
     if re.search(r'pluie|averses|rain', t):
         return 'Pluie'
@@ -224,14 +224,19 @@ def wu():
         el = card.select_one('.condition')
         d['condition'] = el.get_text(' ', strip=True) if el else ''
         d['risk'] = risk(d['condition'])
-        # Pas d'interprétation de display-snow sans unité explicite du fournisseur.
+        # Classe « m » = unités métriques (mm de pluie, cm de neige) comme pour la pluie.
         el = card.select_one('.display-qpf.m')
         if el:
             d['rain_mm'] = number(el.get_text(strip=True))
+        el = card.select_one('.display-snow.m')
+        if el and number(el.get_text(strip=True)) is not None:
+            v = number(el.get_text(strip=True))
+            d['snow_cm'] = [v, v]
+            d['snow_period'] = 'jour-nuit-wu'  # fenêtre du fournisseur, non alignée sur 00-24 h
         days.append(d)
     if len(days) < 3:
         raise ValueError('Coordonnées ou dates Weather Underground non vérifiables')
-    return {'issued_at': None, 'days': days, 'note': 'Prévisions demandées à 46,21 N / 70,49 O. Station d’observation voisine parfois affichée sous un autre nom. Heure d’émission non fournie; cm de neige non exposés avec une unité explicite.'}
+    return {'issued_at': None, 'days': days, 'note': 'Prévisions demandées à 46,21 N / 70,49 O. Heure d’émission non fournie. cm de neige affichés en unités métriques, sur la fenêtre jour-nuit du fournisseur (non comptés dans la moyenne 00-24 h).'}
 
 def mb():
     soup = BeautifulSoup(fetch(SOURCES['mb'][1]), 'html.parser')
@@ -255,9 +260,74 @@ def mb():
         raise ValueError('Série meteoblue actuelle non lisible')
     return {'issued_at':None,'days':days,'note':'Page publique datée. Quantités liquides non converties en neige. Heure d’émission non fournie.'}
 
+MM_PERIODS = {'Nuit': 0, 'Matin': 6, 'Après-midi': 12, 'Soir': 18}
+
+def amount(text):
+    """'2-4 cm' -> [2, 4]; '<1 cm' -> [0, 1]; '0 cm' -> [0, 0]; autre -> None."""
+    t = str(text or '').replace(',', '.').replace('\xa0', ' ')
+    m = re.fullmatch(r'\s*(\d+(?:\.\d+)?)\s*[-–à]\s*(\d+(?:\.\d+)?)\s*(?:cm|mm)\s*', t)
+    if m:
+        return [float(m[1]), float(m[2])]
+    m = re.fullmatch(r'\s*<\s*(\d+(?:\.\d+)?)\s*(?:cm|mm)\s*', t)
+    if m:
+        return [0.0, float(m[1])]
+    m = re.fullmatch(r'\s*(\d+(?:\.\d+)?)\s*(?:cm|mm)\s*', t)
+    return [float(m[1])] * 2 if m else None
+
+def mm_table(html):
+    """Tableau schema.org/CSVW publié dans la page (données structurées destinées aux machines)."""
+    soup = BeautifulSoup(html, 'html.parser')
+    for tag in soup.find_all('script', type='application/ld+json'):
+        try:
+            j = json.loads(tag.string or '')
+        except ValueError:
+            continue
+        if not isinstance(j, dict) or j.get('@type') != 'Dataset' or 'Saint-Prosper' not in j.get('name', ''):
+            continue
+        cols = j['mainEntity']['csvw:tableSchema']['csvw:columns']
+        table = {c['csvw:name']: [x.get('csvw:value') for x in c['csvw:cells']] for c in cols}
+        n = len(table.get('date', []))
+        return [{k: v[i] if i < len(v) else None for k, v in table.items()} for i in range(n)]
+    raise ValueError('Tableau de prévisions MétéoMédia non trouvé pour Saint-Prosper')
+
 def mm():
-    fetch(SOURCES['mm'][1])
-    raise ValueError('Page publique dynamique : données automatiques non disponibles; consultation directe possible')
+    rows = mm_table(fetch(SOURCES['mm'][1]))
+    days, periods, hours = {}, [], []
+    for r in rows:
+        start = MM_PERIODS.get(r.get('timeOfDay'))
+        if start is None or not r.get('date'):
+            continue
+        day = dt.date.fromisoformat(r['date'])
+        snow, rain = amount(r.get('snow')), amount(r.get('rain'))
+        temp = number(str(r.get('temperature', '')).replace('°C', ''))
+        cond = r.get('condition') or ''
+        periods.append({'date': str(day), 'label': r['timeOfDay'], 'start_h': start, 'text': cond, 'snow_cm': snow, 'rain_mm': rain, 'temp': temp, 'pop': r.get('pop'), 'risk': risk(cond)})
+        d = days.setdefault(str(day), {**entry(day), '_parts': 0})
+        d['_parts'] += 1
+        if temp is not None:
+            d['high'] = temp if d['high'] is None else max(d['high'], temp)
+            d['low'] = temp if d['low'] is None else min(d['low'], temp)
+        d['condition'] += (' · ' if d['condition'] else '') + cond
+        if snow is not None:
+            d['snow_cm'] = [round((d['snow_cm'] or [0, 0])[i] + snow[i], 1) for i in (0, 1)]
+        mid = None if snow is None else sum(snow) / 2
+        for k in range(6):
+            t = dt.datetime.combine(day, dt.time(start + k), TZ)
+            hours.append({'time': t.astimezone(dt.timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ'), 'snow_cm': None if mid is None else round(mid / 6, 2), 'temp': temp})
+    out = []
+    for d in days.values():
+        complete = d.pop('_parts') == 4
+        d['risk'] = risk(d['condition'])
+        # Les 4 périodes (nuit, matin, après-midi, soir) couvrent la journée : total 00-24 h comparable.
+        if complete and d['snow_cm'] is not None:
+            d['snow_period'] = '00-24-local'
+        elif not complete:
+            d['snow_cm'] = None
+        out.append(d)
+    if len(out) < 3:
+        raise ValueError('Prévisions MétéoMédia non lisibles')
+    return {'issued_at': None, 'days': out, 'periods': periods, 'hours': hours,
+            'note': 'Tableau de données structurées publié par MétéoMédia (périodes nuit, matin, après-midi, soir). Quantités en fourchette; heure d’émission non publiée. Découpage horaire des périodes supposé 0-6-12-18 h.'}
 
 def collect_source(key, fn, previous):
     name, url = SOURCES[key]
@@ -269,7 +339,11 @@ def collect_source(key, fn, previous):
         return {'id': key, 'name': name, 'url': url, 'status': 'ok', 'fetched_at': stamp(), **result}
     except Exception as e:
         prev = next((s for s in previous.get('sources', []) if s['id'] == key), {})
-        return {'id': key, 'name': name, 'url': url, **{k: prev[k] for k in ('days', 'fetched_at', 'issued_at', 'note', 'periods', 'hourly', 'current') if k in prev}, 'status': 'stale' if prev.get('days') else 'unavailable', 'error': str(e)[:180]}
+        msg = str(e)
+        if '403' in msg:
+            msg = 'Le site refuse la lecture automatisée depuis les serveurs du robot (HTTP 403). Consultation directe possible.'
+        e = ValueError(msg)
+        return {'id': key, 'name': name, 'url': url, **{k: prev[k] for k in ('days', 'fetched_at', 'issued_at', 'note', 'periods', 'hourly', 'current', 'hours') if k in prev}, 'status': 'stale' if prev.get('days') else 'unavailable', 'error': str(e)[:180]}
 
 def climat_month(year, month):
     soup = BeautifulSoup(fetch(QC+f'{year:04}-{month:02}-01'), 'html.parser')
@@ -375,6 +449,10 @@ def forecast_plan(sources, days):
     """Modèles horaires -> neige heure par heure (médiane) -> plan de sortie."""
     met_src = next((s for s in sources if s['id'] == 'met' and s['status'] == 'ok'), {})
     models = nwp.collect_models(fetch, met_src, LAT, LON, NOW)
+    mm_src = next((s for s in sources if s['id'] == 'mm' and s['status'] == 'ok' and s.get('hours')), None)
+    if mm_src:
+        models.append({'id': 'mm', 'name': 'MétéoMédia (cm publiés)', 'status': 'ok', 'fetched_at': mm_src['fetched_at'],
+                       'note': 'cm publiés par MétéoMédia par période de 6 h, répartis également sur chaque heure.', 'hours': mm_src['hours']})
     ok = [x for x in models if x['status'] == 'ok']
     hours = planner.hourly_consensus(ok, TZ)
     cfg = planner.load_config()
