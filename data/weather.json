@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-10T22:29:26.753848+00:00",
+  "updated_at": "2026-11-10T22:39:29.462424+00:00",
   "location": {
     "name": "Saint-Prosper · Beauce",
     "lat": 46.214,
@@ -13,7 +13,7 @@
       "name": "Environnement Canada",
       "url": "https://meteo.gc.ca/fr/location/index.html?coords=46.214,-70.486",
       "status": "ok",
-      "fetched_at": "2026-11-10T22:29:26.753848+00:00",
+      "fetched_at": "2026-11-10T22:39:29.462424+00:00",
       "issued_at": "2026-11-10T20:45:00Z",
       "days": [
         {
@@ -546,7 +546,7 @@
       "name": "MET Norway",
       "url": "https://api.met.no/weatherapi/locationforecast/2.0/compact?lat=46.214&lon=-70.486",
       "status": "ok",
-      "fetched_at": "2026-11-10T22:29:26.753848+00:00",
+      "fetched_at": "2026-11-10T22:39:29.462424+00:00",
       "issued_at": "2026-11-10T19:19:52Z",
       "days": [
         {
@@ -1367,7 +1367,7 @@
       "issued_at": null,
       "note": "Page publique actuelle; heure d’émission non publiée dans les données extraites. Quantités non affichées ici = indisponibles, jamais zéro.",
       "status": "stale",
-      "error": "HTTP Error 403: Forbidden"
+      "error": "Le site refuse la lecture automatisée depuis les serveurs du robot (HTTP 403). Consultation directe possible."
     },
     {
       "id": "wu",
@@ -1449,14 +1449,14 @@
       "issued_at": null,
       "note": "Prévisions demandées à 46,21 N / 70,49 O. Station d’observation voisine parfois affichée sous un autre nom. Heure d’émission non fournie; cm de neige non exposés avec une unité explicite.",
       "status": "stale",
-      "error": "HTTP Error 403: Forbidden"
+      "error": "Le site refuse la lecture automatisée depuis les serveurs du robot (HTTP 403). Consultation directe possible."
     },
     {
       "id": "mb",
       "name": "meteoblue",
       "url": "https://www.meteoblue.com/fr/meteo/semaine/saint-prosper_canada_8672691",
       "status": "ok",
-      "fetched_at": "2026-11-10T22:29:26.753848+00:00",
+      "fetched_at": "2026-11-10T22:39:29.462424+00:00",
       "issued_at": null,
       "days": [
         {
@@ -1466,13 +1466,13 @@
           "snow_cm": null,
           "rain_mm": null,
           "ice_mm": null,
-          "condition": "Couvert avec pluie / Nuageux avec des pluies occasionnelles",
+          "condition": "Nuageux avec des pluies occasionnelles",
           "risk": "Pluie"
         },
         {
           "date": "2026-11-11",
           "high": 2.0,
-          "low": -1.0,
+          "low": -2.0,
           "snow_cm": null,
           "rain_mm": null,
           "ice_mm": null,
@@ -1522,7 +1522,7 @@
         {
           "date": "2026-11-16",
           "high": 2.0,
-          "low": -2.0,
+          "low": -3.0,
           "snow_cm": null,
           "rain_mm": null,
           "ice_mm": null,
@@ -1547,12 +1547,12 @@
       "name": "MétéoMédia",
       "url": "https://www.meteomedia.com/fr/ville/ca/quebec/saint-prosper/7-jours",
       "status": "unavailable",
-      "error": "Page publique dynamique : données automatiques non disponibles; consultation directe possible"
+      "error": "Tableau de prévisions MétéoMédia non trouvé pour Saint-Prosper"
     }
   ],
   "official_alerts": {
     "status": "ok",
-    "fetched_at": "2026-11-10T22:29:26.753848+00:00",
+    "fetched_at": "2026-11-10T22:39:29.462424+00:00",
     "items": []
   },
   "climate": {
@@ -1923,7 +1923,7 @@
           "snow_cm": null,
           "rain_mm": null,
           "ice_mm": null,
-          "condition": "Couvert avec pluie / Nuageux avec des pluies occasionnelles",
+          "condition": "Nuageux avec des pluies occasionnelles",
           "risk": "Pluie"
         }
       ],
@@ -1981,7 +1981,7 @@
           "source": "mb",
           "date": "2026-11-11",
           "high": 2.0,
-          "low": -1.0,
+          "low": -2.0,
           "snow_cm": null,
           "rain_mm": null,
           "ice_mm": null,
@@ -2002,14 +2002,14 @@
         "Sans risque hivernal identifié"
       ],
       "high_mean": 3.1,
-      "low_mean": -3.0,
+      "low_mean": -3.3,
       "high_range": [
         2.0,
         4
       ],
       "low_range": [
         -6,
-        -1.0
+        -2.0
       ],
       "confidence": "Faible",
       "confidence_reason": "Accord qualitatif et couverture des sources; précision non encore validée. Fiabilité des cm au sol indéterminée.",
@@ -2152,7 +2152,7 @@
         "median_cm": 0.0,
         "min_cm": 0.0,
         "max_cm": 0.7,
-        "hours": 17,
+        "hours": 19,
         "estimated": true
       }
     },
@@ -2308,7 +2308,7 @@
           "source": "mb",
           "date": "2026-11-16",
           "high": 2.0,
-          "low": -2.0,
+          "low": -3.0,
           "snow_cm": null,
           "rain_mm": null,
           "ice_mm": null,
@@ -2327,21 +2327,21 @@
         "Sans risque hivernal identifié"
       ],
       "high_mean": 2.7,
-      "low_mean": -2.2,
+      "low_mean": -2.7,
       "high_range": [
         2.0,
         3.1
       ],
       "low_range": [
-        -2.4,
-        -2.0
+        -3.0,
+        -2.4
       ],
       "confidence": "Faible",
       "confidence_reason": "Accord qualitatif et couverture des sources; précision non encore validée. Fiabilité des cm au sol indéterminée.",
       "model_snow": null
     }
   ],
-  "previous_at": "2026-11-10T22:22:57.412498+00:00",
+  "previous_at": "2026-11-10T22:29:26.753848+00:00",
   "changes": [
     {
       "text": "Aucun changement important dans les données comparables depuis la dernière collecte.",
@@ -2353,7 +2353,7 @@
       "id": "hrdps",
       "name": "HRDPS 2,5 km · ECCC",
       "status": "ok",
-      "fetched_at": "2026-11-10T22:29:26Z",
+      "fetched_at": "2026-11-10T22:39:29Z",
       "note": "cm estimés à partir des mm d’eau et de la température (rapport 10:1 près de 0 °C, plus léger au froid). Pas de fonte ni de tassement.",
       "issued_at": "2026-11-10T18:00:00Z",
       "layers": [
@@ -2637,7 +2637,7 @@
       "id": "rdps",
       "name": "RDPS 10 km · ECCC",
       "status": "ok",
-      "fetched_at": "2026-11-10T22:29:26Z",
+      "fetched_at": "2026-11-10T22:39:29Z",
       "note": "cm estimés à partir des mm d’eau et de la température (rapport 10:1 près de 0 °C, plus léger au froid). Pas de fonte ni de tassement.",
       "issued_at": "2026-11-10T18:00:00Z",
       "layers": [
@@ -3089,7 +3089,7 @@
       "id": "gfs",
       "name": "GFS 0,25° · NOAA",
       "status": "ok",
-      "fetched_at": "2026-11-10T22:29:26Z",
+      "fetched_at": "2026-11-10T22:39:29Z",
       "note": "cm estimés à partir des mm d’eau et de la température (rapport 10:1 près de 0 °C, plus léger au froid). Pas de fonte ni de tassement.",
       "issued_at": null,
       "units": [
@@ -3528,6 +3528,24 @@
           "precip_mm": 0.0,
           "temp": 3.3,
           "snow_cm": 0.0
+        },
+        {
+          "time": "2026-11-13T21:00:00Z",
+          "precip_mm": 0.01,
+          "temp": 1.7,
+          "snow_cm": 0.0
+        },
+        {
+          "time": "2026-11-13T22:00:00Z",
+          "precip_mm": 0.01,
+          "temp": 1.7,
+          "snow_cm": 0.0
+        },
+        {
+          "time": "2026-11-13T23:00:00Z",
+          "precip_mm": 0.01,
+          "temp": 1.7,
+          "snow_cm": 0.0
         }
       ]
     },
@@ -3535,7 +3553,7 @@
       "id": "met",
       "name": "MET Norway",
       "status": "ok",
-      "fetched_at": "2026-11-10T22:29:26Z",
+      "fetched_at": "2026-11-10T22:39:29Z",
       "note": "cm estimés à partir des mm d’eau et de la température (rapport 10:1 près de 0 °C, plus léger au froid). Pas de fonte ni de tassement.",
       "issued_at": "2026-11-10T19:19:52Z",
       "hours": [
@@ -4556,21 +4574,21 @@
       "snow_cm": 0.0,
       "lo": 0.0,
       "hi": 0.0,
-      "n": 2
+      "n": 3
     },
     {
       "time": "2026-11-13T17:00:00-05:00",
       "snow_cm": 0.0,
       "lo": 0.0,
       "hi": 0.0,
-      "n": 1
+      "n": 2
     },
     {
       "time": "2026-11-13T18:00:00-05:00",
       "snow_cm": 0.0,
       "lo": 0.0,
       "hi": 0.0,
-      "n": 1
+      "n": 2
     },
     {
       "time": "2026-11-13T19:00:00-05:00",
