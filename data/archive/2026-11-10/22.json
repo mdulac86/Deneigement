@@ -1,11 +1,11 @@
 {
-  "updated_at": "2026-11-10T22:52:09.583568+00:00",
+  "updated_at": "2026-11-10T22:53:46.248345+00:00",
   "sources": [
     {
       "id": "eccc",
       "status": "ok",
       "issued_at": "2026-11-10T20:45:00Z",
-      "fetched_at": "2026-11-10T22:52:09.583568+00:00",
+      "fetched_at": "2026-11-10T22:53:46.248345+00:00",
       "days": [
         {
           "date": "2026-11-10",
@@ -169,7 +169,7 @@
       "id": "met",
       "status": "ok",
       "issued_at": "2026-11-10T19:19:52Z",
-      "fetched_at": "2026-11-10T22:52:09.583568+00:00",
+      "fetched_at": "2026-11-10T22:53:46.248345+00:00",
       "days": [
         {
           "date": "2026-11-10",
@@ -451,7 +451,7 @@
       "id": "mb",
       "status": "ok",
       "issued_at": null,
-      "fetched_at": "2026-11-10T22:52:09.583568+00:00",
+      "fetched_at": "2026-11-10T22:53:46.248345+00:00",
       "days": [
         {
           "date": "2026-11-10",
@@ -2005,15 +2005,7 @@
   ],
   "changes": [
     {
-      "text": "Weather Underground : disponibilité stale → ok.",
-      "important": false
-    },
-    {
-      "text": "Weather Underground · 2026-11-14 : Neige → Sans risque hivernal identifié.",
-      "important": true
-    },
-    {
-      "text": "MétéoMédia : disponibilité unavailable → ok.",
+      "text": "Aucun changement important dans les données comparables depuis la dernière collecte.",
       "important": false
     }
   ],
