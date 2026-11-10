@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-10T22:19:59.291690+00:00",
+  "updated_at": "2026-11-10T22:22:57.412498+00:00",
   "location": {
     "name": "Saint-Prosper · Beauce",
     "lat": 46.214,
@@ -13,7 +13,7 @@
       "name": "Environnement Canada",
       "url": "https://meteo.gc.ca/fr/location/index.html?coords=46.214,-70.486",
       "status": "ok",
-      "fetched_at": "2026-11-10T22:19:59.291690+00:00",
+      "fetched_at": "2026-11-10T22:22:57.412498+00:00",
       "issued_at": "2026-11-10T20:45:00Z",
       "days": [
         {
@@ -546,7 +546,7 @@
       "name": "MET Norway",
       "url": "https://api.met.no/weatherapi/locationforecast/2.0/compact?lat=46.214&lon=-70.486",
       "status": "ok",
-      "fetched_at": "2026-11-10T22:19:59.291690+00:00",
+      "fetched_at": "2026-11-10T22:22:57.412498+00:00",
       "issued_at": "2026-11-10T19:19:52Z",
       "days": [
         {
@@ -1456,7 +1456,7 @@
       "name": "meteoblue",
       "url": "https://www.meteoblue.com/fr/meteo/semaine/saint-prosper_canada_8672691",
       "status": "ok",
-      "fetched_at": "2026-11-10T22:19:59.291690+00:00",
+      "fetched_at": "2026-11-10T22:22:57.412498+00:00",
       "issued_at": null,
       "days": [
         {
@@ -1552,7 +1552,7 @@
   ],
   "official_alerts": {
     "status": "ok",
-    "fetched_at": "2026-11-10T22:19:59.291690+00:00",
+    "fetched_at": "2026-11-10T22:22:57.412498+00:00",
     "items": []
   },
   "climate": {
@@ -2341,27 +2341,11 @@
       "model_snow": null
     }
   ],
-  "previous_at": "2026-11-10T12:07:25.256341+00:00",
+  "previous_at": "2026-11-10T22:19:59.291690+00:00",
   "changes": [
     {
-      "text": "Environnement Canada · 2026-11-11 : Sans risque hivernal identifié → Neige.",
-      "important": true
-    },
-    {
-      "text": "Environnement Canada · 2026-11-12 : Pluie / neige → Sans risque hivernal identifié.",
-      "important": true
-    },
-    {
-      "text": "Environnement Canada · 2026-11-14 : Pluie / neige → Sans risque hivernal identifié.",
-      "important": true
-    },
-    {
-      "text": "MET Norway · 2026-11-11 : Sans risque hivernal identifié → Pluie / neige.",
-      "important": true
-    },
-    {
-      "text": "MET Norway · 2026-11-13 : Sans risque hivernal identifié → Neige.",
-      "important": true
+      "text": "Aucun changement important dans les données comparables depuis la dernière collecte.",
+      "important": false
     }
   ],
   "models": [
@@ -2369,7 +2353,7 @@
       "id": "hrdps",
       "name": "HRDPS 2,5 km · ECCC",
       "status": "ok",
-      "fetched_at": "2026-11-10T22:19:59Z",
+      "fetched_at": "2026-11-10T22:22:57Z",
       "note": "cm estimés à partir des mm d’eau et de la température (rapport 10:1 près de 0 °C, plus léger au froid). Pas de fonte ni de tassement.",
       "issued_at": "2026-11-10T18:00:00Z",
       "layers": [
@@ -2653,7 +2637,7 @@
       "id": "rdps",
       "name": "RDPS 10 km · ECCC",
       "status": "ok",
-      "fetched_at": "2026-11-10T22:19:59Z",
+      "fetched_at": "2026-11-10T22:22:57Z",
       "note": "cm estimés à partir des mm d’eau et de la température (rapport 10:1 près de 0 °C, plus léger au froid). Pas de fonte ni de tassement.",
       "issued_at": "2026-11-10T18:00:00Z",
       "layers": [
@@ -3105,7 +3089,7 @@
       "id": "gfs",
       "name": "GFS 0,25° · NOAA",
       "status": "ok",
-      "fetched_at": "2026-11-10T22:19:59Z",
+      "fetched_at": "2026-11-10T22:22:57Z",
       "note": "cm estimés à partir des mm d’eau et de la température (rapport 10:1 près de 0 °C, plus léger au froid). Pas de fonte ni de tassement.",
       "issued_at": null,
       "units": [
@@ -3551,7 +3535,7 @@
       "id": "met",
       "name": "MET Norway",
       "status": "ok",
-      "fetched_at": "2026-11-10T22:19:59Z",
+      "fetched_at": "2026-11-10T22:22:57Z",
       "note": "cm estimés à partir des mm d’eau et de la température (rapport 10:1 près de 0 °C, plus léger au froid). Pas de fonte ni de tassement.",
       "issued_at": "2026-11-10T19:19:52Z",
       "hours": [
@@ -4668,11 +4652,11 @@
       "par_10cm_h": 1.5
     },
     "semaine": {
-      "echeance": "06:00",
+      "echeance": "07:45",
       "nettoyage_final": [
-        "07:30",
         "09:00"
-      ]
+      ],
+      "note": "Commercial propre pour 7 h 45. Résidentiel et locatif : acte de présence pendant la tournée, nettoyage complet plus tard."
     },
     "fin_de_semaine": {
       "echeance": "07:45",
