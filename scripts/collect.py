@@ -288,7 +288,9 @@ def mm_table(html):
         table = {c['csvw:name']: [x.get('csvw:value') for x in c['csvw:cells']] for c in cols}
         n = len(table.get('date', []))
         return [{k: v[i] if i < len(v) else None for k, v in table.items()} for i in range(n)]
-    raise ValueError('Tableau de prévisions MétéoMédia non trouvé pour Saint-Prosper')
+    title = soup.title.get_text(strip=True)[:60] if soup.title else 'sans titre'
+    n = len(soup.find_all('script', type='application/ld+json'))
+    raise ValueError(f'Tableau MétéoMédia non trouvé ({len(html)} car., « {title} », {n} blocs JSON-LD)')
 
 def mm():
     rows = mm_table(fetch(SOURCES['mm'][1]))
