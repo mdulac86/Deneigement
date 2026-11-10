@@ -1,1 +1,106 @@
-# Deneigement
+# Déneigement · Saint-Prosper
+
+Application statique pour l'équipe : prévisions comparées, bulletin officiel,
+radar animé et cumul de l'hiver à partir des relevés publiés de Saint-Prosper.
+Seuil opérationnel affiché : **5 cm de nouvelle neige au sol**.
+
+## Mise en ligne sur GitHub
+
+1. Créer `mdulac86/Deneigement`, **public**, avec un README pour initialiser `main`.
+2. Publier le contenu de ce projet à la racine du dépôt, y compris `.github/workflows/meteo.yml`.
+3. Dans **Settings → Pages → Build and deployment**, sélectionner **GitHub Actions**.
+4. Dans **Actions → Robot météo et publication**, lancer **Run workflow**.
+5. Partager `https://mdulac86.github.io/Deneigement/` une fois le déploiement vert.
+
+Le dépôt public et le site ne contiennent que des données météo publiques. Ne pas
+y ajouter de clients, adresses de contrats, horaires de personnel ou mots de passe.
+Un site GitHub Pages public est accessible à toute personne qui connaît le lien.
+Pour un accès strictement réservé aux employés, choisir un hébergement avec
+authentification réelle; un mot de passe dans le JavaScript ne protège pas le site.
+
+Le robot utilise GitHub Actions, collecte quatre fois par jour (0 h, 6 h, 12 h et 18 h, heure du Québec) et archive
+les états dans Git. Les tâches planifiées peuvent être retardées par GitHub.
+Sur un dépôt public inactif, GitHub peut désactiver les planifications après 60
+jours : consulter Actions si le bandeau de fraîcheur indique des données anciennes.
+L'actualisation MET Norway respecte son intervalle minimal de 3 heures hors pays
+nordiques. Les pages publiques des autres fournisseurs peuvent changer ou refuser
+la lecture automatisée; le robot indique alors « non disponible » sans contourner
+la restriction et sans compter une ancienne donnée dans le consensus.
+
+## Sources réellement branchées
+
+- Environnement Canada, API GeoMet `citypageweather-realtime/qc-b6` : secteur de
+  Saint-Georges incluant Saint-Prosper; bulletin 7 jours, horaire et quantités
+  explicitement publiées par période. Alertes via `weather-alerts` et boîte
+  géographique autour de Saint-Prosper.
+- AccuWeather : cartes quotidiennes de la page publique, localisation et dates
+  vérifiées. Conditions et températures; l'heure d'émission n'est pas exposée.
+- Weather Underground : cartes publiques demandées aux coordonnées exactes,
+  dates et coordonnées des liens horaires vérifiées. Conditions et températures.
+  Les valeurs neige sans unité explicite ne sont pas interprétées.
+- meteoblue : cartes quotidiennes datées, conditions et températures.
+- MET Norway : API Locationforecast, licence CC BY 4.0; températures, conditions,
+  vent et précipitations liquides par échéance. Pas de conversion arbitraire en neige.
+- MétéoMédia : lien direct présent; extraction automatique indisponible au moment
+  de la réalisation (réponse vide). Explicitement exclue des calculs.
+- Climat Québec / MELCCFP : sommaire de la station automatique **7027660**,
+  relevés quotidiens depuis le 1er octobre; relecture quotidienne de tous les mois
+  de la saison afin de récupérer les corrections tardives. Saison jusqu'au 31 mai.
+  Les mois/jours manquants restent manquants. Les valeurs marquées `I` sont exclues.
+- Radar ECCC GeoMet : pluie, neige ou type de précipitations; temps réellement
+  disponibles lus dans GetCapabilities, animation sur environ 2 heures. Rafraîchi
+  lorsque l'onglet est ouvert. Fond Esri World Topographic Map, bibliothèque Leaflet.
+
+## Consensus : ce qui est calculé
+
+Les températures sont moyennées par date avec une fourchette entre fournisseurs.
+Les fenêtres exactes de maximum/minimum peuvent varier légèrement selon le site.
+Ce consensus est une tendance; il ne prouve pas une meilleure précision.
+
+Pour la neige, la moyenne, la médiane et la fourchette sont calculées seulement
+si au moins deux sources donnent des cm **avec une période explicitement
+compatible** (`snow_period: "00-24-local"`). Les données absentes restent nulles,
+jamais zéro. Les sources publiques branchées ne fournissent actuellement pas
+deux séries de cm alignées : l'interface indique donc **moyenne indisponible**.
+Les quantités ECCC restent visibles dans le bulletin original par période.
+Une intégration numérique supplémentaire avec des données autorisées et leurs
+périodes explicites est nécessaire pour une moyenne de neige intersources.
+
+Le niveau de confiance est un indicateur qualitatif d'accord et d'horizon, pas
+une probabilité calibrée. Le robot ne garantit pas l'accumulation réelle au sol,
+ne calcule pas la fonte ou le tassement et n'invente pas de quantité de verglas.
+
+Les relevés de Climat Québec ont un délai de publication. La source indique que
+la répartition pluie/neige de cette station automatique est indicative, calculée
+selon la température moyenne horaire. Le cumul publié n'est ni l'épaisseur de
+neige au sol ni une mesure de la cour. Aucun relevé de l'équipe n'est demandé.
+
+## Alertes et partage
+
+Les alertes et changements s'affichent dans l'application. Celle-ci ne possède
+pas de service de notification push/SMS. Le robot ChatGPT déjà configuré reste
+séparé. Les employés consultent les mêmes JSON publiés, sans compte GitHub.
+Sur iPhone, Safari → Partager → Sur l'écran d'accueil. Une dernière copie est
+disponible hors ligne avec sa date visible; elle ne devient pas une météo actuelle.
+
+## Développement et validation
+
+Python 3.12+, Node.js pour vérifier la syntaxe JavaScript :
+
+```sh
+pip install -r requirements.txt
+python -m unittest discover -s tests
+python scripts/collect.py
+node --check app.js
+```
+
+Pour ouvrir localement : `python -m http.server 8000` depuis ce dossier, puis
+`http://localhost:8000`. Le radar nécessite une connexion aux services externes.
+Les polices et Leaflet sont chargés depuis leurs fournisseurs publics.
+
+## Attribution
+
+Données : © Environnement et Changement climatique Canada; © Gouvernement du
+Québec; MET Norway, CC BY 4.0, https://www.met.no/en/free-meteorological-data;
+prévisions publiques des fournisseurs cités avec lien original dans l'interface.
+Carte : © Esri, HERE, Garmin, USGS et contributeurs. Leaflet : BSD-2-Clause.

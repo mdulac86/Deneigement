@@ -1,0 +1,74 @@
+name: Robot météo et publication
+on:
+  schedule:
+    # UTC candidates for 00:00, 06:00, 12:00 and 18:00 in Quebec, with DST.
+    - cron: '0 4,5,10,11,16,17,22,23 * * *'
+  workflow_dispatch:
+  push:
+    branches: [main]
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+concurrency:
+  group: meteo-production
+  cancel-in-progress: false
+jobs:
+  schedule:
+    runs-on: ubuntu-latest
+    outputs:
+      collect: ${{ steps.clock.outputs.collect }}
+    steps:
+      - id: clock
+        env:
+          EVENT: ${{ github.event_name }}
+        run: |
+          if [ "$EVENT" != "schedule" ] || [[ " 0 6 12 18 " == *" $(TZ=America/Toronto date +%-H) "* ]]; then
+            echo "collect=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "collect=false" >> "$GITHUB_OUTPUT"
+          fi
+  collect:
+    needs: schedule
+    if: needs.schedule.outputs.collect == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+      - run: pip install -r requirements.txt
+      - run: python -m unittest discover -s tests
+      - name: Actualiser les sources et les archives
+        run: python scripts/collect.py
+      - name: Conserver le journal partagé
+        run: |
+          git config user.name 'Robot Déneigement'
+          git config user.email 'actions@users.noreply.github.com'
+          git add data
+          if ! git diff --cached --quiet; then
+            git commit -m 'Actualiser météo et relevés Climat Québec'
+            git push
+          fi
+      - name: Préparer le site
+        run: |
+          mkdir -p dist/data
+          cp index.html app.js style.css manifest.webmanifest icon.svg sw.js dist/
+          cp data/weather.json dist/data/
+          cp data/season-*.json dist/data/
+          touch dist/.nojekyll
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+  deploy:
+    needs: collect
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Publier
+        id: deployment
+        uses: actions/deploy-pages@v4

@@ -1,0 +1,334 @@
+{
+  "season": "2026–2027",
+  "start": "2026-10-01",
+  "end": "2027-05-31",
+  "records": [
+    {
+      "date": "2026-10-01",
+      "snow_cm": 0.0,
+      "snow_flag": "",
+      "rain_mm": 3.9,
+      "depth_cm": null,
+      "source": "Climat Québec · 7027660"
+    },
+    {
+      "date": "2026-10-02",
+      "snow_cm": 0.0,
+      "snow_flag": "",
+      "rain_mm": 3.4,
+      "depth_cm": null,
+      "source": "Climat Québec · 7027660"
+    },
+    {
+      "date": "2026-10-03",
+      "snow_cm": 0.0,
+      "snow_flag": "",
+      "rain_mm": 0.0,
+      "depth_cm": null,
+      "source": "Climat Québec · 7027660"
+    },
+    {
+      "date": "2026-10-04",
+      "snow_cm": 0.0,
+      "snow_flag": "",
+      "rain_mm": 2.6,
+      "depth_cm": null,
+      "source": "Climat Québec · 7027660"
+    },
+    {
+      "date": "2026-10-05",
+      "snow_cm": 0.0,
+      "snow_flag": "",
+      "rain_mm": 1.4,
+      "depth_cm": null,
+      "source": "Climat Québec · 7027660"
+    },
+    {
+      "date": "2026-10-06",
+      "snow_cm": 0.0,
+      "snow_flag": "",
+      "rain_mm": 0.0,
+      "depth_cm": null,
+      "source": "Climat Québec · 7027660"
+    },
+    {
+      "date": "2026-10-07",
+      "snow_cm": 0.0,
+      "snow_flag": "",
+      "rain_mm": 7.3,
+      "depth_cm": null,
+      "source": "Climat Québec · 7027660"
+    },
+    {
+      "date": "2026-10-08",
+      "snow_cm": 0.0,
+      "snow_flag": "",
+      "rain_mm": 13.3,
+      "depth_cm": null,
+      "source": "Climat Québec · 7027660"
+    },
+    {
+      "date": "2026-10-09",
+      "snow_cm": 0.0,
+      "snow_flag": "",
+      "rain_mm": 2.5,
+      "depth_cm": null,
+      "source": "Climat Québec · 7027660"
+    },
+    {
+      "date": "2026-10-10",
+      "snow_cm": 0.0,
+      "snow_flag": "",
+      "rain_mm": 0.0,
+      "depth_cm": null,
+      "source": "Climat Québec · 7027660"
+    },
+    {
+      "date": "2026-10-11",
+      "snow_cm": 0.0,
+      "snow_flag": "",
+      "rain_mm": 0.0,
+      "depth_cm": null,
+      "source": "Climat Québec · 7027660"
+    },
+    {
+      "date": "2026-10-12",
+      "snow_cm": 0.0,
+      "snow_flag": "",
+      "rain_mm": 2.3,
+      "depth_cm": null,
+      "source": "Climat Québec · 7027660"
+    },
+    {
+      "date": "2026-10-13",
+      "snow_cm": 0.0,
+      "snow_flag": "",
+      "rain_mm": 34.4,
+      "depth_cm": null,
+      "source": "Climat Québec · 7027660"
+    },
+    {
+      "date": "2026-10-14",
+      "snow_cm": 0.0,
+      "snow_flag": "",
+      "rain_mm": 1.2,
+      "depth_cm": null,
+      "source": "Climat Québec · 7027660"
+    },
+    {
+      "date": "2026-10-15",
+      "snow_cm": 0.0,
+      "snow_flag": "",
+      "rain_mm": 3.0,
+      "depth_cm": null,
+      "source": "Climat Québec · 7027660"
+    },
+    {
+      "date": "2026-10-16",
+      "snow_cm": 0.0,
+      "snow_flag": "",
+      "rain_mm": 5.5,
+      "depth_cm": null,
+      "source": "Climat Québec · 7027660"
+    },
+    {
+      "date": "2026-10-17",
+      "snow_cm": 0.0,
+      "snow_flag": "",
+      "rain_mm": 0.0,
+      "depth_cm": null,
+      "source": "Climat Québec · 7027660"
+    },
+    {
+      "date": "2026-10-18",
+      "snow_cm": 0.0,
+      "snow_flag": "",
+      "rain_mm": 0.0,
+      "depth_cm": null,
+      "source": "Climat Québec · 7027660"
+    },
+    {
+      "date": "2026-10-19",
+      "snow_cm": 0.0,
+      "snow_flag": "",
+      "rain_mm": 0.0,
+      "depth_cm": null,
+      "source": "Climat Québec · 7027660"
+    },
+    {
+      "date": "2026-10-20",
+      "snow_cm": 0.0,
+      "snow_flag": "",
+      "rain_mm": 0.0,
+      "depth_cm": null,
+      "source": "Climat Québec · 7027660"
+    },
+    {
+      "date": "2026-10-21",
+      "snow_cm": 0.0,
+      "snow_flag": "",
+      "rain_mm": 0.0,
+      "depth_cm": null,
+      "source": "Climat Québec · 7027660"
+    },
+    {
+      "date": "2026-10-22",
+      "snow_cm": 0.0,
+      "snow_flag": "",
+      "rain_mm": 0.0,
+      "depth_cm": null,
+      "source": "Climat Québec · 7027660"
+    },
+    {
+      "date": "2026-10-23",
+      "snow_cm": 0.0,
+      "snow_flag": "",
+      "rain_mm": 0.0,
+      "depth_cm": null,
+      "source": "Climat Québec · 7027660"
+    },
+    {
+      "date": "2026-10-24",
+      "snow_cm": 0.0,
+      "snow_flag": "",
+      "rain_mm": 0.0,
+      "depth_cm": null,
+      "source": "Climat Québec · 7027660"
+    },
+    {
+      "date": "2026-10-25",
+      "snow_cm": 0.0,
+      "snow_flag": "",
+      "rain_mm": 0.0,
+      "depth_cm": null,
+      "source": "Climat Québec · 7027660"
+    },
+    {
+      "date": "2026-10-26",
+      "snow_cm": 0.0,
+      "snow_flag": "",
+      "rain_mm": 0.0,
+      "depth_cm": null,
+      "source": "Climat Québec · 7027660"
+    },
+    {
+      "date": "2026-10-27",
+      "snow_cm": 0.0,
+      "snow_flag": "",
+      "rain_mm": 0.0,
+      "depth_cm": null,
+      "source": "Climat Québec · 7027660"
+    },
+    {
+      "date": "2026-10-28",
+      "snow_cm": 0.0,
+      "snow_flag": "",
+      "rain_mm": 0.0,
+      "depth_cm": null,
+      "source": "Climat Québec · 7027660"
+    },
+    {
+      "date": "2026-10-29",
+      "snow_cm": 0.0,
+      "snow_flag": "",
+      "rain_mm": 1.6,
+      "depth_cm": null,
+      "source": "Climat Québec · 7027660"
+    },
+    {
+      "date": "2026-10-30",
+      "snow_cm": 0.0,
+      "snow_flag": "",
+      "rain_mm": 2.6,
+      "depth_cm": null,
+      "source": "Climat Québec · 7027660"
+    },
+    {
+      "date": "2026-10-31",
+      "snow_cm": 0.0,
+      "snow_flag": "",
+      "rain_mm": 0.0,
+      "depth_cm": null,
+      "source": "Climat Québec · 7027660"
+    },
+    {
+      "date": "2026-11-01",
+      "snow_cm": 0.0,
+      "snow_flag": "",
+      "rain_mm": 0.0,
+      "depth_cm": null,
+      "source": "Climat Québec · 7027660"
+    },
+    {
+      "date": "2026-11-02",
+      "snow_cm": 0.0,
+      "snow_flag": "",
+      "rain_mm": 1.4,
+      "depth_cm": null,
+      "source": "Climat Québec · 7027660"
+    },
+    {
+      "date": "2026-11-03",
+      "snow_cm": 0.0,
+      "snow_flag": "",
+      "rain_mm": 11.0,
+      "depth_cm": null,
+      "source": "Climat Québec · 7027660"
+    },
+    {
+      "date": "2026-11-04",
+      "snow_cm": 0.0,
+      "snow_flag": "",
+      "rain_mm": 0.0,
+      "depth_cm": null,
+      "source": "Climat Québec · 7027660"
+    },
+    {
+      "date": "2026-11-05",
+      "snow_cm": 0.0,
+      "snow_flag": "",
+      "rain_mm": 4.0,
+      "depth_cm": null,
+      "source": "Climat Québec · 7027660"
+    },
+    {
+      "date": "2026-11-06",
+      "snow_cm": 0.0,
+      "snow_flag": "",
+      "rain_mm": 0.0,
+      "depth_cm": null,
+      "source": "Climat Québec · 7027660"
+    },
+    {
+      "date": "2026-11-07",
+      "snow_cm": 0.0,
+      "snow_flag": "",
+      "rain_mm": 9.7,
+      "depth_cm": null,
+      "source": "Climat Québec · 7027660"
+    },
+    {
+      "date": "2026-11-08",
+      "snow_cm": 0.0,
+      "snow_flag": "",
+      "rain_mm": 1.5,
+      "depth_cm": null,
+      "source": "Climat Québec · 7027660"
+    },
+    {
+      "date": "2026-11-09",
+      "snow_cm": null,
+      "snow_flag": "I",
+      "rain_mm": 0.0,
+      "depth_cm": null,
+      "source": "Climat Québec · 7027660"
+    }
+  ],
+  "total_cm": 0.0,
+  "last_date": "2026-11-08",
+  "missing_days": 1,
+  "checked_on": "2026-11-10",
+  "errors": [],
+  "url": "https://www.environnement.gouv.qc.ca/climat/donnees/sommaire.asp?cle=7027660&date_selection=2026-11-10",
+  "note": "Station automatique 7027660. La source répartit les précipitations en pluie/neige à titre indicatif selon la température horaire. Cumul des valeurs publiées, avec délai; ce n’est pas une mesure de votre cour ni la neige restant au sol."
+}

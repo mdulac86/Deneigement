@@ -1,0 +1,2495 @@
+{
+  "updated_at": "2026-11-10T12:00:40.641607+00:00",
+  "location": {
+    "name": "Saint-Prosper · Beauce",
+    "lat": 46.214,
+    "lon": -70.486,
+    "timezone": "America/Toronto"
+  },
+  "threshold_cm": 5,
+  "sources": [
+    {
+      "id": "eccc",
+      "name": "Environnement Canada",
+      "url": "https://meteo.gc.ca/fr/location/index.html?coords=46.214,-70.486",
+      "status": "ok",
+      "fetched_at": "2026-11-10T12:00:40.641607+00:00",
+      "issued_at": "2026-11-10T10:00:00Z",
+      "days": [
+        {
+          "date": "2026-11-10",
+          "high": 3,
+          "low": 0,
+          "snow_cm": null,
+          "rain_mm": null,
+          "ice_mm": null,
+          "condition": "Nuageux. Neige ou pluie débutant en mi-journée. Accumulation de neige de 2 cm en terrains élevés. Vents du sud-ouest de 20 km/h. Maximum plus 3. Indice UV de 1 ou bas. Neige ou pluie cessant vers minuit. Nuageux par la suite avec 40 pour cent de probabilité d'averses de neige ou de pluie. Minimum zéro.",
+          "risk": "Pluie / neige"
+        },
+        {
+          "date": "2026-11-11",
+          "high": 4,
+          "low": -7,
+          "snow_cm": null,
+          "rain_mm": null,
+          "ice_mm": null,
+          "condition": "Nuageux. Maximum plus 4. Indice UV de 1 ou bas. Passages nuageux. Minimum moins 7.",
+          "risk": "Sans risque hivernal identifié"
+        },
+        {
+          "date": "2026-11-12",
+          "high": 3,
+          "low": -1,
+          "snow_cm": null,
+          "rain_mm": null,
+          "ice_mm": null,
+          "condition": "Alternance de soleil et de nuages avec 30 pour cent de probabilité d'averses. Maximum plus 3. Nuageux avec 60 pour cent de probabilité d'averses de pluie ou de neige. Minimum moins 1.",
+          "risk": "Pluie / neige"
+        },
+        {
+          "date": "2026-11-13",
+          "high": 4,
+          "low": 0,
+          "snow_cm": null,
+          "rain_mm": null,
+          "ice_mm": null,
+          "condition": "Pluie intermittente. Maximum plus 4. Pluie ou neige. Minimum zéro.",
+          "risk": "Pluie / neige"
+        },
+        {
+          "date": "2026-11-14",
+          "high": 4,
+          "low": -1,
+          "snow_cm": null,
+          "rain_mm": null,
+          "ice_mm": null,
+          "condition": "Neige intermittente ou pluie. Maximum plus 4. Nuageux. Minimum moins 1.",
+          "risk": "Pluie / neige"
+        },
+        {
+          "date": "2026-11-15",
+          "high": 3,
+          "low": -1,
+          "snow_cm": null,
+          "rain_mm": null,
+          "ice_mm": null,
+          "condition": "Alternance de soleil et de nuages. Maximum plus 3. Passages nuageux. Minimum moins 1.",
+          "risk": "Sans risque hivernal identifié"
+        },
+        {
+          "date": "2026-11-16",
+          "high": 3,
+          "low": null,
+          "snow_cm": null,
+          "rain_mm": null,
+          "ice_mm": null,
+          "condition": "Alternance de soleil et de nuages. Maximum plus 3.",
+          "risk": "Sans risque hivernal identifié"
+        }
+      ],
+      "periods": [
+        {
+          "date": "2026-11-10",
+          "label": "Aujourd'hui",
+          "text": "Nuageux. Neige ou pluie débutant en mi-journée. Accumulation de neige de 2 cm en terrains élevés. Vents du sud-ouest de 20 km/h. Maximum plus 3. Indice UV de 1 ou bas.",
+          "snow_cm": [
+            2.0,
+            2.0
+          ],
+          "risk": "Pluie / neige"
+        },
+        {
+          "date": "2026-11-10",
+          "label": "Ce soir et cette nuit",
+          "text": "Neige ou pluie cessant vers minuit. Nuageux par la suite avec 40 pour cent de probabilité d'averses de neige ou de pluie. Minimum zéro.",
+          "snow_cm": null,
+          "risk": "Pluie / neige"
+        },
+        {
+          "date": "2026-11-11",
+          "label": "Mercredi",
+          "text": "Nuageux. Maximum plus 4. Indice UV de 1 ou bas.",
+          "snow_cm": null,
+          "risk": "Sans risque hivernal identifié"
+        },
+        {
+          "date": "2026-11-11",
+          "label": "Mercredi soir et nuit",
+          "text": "Passages nuageux. Minimum moins 7.",
+          "snow_cm": null,
+          "risk": "Sans risque hivernal identifié"
+        },
+        {
+          "date": "2026-11-12",
+          "label": "Jeudi",
+          "text": "Alternance de soleil et de nuages avec 30 pour cent de probabilité d'averses. Maximum plus 3.",
+          "snow_cm": null,
+          "risk": "Pluie"
+        },
+        {
+          "date": "2026-11-12",
+          "label": "Jeudi soir et nuit",
+          "text": "Nuageux avec 60 pour cent de probabilité d'averses de pluie ou de neige. Minimum moins 1.",
+          "snow_cm": null,
+          "risk": "Pluie / neige"
+        },
+        {
+          "date": "2026-11-13",
+          "label": "Vendredi",
+          "text": "Pluie intermittente. Maximum plus 4.",
+          "snow_cm": null,
+          "risk": "Pluie"
+        },
+        {
+          "date": "2026-11-13",
+          "label": "Vendredi soir et nuit",
+          "text": "Pluie ou neige. Minimum zéro.",
+          "snow_cm": null,
+          "risk": "Pluie / neige"
+        },
+        {
+          "date": "2026-11-14",
+          "label": "Samedi",
+          "text": "Neige intermittente ou pluie. Maximum plus 4.",
+          "snow_cm": null,
+          "risk": "Pluie / neige"
+        },
+        {
+          "date": "2026-11-14",
+          "label": "Samedi soir et nuit",
+          "text": "Nuageux. Minimum moins 1.",
+          "snow_cm": null,
+          "risk": "Sans risque hivernal identifié"
+        },
+        {
+          "date": "2026-11-15",
+          "label": "Dimanche",
+          "text": "Alternance de soleil et de nuages. Maximum plus 3.",
+          "snow_cm": null,
+          "risk": "Sans risque hivernal identifié"
+        },
+        {
+          "date": "2026-11-15",
+          "label": "Dimanche soir et nuit",
+          "text": "Passages nuageux. Minimum moins 1.",
+          "snow_cm": null,
+          "risk": "Sans risque hivernal identifié"
+        },
+        {
+          "date": "2026-11-16",
+          "label": "Lundi",
+          "text": "Alternance de soleil et de nuages. Maximum plus 3.",
+          "snow_cm": null,
+          "risk": "Sans risque hivernal identifié"
+        }
+      ],
+      "hourly": [
+        {
+          "time": "2026-11-10T12:00:00Z",
+          "temp": 0,
+          "condition": "Nuageux",
+          "wind": 20,
+          "gust": null,
+          "pop": 0
+        },
+        {
+          "time": "2026-11-10T13:00:00Z",
+          "temp": 1,
+          "condition": "Nuageux",
+          "wind": 20,
+          "gust": null,
+          "pop": 0
+        },
+        {
+          "time": "2026-11-10T14:00:00Z",
+          "temp": 1,
+          "condition": "Nuageux",
+          "wind": 20,
+          "gust": null,
+          "pop": 0
+        },
+        {
+          "time": "2026-11-10T15:00:00Z",
+          "temp": 2,
+          "condition": "Nuageux",
+          "wind": 20,
+          "gust": null,
+          "pop": 0
+        },
+        {
+          "time": "2026-11-10T16:00:00Z",
+          "temp": 2,
+          "condition": "Nuageux",
+          "wind": 20,
+          "gust": null,
+          "pop": 0
+        },
+        {
+          "time": "2026-11-10T17:00:00Z",
+          "temp": 3,
+          "condition": "Neige mêlée de pluie",
+          "wind": 20,
+          "gust": null,
+          "pop": 80
+        },
+        {
+          "time": "2026-11-10T18:00:00Z",
+          "temp": 3,
+          "condition": "Neige mêlée de pluie",
+          "wind": 20,
+          "gust": null,
+          "pop": 80
+        },
+        {
+          "time": "2026-11-10T19:00:00Z",
+          "temp": 3,
+          "condition": "Neige mêlée de pluie",
+          "wind": 20,
+          "gust": null,
+          "pop": 80
+        },
+        {
+          "time": "2026-11-10T20:00:00Z",
+          "temp": 2,
+          "condition": "Neige mêlée de pluie",
+          "wind": 20,
+          "gust": null,
+          "pop": 80
+        },
+        {
+          "time": "2026-11-10T21:00:00Z",
+          "temp": 2,
+          "condition": "Neige mêlée de pluie",
+          "wind": 20,
+          "gust": null,
+          "pop": 80
+        },
+        {
+          "time": "2026-11-10T22:00:00Z",
+          "temp": 2,
+          "condition": "Neige mêlée de pluie",
+          "wind": 20,
+          "gust": null,
+          "pop": 80
+        },
+        {
+          "time": "2026-11-10T23:00:00Z",
+          "temp": 2,
+          "condition": "Neige mêlée de pluie",
+          "wind": 5,
+          "gust": null,
+          "pop": 80
+        },
+        {
+          "time": "2026-11-11T00:00:00Z",
+          "temp": 2,
+          "condition": "Neige mêlée de pluie",
+          "wind": 5,
+          "gust": null,
+          "pop": 80
+        },
+        {
+          "time": "2026-11-11T01:00:00Z",
+          "temp": 2,
+          "condition": "Neige mêlée de pluie",
+          "wind": 5,
+          "gust": null,
+          "pop": 80
+        },
+        {
+          "time": "2026-11-11T02:00:00Z",
+          "temp": 2,
+          "condition": "Neige mêlée de pluie",
+          "wind": 5,
+          "gust": null,
+          "pop": 80
+        },
+        {
+          "time": "2026-11-11T03:00:00Z",
+          "temp": 2,
+          "condition": "Neige mêlée de pluie",
+          "wind": 5,
+          "gust": null,
+          "pop": 80
+        },
+        {
+          "time": "2026-11-11T04:00:00Z",
+          "temp": 2,
+          "condition": "Neige mêlée de pluie",
+          "wind": 5,
+          "gust": null,
+          "pop": 80
+        },
+        {
+          "time": "2026-11-11T05:00:00Z",
+          "temp": 2,
+          "condition": "Possibilité d'averses de neige ou de pluie",
+          "wind": 5,
+          "gust": null,
+          "pop": 40
+        },
+        {
+          "time": "2026-11-11T06:00:00Z",
+          "temp": 2,
+          "condition": "Possibilité d'averses de neige ou de pluie",
+          "wind": 5,
+          "gust": null,
+          "pop": 40
+        },
+        {
+          "time": "2026-11-11T07:00:00Z",
+          "temp": 2,
+          "condition": "Possibilité d'averses de neige ou de pluie",
+          "wind": 15,
+          "gust": null,
+          "pop": 40
+        },
+        {
+          "time": "2026-11-11T08:00:00Z",
+          "temp": 1,
+          "condition": "Possibilité d'averses de neige ou de pluie",
+          "wind": 15,
+          "gust": null,
+          "pop": 40
+        },
+        {
+          "time": "2026-11-11T09:00:00Z",
+          "temp": 1,
+          "condition": "Possibilité d'averses de neige ou de pluie",
+          "wind": 15,
+          "gust": null,
+          "pop": 40
+        },
+        {
+          "time": "2026-11-11T10:00:00Z",
+          "temp": 1,
+          "condition": "Possibilité d'averses de neige ou de pluie",
+          "wind": 15,
+          "gust": null,
+          "pop": 40
+        },
+        {
+          "time": "2026-11-11T11:00:00Z",
+          "temp": 0,
+          "condition": "Nuageux",
+          "wind": 15,
+          "gust": null,
+          "pop": 0
+        }
+      ],
+      "current": {
+        "iconCode": {
+          "format": "gif"
+        },
+        "timestamp": {
+          "en": "2026-11-10T11:00:00Z",
+          "fr": "2026-11-10T11:00:00Z"
+        },
+        "relativeHumidity": {
+          "units": {
+            "en": "%",
+            "fr": "%"
+          },
+          "qaValue": {
+            "en": 100,
+            "fr": 100
+          },
+          "value": {
+            "en": 82,
+            "fr": 82
+          }
+        },
+        "wind": {
+          "speed": {
+            "unitType": {
+              "en": "metric",
+              "fr": "metric"
+            },
+            "units": {
+              "en": "km/h",
+              "fr": "km/h"
+            },
+            "qaValue": {
+              "en": 100,
+              "fr": 100
+            },
+            "value": {
+              "en": "calm",
+              "fr": "calme"
+            }
+          },
+          "direction": {
+            "qaValue": {
+              "en": 100,
+              "fr": 100
+            },
+            "value": {
+              "en": "WNW",
+              "fr": "ONO"
+            }
+          },
+          "bearing": {
+            "units": {
+              "en": "degrees",
+              "fr": "degrees"
+            },
+            "qaValue": {
+              "en": 100,
+              "fr": 100
+            },
+            "value": {
+              "en": 286.6,
+              "fr": 286.6
+            }
+          },
+          "gust": {
+            "unitType": {
+              "en": "metric",
+              "fr": "metric"
+            },
+            "units": {
+              "en": "km/h",
+              "fr": "km/h"
+            },
+            "value": {
+              "en": 27,
+              "fr": 27
+            },
+            "qaValue": {
+              "en": 100,
+              "fr": 100
+            }
+          }
+        },
+        "pressure": {
+          "unitType": {
+            "en": "metric",
+            "fr": "metric"
+          },
+          "units": {
+            "en": "kPa",
+            "fr": "kPa"
+          },
+          "change": {
+            "en": 0.02,
+            "fr": 0.02
+          },
+          "tendency": {
+            "en": "rising",
+            "fr": "à la hausse"
+          },
+          "value": {
+            "en": 100.9,
+            "fr": 100.9
+          }
+        },
+        "temperature": {
+          "unitType": {
+            "en": "metric",
+            "fr": "metric"
+          },
+          "units": {
+            "en": "C",
+            "fr": "C"
+          },
+          "qaValue": {
+            "en": 100,
+            "fr": 100
+          },
+          "value": {
+            "en": 1.4,
+            "fr": 1.4
+          }
+        },
+        "dewpoint": {
+          "unitType": {
+            "en": "metric",
+            "fr": "metric"
+          },
+          "units": {
+            "en": "C",
+            "fr": "C"
+          },
+          "value": {
+            "en": -1.4,
+            "fr": -1.4
+          }
+        },
+        "station": {
+          "code": {
+            "en": "whv",
+            "fr": "whv"
+          },
+          "lat": {
+            "en": "46.20N",
+            "fr": "46.20N"
+          },
+          "lon": {
+            "en": "70.79W",
+            "fr": "70.79O"
+          },
+          "value": {
+            "en": "Beauceville",
+            "fr": "Beauceville"
+          }
+        },
+        "windChill": {
+          "unitType": {
+            "en": "metric",
+            "fr": "metric"
+          },
+          "value": {
+            "en": -2,
+            "fr": -2
+          },
+          "qaValue": {
+            "en": 100,
+            "fr": 100
+          }
+        }
+      },
+      "region": "secteur de Saint-Georges-de-Beauce",
+      "note": "Bulletin officiel du secteur de Saint-Georges. Quantités par période; horaires dans le texte original."
+    },
+    {
+      "id": "met",
+      "name": "MET Norway",
+      "url": "https://api.met.no/weatherapi/locationforecast/2.0/compact?lat=46.214&lon=-70.486",
+      "status": "ok",
+      "fetched_at": "2026-11-10T12:00:40.641607+00:00",
+      "issued_at": "2026-11-10T11:20:41Z",
+      "days": [
+        {
+          "date": "2026-11-10",
+          "high": 3.8,
+          "low": 1.5,
+          "snow_cm": null,
+          "rain_mm": null,
+          "ice_mm": null,
+          "condition": "Sans risque hivernal identifié · Pluie",
+          "risk": "Pluie"
+        },
+        {
+          "date": "2026-11-11",
+          "high": 3.0,
+          "low": -1.2,
+          "snow_cm": null,
+          "rain_mm": null,
+          "ice_mm": null,
+          "condition": "Sans risque hivernal identifié",
+          "risk": "Sans risque hivernal identifié"
+        },
+        {
+          "date": "2026-11-12",
+          "high": 3.7,
+          "low": -3.6,
+          "snow_cm": null,
+          "rain_mm": null,
+          "ice_mm": null,
+          "condition": "Sans risque hivernal identifié",
+          "risk": "Sans risque hivernal identifié"
+        },
+        {
+          "date": "2026-11-13",
+          "high": 3.3,
+          "low": -3.2,
+          "snow_cm": null,
+          "rain_mm": null,
+          "ice_mm": null,
+          "condition": "Sans risque hivernal identifié",
+          "risk": "Sans risque hivernal identifié"
+        },
+        {
+          "date": "2026-11-14",
+          "high": 3.4,
+          "low": -0.5,
+          "snow_cm": null,
+          "rain_mm": null,
+          "ice_mm": null,
+          "condition": "Sans risque hivernal identifié",
+          "risk": "Sans risque hivernal identifié"
+        },
+        {
+          "date": "2026-11-15",
+          "high": 4.9,
+          "low": 1.9,
+          "snow_cm": null,
+          "rain_mm": null,
+          "ice_mm": null,
+          "condition": "Sans risque hivernal identifié",
+          "risk": "Sans risque hivernal identifié"
+        },
+        {
+          "date": "2026-11-16",
+          "high": 3.1,
+          "low": -2.4,
+          "snow_cm": null,
+          "rain_mm": null,
+          "ice_mm": null,
+          "condition": "Sans risque hivernal identifié",
+          "risk": "Sans risque hivernal identifié"
+        },
+        {
+          "date": "2026-11-17",
+          "high": 2.4,
+          "low": -2.6,
+          "snow_cm": null,
+          "rain_mm": null,
+          "ice_mm": null,
+          "condition": "Sans risque hivernal identifié",
+          "risk": "Sans risque hivernal identifié"
+        },
+        {
+          "date": "2026-11-18",
+          "high": 5.5,
+          "low": -3.0,
+          "snow_cm": null,
+          "rain_mm": null,
+          "ice_mm": null,
+          "condition": "Sans risque hivernal identifié",
+          "risk": "Sans risque hivernal identifié"
+        },
+        {
+          "date": "2026-11-19",
+          "high": 8.5,
+          "low": 2.9,
+          "snow_cm": null,
+          "rain_mm": null,
+          "ice_mm": null,
+          "condition": "Sans risque hivernal identifié",
+          "risk": "Sans risque hivernal identifié"
+        }
+      ],
+      "hourly": [
+        {
+          "time": "2026-11-10T12:00:00Z",
+          "temp": 1.5,
+          "condition": "cloudy",
+          "wind": 13,
+          "precip_mm": 0.0
+        },
+        {
+          "time": "2026-11-10T13:00:00Z",
+          "temp": 2.2,
+          "condition": "cloudy",
+          "wind": 13,
+          "precip_mm": 0.0
+        },
+        {
+          "time": "2026-11-10T14:00:00Z",
+          "temp": 3.0,
+          "condition": "cloudy",
+          "wind": 18,
+          "precip_mm": 0.0
+        },
+        {
+          "time": "2026-11-10T15:00:00Z",
+          "temp": 3.8,
+          "condition": "cloudy",
+          "wind": 19,
+          "precip_mm": 0.0
+        },
+        {
+          "time": "2026-11-10T16:00:00Z",
+          "temp": 3.8,
+          "condition": "cloudy",
+          "wind": 17,
+          "precip_mm": 0.0
+        },
+        {
+          "time": "2026-11-10T17:00:00Z",
+          "temp": 3.2,
+          "condition": "lightrain",
+          "wind": 15,
+          "precip_mm": 0.3
+        },
+        {
+          "time": "2026-11-10T18:00:00Z",
+          "temp": 2.7,
+          "condition": "cloudy",
+          "wind": 15,
+          "precip_mm": 0.0
+        },
+        {
+          "time": "2026-11-10T19:00:00Z",
+          "temp": 3.3,
+          "condition": "lightrain",
+          "wind": 15,
+          "precip_mm": 0.1
+        },
+        {
+          "time": "2026-11-10T20:00:00Z",
+          "temp": 3.1,
+          "condition": "lightrain",
+          "wind": 11,
+          "precip_mm": 0.1
+        },
+        {
+          "time": "2026-11-10T21:00:00Z",
+          "temp": 2.9,
+          "condition": "lightrain",
+          "wind": 8,
+          "precip_mm": 0.4
+        },
+        {
+          "time": "2026-11-10T22:00:00Z",
+          "temp": 2.6,
+          "condition": "rain",
+          "wind": 8,
+          "precip_mm": 0.6
+        },
+        {
+          "time": "2026-11-10T23:00:00Z",
+          "temp": 2.5,
+          "condition": "rain",
+          "wind": 7,
+          "precip_mm": 0.5
+        },
+        {
+          "time": "2026-11-11T00:00:00Z",
+          "temp": 2.8,
+          "condition": "rain",
+          "wind": 6,
+          "precip_mm": 0.7
+        },
+        {
+          "time": "2026-11-11T01:00:00Z",
+          "temp": 3.0,
+          "condition": "rain",
+          "wind": 5,
+          "precip_mm": 0.7
+        },
+        {
+          "time": "2026-11-11T02:00:00Z",
+          "temp": 3.1,
+          "condition": "cloudy",
+          "wind": 5,
+          "precip_mm": 0.0
+        },
+        {
+          "time": "2026-11-11T03:00:00Z",
+          "temp": 3.2,
+          "condition": "lightrain",
+          "wind": 9,
+          "precip_mm": 0.2
+        },
+        {
+          "time": "2026-11-11T04:00:00Z",
+          "temp": 3.1,
+          "condition": "lightrain",
+          "wind": 13,
+          "precip_mm": 0.1
+        },
+        {
+          "time": "2026-11-11T05:00:00Z",
+          "temp": 2.3,
+          "condition": "cloudy",
+          "wind": 14,
+          "precip_mm": 0.0
+        },
+        {
+          "time": "2026-11-11T06:00:00Z",
+          "temp": 1.7,
+          "condition": "cloudy",
+          "wind": 16,
+          "precip_mm": 0.0
+        },
+        {
+          "time": "2026-11-11T07:00:00Z",
+          "temp": 1.5,
+          "condition": "cloudy",
+          "wind": 15,
+          "precip_mm": 0.0
+        },
+        {
+          "time": "2026-11-11T08:00:00Z",
+          "temp": 1.1,
+          "condition": "cloudy",
+          "wind": 15,
+          "precip_mm": 0.0
+        },
+        {
+          "time": "2026-11-11T09:00:00Z",
+          "temp": 0.6,
+          "condition": "cloudy",
+          "wind": 14,
+          "precip_mm": 0.0
+        },
+        {
+          "time": "2026-11-11T10:00:00Z",
+          "temp": 0.4,
+          "condition": "cloudy",
+          "wind": 15,
+          "precip_mm": 0.0
+        },
+        {
+          "time": "2026-11-11T11:00:00Z",
+          "temp": 0.4,
+          "condition": "cloudy",
+          "wind": 14,
+          "precip_mm": 0.0
+        },
+        {
+          "time": "2026-11-11T12:00:00Z",
+          "temp": 0.6,
+          "condition": "cloudy",
+          "wind": 12,
+          "precip_mm": 0.0
+        },
+        {
+          "time": "2026-11-11T13:00:00Z",
+          "temp": 0.8,
+          "condition": "cloudy",
+          "wind": 13,
+          "precip_mm": 0.0
+        },
+        {
+          "time": "2026-11-11T14:00:00Z",
+          "temp": 1.3,
+          "condition": "partlycloudy_day",
+          "wind": 15,
+          "precip_mm": 0.0
+        },
+        {
+          "time": "2026-11-11T15:00:00Z",
+          "temp": 2.2,
+          "condition": "partlycloudy_day",
+          "wind": 17,
+          "precip_mm": 0.0
+        },
+        {
+          "time": "2026-11-11T16:00:00Z",
+          "temp": 3.0,
+          "condition": "partlycloudy_day",
+          "wind": 17,
+          "precip_mm": 0.0
+        },
+        {
+          "time": "2026-11-11T17:00:00Z",
+          "temp": 3.0,
+          "condition": "cloudy",
+          "wind": 18,
+          "precip_mm": 0.0
+        },
+        {
+          "time": "2026-11-11T18:00:00Z",
+          "temp": 2.8,
+          "condition": "cloudy",
+          "wind": 18,
+          "precip_mm": 0.0
+        },
+        {
+          "time": "2026-11-11T19:00:00Z",
+          "temp": 2.6,
+          "condition": "cloudy",
+          "wind": 18,
+          "precip_mm": 0.0
+        },
+        {
+          "time": "2026-11-11T20:00:00Z",
+          "temp": 2.3,
+          "condition": "cloudy",
+          "wind": 15,
+          "precip_mm": 0.0
+        },
+        {
+          "time": "2026-11-11T21:00:00Z",
+          "temp": 1.9,
+          "condition": "cloudy",
+          "wind": 13,
+          "precip_mm": 0.0
+        },
+        {
+          "time": "2026-11-11T22:00:00Z",
+          "temp": 1.2,
+          "condition": "cloudy",
+          "wind": 12,
+          "precip_mm": 0.0
+        },
+        {
+          "time": "2026-11-11T23:00:00Z",
+          "temp": 1.1,
+          "condition": "partlycloudy_night",
+          "wind": 11,
+          "precip_mm": 0.0
+        },
+        {
+          "time": "2026-11-12T00:00:00Z",
+          "temp": -0.4,
+          "condition": "partlycloudy_night",
+          "wind": 10,
+          "precip_mm": 0.0
+        },
+        {
+          "time": "2026-11-12T01:00:00Z",
+          "temp": -0.8,
+          "condition": "partlycloudy_night",
+          "wind": 8,
+          "precip_mm": 0.0
+        },
+        {
+          "time": "2026-11-12T02:00:00Z",
+          "temp": -1.2,
+          "condition": "cloudy",
+          "wind": 8,
+          "precip_mm": 0.0
+        },
+        {
+          "time": "2026-11-12T03:00:00Z",
+          "temp": -1.2,
+          "condition": "cloudy",
+          "wind": 7,
+          "precip_mm": 0.0
+        },
+        {
+          "time": "2026-11-12T04:00:00Z",
+          "temp": -1.1,
+          "condition": "partlycloudy_night",
+          "wind": 6,
+          "precip_mm": 0.0
+        },
+        {
+          "time": "2026-11-12T05:00:00Z",
+          "temp": -1.3,
+          "condition": "cloudy",
+          "wind": 7,
+          "precip_mm": 0.0
+        },
+        {
+          "time": "2026-11-12T06:00:00Z",
+          "temp": -1.9,
+          "condition": "partlycloudy_night",
+          "wind": 7,
+          "precip_mm": 0.0
+        },
+        {
+          "time": "2026-11-12T07:00:00Z",
+          "temp": -3.0,
+          "condition": "partlycloudy_night",
+          "wind": 6,
+          "precip_mm": 0.0
+        },
+        {
+          "time": "2026-11-12T08:00:00Z",
+          "temp": -3.6,
+          "condition": "cloudy",
+          "wind": 6,
+          "precip_mm": 0.0
+        },
+        {
+          "time": "2026-11-12T09:00:00Z",
+          "temp": -3.5,
+          "condition": "cloudy",
+          "wind": 8,
+          "precip_mm": 0.0
+        },
+        {
+          "time": "2026-11-12T10:00:00Z",
+          "temp": -2.8,
+          "condition": "cloudy",
+          "wind": 6,
+          "precip_mm": 0.0
+        },
+        {
+          "time": "2026-11-12T11:00:00Z",
+          "temp": -2.9,
+          "condition": "cloudy",
+          "wind": 6,
+          "precip_mm": 0.0
+        },
+        {
+          "time": "2026-11-12T12:00:00Z",
+          "temp": -2.8,
+          "condition": "cloudy",
+          "wind": 6,
+          "precip_mm": 0.0
+        },
+        {
+          "time": "2026-11-12T13:00:00Z",
+          "temp": -0.6,
+          "condition": "cloudy",
+          "wind": 5,
+          "precip_mm": 0.0
+        },
+        {
+          "time": "2026-11-12T14:00:00Z",
+          "temp": 0.9,
+          "condition": "partlycloudy_day",
+          "wind": 5,
+          "precip_mm": 0.0
+        },
+        {
+          "time": "2026-11-12T15:00:00Z",
+          "temp": 2.1,
+          "condition": "cloudy",
+          "wind": 7,
+          "precip_mm": 0.0
+        },
+        {
+          "time": "2026-11-12T16:00:00Z",
+          "temp": 3.0,
+          "condition": "partlycloudy_day",
+          "wind": 6,
+          "precip_mm": 0.0
+        },
+        {
+          "time": "2026-11-12T17:00:00Z",
+          "temp": 3.3,
+          "condition": "partlycloudy_day",
+          "wind": 6,
+          "precip_mm": 0.0
+        },
+        {
+          "time": "2026-11-12T18:00:00Z",
+          "temp": 3.7,
+          "condition": "partlycloudy_day",
+          "wind": 6,
+          "precip_mm": 0.0
+        },
+        {
+          "time": "2026-11-12T19:00:00Z",
+          "temp": 3.7,
+          "condition": "partlycloudy_day",
+          "wind": 5,
+          "precip_mm": 0.0
+        },
+        {
+          "time": "2026-11-12T20:00:00Z",
+          "temp": 3.3,
+          "condition": "partlycloudy_day",
+          "wind": 4,
+          "precip_mm": 0.0
+        },
+        {
+          "time": "2026-11-12T21:00:00Z",
+          "temp": 0.7,
+          "condition": "fair_night",
+          "wind": 8,
+          "precip_mm": 0.0
+        },
+        {
+          "time": "2026-11-12T22:00:00Z",
+          "temp": -1.1,
+          "condition": "partlycloudy_night",
+          "wind": 9,
+          "precip_mm": 0.0
+        },
+        {
+          "time": "2026-11-12T23:00:00Z",
+          "temp": -1.9,
+          "condition": "partlycloudy_night",
+          "wind": 8,
+          "precip_mm": 0.0
+        },
+        {
+          "time": "2026-11-13T00:00:00Z",
+          "temp": -2.0,
+          "condition": "cloudy",
+          "wind": 9,
+          "precip_mm": 0.0
+        },
+        {
+          "time": "2026-11-13T06:00:00Z",
+          "temp": -1.2,
+          "condition": "cloudy",
+          "wind": 11,
+          "precip_mm": 0.0
+        },
+        {
+          "time": "2026-11-13T12:00:00Z",
+          "temp": -3.2,
+          "condition": "partlycloudy_day",
+          "wind": 10,
+          "precip_mm": 0.0
+        },
+        {
+          "time": "2026-11-13T18:00:00Z",
+          "temp": 3.3,
+          "condition": "cloudy",
+          "wind": 14,
+          "precip_mm": 0.0
+        },
+        {
+          "time": "2026-11-14T00:00:00Z",
+          "temp": 0.3,
+          "condition": "cloudy",
+          "wind": 15,
+          "precip_mm": 0.0
+        },
+        {
+          "time": "2026-11-14T06:00:00Z",
+          "temp": -0.5,
+          "condition": "cloudy",
+          "wind": 11,
+          "precip_mm": 0.1
+        },
+        {
+          "time": "2026-11-14T12:00:00Z",
+          "temp": 1.0,
+          "condition": "cloudy",
+          "wind": 12,
+          "precip_mm": 0.5
+        },
+        {
+          "time": "2026-11-14T18:00:00Z",
+          "temp": 3.4,
+          "condition": "cloudy",
+          "wind": 15,
+          "precip_mm": 0.0
+        },
+        {
+          "time": "2026-11-15T00:00:00Z",
+          "temp": 2.1,
+          "condition": "cloudy",
+          "wind": 13,
+          "precip_mm": 0.2
+        },
+        {
+          "time": "2026-11-15T06:00:00Z",
+          "temp": 2.6,
+          "condition": "cloudy",
+          "wind": 13,
+          "precip_mm": 0.0
+        },
+        {
+          "time": "2026-11-15T12:00:00Z",
+          "temp": 1.9,
+          "condition": "cloudy",
+          "wind": 10,
+          "precip_mm": 0.0
+        },
+        {
+          "time": "2026-11-15T18:00:00Z",
+          "temp": 4.9,
+          "condition": "cloudy",
+          "wind": 14,
+          "precip_mm": 0.0
+        },
+        {
+          "time": "2026-11-16T00:00:00Z",
+          "temp": 2.6,
+          "condition": "cloudy",
+          "wind": 4,
+          "precip_mm": 0.0
+        },
+        {
+          "time": "2026-11-16T06:00:00Z",
+          "temp": 0.9,
+          "condition": "cloudy",
+          "wind": 5,
+          "precip_mm": 0.0
+        },
+        {
+          "time": "2026-11-16T12:00:00Z",
+          "temp": -2.4,
+          "condition": "fair_day",
+          "wind": 6,
+          "precip_mm": 0.1
+        },
+        {
+          "time": "2026-11-16T18:00:00Z",
+          "temp": 3.1,
+          "condition": "cloudy",
+          "wind": 9,
+          "precip_mm": 0.1
+        },
+        {
+          "time": "2026-11-17T00:00:00Z",
+          "temp": 1.8,
+          "condition": "cloudy",
+          "wind": 6,
+          "precip_mm": 0.0
+        },
+        {
+          "time": "2026-11-17T06:00:00Z",
+          "temp": -2.6,
+          "condition": "clearsky_night",
+          "wind": 5,
+          "precip_mm": 0.0
+        },
+        {
+          "time": "2026-11-17T12:00:00Z",
+          "temp": -1.8,
+          "condition": "partlycloudy_day",
+          "wind": 8,
+          "precip_mm": 0.1
+        },
+        {
+          "time": "2026-11-17T18:00:00Z",
+          "temp": 2.4,
+          "condition": "cloudy",
+          "wind": 13,
+          "precip_mm": 0.0
+        },
+        {
+          "time": "2026-11-18T00:00:00Z",
+          "temp": 0.3,
+          "condition": "cloudy",
+          "wind": 9,
+          "precip_mm": 0.0
+        },
+        {
+          "time": "2026-11-18T06:00:00Z",
+          "temp": -1.7,
+          "condition": "clearsky_night",
+          "wind": 9,
+          "precip_mm": 0.0
+        },
+        {
+          "time": "2026-11-18T12:00:00Z",
+          "temp": -3.0,
+          "condition": "partlycloudy_day",
+          "wind": 9,
+          "precip_mm": 0.0
+        },
+        {
+          "time": "2026-11-18T18:00:00Z",
+          "temp": 5.5,
+          "condition": "cloudy",
+          "wind": 14,
+          "precip_mm": 0.0
+        },
+        {
+          "time": "2026-11-19T00:00:00Z",
+          "temp": 4.1,
+          "condition": "cloudy",
+          "wind": 14,
+          "precip_mm": 0.2
+        },
+        {
+          "time": "2026-11-19T06:00:00Z",
+          "temp": 4.5,
+          "condition": "cloudy",
+          "wind": 14,
+          "precip_mm": 0.3
+        },
+        {
+          "time": "2026-11-19T12:00:00Z",
+          "temp": 4.8,
+          "condition": "cloudy",
+          "wind": 14,
+          "precip_mm": 0.0
+        },
+        {
+          "time": "2026-11-19T18:00:00Z",
+          "temp": 8.5,
+          "condition": "fair_day",
+          "wind": 18,
+          "precip_mm": 0.0
+        },
+        {
+          "time": "2026-11-20T00:00:00Z",
+          "temp": 2.9,
+          "condition": "",
+          "wind": 13,
+          "precip_mm": null
+        }
+      ],
+      "note": "Modèle indépendant MET Norway. Pas de conversion des précipitations liquides en cm de neige. Max/min calculés sur les échéances disponibles."
+    },
+    {
+      "id": "accu",
+      "name": "AccuWeather",
+      "url": "https://www.accuweather.com/fr/ca/saint-prosper/g0m/daily-weather-forecast/3390993",
+      "status": "ok",
+      "fetched_at": "2026-11-10T12:00:40.641607+00:00",
+      "issued_at": null,
+      "days": [
+        {
+          "date": "2026-11-10",
+          "high": 7.0,
+          "low": 1.0,
+          "snow_cm": null,
+          "rain_mm": null,
+          "ice_mm": null,
+          "condition": "Nuageux avec quelques averses",
+          "risk": "Pluie"
+        },
+        {
+          "date": "2026-11-11",
+          "high": 5.0,
+          "low": -2.0,
+          "snow_cm": null,
+          "rain_mm": null,
+          "ice_mm": null,
+          "condition": "Nuages et soleil, averses",
+          "risk": "Pluie"
+        },
+        {
+          "date": "2026-11-12",
+          "high": 6.0,
+          "low": -2.0,
+          "snow_cm": null,
+          "rain_mm": null,
+          "ice_mm": null,
+          "condition": "Nuageux",
+          "risk": "Sans risque hivernal identifié"
+        },
+        {
+          "date": "2026-11-13",
+          "high": 3.0,
+          "low": -1.0,
+          "snow_cm": null,
+          "rain_mm": null,
+          "ice_mm": null,
+          "condition": "Soleil suivi de nuages, possibilité de faibles pluie et neige se transformant en pluie",
+          "risk": "Pluie / neige"
+        },
+        {
+          "date": "2026-11-14",
+          "high": 3.0,
+          "low": 0.0,
+          "snow_cm": null,
+          "rain_mm": null,
+          "ice_mm": null,
+          "condition": "Faibles neige, 3-6 cm; venteux",
+          "risk": "Neige"
+        },
+        {
+          "date": "2026-11-15",
+          "high": 6.0,
+          "low": -3.0,
+          "snow_cm": null,
+          "rain_mm": null,
+          "ice_mm": null,
+          "condition": "Couvert",
+          "risk": "Sans risque hivernal identifié"
+        },
+        {
+          "date": "2026-11-16",
+          "high": 6.0,
+          "low": -3.0,
+          "snow_cm": null,
+          "rain_mm": null,
+          "ice_mm": null,
+          "condition": "Nuages et soleil",
+          "risk": "Sans risque hivernal identifié"
+        },
+        {
+          "date": "2026-11-17",
+          "high": 6.0,
+          "low": -1.0,
+          "snow_cm": null,
+          "rain_mm": null,
+          "ice_mm": null,
+          "condition": "Plutôt nuageux",
+          "risk": "Sans risque hivernal identifié"
+        }
+      ],
+      "note": "Page publique actuelle; heure d’émission non publiée dans les données extraites. Quantités non affichées ici = indisponibles, jamais zéro."
+    },
+    {
+      "id": "wu",
+      "name": "Weather Underground",
+      "url": "https://www.wunderground.com/forecast/ca/saint-prosper/46.214,-70.486",
+      "status": "ok",
+      "fetched_at": "2026-11-10T12:00:40.641607+00:00",
+      "issued_at": null,
+      "days": [
+        {
+          "date": "2026-11-11",
+          "high": 37.0,
+          "low": 26.0,
+          "snow_cm": null,
+          "rain_mm": null,
+          "ice_mm": null,
+          "condition": "Cloudy",
+          "risk": "Sans risque hivernal identifié"
+        },
+        {
+          "date": "2026-11-12",
+          "high": 40.0,
+          "low": 26.0,
+          "snow_cm": null,
+          "rain_mm": null,
+          "ice_mm": null,
+          "condition": "Cloudy",
+          "risk": "Sans risque hivernal identifié"
+        },
+        {
+          "date": "2026-11-13",
+          "high": 37.0,
+          "low": 30.0,
+          "snow_cm": null,
+          "rain_mm": null,
+          "ice_mm": null,
+          "condition": "Cloudy",
+          "risk": "Sans risque hivernal identifié"
+        },
+        {
+          "date": "2026-11-14",
+          "high": 36.0,
+          "low": 31.0,
+          "snow_cm": null,
+          "rain_mm": null,
+          "ice_mm": null,
+          "condition": "AM Snow Showers",
+          "risk": "Neige"
+        },
+        {
+          "date": "2026-11-15",
+          "high": 38.0,
+          "low": 26.0,
+          "snow_cm": null,
+          "rain_mm": null,
+          "ice_mm": null,
+          "condition": "Cloudy",
+          "risk": "Sans risque hivernal identifié"
+        },
+        {
+          "date": "2026-11-16",
+          "high": 38.0,
+          "low": 25.0,
+          "snow_cm": null,
+          "rain_mm": null,
+          "ice_mm": null,
+          "condition": "Partly Cloudy",
+          "risk": "Sans risque hivernal identifié"
+        },
+        {
+          "date": "2026-11-17",
+          "high": 38.0,
+          "low": 26.0,
+          "snow_cm": null,
+          "rain_mm": null,
+          "ice_mm": null,
+          "condition": "Partly Cloudy",
+          "risk": "Sans risque hivernal identifié"
+        }
+      ],
+      "note": "Prévisions demandées à 46,21 N / 70,49 O. Station d’observation voisine parfois affichée sous un autre nom. Heure d’émission non fournie; cm de neige non exposés avec une unité explicite."
+    },
+    {
+      "id": "mb",
+      "name": "meteoblue",
+      "url": "https://www.meteoblue.com/fr/meteo/semaine/saint-prosper_canada_8672691",
+      "status": "ok",
+      "fetched_at": "2026-11-10T12:00:40.641607+00:00",
+      "issued_at": null,
+      "days": [
+        {
+          "date": "2026-11-10",
+          "high": 4.0,
+          "low": 0.0,
+          "snow_cm": null,
+          "rain_mm": null,
+          "ice_mm": null,
+          "condition": "Nuageux avec des pluies occasionnelles",
+          "risk": "Pluie"
+        },
+        {
+          "date": "2026-11-11",
+          "high": 3.0,
+          "low": -1.0,
+          "snow_cm": null,
+          "rain_mm": null,
+          "ice_mm": null,
+          "condition": "Partiellement nuageux",
+          "risk": "Sans risque hivernal identifié"
+        },
+        {
+          "date": "2026-11-12",
+          "high": 4.0,
+          "low": -3.0,
+          "snow_cm": null,
+          "rain_mm": null,
+          "ice_mm": null,
+          "condition": "Partiellement nuageux / Clair avec quelques nuages",
+          "risk": "Sans risque hivernal identifié"
+        },
+        {
+          "date": "2026-11-13",
+          "high": 3.0,
+          "low": -3.0,
+          "snow_cm": null,
+          "rain_mm": null,
+          "ice_mm": null,
+          "condition": "Partiellement nuageux / Nuageux avec de la neige occasionnelle",
+          "risk": "Neige"
+        },
+        {
+          "date": "2026-11-14",
+          "high": 3.0,
+          "low": 0.0,
+          "snow_cm": null,
+          "rain_mm": null,
+          "ice_mm": null,
+          "condition": "Nuageux avec de la neige occasionnelle / Partiellement nuageux avec de la neige occasionnelle",
+          "risk": "Neige"
+        },
+        {
+          "date": "2026-11-15",
+          "high": 3.0,
+          "low": 0.0,
+          "snow_cm": null,
+          "rain_mm": null,
+          "ice_mm": null,
+          "condition": "Partiellement nuageux",
+          "risk": "Sans risque hivernal identifié"
+        },
+        {
+          "date": "2026-11-16",
+          "high": 3.0,
+          "low": -2.0,
+          "snow_cm": null,
+          "rain_mm": null,
+          "ice_mm": null,
+          "condition": "Partiellement nuageux",
+          "risk": "Sans risque hivernal identifié"
+        },
+        {
+          "date": "2026-11-17",
+          "high": 4.0,
+          "low": -4.0,
+          "snow_cm": null,
+          "rain_mm": null,
+          "ice_mm": null,
+          "condition": "Clair, ciel sans nuage",
+          "risk": "Sans risque hivernal identifié"
+        }
+      ],
+      "note": "Page publique datée. Quantités liquides non converties en neige. Heure d’émission non fournie."
+    },
+    {
+      "id": "mm",
+      "name": "MétéoMédia",
+      "url": "https://www.meteomedia.com/fr/ville/ca/quebec/saint-prosper/7-jours",
+      "status": "unavailable",
+      "error": "Page publique dynamique : données automatiques non disponibles; consultation directe possible"
+    }
+  ],
+  "official_alerts": {
+    "status": "ok",
+    "fetched_at": "2026-11-10T12:00:40.641607+00:00",
+    "items": []
+  },
+  "climate": {
+    "season": "2026–2027",
+    "start": "2026-10-01",
+    "end": "2027-05-31",
+    "records": [
+      {
+        "date": "2026-10-01",
+        "snow_cm": 0.0,
+        "snow_flag": "",
+        "rain_mm": 3.9,
+        "depth_cm": null,
+        "source": "Climat Québec · 7027660"
+      },
+      {
+        "date": "2026-10-02",
+        "snow_cm": 0.0,
+        "snow_flag": "",
+        "rain_mm": 3.4,
+        "depth_cm": null,
+        "source": "Climat Québec · 7027660"
+      },
+      {
+        "date": "2026-10-03",
+        "snow_cm": 0.0,
+        "snow_flag": "",
+        "rain_mm": 0.0,
+        "depth_cm": null,
+        "source": "Climat Québec · 7027660"
+      },
+      {
+        "date": "2026-10-04",
+        "snow_cm": 0.0,
+        "snow_flag": "",
+        "rain_mm": 2.6,
+        "depth_cm": null,
+        "source": "Climat Québec · 7027660"
+      },
+      {
+        "date": "2026-10-05",
+        "snow_cm": 0.0,
+        "snow_flag": "",
+        "rain_mm": 1.4,
+        "depth_cm": null,
+        "source": "Climat Québec · 7027660"
+      },
+      {
+        "date": "2026-10-06",
+        "snow_cm": 0.0,
+        "snow_flag": "",
+        "rain_mm": 0.0,
+        "depth_cm": null,
+        "source": "Climat Québec · 7027660"
+      },
+      {
+        "date": "2026-10-07",
+        "snow_cm": 0.0,
+        "snow_flag": "",
+        "rain_mm": 7.3,
+        "depth_cm": null,
+        "source": "Climat Québec · 7027660"
+      },
+      {
+        "date": "2026-10-08",
+        "snow_cm": 0.0,
+        "snow_flag": "",
+        "rain_mm": 13.3,
+        "depth_cm": null,
+        "source": "Climat Québec · 7027660"
+      },
+      {
+        "date": "2026-10-09",
+        "snow_cm": 0.0,
+        "snow_flag": "",
+        "rain_mm": 2.5,
+        "depth_cm": null,
+        "source": "Climat Québec · 7027660"
+      },
+      {
+        "date": "2026-10-10",
+        "snow_cm": 0.0,
+        "snow_flag": "",
+        "rain_mm": 0.0,
+        "depth_cm": null,
+        "source": "Climat Québec · 7027660"
+      },
+      {
+        "date": "2026-10-11",
+        "snow_cm": 0.0,
+        "snow_flag": "",
+        "rain_mm": 0.0,
+        "depth_cm": null,
+        "source": "Climat Québec · 7027660"
+      },
+      {
+        "date": "2026-10-12",
+        "snow_cm": 0.0,
+        "snow_flag": "",
+        "rain_mm": 2.3,
+        "depth_cm": null,
+        "source": "Climat Québec · 7027660"
+      },
+      {
+        "date": "2026-10-13",
+        "snow_cm": 0.0,
+        "snow_flag": "",
+        "rain_mm": 34.4,
+        "depth_cm": null,
+        "source": "Climat Québec · 7027660"
+      },
+      {
+        "date": "2026-10-14",
+        "snow_cm": 0.0,
+        "snow_flag": "",
+        "rain_mm": 1.2,
+        "depth_cm": null,
+        "source": "Climat Québec · 7027660"
+      },
+      {
+        "date": "2026-10-15",
+        "snow_cm": 0.0,
+        "snow_flag": "",
+        "rain_mm": 3.0,
+        "depth_cm": null,
+        "source": "Climat Québec · 7027660"
+      },
+      {
+        "date": "2026-10-16",
+        "snow_cm": 0.0,
+        "snow_flag": "",
+        "rain_mm": 5.5,
+        "depth_cm": null,
+        "source": "Climat Québec · 7027660"
+      },
+      {
+        "date": "2026-10-17",
+        "snow_cm": 0.0,
+        "snow_flag": "",
+        "rain_mm": 0.0,
+        "depth_cm": null,
+        "source": "Climat Québec · 7027660"
+      },
+      {
+        "date": "2026-10-18",
+        "snow_cm": 0.0,
+        "snow_flag": "",
+        "rain_mm": 0.0,
+        "depth_cm": null,
+        "source": "Climat Québec · 7027660"
+      },
+      {
+        "date": "2026-10-19",
+        "snow_cm": 0.0,
+        "snow_flag": "",
+        "rain_mm": 0.0,
+        "depth_cm": null,
+        "source": "Climat Québec · 7027660"
+      },
+      {
+        "date": "2026-10-20",
+        "snow_cm": 0.0,
+        "snow_flag": "",
+        "rain_mm": 0.0,
+        "depth_cm": null,
+        "source": "Climat Québec · 7027660"
+      },
+      {
+        "date": "2026-10-21",
+        "snow_cm": 0.0,
+        "snow_flag": "",
+        "rain_mm": 0.0,
+        "depth_cm": null,
+        "source": "Climat Québec · 7027660"
+      },
+      {
+        "date": "2026-10-22",
+        "snow_cm": 0.0,
+        "snow_flag": "",
+        "rain_mm": 0.0,
+        "depth_cm": null,
+        "source": "Climat Québec · 7027660"
+      },
+      {
+        "date": "2026-10-23",
+        "snow_cm": 0.0,
+        "snow_flag": "",
+        "rain_mm": 0.0,
+        "depth_cm": null,
+        "source": "Climat Québec · 7027660"
+      },
+      {
+        "date": "2026-10-24",
+        "snow_cm": 0.0,
+        "snow_flag": "",
+        "rain_mm": 0.0,
+        "depth_cm": null,
+        "source": "Climat Québec · 7027660"
+      },
+      {
+        "date": "2026-10-25",
+        "snow_cm": 0.0,
+        "snow_flag": "",
+        "rain_mm": 0.0,
+        "depth_cm": null,
+        "source": "Climat Québec · 7027660"
+      },
+      {
+        "date": "2026-10-26",
+        "snow_cm": 0.0,
+        "snow_flag": "",
+        "rain_mm": 0.0,
+        "depth_cm": null,
+        "source": "Climat Québec · 7027660"
+      },
+      {
+        "date": "2026-10-27",
+        "snow_cm": 0.0,
+        "snow_flag": "",
+        "rain_mm": 0.0,
+        "depth_cm": null,
+        "source": "Climat Québec · 7027660"
+      },
+      {
+        "date": "2026-10-28",
+        "snow_cm": 0.0,
+        "snow_flag": "",
+        "rain_mm": 0.0,
+        "depth_cm": null,
+        "source": "Climat Québec · 7027660"
+      },
+      {
+        "date": "2026-10-29",
+        "snow_cm": 0.0,
+        "snow_flag": "",
+        "rain_mm": 1.6,
+        "depth_cm": null,
+        "source": "Climat Québec · 7027660"
+      },
+      {
+        "date": "2026-10-30",
+        "snow_cm": 0.0,
+        "snow_flag": "",
+        "rain_mm": 2.6,
+        "depth_cm": null,
+        "source": "Climat Québec · 7027660"
+      },
+      {
+        "date": "2026-10-31",
+        "snow_cm": 0.0,
+        "snow_flag": "",
+        "rain_mm": 0.0,
+        "depth_cm": null,
+        "source": "Climat Québec · 7027660"
+      },
+      {
+        "date": "2026-11-01",
+        "snow_cm": 0.0,
+        "snow_flag": "",
+        "rain_mm": 0.0,
+        "depth_cm": null,
+        "source": "Climat Québec · 7027660"
+      },
+      {
+        "date": "2026-11-02",
+        "snow_cm": 0.0,
+        "snow_flag": "",
+        "rain_mm": 1.4,
+        "depth_cm": null,
+        "source": "Climat Québec · 7027660"
+      },
+      {
+        "date": "2026-11-03",
+        "snow_cm": 0.0,
+        "snow_flag": "",
+        "rain_mm": 11.0,
+        "depth_cm": null,
+        "source": "Climat Québec · 7027660"
+      },
+      {
+        "date": "2026-11-04",
+        "snow_cm": 0.0,
+        "snow_flag": "",
+        "rain_mm": 0.0,
+        "depth_cm": null,
+        "source": "Climat Québec · 7027660"
+      },
+      {
+        "date": "2026-11-05",
+        "snow_cm": 0.0,
+        "snow_flag": "",
+        "rain_mm": 4.0,
+        "depth_cm": null,
+        "source": "Climat Québec · 7027660"
+      },
+      {
+        "date": "2026-11-06",
+        "snow_cm": 0.0,
+        "snow_flag": "",
+        "rain_mm": 0.0,
+        "depth_cm": null,
+        "source": "Climat Québec · 7027660"
+      },
+      {
+        "date": "2026-11-07",
+        "snow_cm": 0.0,
+        "snow_flag": "",
+        "rain_mm": 9.7,
+        "depth_cm": null,
+        "source": "Climat Québec · 7027660"
+      },
+      {
+        "date": "2026-11-08",
+        "snow_cm": 0.0,
+        "snow_flag": "",
+        "rain_mm": 1.5,
+        "depth_cm": null,
+        "source": "Climat Québec · 7027660"
+      },
+      {
+        "date": "2026-11-09",
+        "snow_cm": null,
+        "snow_flag": "I",
+        "rain_mm": 0.0,
+        "depth_cm": null,
+        "source": "Climat Québec · 7027660"
+      }
+    ],
+    "total_cm": 0.0,
+    "last_date": "2026-11-08",
+    "missing_days": 1,
+    "checked_on": "2026-11-10",
+    "errors": [],
+    "url": "https://www.environnement.gouv.qc.ca/climat/donnees/sommaire.asp?cle=7027660&date_selection=2026-11-10",
+    "note": "Station automatique 7027660. La source répartit les précipitations en pluie/neige à titre indicatif selon la température horaire. Cumul des valeurs publiées, avec délai; ce n’est pas une mesure de votre cour ni la neige restant au sol."
+  },
+  "consensus": [
+    {
+      "date": "2026-11-10",
+      "sources": [
+        {
+          "source": "eccc",
+          "date": "2026-11-10",
+          "high": 3,
+          "low": 0,
+          "snow_cm": null,
+          "rain_mm": null,
+          "ice_mm": null,
+          "condition": "Nuageux. Neige ou pluie débutant en mi-journée. Accumulation de neige de 2 cm en terrains élevés. Vents du sud-ouest de 20 km/h. Maximum plus 3. Indice UV de 1 ou bas. Neige ou pluie cessant vers minuit. Nuageux par la suite avec 40 pour cent de probabilité d'averses de neige ou de pluie. Minimum zéro.",
+          "risk": "Pluie / neige"
+        },
+        {
+          "source": "met",
+          "date": "2026-11-10",
+          "high": 3.8,
+          "low": 1.5,
+          "snow_cm": null,
+          "rain_mm": null,
+          "ice_mm": null,
+          "condition": "Sans risque hivernal identifié · Pluie",
+          "risk": "Pluie"
+        },
+        {
+          "source": "accu",
+          "date": "2026-11-10",
+          "high": 7.0,
+          "low": 1.0,
+          "snow_cm": null,
+          "rain_mm": null,
+          "ice_mm": null,
+          "condition": "Nuageux avec quelques averses",
+          "risk": "Pluie"
+        },
+        {
+          "source": "mb",
+          "date": "2026-11-10",
+          "high": 4.0,
+          "low": 0.0,
+          "snow_cm": null,
+          "rain_mm": null,
+          "ice_mm": null,
+          "condition": "Nuageux avec des pluies occasionnelles",
+          "risk": "Pluie"
+        }
+      ],
+      "snow": {
+        "mean_cm": null,
+        "median_cm": null,
+        "min_cm": null,
+        "max_cm": null,
+        "count": 0
+      },
+      "risks": [
+        "Pluie",
+        "Pluie / neige"
+      ],
+      "high_mean": 4.5,
+      "low_mean": 0.6,
+      "high_range": [
+        3,
+        7.0
+      ],
+      "low_range": [
+        0,
+        1.5
+      ],
+      "confidence": "Faible",
+      "confidence_reason": "Accord qualitatif et couverture des sources; précision non encore validée. Fiabilité des cm au sol indéterminée."
+    },
+    {
+      "date": "2026-11-11",
+      "sources": [
+        {
+          "source": "eccc",
+          "date": "2026-11-11",
+          "high": 4,
+          "low": -7,
+          "snow_cm": null,
+          "rain_mm": null,
+          "ice_mm": null,
+          "condition": "Nuageux. Maximum plus 4. Indice UV de 1 ou bas. Passages nuageux. Minimum moins 7.",
+          "risk": "Sans risque hivernal identifié"
+        },
+        {
+          "source": "met",
+          "date": "2026-11-11",
+          "high": 3.0,
+          "low": -1.2,
+          "snow_cm": null,
+          "rain_mm": null,
+          "ice_mm": null,
+          "condition": "Sans risque hivernal identifié",
+          "risk": "Sans risque hivernal identifié"
+        },
+        {
+          "source": "accu",
+          "date": "2026-11-11",
+          "high": 5.0,
+          "low": -2.0,
+          "snow_cm": null,
+          "rain_mm": null,
+          "ice_mm": null,
+          "condition": "Nuages et soleil, averses",
+          "risk": "Pluie"
+        },
+        {
+          "source": "wu",
+          "date": "2026-11-11",
+          "high": 37.0,
+          "low": 26.0,
+          "snow_cm": null,
+          "rain_mm": null,
+          "ice_mm": null,
+          "condition": "Cloudy",
+          "risk": "Sans risque hivernal identifié"
+        },
+        {
+          "source": "mb",
+          "date": "2026-11-11",
+          "high": 3.0,
+          "low": -1.0,
+          "snow_cm": null,
+          "rain_mm": null,
+          "ice_mm": null,
+          "condition": "Partiellement nuageux",
+          "risk": "Sans risque hivernal identifié"
+        }
+      ],
+      "snow": {
+        "mean_cm": null,
+        "median_cm": null,
+        "min_cm": null,
+        "max_cm": null,
+        "count": 0
+      },
+      "risks": [
+        "Pluie",
+        "Sans risque hivernal identifié"
+      ],
+      "high_mean": 10.4,
+      "low_mean": 3.0,
+      "high_range": [
+        3.0,
+        37.0
+      ],
+      "low_range": [
+        -7,
+        26.0
+      ],
+      "confidence": "Faible",
+      "confidence_reason": "Accord qualitatif et couverture des sources; précision non encore validée. Fiabilité des cm au sol indéterminée."
+    },
+    {
+      "date": "2026-11-12",
+      "sources": [
+        {
+          "source": "eccc",
+          "date": "2026-11-12",
+          "high": 3,
+          "low": -1,
+          "snow_cm": null,
+          "rain_mm": null,
+          "ice_mm": null,
+          "condition": "Alternance de soleil et de nuages avec 30 pour cent de probabilité d'averses. Maximum plus 3. Nuageux avec 60 pour cent de probabilité d'averses de pluie ou de neige. Minimum moins 1.",
+          "risk": "Pluie / neige"
+        },
+        {
+          "source": "met",
+          "date": "2026-11-12",
+          "high": 3.7,
+          "low": -3.6,
+          "snow_cm": null,
+          "rain_mm": null,
+          "ice_mm": null,
+          "condition": "Sans risque hivernal identifié",
+          "risk": "Sans risque hivernal identifié"
+        },
+        {
+          "source": "accu",
+          "date": "2026-11-12",
+          "high": 6.0,
+          "low": -2.0,
+          "snow_cm": null,
+          "rain_mm": null,
+          "ice_mm": null,
+          "condition": "Nuageux",
+          "risk": "Sans risque hivernal identifié"
+        },
+        {
+          "source": "wu",
+          "date": "2026-11-12",
+          "high": 40.0,
+          "low": 26.0,
+          "snow_cm": null,
+          "rain_mm": null,
+          "ice_mm": null,
+          "condition": "Cloudy",
+          "risk": "Sans risque hivernal identifié"
+        },
+        {
+          "source": "mb",
+          "date": "2026-11-12",
+          "high": 4.0,
+          "low": -3.0,
+          "snow_cm": null,
+          "rain_mm": null,
+          "ice_mm": null,
+          "condition": "Partiellement nuageux / Clair avec quelques nuages",
+          "risk": "Sans risque hivernal identifié"
+        }
+      ],
+      "snow": {
+        "mean_cm": null,
+        "median_cm": null,
+        "min_cm": null,
+        "max_cm": null,
+        "count": 0
+      },
+      "risks": [
+        "Pluie / neige",
+        "Sans risque hivernal identifié"
+      ],
+      "high_mean": 11.3,
+      "low_mean": 3.3,
+      "high_range": [
+        3,
+        40.0
+      ],
+      "low_range": [
+        -3.6,
+        26.0
+      ],
+      "confidence": "Faible",
+      "confidence_reason": "Accord qualitatif et couverture des sources; précision non encore validée. Fiabilité des cm au sol indéterminée."
+    },
+    {
+      "date": "2026-11-13",
+      "sources": [
+        {
+          "source": "eccc",
+          "date": "2026-11-13",
+          "high": 4,
+          "low": 0,
+          "snow_cm": null,
+          "rain_mm": null,
+          "ice_mm": null,
+          "condition": "Pluie intermittente. Maximum plus 4. Pluie ou neige. Minimum zéro.",
+          "risk": "Pluie / neige"
+        },
+        {
+          "source": "met",
+          "date": "2026-11-13",
+          "high": 3.3,
+          "low": -3.2,
+          "snow_cm": null,
+          "rain_mm": null,
+          "ice_mm": null,
+          "condition": "Sans risque hivernal identifié",
+          "risk": "Sans risque hivernal identifié"
+        },
+        {
+          "source": "accu",
+          "date": "2026-11-13",
+          "high": 3.0,
+          "low": -1.0,
+          "snow_cm": null,
+          "rain_mm": null,
+          "ice_mm": null,
+          "condition": "Soleil suivi de nuages, possibilité de faibles pluie et neige se transformant en pluie",
+          "risk": "Pluie / neige"
+        },
+        {
+          "source": "wu",
+          "date": "2026-11-13",
+          "high": 37.0,
+          "low": 30.0,
+          "snow_cm": null,
+          "rain_mm": null,
+          "ice_mm": null,
+          "condition": "Cloudy",
+          "risk": "Sans risque hivernal identifié"
+        },
+        {
+          "source": "mb",
+          "date": "2026-11-13",
+          "high": 3.0,
+          "low": -3.0,
+          "snow_cm": null,
+          "rain_mm": null,
+          "ice_mm": null,
+          "condition": "Partiellement nuageux / Nuageux avec de la neige occasionnelle",
+          "risk": "Neige"
+        }
+      ],
+      "snow": {
+        "mean_cm": null,
+        "median_cm": null,
+        "min_cm": null,
+        "max_cm": null,
+        "count": 0
+      },
+      "risks": [
+        "Neige",
+        "Pluie / neige",
+        "Sans risque hivernal identifié"
+      ],
+      "high_mean": 10.1,
+      "low_mean": 4.6,
+      "high_range": [
+        3.0,
+        37.0
+      ],
+      "low_range": [
+        -3.2,
+        30.0
+      ],
+      "confidence": "Faible",
+      "confidence_reason": "Accord qualitatif et couverture des sources; précision non encore validée. Fiabilité des cm au sol indéterminée."
+    },
+    {
+      "date": "2026-11-14",
+      "sources": [
+        {
+          "source": "eccc",
+          "date": "2026-11-14",
+          "high": 4,
+          "low": -1,
+          "snow_cm": null,
+          "rain_mm": null,
+          "ice_mm": null,
+          "condition": "Neige intermittente ou pluie. Maximum plus 4. Nuageux. Minimum moins 1.",
+          "risk": "Pluie / neige"
+        },
+        {
+          "source": "met",
+          "date": "2026-11-14",
+          "high": 3.4,
+          "low": -0.5,
+          "snow_cm": null,
+          "rain_mm": null,
+          "ice_mm": null,
+          "condition": "Sans risque hivernal identifié",
+          "risk": "Sans risque hivernal identifié"
+        },
+        {
+          "source": "accu",
+          "date": "2026-11-14",
+          "high": 3.0,
+          "low": 0.0,
+          "snow_cm": null,
+          "rain_mm": null,
+          "ice_mm": null,
+          "condition": "Faibles neige, 3-6 cm; venteux",
+          "risk": "Neige"
+        },
+        {
+          "source": "wu",
+          "date": "2026-11-14",
+          "high": 36.0,
+          "low": 31.0,
+          "snow_cm": null,
+          "rain_mm": null,
+          "ice_mm": null,
+          "condition": "AM Snow Showers",
+          "risk": "Neige"
+        },
+        {
+          "source": "mb",
+          "date": "2026-11-14",
+          "high": 3.0,
+          "low": 0.0,
+          "snow_cm": null,
+          "rain_mm": null,
+          "ice_mm": null,
+          "condition": "Nuageux avec de la neige occasionnelle / Partiellement nuageux avec de la neige occasionnelle",
+          "risk": "Neige"
+        }
+      ],
+      "snow": {
+        "mean_cm": null,
+        "median_cm": null,
+        "min_cm": null,
+        "max_cm": null,
+        "count": 0
+      },
+      "risks": [
+        "Neige",
+        "Pluie / neige",
+        "Sans risque hivernal identifié"
+      ],
+      "high_mean": 9.9,
+      "low_mean": 5.9,
+      "high_range": [
+        3.0,
+        36.0
+      ],
+      "low_range": [
+        -1,
+        31.0
+      ],
+      "confidence": "Faible",
+      "confidence_reason": "Accord qualitatif et couverture des sources; précision non encore validée. Fiabilité des cm au sol indéterminée."
+    },
+    {
+      "date": "2026-11-15",
+      "sources": [
+        {
+          "source": "eccc",
+          "date": "2026-11-15",
+          "high": 3,
+          "low": -1,
+          "snow_cm": null,
+          "rain_mm": null,
+          "ice_mm": null,
+          "condition": "Alternance de soleil et de nuages. Maximum plus 3. Passages nuageux. Minimum moins 1.",
+          "risk": "Sans risque hivernal identifié"
+        },
+        {
+          "source": "met",
+          "date": "2026-11-15",
+          "high": 4.9,
+          "low": 1.9,
+          "snow_cm": null,
+          "rain_mm": null,
+          "ice_mm": null,
+          "condition": "Sans risque hivernal identifié",
+          "risk": "Sans risque hivernal identifié"
+        },
+        {
+          "source": "accu",
+          "date": "2026-11-15",
+          "high": 6.0,
+          "low": -3.0,
+          "snow_cm": null,
+          "rain_mm": null,
+          "ice_mm": null,
+          "condition": "Couvert",
+          "risk": "Sans risque hivernal identifié"
+        },
+        {
+          "source": "wu",
+          "date": "2026-11-15",
+          "high": 38.0,
+          "low": 26.0,
+          "snow_cm": null,
+          "rain_mm": null,
+          "ice_mm": null,
+          "condition": "Cloudy",
+          "risk": "Sans risque hivernal identifié"
+        },
+        {
+          "source": "mb",
+          "date": "2026-11-15",
+          "high": 3.0,
+          "low": 0.0,
+          "snow_cm": null,
+          "rain_mm": null,
+          "ice_mm": null,
+          "condition": "Partiellement nuageux",
+          "risk": "Sans risque hivernal identifié"
+        }
+      ],
+      "snow": {
+        "mean_cm": null,
+        "median_cm": null,
+        "min_cm": null,
+        "max_cm": null,
+        "count": 0
+      },
+      "risks": [
+        "Sans risque hivernal identifié"
+      ],
+      "high_mean": 11.0,
+      "low_mean": 4.8,
+      "high_range": [
+        3,
+        38.0
+      ],
+      "low_range": [
+        -3.0,
+        26.0
+      ],
+      "confidence": "Faible",
+      "confidence_reason": "Accord qualitatif et couverture des sources; précision non encore validée. Fiabilité des cm au sol indéterminée."
+    },
+    {
+      "date": "2026-11-16",
+      "sources": [
+        {
+          "source": "eccc",
+          "date": "2026-11-16",
+          "high": 3,
+          "low": null,
+          "snow_cm": null,
+          "rain_mm": null,
+          "ice_mm": null,
+          "condition": "Alternance de soleil et de nuages. Maximum plus 3.",
+          "risk": "Sans risque hivernal identifié"
+        },
+        {
+          "source": "met",
+          "date": "2026-11-16",
+          "high": 3.1,
+          "low": -2.4,
+          "snow_cm": null,
+          "rain_mm": null,
+          "ice_mm": null,
+          "condition": "Sans risque hivernal identifié",
+          "risk": "Sans risque hivernal identifié"
+        },
+        {
+          "source": "accu",
+          "date": "2026-11-16",
+          "high": 6.0,
+          "low": -3.0,
+          "snow_cm": null,
+          "rain_mm": null,
+          "ice_mm": null,
+          "condition": "Nuages et soleil",
+          "risk": "Sans risque hivernal identifié"
+        },
+        {
+          "source": "wu",
+          "date": "2026-11-16",
+          "high": 38.0,
+          "low": 25.0,
+          "snow_cm": null,
+          "rain_mm": null,
+          "ice_mm": null,
+          "condition": "Partly Cloudy",
+          "risk": "Sans risque hivernal identifié"
+        },
+        {
+          "source": "mb",
+          "date": "2026-11-16",
+          "high": 3.0,
+          "low": -2.0,
+          "snow_cm": null,
+          "rain_mm": null,
+          "ice_mm": null,
+          "condition": "Partiellement nuageux",
+          "risk": "Sans risque hivernal identifié"
+        }
+      ],
+      "snow": {
+        "mean_cm": null,
+        "median_cm": null,
+        "min_cm": null,
+        "max_cm": null,
+        "count": 0
+      },
+      "risks": [
+        "Sans risque hivernal identifié"
+      ],
+      "high_mean": 10.6,
+      "low_mean": 4.4,
+      "high_range": [
+        3,
+        38.0
+      ],
+      "low_range": [
+        -3.0,
+        25.0
+      ],
+      "confidence": "Faible",
+      "confidence_reason": "Accord qualitatif et couverture des sources; précision non encore validée. Fiabilité des cm au sol indéterminée."
+    }
+  ],
+  "previous_at": "2026-11-09T22:43:15.351090+00:00",
+  "changes": [
+    {
+      "text": "Environnement Canada · 2026-11-12 : Sans risque hivernal identifié → Pluie / neige.",
+      "important": true
+    },
+    {
+      "text": "AccuWeather · 2026-11-14 : Sans risque hivernal identifié → Neige.",
+      "important": true
+    },
+    {
+      "text": "Weather Underground · 2026-11-14 : Pluie / neige → Neige.",
+      "important": true
+    },
+    {
+      "text": "meteoblue · 2026-11-13 : Sans risque hivernal identifié → Neige.",
+      "important": true
+    },
+    {
+      "text": "meteoblue · 2026-11-14 : Pluie → Neige.",
+      "important": true
+    }
+  ]
+}
