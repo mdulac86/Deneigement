@@ -1,11 +1,11 @@
 {
-  "updated_at": "2026-11-10T12:00:40.641607+00:00",
+  "updated_at": "2026-11-10T12:02:49.893920+00:00",
   "sources": [
     {
       "id": "eccc",
       "status": "ok",
       "issued_at": "2026-11-10T10:00:00Z",
-      "fetched_at": "2026-11-10T12:00:40.641607+00:00",
+      "fetched_at": "2026-11-10T12:02:49.893920+00:00",
       "days": [
         {
           "date": "2026-11-10",
@@ -179,7 +179,7 @@
       "id": "met",
       "status": "ok",
       "issued_at": "2026-11-10T11:20:41Z",
-      "fetched_at": "2026-11-10T12:00:40.641607+00:00",
+      "fetched_at": "2026-11-10T12:02:49.893920+00:00",
       "days": [
         {
           "date": "2026-11-10",
@@ -285,7 +285,7 @@
     },
     {
       "id": "accu",
-      "status": "ok",
+      "status": "stale",
       "issued_at": null,
       "fetched_at": "2026-11-10T12:00:40.641607+00:00",
       "days": [
@@ -373,7 +373,7 @@
     },
     {
       "id": "wu",
-      "status": "ok",
+      "status": "stale",
       "issued_at": null,
       "fetched_at": "2026-11-10T12:00:40.641607+00:00",
       "days": [
@@ -453,7 +453,7 @@
       "id": "mb",
       "status": "ok",
       "issued_at": null,
-      "fetched_at": "2026-11-10T12:00:40.641607+00:00",
+      "fetched_at": "2026-11-10T12:02:49.893920+00:00",
       "days": [
         {
           "date": "2026-11-10",
@@ -569,17 +569,6 @@
           "risk": "Pluie"
         },
         {
-          "source": "accu",
-          "date": "2026-11-10",
-          "high": 7.0,
-          "low": 1.0,
-          "snow_cm": null,
-          "rain_mm": null,
-          "ice_mm": null,
-          "condition": "Nuageux avec quelques averses",
-          "risk": "Pluie"
-        },
-        {
           "source": "mb",
           "date": "2026-11-10",
           "high": 4.0,
@@ -602,11 +591,11 @@
         "Pluie",
         "Pluie / neige"
       ],
-      "high_mean": 4.5,
-      "low_mean": 0.6,
+      "high_mean": 3.6,
+      "low_mean": 0.5,
       "high_range": [
         3,
-        7.0
+        4.0
       ],
       "low_range": [
         0,
@@ -641,28 +630,6 @@
           "risk": "Sans risque hivernal identifié"
         },
         {
-          "source": "accu",
-          "date": "2026-11-11",
-          "high": 5.0,
-          "low": -2.0,
-          "snow_cm": null,
-          "rain_mm": null,
-          "ice_mm": null,
-          "condition": "Nuages et soleil, averses",
-          "risk": "Pluie"
-        },
-        {
-          "source": "wu",
-          "date": "2026-11-11",
-          "high": 37.0,
-          "low": 26.0,
-          "snow_cm": null,
-          "rain_mm": null,
-          "ice_mm": null,
-          "condition": "Cloudy",
-          "risk": "Sans risque hivernal identifié"
-        },
-        {
           "source": "mb",
           "date": "2026-11-11",
           "high": 3.0,
@@ -682,20 +649,19 @@
         "count": 0
       },
       "risks": [
-        "Pluie",
         "Sans risque hivernal identifié"
       ],
-      "high_mean": 10.4,
-      "low_mean": 3.0,
+      "high_mean": 3.3,
+      "low_mean": -3.1,
       "high_range": [
         3.0,
-        37.0
+        4
       ],
       "low_range": [
         -7,
-        26.0
+        -1.0
       ],
-      "confidence": "Faible",
+      "confidence": "Moyenne",
       "confidence_reason": "Accord qualitatif et couverture des sources; précision non encore validée. Fiabilité des cm au sol indéterminée."
     },
     {
@@ -724,28 +690,6 @@
           "risk": "Sans risque hivernal identifié"
         },
         {
-          "source": "accu",
-          "date": "2026-11-12",
-          "high": 6.0,
-          "low": -2.0,
-          "snow_cm": null,
-          "rain_mm": null,
-          "ice_mm": null,
-          "condition": "Nuageux",
-          "risk": "Sans risque hivernal identifié"
-        },
-        {
-          "source": "wu",
-          "date": "2026-11-12",
-          "high": 40.0,
-          "low": 26.0,
-          "snow_cm": null,
-          "rain_mm": null,
-          "ice_mm": null,
-          "condition": "Cloudy",
-          "risk": "Sans risque hivernal identifié"
-        },
-        {
           "source": "mb",
           "date": "2026-11-12",
           "high": 4.0,
@@ -768,15 +712,15 @@
         "Pluie / neige",
         "Sans risque hivernal identifié"
       ],
-      "high_mean": 11.3,
-      "low_mean": 3.3,
+      "high_mean": 3.6,
+      "low_mean": -2.5,
       "high_range": [
         3,
-        40.0
+        4.0
       ],
       "low_range": [
         -3.6,
-        26.0
+        -1
       ],
       "confidence": "Faible",
       "confidence_reason": "Accord qualitatif et couverture des sources; précision non encore validée. Fiabilité des cm au sol indéterminée."
@@ -807,28 +751,6 @@
           "risk": "Sans risque hivernal identifié"
         },
         {
-          "source": "accu",
-          "date": "2026-11-13",
-          "high": 3.0,
-          "low": -1.0,
-          "snow_cm": null,
-          "rain_mm": null,
-          "ice_mm": null,
-          "condition": "Soleil suivi de nuages, possibilité de faibles pluie et neige se transformant en pluie",
-          "risk": "Pluie / neige"
-        },
-        {
-          "source": "wu",
-          "date": "2026-11-13",
-          "high": 37.0,
-          "low": 30.0,
-          "snow_cm": null,
-          "rain_mm": null,
-          "ice_mm": null,
-          "condition": "Cloudy",
-          "risk": "Sans risque hivernal identifié"
-        },
-        {
           "source": "mb",
           "date": "2026-11-13",
           "high": 3.0,
@@ -852,15 +774,15 @@
         "Pluie / neige",
         "Sans risque hivernal identifié"
       ],
-      "high_mean": 10.1,
-      "low_mean": 4.6,
+      "high_mean": 3.4,
+      "low_mean": -2.1,
       "high_range": [
         3.0,
-        37.0
+        4
       ],
       "low_range": [
         -3.2,
-        30.0
+        0
       ],
       "confidence": "Faible",
       "confidence_reason": "Accord qualitatif et couverture des sources; précision non encore validée. Fiabilité des cm au sol indéterminée."
@@ -891,28 +813,6 @@
           "risk": "Sans risque hivernal identifié"
         },
         {
-          "source": "accu",
-          "date": "2026-11-14",
-          "high": 3.0,
-          "low": 0.0,
-          "snow_cm": null,
-          "rain_mm": null,
-          "ice_mm": null,
-          "condition": "Faibles neige, 3-6 cm; venteux",
-          "risk": "Neige"
-        },
-        {
-          "source": "wu",
-          "date": "2026-11-14",
-          "high": 36.0,
-          "low": 31.0,
-          "snow_cm": null,
-          "rain_mm": null,
-          "ice_mm": null,
-          "condition": "AM Snow Showers",
-          "risk": "Neige"
-        },
-        {
           "source": "mb",
           "date": "2026-11-14",
           "high": 3.0,
@@ -936,15 +836,15 @@
         "Pluie / neige",
         "Sans risque hivernal identifié"
       ],
-      "high_mean": 9.9,
-      "low_mean": 5.9,
+      "high_mean": 3.5,
+      "low_mean": -0.5,
       "high_range": [
         3.0,
-        36.0
+        4
       ],
       "low_range": [
         -1,
-        31.0
+        0.0
       ],
       "confidence": "Faible",
       "confidence_reason": "Accord qualitatif et couverture des sources; précision non encore validée. Fiabilité des cm au sol indéterminée."
@@ -975,28 +875,6 @@
           "risk": "Sans risque hivernal identifié"
         },
         {
-          "source": "accu",
-          "date": "2026-11-15",
-          "high": 6.0,
-          "low": -3.0,
-          "snow_cm": null,
-          "rain_mm": null,
-          "ice_mm": null,
-          "condition": "Couvert",
-          "risk": "Sans risque hivernal identifié"
-        },
-        {
-          "source": "wu",
-          "date": "2026-11-15",
-          "high": 38.0,
-          "low": 26.0,
-          "snow_cm": null,
-          "rain_mm": null,
-          "ice_mm": null,
-          "condition": "Cloudy",
-          "risk": "Sans risque hivernal identifié"
-        },
-        {
           "source": "mb",
           "date": "2026-11-15",
           "high": 3.0,
@@ -1018,15 +896,15 @@
       "risks": [
         "Sans risque hivernal identifié"
       ],
-      "high_mean": 11.0,
-      "low_mean": 4.8,
+      "high_mean": 3.6,
+      "low_mean": 0.3,
       "high_range": [
         3,
-        38.0
+        4.9
       ],
       "low_range": [
-        -3.0,
-        26.0
+        -1,
+        1.9
       ],
       "confidence": "Faible",
       "confidence_reason": "Accord qualitatif et couverture des sources; précision non encore validée. Fiabilité des cm au sol indéterminée."
@@ -1057,28 +935,6 @@
           "risk": "Sans risque hivernal identifié"
         },
         {
-          "source": "accu",
-          "date": "2026-11-16",
-          "high": 6.0,
-          "low": -3.0,
-          "snow_cm": null,
-          "rain_mm": null,
-          "ice_mm": null,
-          "condition": "Nuages et soleil",
-          "risk": "Sans risque hivernal identifié"
-        },
-        {
-          "source": "wu",
-          "date": "2026-11-16",
-          "high": 38.0,
-          "low": 25.0,
-          "snow_cm": null,
-          "rain_mm": null,
-          "ice_mm": null,
-          "condition": "Partly Cloudy",
-          "risk": "Sans risque hivernal identifié"
-        },
-        {
           "source": "mb",
           "date": "2026-11-16",
           "high": 3.0,
@@ -1100,15 +956,15 @@
       "risks": [
         "Sans risque hivernal identifié"
       ],
-      "high_mean": 10.6,
-      "low_mean": 4.4,
+      "high_mean": 3.0,
+      "low_mean": -2.2,
       "high_range": [
         3,
-        38.0
+        3.1
       ],
       "low_range": [
-        -3.0,
-        25.0
+        -2.4,
+        -2.0
       ],
       "confidence": "Faible",
       "confidence_reason": "Accord qualitatif et couverture des sources; précision non encore validée. Fiabilité des cm au sol indéterminée."
@@ -1116,24 +972,12 @@
   ],
   "changes": [
     {
-      "text": "Environnement Canada · 2026-11-12 : Sans risque hivernal identifié → Pluie / neige.",
-      "important": true
+      "text": "AccuWeather : disponibilité ok → stale.",
+      "important": false
     },
     {
-      "text": "AccuWeather · 2026-11-14 : Sans risque hivernal identifié → Neige.",
-      "important": true
-    },
-    {
-      "text": "Weather Underground · 2026-11-14 : Pluie / neige → Neige.",
-      "important": true
-    },
-    {
-      "text": "meteoblue · 2026-11-13 : Sans risque hivernal identifié → Neige.",
-      "important": true
-    },
-    {
-      "text": "meteoblue · 2026-11-14 : Pluie → Neige.",
-      "important": true
+      "text": "Weather Underground : disponibilité ok → stale.",
+      "important": false
     }
   ]
 }
