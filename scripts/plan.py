@@ -19,7 +19,7 @@ HOUR = dt.timedelta(hours=1)
 
 
 def load_config(path=CONFIG):
-    return json.loads(Path(path).read_text())
+    return json.loads(Path(path).read_text(encoding='utf-8'))
 
 
 def hm(text):
