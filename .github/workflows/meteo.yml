@@ -51,7 +51,8 @@ jobs:
           git add data
           if ! git diff --cached --quiet; then
             git commit -m 'Actualiser météo et relevés Climat Québec'
-            git push
+            # Le relais du bureau peut publier pendant la collecte : on se replace dessus.
+            for i in 1 2 3; do git pull -q --rebase origin main && git push && break; sleep 5; done
           fi
       - name: Préparer le site
         run: |
