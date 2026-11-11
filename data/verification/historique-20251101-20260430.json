@@ -1,0 +1,3610 @@
+{
+ "start": "2025-11-01",
+ "end": "2026-04-30",
+ "window": "Prévision de la veille (run 00 h UTC J-1), échéances 30-54 h : 06 h UTC J -> 06 h UTC J+1.",
+ "sources": {
+  "ifs": "ECMWF IFS (européen)",
+  "aifs": "ECMWF AIFS (européen, IA)",
+  "gfs": "NOAA GFS (américain)"
+ },
+ "observations": "Climat Québec, station automatique 7027660 Saint-Prosper (neige indicative calculée selon la température).",
+ "days": {
+  "2025-11-01": {
+   "obs": {
+    "snow_cm": 0.0,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "error": "sf absent (ifs 20251031 +30 h)"
+    },
+    "aifs": {
+     "tp_mm": 3543.0,
+     "snow_cm": 113.3
+    },
+    "gfs": {
+     "tp_mm": 1.1,
+     "snow_cm": 0.0
+    }
+   }
+  },
+  "2025-11-02": {
+   "obs": {
+    "snow_cm": 0.0,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "error": "sf absent (ifs 20251101 +30 h)"
+    },
+    "aifs": {
+     "tp_mm": 3.9,
+     "snow_cm": 2.0
+    },
+    "gfs": {
+     "tp_mm": 0.0,
+     "snow_cm": 0.0
+    }
+   }
+  },
+  "2025-11-03": {
+   "obs": {
+    "snow_cm": 0.0,
+    "rain_mm": 7.7
+   },
+   "fc": {
+    "ifs": {
+     "error": "sf absent (ifs 20251102 +30 h)"
+    },
+    "aifs": {
+     "tp_mm": 6890.6,
+     "snow_cm": 17.6
+    },
+    "gfs": {
+     "tp_mm": 9.2,
+     "snow_cm": 0.0
+    }
+   }
+  },
+  "2025-11-04": {
+   "obs": {
+    "snow_cm": 0.0,
+    "rain_mm": 0.6
+   },
+   "fc": {
+    "ifs": {
+     "error": "sf absent (ifs 20251103 +30 h)"
+    },
+    "aifs": {
+     "tp_mm": 4082.0,
+     "snow_cm": 356.4
+    },
+    "gfs": {
+     "tp_mm": 1.8,
+     "snow_cm": 0.0
+    }
+   }
+  },
+  "2025-11-05": {
+   "obs": {
+    "snow_cm": 0.0,
+    "rain_mm": 6.7
+   },
+   "fc": {
+    "ifs": {
+     "error": "sf absent (ifs 20251104 +30 h)"
+    },
+    "aifs": {
+     "tp_mm": 5589.8,
+     "snow_cm": 2626.0
+    },
+    "gfs": {
+     "tp_mm": 5.6,
+     "snow_cm": 1.3
+    }
+   }
+  },
+  "2025-11-06": {
+   "obs": {
+    "snow_cm": 0.0,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "error": "sf absent (ifs 20251105 +30 h)"
+    },
+    "aifs": {
+     "tp_mm": 1382.8,
+     "snow_cm": 933.6
+    },
+    "gfs": {
+     "tp_mm": 0.6,
+     "snow_cm": 0.5
+    }
+   }
+  },
+  "2025-11-07": {
+   "obs": {
+    "snow_cm": 0.3,
+    "rain_mm": 2.3
+   },
+   "fc": {
+    "ifs": {
+     "error": "sf absent (ifs 20251106 +30 h)"
+    },
+    "aifs": {
+     "tp_mm": 4964.8,
+     "snow_cm": 3121.1
+    },
+    "gfs": {
+     "tp_mm": 4.1,
+     "snow_cm": 1.1
+    }
+   }
+  },
+  "2025-11-08": {
+   "obs": {
+    "snow_cm": 0.0,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "error": "sf absent (ifs 20251107 +30 h)"
+    },
+    "aifs": {
+     "tp_mm": 1730.5,
+     "snow_cm": 2.0
+    },
+    "gfs": {
+     "tp_mm": 1.4,
+     "snow_cm": 0.1
+    }
+   }
+  },
+  "2025-11-09": {
+   "obs": {
+    "snow_cm": 2.9,
+    "rain_mm": 3.8
+   },
+   "fc": {
+    "ifs": {
+     "error": "sf absent (ifs 20251108 +30 h)"
+    },
+    "aifs": {
+     "tp_mm": 4980.5,
+     "snow_cm": 3195.3
+    },
+    "gfs": {
+     "tp_mm": 8.4,
+     "snow_cm": 2.4
+    }
+   }
+  },
+  "2025-11-10": {
+   "obs": {
+    "snow_cm": 0.0,
+    "rain_mm": 21.3
+   },
+   "fc": {
+    "ifs": {
+     "error": "sf absent (ifs 20251109 +30 h)"
+    },
+    "aifs": {
+     "tp_mm": 14726.6,
+     "snow_cm": 2783.2
+    },
+    "gfs": {
+     "tp_mm": 18.4,
+     "snow_cm": 2.5
+    }
+   }
+  },
+  "2025-11-11": {
+   "obs": {
+    "snow_cm": 0.2,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "error": "sf absent (ifs 20251110 +30 h)"
+    },
+    "aifs": {
+     "tp_mm": 5484.4,
+     "snow_cm": 5486.3
+    },
+    "gfs": {
+     "tp_mm": 3.9,
+     "snow_cm": 5.0
+    }
+   }
+  },
+  "2025-11-12": {
+   "obs": {
+    "snow_cm": 1.6,
+    "rain_mm": 0.9
+   },
+   "fc": {
+    "ifs": {
+     "error": "sf absent (ifs 20251111 +30 h)"
+    },
+    "aifs": {
+     "tp_mm": 1003.9,
+     "snow_cm": 1005.9
+    },
+    "gfs": {
+     "tp_mm": 1.4,
+     "snow_cm": 1.6
+    }
+   }
+  },
+  "2025-11-13": {
+   "obs": {
+    "snow_cm": 0.8,
+    "rain_mm": 1.3
+   },
+   "fc": {
+    "ifs": {
+     "error": "sf absent (ifs 20251112 +30 h)"
+    },
+    "aifs": {
+     "tp_mm": 1515.6,
+     "snow_cm": 1462.9
+    },
+    "gfs": {
+     "tp_mm": 4.2,
+     "snow_cm": 4.3
+    }
+   }
+  },
+  "2025-11-14": {
+   "obs": {
+    "snow_cm": 0.5,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "error": "sf absent (ifs 20251113 +30 h)"
+    },
+    "aifs": {
+     "tp_mm": 988.3,
+     "snow_cm": 988.3
+    },
+    "gfs": {
+     "tp_mm": 0.6,
+     "snow_cm": 0.8
+    }
+   }
+  },
+  "2025-11-15": {
+   "obs": {
+    "snow_cm": 5.2,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "error": "sf absent (ifs 20251114 +30 h)"
+    },
+    "aifs": {
+     "tp_mm": 0.0,
+     "snow_cm": 2.0
+    },
+    "gfs": {
+     "tp_mm": 0.1,
+     "snow_cm": 0.1
+    }
+   }
+  },
+  "2025-11-16": {
+   "obs": {
+    "snow_cm": 7.1,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "error": "sf absent (ifs 20251115 +30 h)"
+    },
+    "aifs": {
+     "tp_mm": 8679.7,
+     "snow_cm": 8679.7
+    },
+    "gfs": {
+     "tp_mm": 10.9,
+     "snow_cm": 12.4
+    }
+   }
+  },
+  "2025-11-17": {
+   "obs": {
+    "snow_cm": 0.0,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "error": "sf absent (ifs 20251116 +30 h)"
+    },
+    "aifs": {
+     "tp_mm": 4199.2,
+     "snow_cm": 4195.3
+    },
+    "gfs": {
+     "tp_mm": 3.9,
+     "snow_cm": 4.7
+    }
+   }
+  },
+  "2025-11-18": {
+   "obs": {
+    "snow_cm": 0.0,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "error": "sf absent (ifs 20251117 +30 h)"
+    },
+    "aifs": {
+     "tp_mm": 980.5,
+     "snow_cm": 980.5
+    },
+    "gfs": {
+     "tp_mm": 2.9,
+     "snow_cm": 3.7
+    }
+   }
+  },
+  "2025-11-19": {
+   "obs": {
+    "snow_cm": 0.0,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "error": "sf absent (ifs 20251118 +30 h)"
+    },
+    "aifs": {
+     "tp_mm": 78.1,
+     "snow_cm": 78.1
+    },
+    "gfs": {
+     "tp_mm": 0.3,
+     "snow_cm": 0.4
+    }
+   }
+  },
+  "2025-11-20": {
+   "obs": {
+    "snow_cm": 0.0,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "error": "sf absent (ifs 20251119 +30 h)"
+    },
+    "aifs": {
+     "tp_mm": 3.9,
+     "snow_cm": 0.0
+    },
+    "gfs": {
+     "tp_mm": 0.1,
+     "snow_cm": 0.2
+    }
+   }
+  },
+  "2025-11-21": {
+   "obs": {
+    "snow_cm": 0.6,
+    "rain_mm": 0.7
+   },
+   "fc": {
+    "ifs": {
+     "error": "sf absent (ifs 20251120 +30 h)"
+    },
+    "aifs": {
+     "tp_mm": 3671.9,
+     "snow_cm": 3160.2
+    },
+    "gfs": {
+     "tp_mm": 5.1,
+     "snow_cm": 3.8
+    }
+   }
+  },
+  "2025-11-22": {
+   "obs": {
+    "snow_cm": 0.0,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 0.2,
+     "snow_cm": 0.2
+    },
+    "aifs": {
+     "tp_mm": 453.1,
+     "snow_cm": 453.1
+    },
+    "gfs": {
+     "tp_mm": 0.4,
+     "snow_cm": 0.6
+    }
+   }
+  },
+  "2025-11-23": {
+   "obs": {
+    "snow_cm": 0.0,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 1.1,
+     "snow_cm": 1.1
+    },
+    "aifs": {
+     "tp_mm": 742.2,
+     "snow_cm": 741.2
+    },
+    "gfs": {
+     "tp_mm": 1.5,
+     "snow_cm": 1.9
+    }
+   }
+  },
+  "2025-11-24": {
+   "obs": {
+    "snow_cm": 0.0,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 0.2,
+     "snow_cm": 0.2
+    },
+    "aifs": {
+     "tp_mm": 117.2,
+     "snow_cm": 116.2
+    },
+    "gfs": {
+     "tp_mm": 0.5,
+     "snow_cm": 0.6
+    }
+   }
+  },
+  "2025-11-25": {
+   "obs": {
+    "snow_cm": 0.9,
+    "rain_mm": 0.3
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 0.0,
+     "snow_cm": 0.0
+    },
+    "aifs": {
+     "tp_mm": 226.6,
+     "snow_cm": 23.4
+    },
+    "gfs": {
+     "tp_mm": 0.0,
+     "snow_cm": 0.0
+    }
+   }
+  },
+  "2025-11-26": {
+   "obs": {
+    "snow_cm": 0.0,
+    "rain_mm": 6.5
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 7.2,
+     "snow_cm": 0.0
+    },
+    "aifs": {
+     "tp_mm": 6843.8,
+     "snow_cm": 154.3
+    },
+    "gfs": {
+     "tp_mm": 5.6,
+     "snow_cm": 0.5
+    }
+   }
+  },
+  "2025-11-27": {
+   "obs": {
+    "snow_cm": 0.5,
+    "rain_mm": 0.4
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 4.1,
+     "snow_cm": 2.6
+    },
+    "aifs": {
+     "tp_mm": 3320.3,
+     "snow_cm": 1824.2
+    },
+    "gfs": {
+     "tp_mm": 5.1,
+     "snow_cm": 5.1
+    }
+   }
+  },
+  "2025-11-28": {
+   "obs": {
+    "snow_cm": 2.5,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 2.9,
+     "snow_cm": 2.9
+    },
+    "aifs": {
+     "tp_mm": 2640.6,
+     "snow_cm": 2638.7
+    },
+    "gfs": {
+     "tp_mm": 2.9,
+     "snow_cm": 3.7
+    }
+   }
+  },
+  "2025-11-29": {
+   "obs": {
+    "snow_cm": 0.0,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 0.5,
+     "snow_cm": 0.5
+    },
+    "aifs": {
+     "tp_mm": 828.1,
+     "snow_cm": 830.1
+    },
+    "gfs": {
+     "tp_mm": 1.1,
+     "snow_cm": 1.4
+    }
+   }
+  },
+  "2025-11-30": {
+   "obs": {
+    "snow_cm": 2.2,
+    "rain_mm": 0.3
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 6.5,
+     "snow_cm": 6.2
+    },
+    "aifs": {
+     "tp_mm": 6191.4,
+     "snow_cm": 6107.4
+    },
+    "gfs": {
+     "tp_mm": 7.3,
+     "snow_cm": 7.5
+    }
+   }
+  },
+  "2025-12-01": {
+   "obs": {
+    "snow_cm": 0.0,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 1.9,
+     "snow_cm": 1.9
+    },
+    "aifs": {
+     "tp_mm": 1500.0,
+     "snow_cm": 1501.0
+    },
+    "gfs": {
+     "tp_mm": 2.4,
+     "snow_cm": 2.5
+    }
+   }
+  },
+  "2025-12-02": {
+   "obs": {
+    "snow_cm": 2.7,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 1.9,
+     "snow_cm": 1.9
+    },
+    "aifs": {
+     "error": "HTTP Error 503: Service Unavailable"
+    },
+    "gfs": {
+     "tp_mm": 3.1,
+     "snow_cm": 4.0
+    }
+   }
+  },
+  "2025-12-03": {
+   "obs": {
+    "snow_cm": 1.7,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 0.2,
+     "snow_cm": 0.2
+    },
+    "aifs": {
+     "tp_mm": 421.9,
+     "snow_cm": 419.9
+    },
+    "gfs": {
+     "tp_mm": 0.0,
+     "snow_cm": 0.0
+    }
+   }
+  },
+  "2025-12-04": {
+   "obs": {
+    "snow_cm": 0.2,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "error": "HTTP Error 503: Service Unavailable"
+    },
+    "aifs": {
+     "tp_mm": 2195.3,
+     "snow_cm": 2197.3
+    },
+    "gfs": {
+     "tp_mm": 1.9,
+     "snow_cm": 2.5
+    }
+   }
+  },
+  "2025-12-05": {
+   "obs": {
+    "snow_cm": 0.0,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 0.0,
+     "snow_cm": 0.0
+    },
+    "aifs": {
+     "tp_mm": 0.0,
+     "snow_cm": 0.0
+    },
+    "gfs": {
+     "tp_mm": 0.0,
+     "snow_cm": 0.0
+    }
+   }
+  },
+  "2025-12-06": {
+   "obs": {
+    "snow_cm": 0.6,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 2.4,
+     "snow_cm": 2.4
+    },
+    "aifs": {
+     "tp_mm": 1789.1,
+     "snow_cm": 1791.0
+    },
+    "gfs": {
+     "tp_mm": 0.8,
+     "snow_cm": 1.1
+    }
+   }
+  },
+  "2025-12-07": {
+   "obs": {
+    "snow_cm": 2.0,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 0.4,
+     "snow_cm": 0.3
+    },
+    "aifs": {
+     "tp_mm": 136.7,
+     "snow_cm": 134.8
+    },
+    "gfs": {
+     "tp_mm": 0.6,
+     "snow_cm": 0.9
+    }
+   }
+  },
+  "2025-12-08": {
+   "obs": {
+    "snow_cm": 0.0,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 0.1,
+     "snow_cm": 0.1
+    },
+    "aifs": {
+     "tp_mm": 187.5,
+     "snow_cm": 187.5
+    },
+    "gfs": {
+     "tp_mm": 0.1,
+     "snow_cm": 0.2
+    }
+   }
+  },
+  "2025-12-09": {
+   "obs": {
+    "snow_cm": 0.4,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 0.2,
+     "snow_cm": 0.2
+    },
+    "aifs": {
+     "tp_mm": 66.4,
+     "snow_cm": 64.5
+    },
+    "gfs": {
+     "tp_mm": 0.1,
+     "snow_cm": 0.1
+    }
+   }
+  },
+  "2025-12-10": {
+   "obs": {
+    "snow_cm": 8.8,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 7.4,
+     "snow_cm": 7.4
+    },
+    "aifs": {
+     "tp_mm": 6865.2,
+     "snow_cm": 6865.2
+    },
+    "gfs": {
+     "tp_mm": 9.9,
+     "snow_cm": 12.9
+    }
+   }
+  },
+  "2025-12-11": {
+   "obs": {
+    "snow_cm": 0.9,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 6.9,
+     "snow_cm": 6.9
+    },
+    "aifs": {
+     "tp_mm": 4179.7,
+     "snow_cm": 4175.8
+    },
+    "gfs": {
+     "tp_mm": 8.4,
+     "snow_cm": 11.7
+    }
+   }
+  },
+  "2025-12-12": {
+   "obs": {
+    "snow_cm": 0.0,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 2.9,
+     "snow_cm": 2.9
+    },
+    "aifs": {
+     "tp_mm": 1582.0,
+     "snow_cm": 1582.0
+    },
+    "gfs": {
+     "tp_mm": 3.2,
+     "snow_cm": 4.9
+    }
+   }
+  },
+  "2025-12-13": {
+   "obs": {
+    "snow_cm": 0.2,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 0.9,
+     "snow_cm": 0.9
+    },
+    "aifs": {
+     "tp_mm": 1093.8,
+     "snow_cm": 1097.7
+    },
+    "gfs": {
+     "tp_mm": 1.9,
+     "snow_cm": 2.7
+    }
+   }
+  },
+  "2025-12-14": {
+   "obs": {
+    "snow_cm": 0.0,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 0.4,
+     "snow_cm": 0.4
+    },
+    "aifs": {
+     "tp_mm": 691.4,
+     "snow_cm": 689.5
+    },
+    "gfs": {
+     "tp_mm": 0.4,
+     "snow_cm": 0.7
+    }
+   }
+  },
+  "2025-12-15": {
+   "obs": {
+    "snow_cm": 0.0,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 0.2,
+     "snow_cm": 0.2
+    },
+    "aifs": {
+     "tp_mm": 367.2,
+     "snow_cm": 365.2
+    },
+    "gfs": {
+     "tp_mm": 0.7,
+     "snow_cm": 1.0
+    }
+   }
+  },
+  "2025-12-16": {
+   "obs": {
+    "snow_cm": 0.0,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 0.6,
+     "snow_cm": 0.6
+    },
+    "aifs": {
+     "tp_mm": 582.0,
+     "snow_cm": 582.0
+    },
+    "gfs": {
+     "tp_mm": 0.4,
+     "snow_cm": 0.7
+    }
+   }
+  },
+  "2025-12-17": {
+   "obs": {
+    "snow_cm": 1.6,
+    "rain_mm": 0.7
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 5.1,
+     "snow_cm": 5.0
+    },
+    "aifs": {
+     "tp_mm": 2460.9,
+     "snow_cm": 2199.2
+    },
+    "gfs": {
+     "tp_mm": 7.8,
+     "snow_cm": 9.2
+    }
+   }
+  },
+  "2025-12-18": {
+   "obs": {
+    "snow_cm": 0.5,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 0.0,
+     "snow_cm": 0.0
+    },
+    "aifs": {
+     "tp_mm": 0.0,
+     "snow_cm": 0.0
+    },
+    "gfs": {
+     "tp_mm": 0.0,
+     "snow_cm": 0.0
+    }
+   }
+  },
+  "2025-12-19": {
+   "obs": {
+    "snow_cm": 0.5,
+    "rain_mm": 11.1
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 12.0,
+     "snow_cm": 0.8
+    },
+    "aifs": {
+     "tp_mm": 13918.0,
+     "snow_cm": 1044.9
+    },
+    "gfs": {
+     "tp_mm": 9.8,
+     "snow_cm": 0.8
+    }
+   }
+  },
+  "2025-12-20": {
+   "obs": {
+    "snow_cm": 3.2,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 1.5,
+     "snow_cm": 1.5
+    },
+    "aifs": {
+     "tp_mm": 2175.8,
+     "snow_cm": 2176.8
+    },
+    "gfs": {
+     "tp_mm": 1.8,
+     "snow_cm": 2.4
+    }
+   }
+  },
+  "2025-12-21": {
+   "obs": {
+    "snow_cm": 0.5,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 2.3,
+     "snow_cm": 2.3
+    },
+    "aifs": {
+     "tp_mm": 2062.5,
+     "snow_cm": 2063.5
+    },
+    "gfs": {
+     "tp_mm": 1.8,
+     "snow_cm": 2.4
+    }
+   }
+  },
+  "2025-12-22": {
+   "obs": {
+    "snow_cm": 0.0,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 0.1,
+     "snow_cm": 0.1
+    },
+    "aifs": {
+     "tp_mm": 50.8,
+     "snow_cm": 50.8
+    },
+    "gfs": {
+     "tp_mm": 0.4,
+     "snow_cm": 0.7
+    }
+   }
+  },
+  "2025-12-23": {
+   "obs": {
+    "snow_cm": 4.8,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 3.4,
+     "snow_cm": 3.4
+    },
+    "aifs": {
+     "tp_mm": 1988.3,
+     "snow_cm": 1986.3
+    },
+    "gfs": {
+     "tp_mm": 2.8,
+     "snow_cm": 3.6
+    }
+   }
+  },
+  "2025-12-24": {
+   "obs": {
+    "snow_cm": 2.9,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 5.0,
+     "snow_cm": 5.0
+    },
+    "aifs": {
+     "tp_mm": 3550.8,
+     "snow_cm": 3552.7
+    },
+    "gfs": {
+     "tp_mm": 4.9,
+     "snow_cm": 6.5
+    }
+   }
+  },
+  "2025-12-25": {
+   "obs": {
+    "snow_cm": 0.3,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 4.1,
+     "snow_cm": 4.1
+    },
+    "aifs": {
+     "tp_mm": 4019.5,
+     "snow_cm": 4019.5
+    },
+    "gfs": {
+     "tp_mm": 3.9,
+     "snow_cm": 5.0
+    }
+   }
+  },
+  "2025-12-26": {
+   "obs": {
+    "snow_cm": 0.0,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 0.0,
+     "snow_cm": 0.0
+    },
+    "aifs": {
+     "tp_mm": 0.0,
+     "snow_cm": 0.0
+    },
+    "gfs": {
+     "tp_mm": 0.0,
+     "snow_cm": 0.0
+    }
+   }
+  },
+  "2025-12-27": {
+   "obs": {
+    "snow_cm": 0.0,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 0.0,
+     "snow_cm": 0.0
+    },
+    "aifs": {
+     "tp_mm": 0.0,
+     "snow_cm": 0.0
+    },
+    "gfs": {
+     "tp_mm": 0.0,
+     "snow_cm": 0.0
+    }
+   }
+  },
+  "2025-12-28": {
+   "obs": {
+    "snow_cm": 0.5,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 0.0,
+     "snow_cm": 0.0
+    },
+    "aifs": {
+     "tp_mm": 0.0,
+     "snow_cm": 0.0
+    },
+    "gfs": {
+     "tp_mm": 0.0,
+     "snow_cm": 0.0
+    }
+   }
+  },
+  "2025-12-29": {
+   "obs": {
+    "snow_cm": 1.0,
+    "rain_mm": 11.5
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 17.9,
+     "snow_cm": 4.7
+    },
+    "aifs": {
+     "tp_mm": 17796.9,
+     "snow_cm": 8738.3
+    },
+    "gfs": {
+     "tp_mm": 19.5,
+     "snow_cm": 20.1
+    }
+   }
+  },
+  "2025-12-30": {
+   "obs": {
+    "snow_cm": 0.0,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 1.8,
+     "snow_cm": 1.8
+    },
+    "aifs": {
+     "tp_mm": 1398.4,
+     "snow_cm": 1402.3
+    },
+    "gfs": {
+     "tp_mm": 1.9,
+     "snow_cm": 2.8
+    }
+   }
+  },
+  "2025-12-31": {
+   "obs": {
+    "snow_cm": 1.1,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 0.5,
+     "snow_cm": 0.5
+    },
+    "aifs": {
+     "tp_mm": 281.2,
+     "snow_cm": 283.2
+    },
+    "gfs": {
+     "tp_mm": 0.7,
+     "snow_cm": 1.0
+    }
+   }
+  },
+  "2026-01-01": {
+   "obs": {
+    "snow_cm": 0.6,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 2.1,
+     "snow_cm": 2.1
+    },
+    "aifs": {
+     "tp_mm": 2062.5,
+     "snow_cm": 2062.5
+    },
+    "gfs": {
+     "tp_mm": 4.8,
+     "snow_cm": 7.1
+    }
+   }
+  },
+  "2026-01-02": {
+   "obs": {
+    "snow_cm": 0.0,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 0.0,
+     "snow_cm": 0.0
+    },
+    "aifs": {
+     "tp_mm": 3.9,
+     "snow_cm": 2.0
+    },
+    "gfs": {
+     "tp_mm": 0.0,
+     "snow_cm": 0.0
+    }
+   }
+  },
+  "2026-01-03": {
+   "obs": {
+    "snow_cm": 0.0,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 0.1,
+     "snow_cm": 0.1
+    },
+    "aifs": {
+     "tp_mm": 11.7,
+     "snow_cm": 8.8
+    },
+    "gfs": {
+     "tp_mm": 0.1,
+     "snow_cm": 0.2
+    }
+   }
+  },
+  "2026-01-04": {
+   "obs": {
+    "snow_cm": 0.0,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 0.1,
+     "snow_cm": 0.1
+    },
+    "aifs": {
+     "tp_mm": 19.5,
+     "snow_cm": 19.5
+    },
+    "gfs": {
+     "tp_mm": 0.1,
+     "snow_cm": 0.2
+    }
+   }
+  },
+  "2026-01-05": {
+   "obs": {
+    "snow_cm": 0.0,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 0.0,
+     "snow_cm": 0.0
+    },
+    "aifs": {
+     "tp_mm": 558.6,
+     "snow_cm": 558.6
+    },
+    "gfs": {
+     "tp_mm": 0.1,
+     "snow_cm": 0.1
+    }
+   }
+  },
+  "2026-01-06": {
+   "obs": {
+    "snow_cm": 0.4,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 0.9,
+     "snow_cm": 0.9
+    },
+    "aifs": {
+     "tp_mm": 89.8,
+     "snow_cm": 87.9
+    },
+    "gfs": {
+     "tp_mm": 1.3,
+     "snow_cm": 1.7
+    }
+   }
+  },
+  "2026-01-07": {
+   "obs": {
+    "snow_cm": 1.8,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 4.8,
+     "snow_cm": 4.7
+    },
+    "aifs": {
+     "tp_mm": 4468.8,
+     "snow_cm": 4462.9
+    },
+    "gfs": {
+     "tp_mm": 6.3,
+     "snow_cm": 7.4
+    }
+   }
+  },
+  "2026-01-08": {
+   "obs": {
+    "snow_cm": 0.0,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 0.2,
+     "snow_cm": 0.2
+    },
+    "aifs": {
+     "tp_mm": 367.2,
+     "snow_cm": 369.1
+    },
+    "gfs": {
+     "tp_mm": 0.2,
+     "snow_cm": 0.3
+    }
+   }
+  },
+  "2026-01-09": {
+   "obs": {
+    "snow_cm": 0.0,
+    "rain_mm": 7.7
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 5.9,
+     "snow_cm": 1.8
+    },
+    "aifs": {
+     "tp_mm": 6222.7,
+     "snow_cm": 53.7
+    },
+    "gfs": {
+     "tp_mm": 4.8,
+     "snow_cm": 1.0
+    }
+   }
+  },
+  "2026-01-10": {
+   "obs": {
+    "snow_cm": 13.9,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 0.3,
+     "snow_cm": 0.1
+    },
+    "aifs": {
+     "tp_mm": 2062.5,
+     "snow_cm": 1986.3
+    },
+    "gfs": {
+     "tp_mm": 1.8,
+     "snow_cm": 2.2
+    }
+   }
+  },
+  "2026-01-11": {
+   "obs": {
+    "snow_cm": 1.7,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 14.3,
+     "snow_cm": 14.2
+    },
+    "aifs": {
+     "tp_mm": 13136.7,
+     "snow_cm": 13138.7
+    },
+    "gfs": {
+     "tp_mm": 14.8,
+     "snow_cm": 19.2
+    }
+   }
+  },
+  "2026-01-12": {
+   "obs": {
+    "snow_cm": 0.0,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 2.0,
+     "snow_cm": 2.0
+    },
+    "aifs": {
+     "tp_mm": 2484.4,
+     "snow_cm": 2488.3
+    },
+    "gfs": {
+     "tp_mm": 3.1,
+     "snow_cm": 4.3
+    }
+   }
+  },
+  "2026-01-13": {
+   "obs": {
+    "snow_cm": 1.9,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 1.4,
+     "snow_cm": 1.4
+    },
+    "aifs": {
+     "tp_mm": 2859.4,
+     "snow_cm": 2861.3
+    },
+    "gfs": {
+     "tp_mm": 2.4,
+     "snow_cm": 3.2
+    }
+   }
+  },
+  "2026-01-14": {
+   "obs": {
+    "snow_cm": 0.0,
+    "rain_mm": 4.9
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 0.7,
+     "snow_cm": 0.5
+    },
+    "aifs": {
+     "tp_mm": 2171.9,
+     "snow_cm": 1171.9
+    },
+    "gfs": {
+     "tp_mm": 1.6,
+     "snow_cm": 1.2
+    }
+   }
+  },
+  "2026-01-15": {
+   "obs": {
+    "snow_cm": 1.7,
+    "rain_mm": 4.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 9.7,
+     "snow_cm": 8.2
+    },
+    "aifs": {
+     "tp_mm": 10066.4,
+     "snow_cm": 9074.2
+    },
+    "gfs": {
+     "tp_mm": 11.9,
+     "snow_cm": 11.4
+    }
+   }
+  },
+  "2026-01-16": {
+   "obs": {
+    "snow_cm": 0.0,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 2.4,
+     "snow_cm": 2.4
+    },
+    "aifs": {
+     "tp_mm": 4687.5,
+     "snow_cm": 4687.5
+    },
+    "gfs": {
+     "tp_mm": 1.2,
+     "snow_cm": 1.9
+    }
+   }
+  },
+  "2026-01-17": {
+   "obs": {
+    "snow_cm": 0.2,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 2.4,
+     "snow_cm": 2.4
+    },
+    "aifs": {
+     "tp_mm": 2058.6,
+     "snow_cm": 2058.6
+    },
+    "gfs": {
+     "tp_mm": 2.3,
+     "snow_cm": 3.1
+    }
+   }
+  },
+  "2026-01-18": {
+   "obs": {
+    "snow_cm": 0.0,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 2.2,
+     "snow_cm": 2.2
+    },
+    "aifs": {
+     "tp_mm": 1238.3,
+     "snow_cm": 1238.3
+    },
+    "gfs": {
+     "tp_mm": 1.1,
+     "snow_cm": 1.6
+    }
+   }
+  },
+  "2026-01-19": {
+   "obs": {
+    "snow_cm": 0.2,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 0.7,
+     "snow_cm": 0.7
+    },
+    "aifs": {
+     "tp_mm": 1527.3,
+     "snow_cm": 1527.3
+    },
+    "gfs": {
+     "tp_mm": 0.9,
+     "snow_cm": 1.3
+    }
+   }
+  },
+  "2026-01-20": {
+   "obs": {
+    "snow_cm": 0.0,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 0.5,
+     "snow_cm": 0.5
+    },
+    "aifs": {
+     "tp_mm": 925.8,
+     "snow_cm": 927.7
+    },
+    "gfs": {
+     "tp_mm": 0.8,
+     "snow_cm": 1.2
+    }
+   }
+  },
+  "2026-01-21": {
+   "obs": {
+    "snow_cm": 1.3,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 0.9,
+     "snow_cm": 0.9
+    },
+    "aifs": {
+     "tp_mm": 1656.2,
+     "snow_cm": 1658.2
+    },
+    "gfs": {
+     "tp_mm": 0.5,
+     "snow_cm": 0.8
+    }
+   }
+  },
+  "2026-01-22": {
+   "obs": {
+    "snow_cm": 0.4,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 2.6,
+     "snow_cm": 2.6
+    },
+    "aifs": {
+     "tp_mm": 3484.4,
+     "snow_cm": 3490.2
+    },
+    "gfs": {
+     "tp_mm": 1.6,
+     "snow_cm": 2.1
+    }
+   }
+  },
+  "2026-01-23": {
+   "obs": {
+    "snow_cm": 0.0,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 0.6,
+     "snow_cm": 0.6
+    },
+    "aifs": {
+     "tp_mm": 1500.0,
+     "snow_cm": 1500.0
+    },
+    "gfs": {
+     "tp_mm": 1.9,
+     "snow_cm": 2.8
+    }
+   }
+  },
+  "2026-01-24": {
+   "obs": {
+    "snow_cm": 0.0,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 0.0,
+     "snow_cm": 0.0
+    },
+    "aifs": {
+     "tp_mm": 70.3,
+     "snow_cm": 70.3
+    },
+    "gfs": {
+     "tp_mm": 0.2,
+     "snow_cm": 0.3
+    }
+   }
+  },
+  "2026-01-25": {
+   "obs": {
+    "snow_cm": 3.8,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 1.6,
+     "snow_cm": 1.6
+    },
+    "aifs": {
+     "tp_mm": 2019.5,
+     "snow_cm": 2019.5
+    },
+    "gfs": {
+     "tp_mm": 1.4,
+     "snow_cm": 2.2
+    }
+   }
+  },
+  "2026-01-26": {
+   "obs": {
+    "snow_cm": 1.7,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 7.7,
+     "snow_cm": 7.7
+    },
+    "aifs": {
+     "tp_mm": 7257.8,
+     "snow_cm": 7253.9
+    },
+    "gfs": {
+     "tp_mm": 7.5,
+     "snow_cm": 11.2
+    }
+   }
+  },
+  "2026-01-27": {
+   "obs": {
+    "snow_cm": 0.0,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 1.0,
+     "snow_cm": 1.0
+    },
+    "aifs": {
+     "tp_mm": 746.1,
+     "snow_cm": 746.1
+    },
+    "gfs": {
+     "tp_mm": 0.9,
+     "snow_cm": 1.4
+    }
+   }
+  },
+  "2026-01-28": {
+   "obs": {
+    "snow_cm": 0.0,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 0.0,
+     "snow_cm": 0.0
+    },
+    "aifs": {
+     "tp_mm": 0.0,
+     "snow_cm": 0.0
+    },
+    "gfs": {
+     "tp_mm": 0.2,
+     "snow_cm": 0.3
+    }
+   }
+  },
+  "2026-01-29": {
+   "obs": {
+    "snow_cm": 0.0,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 0.9,
+     "snow_cm": 0.9
+    },
+    "aifs": {
+     "tp_mm": 710.9,
+     "snow_cm": 707.0
+    },
+    "gfs": {
+     "tp_mm": 1.7,
+     "snow_cm": 2.5
+    }
+   }
+  },
+  "2026-01-30": {
+   "obs": {
+    "snow_cm": 0.0,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 2.0,
+     "snow_cm": 2.0
+    },
+    "aifs": {
+     "tp_mm": 734.4,
+     "snow_cm": 734.4
+    },
+    "gfs": {
+     "tp_mm": 1.7,
+     "snow_cm": 2.5
+    }
+   }
+  },
+  "2026-01-31": {
+   "obs": {
+    "snow_cm": 0.0,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 0.2,
+     "snow_cm": 0.2
+    },
+    "aifs": {
+     "tp_mm": 0.0,
+     "snow_cm": 0.0
+    },
+    "gfs": {
+     "tp_mm": 0.5,
+     "snow_cm": 0.8
+    }
+   }
+  },
+  "2026-02-01": {
+   "obs": {
+    "snow_cm": 0.0,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 0.0,
+     "snow_cm": 0.0
+    },
+    "aifs": {
+     "tp_mm": 0.0,
+     "snow_cm": 0.0
+    },
+    "gfs": {
+     "tp_mm": 0.1,
+     "snow_cm": 0.1
+    }
+   }
+  },
+  "2026-02-02": {
+   "obs": {
+    "snow_cm": 0.0,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 0.1,
+     "snow_cm": 0.1
+    },
+    "aifs": {
+     "tp_mm": 0.0,
+     "snow_cm": 0.0
+    },
+    "gfs": {
+     "tp_mm": 0.1,
+     "snow_cm": 0.2
+    }
+   }
+  },
+  "2026-02-03": {
+   "obs": {
+    "snow_cm": 0.0,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 0.0,
+     "snow_cm": 0.0
+    },
+    "aifs": {
+     "tp_mm": 0.0,
+     "snow_cm": 0.0
+    },
+    "gfs": {
+     "tp_mm": 0.3,
+     "snow_cm": 0.5
+    }
+   }
+  },
+  "2026-02-04": {
+   "obs": {
+    "snow_cm": 0.7,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 0.5,
+     "snow_cm": 0.5
+    },
+    "aifs": {
+     "tp_mm": 492.2,
+     "snow_cm": 492.2
+    },
+    "gfs": {
+     "tp_mm": 1.4,
+     "snow_cm": 2.2
+    }
+   }
+  },
+  "2026-02-05": {
+   "obs": {
+    "snow_cm": 0.0,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 0.5,
+     "snow_cm": 0.5
+    },
+    "aifs": {
+     "tp_mm": 242.2,
+     "snow_cm": 244.1
+    },
+    "gfs": {
+     "tp_mm": 1.4,
+     "snow_cm": 2.1
+    }
+   }
+  },
+  "2026-02-06": {
+   "obs": {
+    "snow_cm": 0.0,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 0.1,
+     "snow_cm": 0.1
+    },
+    "aifs": {
+     "tp_mm": 97.7,
+     "snow_cm": 97.7
+    },
+    "gfs": {
+     "tp_mm": 0.1,
+     "snow_cm": 0.1
+    }
+   }
+  },
+  "2026-02-07": {
+   "obs": {
+    "snow_cm": 0.7,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 0.2,
+     "snow_cm": 0.2
+    },
+    "aifs": {
+     "tp_mm": 1058.6,
+     "snow_cm": 1058.6
+    },
+    "gfs": {
+     "tp_mm": 3.3,
+     "snow_cm": 5.0
+    }
+   }
+  },
+  "2026-02-08": {
+   "obs": {
+    "snow_cm": 0.0,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 0.0,
+     "snow_cm": 0.0
+    },
+    "aifs": {
+     "tp_mm": 0.0,
+     "snow_cm": 0.0
+    },
+    "gfs": {
+     "tp_mm": 0.2,
+     "snow_cm": 0.3
+    }
+   }
+  },
+  "2026-02-09": {
+   "obs": {
+    "snow_cm": 0.0,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 0.0,
+     "snow_cm": 0.0
+    },
+    "aifs": {
+     "tp_mm": 0.0,
+     "snow_cm": 1.0
+    },
+    "gfs": {
+     "tp_mm": 0.2,
+     "snow_cm": 0.3
+    }
+   }
+  },
+  "2026-02-10": {
+   "obs": {
+    "snow_cm": 4.3,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 0.3,
+     "snow_cm": 0.3
+    },
+    "aifs": {
+     "tp_mm": 1835.9,
+     "snow_cm": 1834.0
+    },
+    "gfs": {
+     "tp_mm": 6.2,
+     "snow_cm": 8.1
+    }
+   }
+  },
+  "2026-02-11": {
+   "obs": {
+    "snow_cm": 1.8,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 4.5,
+     "snow_cm": 4.5
+    },
+    "aifs": {
+     "tp_mm": 4535.2,
+     "snow_cm": 4532.2
+    },
+    "gfs": {
+     "tp_mm": 5.5,
+     "snow_cm": 7.1
+    }
+   }
+  },
+  "2026-02-12": {
+   "obs": {
+    "snow_cm": 0.0,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 0.3,
+     "snow_cm": 0.2
+    },
+    "aifs": {
+     "tp_mm": 503.9,
+     "snow_cm": 503.9
+    },
+    "gfs": {
+     "tp_mm": 0.0,
+     "snow_cm": 0.0
+    }
+   }
+  },
+  "2026-02-13": {
+   "obs": {
+    "snow_cm": 0.0,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 0.0,
+     "snow_cm": 0.0
+    },
+    "aifs": {
+     "tp_mm": 0.0,
+     "snow_cm": 0.0
+    },
+    "gfs": {
+     "tp_mm": 0.2,
+     "snow_cm": 0.4
+    }
+   }
+  },
+  "2026-02-14": {
+   "obs": {
+    "snow_cm": 0.5,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 0.9,
+     "snow_cm": 0.9
+    },
+    "aifs": {
+     "tp_mm": 1738.3,
+     "snow_cm": 1738.3
+    },
+    "gfs": {
+     "tp_mm": 1.9,
+     "snow_cm": 2.8
+    }
+   }
+  },
+  "2026-02-15": {
+   "obs": {
+    "snow_cm": 0.0,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 0.0,
+     "snow_cm": 0.0
+    },
+    "aifs": {
+     "tp_mm": 70.3,
+     "snow_cm": 69.3
+    },
+    "gfs": {
+     "tp_mm": 0.0,
+     "snow_cm": 0.0
+    }
+   }
+  },
+  "2026-02-16": {
+   "obs": {
+    "snow_cm": 0.0,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 0.3,
+     "snow_cm": 0.3
+    },
+    "aifs": {
+     "tp_mm": 316.4,
+     "snow_cm": 311.5
+    },
+    "gfs": {
+     "tp_mm": 0.0,
+     "snow_cm": 0.0
+    }
+   }
+  },
+  "2026-02-17": {
+   "obs": {
+    "snow_cm": 1.7,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 0.8,
+     "snow_cm": 0.6
+    },
+    "aifs": {
+     "tp_mm": 3117.2,
+     "snow_cm": 2950.2
+    },
+    "gfs": {
+     "tp_mm": 4.6,
+     "snow_cm": 4.9
+    }
+   }
+  },
+  "2026-02-18": {
+   "obs": {
+    "snow_cm": 0.0,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 0.1,
+     "snow_cm": 0.1
+    },
+    "aifs": {
+     "tp_mm": 1062.5,
+     "snow_cm": 1062.5
+    },
+    "gfs": {
+     "tp_mm": 0.7,
+     "snow_cm": 0.9
+    }
+   }
+  },
+  "2026-02-19": {
+   "obs": {
+    "snow_cm": 0.0,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 0.0,
+     "snow_cm": 0.0
+    },
+    "aifs": {
+     "tp_mm": 0.0,
+     "snow_cm": 0.0
+    },
+    "gfs": {
+     "tp_mm": 0.0,
+     "snow_cm": 0.0
+    }
+   }
+  },
+  "2026-02-20": {
+   "obs": {
+    "snow_cm": 0.0,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 0.0,
+     "snow_cm": 0.0
+    },
+    "aifs": {
+     "tp_mm": 171.9,
+     "snow_cm": 171.9
+    },
+    "gfs": {
+     "tp_mm": 0.2,
+     "snow_cm": 0.3
+    }
+   }
+  },
+  "2026-02-21": {
+   "obs": {
+    "snow_cm": 0.0,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 0.1,
+     "snow_cm": 0.1
+    },
+    "aifs": {
+     "tp_mm": 0.0,
+     "snow_cm": 1.0
+    },
+    "gfs": {
+     "tp_mm": 0.1,
+     "snow_cm": 0.2
+    }
+   }
+  },
+  "2026-02-22": {
+   "obs": {
+    "snow_cm": 0.0,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 0.0,
+     "snow_cm": 0.0
+    },
+    "aifs": {
+     "tp_mm": 0.0,
+     "snow_cm": 1.0
+    },
+    "gfs": {
+     "tp_mm": 0.1,
+     "snow_cm": 0.1
+    }
+   }
+  },
+  "2026-02-23": {
+   "obs": {
+    "snow_cm": 0.0,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 1.9,
+     "snow_cm": 1.9
+    },
+    "aifs": {
+     "tp_mm": 640.6,
+     "snow_cm": 640.6
+    },
+    "gfs": {
+     "tp_mm": 0.8,
+     "snow_cm": 1.1
+    }
+   }
+  },
+  "2026-02-24": {
+   "obs": {
+    "snow_cm": 0.0,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 0.3,
+     "snow_cm": 0.3
+    },
+    "aifs": {
+     "tp_mm": 82.0,
+     "snow_cm": 84.0
+    },
+    "gfs": {
+     "tp_mm": 0.8,
+     "snow_cm": 1.1
+    }
+   }
+  },
+  "2026-02-25": {
+   "obs": {
+    "snow_cm": 2.4,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 2.7,
+     "snow_cm": 2.7
+    },
+    "aifs": {
+     "tp_mm": 2238.3,
+     "snow_cm": 2238.3
+    },
+    "gfs": {
+     "tp_mm": 1.8,
+     "snow_cm": 2.6
+    }
+   }
+  },
+  "2026-02-26": {
+   "obs": {
+    "snow_cm": 0.0,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 0.6,
+     "snow_cm": 0.6
+    },
+    "aifs": {
+     "tp_mm": 1433.6,
+     "snow_cm": 1433.6
+    },
+    "gfs": {
+     "tp_mm": 1.8,
+     "snow_cm": 2.4
+    }
+   }
+  },
+  "2026-02-27": {
+   "obs": {
+    "snow_cm": 0.0,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 0.0,
+     "snow_cm": 0.0
+    },
+    "aifs": {
+     "tp_mm": 304.7,
+     "snow_cm": 298.8
+    },
+    "gfs": {
+     "tp_mm": 0.2,
+     "snow_cm": 0.4
+    }
+   }
+  },
+  "2026-02-28": {
+   "obs": {
+    "snow_cm": 0.0,
+    "rain_mm": 0.3
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 1.1,
+     "snow_cm": 0.6
+    },
+    "aifs": {
+     "tp_mm": 1242.2,
+     "snow_cm": 678.7
+    },
+    "gfs": {
+     "tp_mm": 3.0,
+     "snow_cm": 2.0
+    }
+   }
+  },
+  "2026-03-01": {
+   "obs": {
+    "snow_cm": 0.0,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 0.1,
+     "snow_cm": 0.1
+    },
+    "aifs": {
+     "tp_mm": 386.7,
+     "snow_cm": 384.8
+    },
+    "gfs": {
+     "tp_mm": 0.1,
+     "snow_cm": 0.1
+    }
+   }
+  },
+  "2026-03-02": {
+   "obs": {
+    "snow_cm": 0.0,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 0.0,
+     "snow_cm": 0.0
+    },
+    "aifs": {
+     "tp_mm": 2.0,
+     "snow_cm": 0.0
+    },
+    "gfs": {
+     "tp_mm": 0.1,
+     "snow_cm": 0.2
+    }
+   }
+  },
+  "2026-03-03": {
+   "obs": {
+    "snow_cm": 0.0,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 0.0,
+     "snow_cm": 0.0
+    },
+    "aifs": {
+     "tp_mm": 394.5,
+     "snow_cm": 396.5
+    },
+    "gfs": {
+     "tp_mm": 0.3,
+     "snow_cm": 0.4
+    }
+   }
+  },
+  "2026-03-04": {
+   "obs": {
+    "snow_cm": 0.0,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 0.1,
+     "snow_cm": 0.1
+    },
+    "aifs": {
+     "tp_mm": 468.8,
+     "snow_cm": 472.7
+    },
+    "gfs": {
+     "tp_mm": 1.4,
+     "snow_cm": 1.7
+    }
+   }
+  },
+  "2026-03-05": {
+   "obs": {
+    "snow_cm": 0.0,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 1.2,
+     "snow_cm": 1.2
+    },
+    "aifs": {
+     "tp_mm": 1125.0,
+     "snow_cm": 1127.0
+    },
+    "gfs": {
+     "tp_mm": 0.4,
+     "snow_cm": 0.5
+    }
+   }
+  },
+  "2026-03-06": {
+   "obs": {
+    "snow_cm": 0.0,
+    "rain_mm": 4.8
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 0.0,
+     "snow_cm": 0.0
+    },
+    "aifs": {
+     "tp_mm": 312.5,
+     "snow_cm": 207.0
+    },
+    "gfs": {
+     "tp_mm": 0.1,
+     "snow_cm": 0.2
+    }
+   }
+  },
+  "2026-03-07": {
+   "obs": {
+    "snow_cm": 0.0,
+    "rain_mm": 4.5
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 20.9,
+     "snow_cm": 0.0
+    },
+    "aifs": {
+     "tp_mm": 8035.2,
+     "snow_cm": 41.0
+    },
+    "gfs": {
+     "tp_mm": 9.6,
+     "snow_cm": 3.8
+    }
+   }
+  },
+  "2026-03-08": {
+   "obs": {
+    "snow_cm": 0.0,
+    "rain_mm": 0.2
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 1.8,
+     "snow_cm": 0.2
+    },
+    "aifs": {
+     "tp_mm": 3003.9,
+     "snow_cm": 271.5
+    },
+    "gfs": {
+     "tp_mm": 2.1,
+     "snow_cm": 0.1
+    }
+   }
+  },
+  "2026-03-09": {
+   "obs": {
+    "snow_cm": 0.0,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 0.0,
+     "snow_cm": 0.0
+    },
+    "aifs": {
+     "tp_mm": 293.0,
+     "snow_cm": 39.1
+    },
+    "gfs": {
+     "tp_mm": 0.0,
+     "snow_cm": 0.0
+    }
+   }
+  },
+  "2026-03-10": {
+   "obs": {
+    "snow_cm": 0.5,
+    "rain_mm": 0.2
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 0.1,
+     "snow_cm": 0.0
+    },
+    "aifs": {
+     "tp_mm": 375.0,
+     "snow_cm": 35.2
+    },
+    "gfs": {
+     "tp_mm": 0.5,
+     "snow_cm": 0.2
+    }
+   }
+  },
+  "2026-03-11": {
+   "obs": {
+    "snow_cm": 19.1,
+    "rain_mm": 13.9
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 27.7,
+     "snow_cm": 1.5
+    },
+    "aifs": {
+     "tp_mm": 22441.4,
+     "snow_cm": 3943.4
+    },
+    "gfs": {
+     "tp_mm": 23.9,
+     "snow_cm": 19.6
+    }
+   }
+  },
+  "2026-03-12": {
+   "obs": {
+    "snow_cm": 0.0,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 8.9,
+     "snow_cm": 0.3
+    },
+    "aifs": {
+     "tp_mm": 5558.6,
+     "snow_cm": 738.3
+    },
+    "gfs": {
+     "tp_mm": 6.2,
+     "snow_cm": 1.0
+    }
+   }
+  },
+  "2026-03-13": {
+   "obs": {
+    "snow_cm": 0.9,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 1.5,
+     "snow_cm": 1.5
+    },
+    "aifs": {
+     "tp_mm": 668.0,
+     "snow_cm": 668.0
+    },
+    "gfs": {
+     "tp_mm": 0.3,
+     "snow_cm": 0.4
+    }
+   }
+  },
+  "2026-03-14": {
+   "obs": {
+    "snow_cm": 1.9,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 5.4,
+     "snow_cm": 5.4
+    },
+    "aifs": {
+     "tp_mm": 5238.3,
+     "snow_cm": 5238.3
+    },
+    "gfs": {
+     "tp_mm": 5.2,
+     "snow_cm": 6.3
+    }
+   }
+  },
+  "2026-03-15": {
+   "obs": {
+    "snow_cm": 0.2,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 0.2,
+     "snow_cm": 0.2
+    },
+    "aifs": {
+     "tp_mm": 1261.7,
+     "snow_cm": 1261.7
+    },
+    "gfs": {
+     "tp_mm": 1.0,
+     "snow_cm": 1.0
+    }
+   }
+  },
+  "2026-03-16": {
+   "obs": {
+    "snow_cm": 0.0,
+    "rain_mm": 6.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 21.7,
+     "snow_cm": 0.0
+    },
+    "aifs": {
+     "tp_mm": 9300.8,
+     "snow_cm": 621.1
+    },
+    "gfs": {
+     "tp_mm": 4.0,
+     "snow_cm": 0.0
+    }
+   }
+  },
+  "2026-03-17": {
+   "obs": {
+    "snow_cm": 0.0,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 6.4,
+     "snow_cm": 0.6
+    },
+    "aifs": {
+     "tp_mm": 6218.8,
+     "snow_cm": 984.4
+    },
+    "gfs": {
+     "tp_mm": 6.6,
+     "snow_cm": 1.4
+    }
+   }
+  },
+  "2026-03-18": {
+   "obs": {
+    "snow_cm": 0.0,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 0.0,
+     "snow_cm": 0.0
+    },
+    "aifs": {
+     "tp_mm": 0.0,
+     "snow_cm": 0.0
+    },
+    "gfs": {
+     "tp_mm": 0.1,
+     "snow_cm": 0.2
+    }
+   }
+  },
+  "2026-03-19": {
+   "obs": {
+    "snow_cm": 1.6,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 1.8,
+     "snow_cm": 1.8
+    },
+    "aifs": {
+     "tp_mm": 1902.3,
+     "snow_cm": 1904.3
+    },
+    "gfs": {
+     "tp_mm": 1.6,
+     "snow_cm": 2.0
+    }
+   }
+  },
+  "2026-03-20": {
+   "obs": {
+    "snow_cm": 2.7,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 5.4,
+     "snow_cm": 5.3
+    },
+    "aifs": {
+     "tp_mm": 2679.7,
+     "snow_cm": 2683.6
+    },
+    "gfs": {
+     "tp_mm": 5.0,
+     "snow_cm": 6.5
+    }
+   }
+  },
+  "2026-03-21": {
+   "obs": {
+    "snow_cm": 0.0,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 0.1,
+     "snow_cm": 0.1
+    },
+    "aifs": {
+     "tp_mm": 570.3,
+     "snow_cm": 568.4
+    },
+    "gfs": {
+     "tp_mm": 0.9,
+     "snow_cm": 1.2
+    }
+   }
+  },
+  "2026-03-22": {
+   "obs": {
+    "snow_cm": 7.4,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 6.7,
+     "snow_cm": 6.7
+    },
+    "aifs": {
+     "tp_mm": 4132.8,
+     "snow_cm": 4132.8
+    },
+    "gfs": {
+     "tp_mm": 3.8,
+     "snow_cm": 4.9
+    }
+   }
+  },
+  "2026-03-23": {
+   "obs": {
+    "snow_cm": 0.2,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 0.6,
+     "snow_cm": 0.6
+    },
+    "aifs": {
+     "tp_mm": 808.6,
+     "snow_cm": 809.6
+    },
+    "gfs": {
+     "tp_mm": 1.2,
+     "snow_cm": 1.5
+    }
+   }
+  },
+  "2026-03-24": {
+   "obs": {
+    "snow_cm": 0.2,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 0.1,
+     "snow_cm": 0.1
+    },
+    "aifs": {
+     "tp_mm": 449.2,
+     "snow_cm": 449.2
+    },
+    "gfs": {
+     "tp_mm": 0.9,
+     "snow_cm": 1.1
+    }
+   }
+  },
+  "2026-03-25": {
+   "obs": {
+    "snow_cm": 1.3,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 1.2,
+     "snow_cm": 1.2
+    },
+    "aifs": {
+     "tp_mm": 968.8,
+     "snow_cm": 966.8
+    },
+    "gfs": {
+     "tp_mm": 0.8,
+     "snow_cm": 1.1
+    }
+   }
+  },
+  "2026-03-26": {
+   "obs": {
+    "snow_cm": 0.9,
+    "rain_mm": 5.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 3.3,
+     "snow_cm": 2.6
+    },
+    "aifs": {
+     "tp_mm": 5730.5,
+     "snow_cm": 3933.6
+    },
+    "gfs": {
+     "tp_mm": 11.8,
+     "snow_cm": 12.6
+    }
+   }
+  },
+  "2026-03-27": {
+   "obs": {
+    "snow_cm": 0.0,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 0.3,
+     "snow_cm": 0.3
+    },
+    "aifs": {
+     "tp_mm": 488.3,
+     "snow_cm": 488.3
+    },
+    "gfs": {
+     "tp_mm": 0.4,
+     "snow_cm": 0.6
+    }
+   }
+  },
+  "2026-03-28": {
+   "obs": {
+    "snow_cm": 0.0,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 0.1,
+     "snow_cm": 0.1
+    },
+    "aifs": {
+     "tp_mm": 136.7,
+     "snow_cm": 136.7
+    },
+    "gfs": {
+     "tp_mm": 0.2,
+     "snow_cm": 0.4
+    }
+   }
+  },
+  "2026-03-29": {
+   "obs": {
+    "snow_cm": 0.0,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 0.5,
+     "snow_cm": 0.5
+    },
+    "aifs": {
+     "tp_mm": 867.2,
+     "snow_cm": 867.2
+    },
+    "gfs": {
+     "tp_mm": 9.6,
+     "snow_cm": 10.0
+    }
+   }
+  },
+  "2026-03-30": {
+   "obs": {
+    "snow_cm": 2.3,
+    "rain_mm": 0.3
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 0.2,
+     "snow_cm": 0.2
+    },
+    "aifs": {
+     "tp_mm": 144.5,
+     "snow_cm": 82.0
+    },
+    "gfs": {
+     "tp_mm": 1.7,
+     "snow_cm": 1.4
+    }
+   }
+  },
+  "2026-03-31": {
+   "obs": {
+    "snow_cm": 1.5,
+    "rain_mm": 18.3
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 15.0,
+     "snow_cm": 1.6
+    },
+    "aifs": {
+     "tp_mm": 8464.8,
+     "snow_cm": 1773.4
+    },
+    "gfs": {
+     "tp_mm": 18.6,
+     "snow_cm": 18.6
+    }
+   }
+  },
+  "2026-04-01": {
+   "obs": {
+    "snow_cm": 0.0,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 3.2,
+     "snow_cm": 0.0
+    },
+    "aifs": {
+     "tp_mm": 2201.2,
+     "snow_cm": 1023.4
+    },
+    "gfs": {
+     "tp_mm": 2.0,
+     "snow_cm": 2.4
+    }
+   }
+  },
+  "2026-04-02": {
+   "obs": {
+    "snow_cm": 5.1,
+    "rain_mm": 15.7
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 2.3,
+     "snow_cm": 2.3
+    },
+    "aifs": {
+     "tp_mm": 3406.2,
+     "snow_cm": 3158.2
+    },
+    "gfs": {
+     "tp_mm": 4.6,
+     "snow_cm": 4.6
+    }
+   }
+  },
+  "2026-04-03": {
+   "obs": {
+    "snow_cm": 0.0,
+    "rain_mm": 6.2
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 22.5,
+     "snow_cm": 0.7
+    },
+    "aifs": {
+     "tp_mm": 16007.8,
+     "snow_cm": 1046.9
+    },
+    "gfs": {
+     "tp_mm": 15.0,
+     "snow_cm": 10.1
+    }
+   }
+  },
+  "2026-04-04": {
+   "obs": {
+    "snow_cm": 0.0,
+    "rain_mm": 12.4
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 1.8,
+     "snow_cm": 0.0
+    },
+    "aifs": {
+     "tp_mm": 5406.2,
+     "snow_cm": 1433.6
+    },
+    "gfs": {
+     "tp_mm": 5.4,
+     "snow_cm": 5.3
+    }
+   }
+  },
+  "2026-04-05": {
+   "obs": {
+    "snow_cm": 0.0,
+    "rain_mm": 3.5
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 18.3,
+     "snow_cm": 0.1
+    },
+    "aifs": {
+     "tp_mm": 14757.8,
+     "snow_cm": 242.2
+    },
+    "gfs": {
+     "tp_mm": 17.6,
+     "snow_cm": 10.2
+    }
+   }
+  },
+  "2026-04-06": {
+   "obs": {
+    "snow_cm": 0.2,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 0.9,
+     "snow_cm": 0.9
+    },
+    "aifs": {
+     "tp_mm": 1875.0,
+     "snow_cm": 1885.7
+    },
+    "gfs": {
+     "tp_mm": 2.4,
+     "snow_cm": 2.7
+    }
+   }
+  },
+  "2026-04-07": {
+   "obs": {
+    "snow_cm": 0.0,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 0.0,
+     "snow_cm": 0.0
+    },
+    "aifs": {
+     "tp_mm": 171.9,
+     "snow_cm": 175.8
+    },
+    "gfs": {
+     "tp_mm": 0.1,
+     "snow_cm": 0.1
+    }
+   }
+  },
+  "2026-04-08": {
+   "obs": {
+    "snow_cm": 0.0,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 0.0,
+     "snow_cm": 0.0
+    },
+    "aifs": {
+     "tp_mm": 0.0,
+     "snow_cm": 0.0
+    },
+    "gfs": {
+     "tp_mm": 0.0,
+     "snow_cm": 0.0
+    }
+   }
+  },
+  "2026-04-09": {
+   "obs": {
+    "snow_cm": 0.0,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 0.2,
+     "snow_cm": 0.2
+    },
+    "aifs": {
+     "tp_mm": 15.6,
+     "snow_cm": 0.0
+    },
+    "gfs": {
+     "tp_mm": 0.7,
+     "snow_cm": 0.0
+    }
+   }
+  },
+  "2026-04-10": {
+   "obs": {
+    "snow_cm": 0.0,
+    "rain_mm": 8.1
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 4.4,
+     "snow_cm": 0.0
+    },
+    "aifs": {
+     "tp_mm": 5781.2,
+     "snow_cm": 146.5
+    },
+    "gfs": {
+     "tp_mm": 8.9,
+     "snow_cm": 0.9
+    }
+   }
+  },
+  "2026-04-11": {
+   "obs": {
+    "snow_cm": 0.0,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 0.4,
+     "snow_cm": 0.3
+    },
+    "aifs": {
+     "tp_mm": 1328.1,
+     "snow_cm": 796.9
+    },
+    "gfs": {
+     "tp_mm": 1.6,
+     "snow_cm": 1.3
+    }
+   }
+  },
+  "2026-04-12": {
+   "obs": {
+    "snow_cm": 0.0,
+    "rain_mm": 7.2
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 0.0,
+     "snow_cm": 0.0
+    },
+    "aifs": {
+     "tp_mm": 273.4,
+     "snow_cm": 72.3
+    },
+    "gfs": {
+     "tp_mm": 0.0,
+     "snow_cm": 0.0
+    }
+   }
+  },
+  "2026-04-13": {
+   "obs": {
+    "snow_cm": 0.0,
+    "rain_mm": 8.3
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 19.8,
+     "snow_cm": 0.0
+    },
+    "aifs": {
+     "tp_mm": 19062.5,
+     "snow_cm": 0.0
+    },
+    "gfs": {
+     "tp_mm": 18.7,
+     "snow_cm": 0.0
+    }
+   }
+  },
+  "2026-04-14": {
+   "obs": {
+    "snow_cm": 0.0,
+    "rain_mm": 10.1
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 10.5,
+     "snow_cm": 0.0
+    },
+    "aifs": {
+     "tp_mm": 14750.0,
+     "snow_cm": 0.0
+    },
+    "gfs": {
+     "tp_mm": 24.9,
+     "snow_cm": 0.0
+    }
+   }
+  },
+  "2026-04-15": {
+   "obs": {
+    "snow_cm": 0.0,
+    "rain_mm": 0.3
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 1.1,
+     "snow_cm": 0.0
+    },
+    "aifs": {
+     "tp_mm": 1656.2,
+     "snow_cm": 0.0
+    },
+    "gfs": {
+     "tp_mm": 0.4,
+     "snow_cm": 0.0
+    }
+   }
+  },
+  "2026-04-16": {
+   "obs": {
+    "snow_cm": 0.0,
+    "rain_mm": 7.2
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 8.2,
+     "snow_cm": 0.0
+    },
+    "aifs": {
+     "tp_mm": 17054.7,
+     "snow_cm": 0.0
+    },
+    "gfs": {
+     "tp_mm": 10.7,
+     "snow_cm": 0.0
+    }
+   }
+  },
+  "2026-04-17": {
+   "obs": {
+    "snow_cm": 0.0,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 0.0,
+     "snow_cm": 0.0
+    },
+    "aifs": {
+     "tp_mm": 93.8,
+     "snow_cm": 0.0
+    },
+    "gfs": {
+     "tp_mm": 0.1,
+     "snow_cm": 0.0
+    }
+   }
+  },
+  "2026-04-18": {
+   "obs": {
+    "snow_cm": 0.0,
+    "rain_mm": 5.8
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 0.0,
+     "snow_cm": 0.0
+    },
+    "aifs": {
+     "tp_mm": 414.1,
+     "snow_cm": 0.0
+    },
+    "gfs": {
+     "tp_mm": 0.1,
+     "snow_cm": 0.0
+    }
+   }
+  },
+  "2026-04-19": {
+   "obs": {
+    "snow_cm": 0.3,
+    "rain_mm": 11.1
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 12.4,
+     "snow_cm": 4.4
+    },
+    "aifs": {
+     "tp_mm": 15300.8,
+     "snow_cm": 3820.3
+    },
+    "gfs": {
+     "tp_mm": 12.2,
+     "snow_cm": 1.4
+    }
+   }
+  },
+  "2026-04-20": {
+   "obs": {
+    "snow_cm": 0.3,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 0.1,
+     "snow_cm": 0.1
+    },
+    "aifs": {
+     "tp_mm": 324.2,
+     "snow_cm": 324.2
+    },
+    "gfs": {
+     "tp_mm": 0.4,
+     "snow_cm": 0.6
+    }
+   }
+  },
+  "2026-04-21": {
+   "obs": {
+    "snow_cm": 0.0,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 0.0,
+     "snow_cm": 0.0
+    },
+    "aifs": {
+     "tp_mm": 0.0,
+     "snow_cm": 1.0
+    },
+    "gfs": {
+     "tp_mm": 0.0,
+     "snow_cm": 0.0
+    }
+   }
+  },
+  "2026-04-22": {
+   "obs": {
+    "snow_cm": 0.0,
+    "rain_mm": 0.6
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 0.7,
+     "snow_cm": 0.3
+    },
+    "aifs": {
+     "tp_mm": 804.7,
+     "snow_cm": 97.7
+    },
+    "gfs": {
+     "tp_mm": 0.9,
+     "snow_cm": 0.0
+    }
+   }
+  },
+  "2026-04-23": {
+   "obs": {
+    "snow_cm": 0.0,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 2.6,
+     "snow_cm": 0.8
+    },
+    "aifs": {
+     "tp_mm": 3265.6,
+     "snow_cm": 914.1
+    },
+    "gfs": {
+     "tp_mm": 3.4,
+     "snow_cm": 0.2
+    }
+   }
+  },
+  "2026-04-24": {
+   "obs": {
+    "snow_cm": 0.0,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 0.1,
+     "snow_cm": 0.1
+    },
+    "aifs": {
+     "tp_mm": 58.6,
+     "snow_cm": 39.1
+    },
+    "gfs": {
+     "tp_mm": 0.3,
+     "snow_cm": 0.0
+    }
+   }
+  },
+  "2026-04-25": {
+   "obs": {
+    "snow_cm": 0.0,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 0.2,
+     "snow_cm": 0.0
+    },
+    "aifs": {
+     "tp_mm": 0.0,
+     "snow_cm": 0.0
+    },
+    "gfs": {
+     "tp_mm": 0.0,
+     "snow_cm": 0.0
+    }
+   }
+  },
+  "2026-04-26": {
+   "obs": {
+    "snow_cm": 0.0,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 0.0,
+     "snow_cm": 0.0
+    },
+    "aifs": {
+     "tp_mm": 0.0,
+     "snow_cm": 0.0
+    },
+    "gfs": {
+     "tp_mm": 0.0,
+     "snow_cm": 0.0
+    }
+   }
+  },
+  "2026-04-27": {
+   "obs": {
+    "snow_cm": 0.0,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 0.0,
+     "snow_cm": 0.0
+    },
+    "aifs": {
+     "tp_mm": 0.0,
+     "snow_cm": 0.0
+    },
+    "gfs": {
+     "tp_mm": 0.0,
+     "snow_cm": 0.0
+    }
+   }
+  },
+  "2026-04-28": {
+   "obs": {
+    "snow_cm": 0.0,
+    "rain_mm": 0.0
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 0.0,
+     "snow_cm": 0.0
+    },
+    "aifs": {
+     "tp_mm": 0.0,
+     "snow_cm": 0.0
+    },
+    "gfs": {
+     "tp_mm": 0.0,
+     "snow_cm": 0.0
+    }
+   }
+  },
+  "2026-04-29": {
+   "obs": {
+    "snow_cm": 0.0,
+    "rain_mm": 2.3
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 0.0,
+     "snow_cm": 0.0
+    },
+    "aifs": {
+     "tp_mm": 320.3,
+     "snow_cm": 0.0
+    },
+    "gfs": {
+     "tp_mm": 0.0,
+     "snow_cm": 0.0
+    }
+   }
+  },
+  "2026-04-30": {
+   "obs": {
+    "snow_cm": 0.0,
+    "rain_mm": 10.8
+   },
+   "fc": {
+    "ifs": {
+     "tp_mm": 25.0,
+     "snow_cm": 0.0
+    },
+    "aifs": {
+     "tp_mm": 11027.3,
+     "snow_cm": 0.0
+    },
+    "gfs": {
+     "tp_mm": 18.7,
+     "snow_cm": 0.0
+    }
+   }
+  }
+ }
+}
