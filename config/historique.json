@@ -1,0 +1,4 @@
+{
+  "periodes": [["2025-11-01", "2026-04-30"]],
+  "note": "Modifier ce fichier relance le calcul de la base historique (workflow historique.yml)."
+}
