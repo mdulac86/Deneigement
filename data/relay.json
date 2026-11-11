@@ -1,10 +1,10 @@
 {
-  "fetched_at": "2026-11-11T14:49:16.963588+00:00",
+  "fetched_at": "2026-11-11T16:45:03.605692+00:00",
   "host": "poste du bureau",
   "sources": {
     "mm": {
       "status": "ok",
-      "fetched_at": "2026-11-11T14:49:16.963588+00:00",
+      "fetched_at": "2026-11-11T16:45:03.605692+00:00",
       "result": {
         "issued_at": null,
         "days": [
@@ -2041,7 +2041,7 @@
     },
     "wu": {
       "status": "ok",
-      "fetched_at": "2026-11-11T14:49:16.963588+00:00",
+      "fetched_at": "2026-11-11T16:45:03.605692+00:00",
       "result": {
         "issued_at": null,
         "days": [
@@ -2052,17 +2052,17 @@
             "snow_cm": null,
             "rain_mm": 0.0,
             "ice_mm": null,
-            "condition": "AM Clouds/PM Sun",
+            "condition": "Mostly Cloudy",
             "risk": "Sans risque hivernal identifié"
           },
           {
             "date": "2026-11-13",
-            "high": 3.0,
-            "low": -3.0,
+            "high": 4.0,
+            "low": -2.0,
             "snow_cm": null,
             "rain_mm": 0.0,
             "ice_mm": null,
-            "condition": "Mostly Cloudy",
+            "condition": "Cloudy",
             "risk": "Sans risque hivernal identifié"
           },
           {
@@ -2078,7 +2078,7 @@
           {
             "date": "2026-11-15",
             "high": 4.0,
-            "low": -3.0,
+            "low": -2.0,
             "snow_cm": null,
             "rain_mm": 0.0,
             "ice_mm": null,
@@ -2087,7 +2087,7 @@
           },
           {
             "date": "2026-11-16",
-            "high": 2.0,
+            "high": 3.0,
             "low": -4.0,
             "snow_cm": null,
             "rain_mm": 0.0,
@@ -2097,8 +2097,8 @@
           },
           {
             "date": "2026-11-17",
-            "high": 4.0,
-            "low": -1.0,
+            "high": 5.0,
+            "low": null,
             "snow_cm": null,
             "rain_mm": 0.0,
             "ice_mm": null,
@@ -2107,8 +2107,8 @@
           },
           {
             "date": "2026-11-18",
-            "high": 6.0,
-            "low": -1.0,
+            "high": 7.0,
+            "low": null,
             "snow_cm": null,
             "rain_mm": 0.0,
             "ice_mm": null,
