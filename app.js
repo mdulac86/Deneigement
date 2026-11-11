@@ -43,7 +43,7 @@ function render(){
   $('status').className='signal '+(hasOfficial?'alert':ice||mixed||snow||threshold?'watch':'calm');$('status').innerHTML='<div><span class="tag '+(hasOfficial?'':ice||mixed||snow||threshold?'amber':'green')+'">'+label+'</span><h2>'+title+'</h2><p>Seuil opérationnel : 5 cm de nouvelle neige au sol. '+(threshold?'Les cm annoncés concernent la neige tombée; le seuil réel au sol reste à vérifier.':'Les quantités comparables ne permettent pas de confirmer l’atteinte des 5 cm au sol.')+'</p></div>';
   $('days').innerHTML=state.consensus.map((d,i)=>'<button class="day '+(selected===i?'active':'')+'" data-day="'+i+'" aria-pressed="'+(selected===i)+'"><span class="date">'+esc(dayLabel(d.date))+'</span><span class="symbol">'+symbol(d.risks)+'</span><strong>'+n(d.high_mean)+'° <span class="muted">/ '+n(d.low_mean)+'°</span></strong><small>'+d.sources.length+' sources · '+esc(d.confidence)+'</small><small>Neige : '+(d.snow.mean_cm!=null?n(d.snow.mean_cm)+' cm':d.model_snow?'≈ '+n(d.model_snow.median_cm)+' cm (modèles)':'non chiffrable')+'</small>'+(d.ensemble?'<small class="'+(d.ensemble.prob_5cm>=30?'ens-high':'')+'">5 cm+ : '+d.ensemble.prob_5cm+' % (ensemble)</small>':'')+'</button>').join('');
   document.querySelectorAll('[data-day]').forEach(b=>b.addEventListener('click',()=>{selected=Number(b.dataset.day);render()}));
-  renderPlan();renderComparison();renderOfficial();renderWinter();renderSources();renderReliability();
+  renderPlan();renderDepth();renderComparison();renderOfficial();renderWinter();renderSources();renderReliability();
   $('previous').textContent=state.previous_at?'Depuis '+local(state.previous_at):'État de référence';$('changes').innerHTML=state.changes.map(c=>'<li>'+esc(c.text)+'</li>').join('');
 }
 function renderComparison(){
@@ -87,6 +87,7 @@ function observedSeason(records){
  return {t5:eps.filter(e=>e.total>=5).length,t15:eps.filter(e=>e.total>=15).length,t25:eps.filter(e=>e.total>=25).length,jours,fonte,byMonth};
 }
 function seasonBar(label,done,exp,norm,unit=''){
+ if(!exp)return '';
  const max=Math.max(exp.max,norm,done,1),pct=v=>Math.min(100,v/max*100);
  return '<div class="season-row"><div class="season-label"><b>'+label+'</b><span>'+n(done)+unit+' à ce jour · '+n(exp.central)+unit+' attendus ('+n(exp.min)+'–'+n(exp.max)+')</span></div><div class="season-bar"><span class="range" style="left:'+pct(exp.min)+'%;width:'+(pct(exp.max)-pct(exp.min))+'%"></span><span class="done" style="width:'+pct(done)+'%"></span><i class="normal" style="left:'+pct(norm)+'%" title="Normale : '+n(norm)+unit+'"></i></div></div>';
 }
@@ -167,6 +168,26 @@ $('radar-time').addEventListener('input',()=>{stopRadar();showRadar()});$('radar
 $('radar-play').addEventListener('click',()=>{if(timer){stopRadar();return}if(!frames.length)return;$('radar-play').textContent='Ⅱ Pause';timer=setInterval(()=>{$('radar-time').value=(+$('radar-time').value+1)%frames.length;showRadar()},1100)});
 document.addEventListener('visibilitychange',()=>{if(document.hidden)stopRadar();else load()});setInterval(()=>{if(!document.hidden){load();if(map&&!$('radar').hidden)radarCapabilities().catch(()=>{})}},300000);
 if('serviceWorker'in navigator)navigator.serviceWorker.register('./sw.js').catch(()=>{});
+function spark(series){
+ const pts=series.filter(s=>s.depth_cm!=null);if(pts.length<2)return '';
+ const t0=Date.parse(series[0].time),t1=Date.parse(series.at(-1).time)||t0+1,max=Math.max(5,...pts.map(p=>p.depth_cm));
+ const x=t=>((Date.parse(t)-t0)/(t1-t0||1)*200).toFixed(1),y=v=>(38-v/max*34).toFixed(1);
+ return '<svg class="spark" viewBox="0 0 200 40" preserveAspectRatio="none" aria-hidden="true"><path d="M'+pts.map(p=>x(p.time)+' '+y(p.depth_cm)).join('L')+'" fill="none" stroke="#FFB81C" stroke-width="2" vector-effect="non-scaling-stroke"/></svg>';
+}
+function trend(c){if(c==null)return '<span class="muted">—</span>';if(c<=-2)return '<span class="melt">▼ '+n(Math.abs(c))+' cm</span>';if(c>=2)return '<span class="gain">▲ '+n(c)+' cm</span>';return '<span class="muted">stable</span>'}
+function renderDepth(){
+ const d=state.snow_depth,recs=(state.climate.records||[]).filter(r=>r.depth_cm!=null);
+ const sp=recs.at(-1),prev=recs.at(-2);
+ let rows='<div class="depth-row home"><div><b>Saint-Prosper</b><small>Climat Québec · 1 relevé par jour'+(sp?' · '+dateOnly(sp.date):'')+'</small></div><strong>'+(sp?n(sp.depth_cm)+' cm':'—')+'</strong><div>'+trend(sp&&prev?sp.depth_cm-prev.depth_cm:null)+'<small>sur 1 jour</small></div><div></div></div>';
+ const st=(d?.stations||[]);
+ rows+=st.map(s=>'<div class="depth-row"><div><b>'+esc(s.name)+'</b><small>'+s.km+' km · capteur horaire'+(s.latest?' · '+local(s.latest.time,{month:undefined,day:undefined}):'')+(s.temp!=null?' · '+n(s.temp)+' °C':'')+'</small></div><strong>'+(s.status!=='ok'?'<span class="muted">indisponible</span>':s.latest?n(s.latest.depth_cm)+' cm':'—')+'</strong><div>'+trend(s.change_24h)+'<small>sur 24 h</small></div><div>'+spark(s.series||[])+'</div></div>').join('');
+ $('depth').innerHTML=rows;
+ const ch=st.filter(s=>s.change_24h!=null),warm=st.some(s=>s.temp!=null&&s.temp>0);
+ const melt=ch.some(s=>s.change_24h<=-2),gain=ch.some(s=>s.change_24h>=2),any=st.some(s=>s.latest?.depth_cm>0)||(sp?.depth_cm>0);
+ const label=!any?'Pas de neige au sol':gain?'Accumulation en cours':melt?(warm?'Fonte en cours':'Tassement'):'Couvert stable';
+ $('depth-state').textContent=label;$('depth-state').className='tag '+(melt&&warm?'amber':gain?'green':'');
+ $('depth-note').textContent=(d?.note||'')+' La courbe montre les 72 dernières heures.';
+}
 function relTable(rows){
  if(!rows?.length)return '<p class="muted">Pas encore assez de jours comparés.</p>';
  const cm=v=>v==null?'—':n(v)+' cm',sg=v=>v==null?'—':(v>0?'+':'')+n(v)+' cm';

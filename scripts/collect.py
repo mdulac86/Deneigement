@@ -19,6 +19,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import models as nwp  # noqa: E402
 import plan as planner  # noqa: E402
 import ecmwf  # noqa: E402
+import snowdepth  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / 'data'
@@ -525,6 +526,10 @@ def main():
     result={'updated_at':stamp(),'location':{'name':'Saint-Prosper · Beauce','lat':LAT,'lon':LON,'timezone':'America/Toronto'},'threshold_cm':5,'sources':sources,'official_alerts':alerts,'climate':climate,'consensus':consensus(sources),'previous_at':previous.get('updated_at')}
     result['changes']=changes(previous,result)
     result['saison_estimation']=read(ROOT/'config'/'saison.json',None)
+    try:
+        result['snow_depth']=snowdepth.collect(fetch,NOW)
+    except Exception as e:
+        result['snow_depth']={'stations':[],'error':str(e)[:150]}
     try:
         result.update(forecast_plan(sources, result['consensus']))
     except Exception as e:  # Le plan ne doit jamais bloquer la collecte principale.
