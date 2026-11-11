@@ -619,7 +619,8 @@
      "snow_cm": 1.9
     },
     "aifs": {
-     "error": "HTTP Error 503: Service Unavailable"
+     "tp_mm": 5429.7,
+     "snow_cm": 5433.6
     },
     "gfs": {
      "tp_mm": 3.1,
@@ -654,7 +655,8 @@
    },
    "fc": {
     "ifs": {
-     "error": "HTTP Error 503: Service Unavailable"
+     "tp_mm": 1.6,
+     "snow_cm": 1.6
     },
     "aifs": {
      "tp_mm": 2195.3,
