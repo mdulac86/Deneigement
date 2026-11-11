@@ -9,7 +9,7 @@ Sources archivées publiquement (Amazon Open Data) :
 - NOAA GFS 0,25° : précipitations par tranche de 6 h + température -> cm estimés.
 Observations : Climat Québec, station 7027660 (relevés quotidiens).
 
-Les modèles canadiens (HRDPS, RDPS), MétéoMédia, AccuWeather et Weather Underground
+Les modèles canadiens (HRDPS, RDPS), MétéoMédia et Weather Underground
 n'ont pas d'archive publique : ils sont évalués à partir des archives du robot (verify.py).
 
 Usage : python scripts/history.py 2025-11-01 2026-04-30

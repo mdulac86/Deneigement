@@ -33,8 +33,6 @@ la restriction et sans compter une ancienne donnée dans le consensus.
   Saint-Georges incluant Saint-Prosper; bulletin 7 jours, horaire et quantités
   explicitement publiées par période. Alertes via `weather-alerts` et boîte
   géographique autour de Saint-Prosper.
-- AccuWeather : cartes quotidiennes de la page publique, localisation et dates
-  vérifiées. Conditions et températures; l'heure d'émission n'est pas exposée.
 - Weather Underground : cartes publiques demandées aux coordonnées exactes,
   dates et coordonnées des liens horaires vérifiées. Conditions et températures.
   Les valeurs neige sans unité explicite ne sont pas interprétées.
@@ -45,14 +43,15 @@ la restriction et sans compter une ancienne donnée dans le consensus.
   page 7 jours : conditions, températures, pluie en mm et **neige en cm** par période
   (nuit, matin, après-midi, soir). Les 4 périodes donnent un total 00-24 h comparable;
   les cm entrent aussi dans le plan de sortie (répartis sur chaque heure de la période).
-- AccuWeather et Weather Underground refusent la lecture depuis les serveurs de
-  GitHub (HTTP 403), et MétéoMédia y répond par une page de vérification.
+- AccuWeather refuse toute lecture automatisée (serveurs de GitHub et PC du bureau) : retiré
+  des sources. Weather Underground (403) et MétéoMédia (page de vérification) refusent les
+  serveurs de GitHub : ils sont lus par le relais du bureau.
+- L'interface n'affiche que les sources qui fonctionnent (à jour, ou lues dans les 24 h).
 - **Relais du bureau** (`scripts/pc_relay.py`) : une tâche planifiée Windows sur le
   PC du bureau lit MétéoMédia et Weather Underground à 23 h 45, 5 h 45, 11 h 45 et
   17 h 45, puis publie `data/relay.json`, ce qui relance le robot. Le robot utilise
   ces lectures pendant 7 h. PC éteint = pas de nouvelle lecture : l'appli affiche
   les données comme anciennes. Journal : `deneigement-relais.log` à côté du dossier.
-  AccuWeather refuse aussi le PC du bureau et reste exclu.
 - Climat Québec / MELCCFP : sommaire de la station automatique **7027660**,
   relevés quotidiens depuis le 1er octobre; relecture quotidienne de tous les mois
   de la saison afin de récupérer les corrections tardives. Saison jusqu'au 31 mai.

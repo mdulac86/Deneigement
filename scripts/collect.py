@@ -31,7 +31,6 @@ LAT, LON = 46.214, -70.486
 SOURCES = {
     'eccc': ('Environnement Canada', 'https://meteo.gc.ca/fr/location/index.html?coords=46.214,-70.486'),
     'mm': ('MétéoMédia', 'https://www.meteomedia.com/fr/ville/ca/quebec/saint-prosper/7-jours'),
-    'accu': ('AccuWeather', 'https://www.accuweather.com/fr/ca/saint-prosper/g0m/daily-weather-forecast/3390993'),
     'wu': ('Weather Underground', 'https://www.wunderground.com/forecast/ca/saint-prosper/46.214,-70.486'),
     'mb': ('meteoblue', 'https://www.meteoblue.com/fr/meteo/semaine/saint-prosper_canada_8672691'),
     'met': ('MET Norway', 'https://api.met.no/weatherapi/locationforecast/2.0/compact?lat=46.214&lon=-70.486'),
@@ -133,6 +132,9 @@ def eccc():
         # Les quantités demeurent dans les périodes officielles : sans début/fin
         # explicites on ne les transforme pas en un total quotidien 00–24 h.
         pop = number(str(val(f.get('abbreviatedForecast', {}).get('pop')) or ''))
+        if pop is None:  # sinon dans le texte : « 40 pour cent de probabilité »
+            m = re.search(r'(\d+) pour cent de probabilit', text)
+            pop = float(m[1]) if m else None
         periods.append({'date': str(day), 'label': label, 'text': text, 'snow_cm': qty, 'risk': risk(text), 'pop': pop})
     for d in days.values():
         d['risk'] = risk(d['condition'])
@@ -173,41 +175,6 @@ def met():
 def dated(month, day):
     candidates = [dt.date(TODAY.year+y, month, day) for y in (-1, 0, 1)]
     return min(candidates, key=lambda d: abs((d-TODAY).days))
-
-def accu():
-    soup = BeautifulSoup(fetch(SOURCES['accu'][1]), 'html.parser')
-    loc = re.search(r'var currentLocation\s*=\s*(\{.*?\});', str(soup))
-    if not loc or abs(json.loads(loc[1])['lat']-LAT) > .15 or abs(json.loads(loc[1])['lon']-LON) > .15:
-        raise ValueError('Localisation AccuWeather non vérifiée')
-    days = []
-    for card in soup.select('.daily-wrapper'):
-        date = card.select_one('.date.sub')
-        if not date:
-            date = card.select_one('.date .sub')
-        if not date:
-            continue
-        m = re.search(r'(\d{1,2})/(\d{1,2})', date.get_text())
-        if not m:
-            continue
-        when = dated(int(m[2]), int(m[1]))
-        if not TODAY <= when <= TODAY + dt.timedelta(days=7):
-            continue
-        d = entry(when)
-        for selector, key in [('.high', 'high'), ('.low', 'low')]:
-            el = card.select_one(selector)
-            n = re.search(r'-?\d+', el.get_text()) if el else None
-            if n:
-                d[key] = float(n[0])
-        phrase = card.select_one('.phrase') or card.select_one('.phrase-summary')
-        # Garder le texte descriptif, sans recopier les détails éditoriaux.
-        text = card.get_text(' ', strip=True)
-        m = re.search(r'%\s*(.*?)\s*RealFeel', text)
-        d['condition'] = phrase.get_text(' ', strip=True) if phrase else m[1] if m else 'Voir le bulletin source'
-        d['risk'] = risk(d['condition'])
-        days.append(d)
-    if len(days) < 3:
-        raise ValueError('Prévisions actuelles AccuWeather non lisibles')
-    return {'issued_at': None, 'days': days, 'note': 'Page publique actuelle; heure d’émission non publiée dans les données extraites. Quantités non affichées ici = indisponibles, jamais zéro.'}
 
 def wu():
     soup = BeautifulSoup(fetch(SOURCES['wu'][1]), 'html.parser')
@@ -574,7 +541,7 @@ def forecast_plan(sources, days):
 def main():
     DATA.mkdir(exist_ok=True)
     previous = read(DATA/'weather.json',{})
-    fns = {'eccc':eccc, 'met':met, 'accu':accu, 'wu':wu, 'mb':mb, 'mm':mm}
+    fns = {'eccc':eccc, 'met':met, 'wu':wu, 'mb':mb, 'mm':mm}  # AccuWeather retiré : refuse toute lecture automatisée
     with futures.ThreadPoolExecutor(max_workers=6) as pool:
         sources = list(pool.map(lambda kv:collect_source(*kv,previous),fns.items()))
     errors=[]
