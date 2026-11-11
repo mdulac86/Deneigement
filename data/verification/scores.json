@@ -1,18 +1,18 @@
 {
- "genere": "2026-11-11T15:03:16.880053+00:00",
+ "genere": "2026-11-11T15:28:43.547925+00:00",
  "seuil_cm": 5,
  "methode": "Prévision de la veille comparée à la neige mesurée par Climat Québec (station 7027660). Écart moyen = écart sur le total de chaque épisode de neige (une tempête qui chevauche minuit compte une seule fois). La neige de la station est calculée à partir des précipitations et de la température : les précipitations (mm d’eau) sont la mesure la plus sûre.",
  "historique": [
   {
    "id": "aifs",
    "nom": "ECMWF AIFS (européen, IA)",
-   "jours": 180,
+   "jours": 181,
    "episodes": 22,
    "ecart_moyen_cm": 4.2,
-   "biais_cm": 2.5,
+   "biais_cm": 2.6,
    "ecart_jour_cm": 2.4,
    "ecart_precip_mm": 3.1,
-   "total_prevu_cm": 243.5,
+   "total_prevu_cm": 244.6,
    "total_mesure_cm": 148.0,
    "tempetes": {
     "detectees": 9,
@@ -27,14 +27,14 @@
   {
    "id": "ifs",
    "nom": "ECMWF IFS (européen)",
-   "jours": 179,
+   "jours": 181,
    "episodes": 22,
-   "ecart_moyen_cm": 5.1,
-   "biais_cm": 3.0,
+   "ecart_moyen_cm": 4.9,
+   "biais_cm": 2.8,
    "ecart_jour_cm": 3.0,
    "ecart_precip_mm": 3.7,
-   "total_prevu_cm": 249.2,
-   "total_mesure_cm": 142.8,
+   "total_prevu_cm": 250.1,
+   "total_mesure_cm": 148.0,
    "tempetes": {
     "detectees": 9,
     "manquees": 1,
