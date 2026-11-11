@@ -174,7 +174,9 @@ $('radar-layer').addEventListener('change',async e=>{stopRadar();radarLayer=e.ta
 $('radar-time').addEventListener('input',()=>{stopRadar();showRadar()});$('radar-mix').addEventListener('input',showRadar);$('radar-cover').addEventListener('change',showRadar);$('radar-compare').addEventListener('change',async()=>{$('radar-mix-wrap').hidden=!$('radar-compare').checked;if($('radar-compare').checked){try{await loadNexrad()}catch(e){$('radar-error').textContent=e.message}}showRadar()});$('radar-home').addEventListener('click',()=>map?.setView([46.214,-70.486],8));
 $('radar-play').addEventListener('click',()=>{if(timer){stopRadar();return}if(!frames.length)return;$('radar-play').textContent='Ⅱ Pause';timer=setInterval(()=>{$('radar-time').value=(+$('radar-time').value+1)%frames.length;showRadar()},1100)});
 document.addEventListener('visibilitychange',()=>{if(document.hidden)stopRadar();else load()});setInterval(()=>{if(!document.hidden){load();if(map&&!$('radar').hidden)radarCapabilities().catch(()=>{})}},300000);
-if('serviceWorker'in navigator)navigator.serviceWorker.register('./sw.js').catch(()=>{});
+if('serviceWorker'in navigator){navigator.serviceWorker.register('./sw.js',{updateViaCache:'none'}).then(r=>r.update()).catch(()=>{});
+ // Nouvelle version publiée : recharger une fois pour l'afficher tout de suite.
+ let reloaded=false;navigator.serviceWorker.addEventListener('controllerchange',()=>{if(!reloaded){reloaded=true;location.reload()}})}
 const VAPID_PUBLIC='BPaBeYPCMQ81QiCRF-FnyjtmV1Xm9PaMKuPGvMblz5ACoCVPS6SLSTq_NAbUTUSn7HNWwpMyuLq4xsxqnGE0Eb4',REG_URL='https://ntfy.sh/dulac-deneigement-inscriptions-k7p2';
 function b64u(s){const p='='.repeat((4-s.length%4)%4),b=atob((s+p).replace(/-/g,'+').replace(/_/g,'/'));return Uint8Array.from(b,c=>c.charCodeAt(0))}
 const isIOS=/iPhone|iPad|iPod/.test(navigator.userAgent),standalone=window.navigator.standalone===true||matchMedia('(display-mode: standalone)').matches;
