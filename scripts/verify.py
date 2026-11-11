@@ -21,6 +21,7 @@ DATA = ROOT / 'data'
 TZ = ZoneInfo('America/Toronto')
 SEUIL = 5
 SNOWY = 1.0
+MIN_VERSION = {'aifs': 2}  # AIFS v1 : unités mal converties
 
 LIVE_NAMES = {
     'mm': 'MétéoMédia', 'wu': 'Weather Underground', 'hrdps': 'HRDPS (canadien 2,5 km)', 'rdps': 'RDPS (canadien 10 km)',
@@ -44,16 +45,22 @@ def observations():
 
 
 def history_pairs():
-    pairs, names = {}, {}
+    pairs, precip, names = {}, {}, {}
     for p in sorted((DATA / 'verification').glob('historique-*.json')):
         h = load(p, {})
         names.update(h.get('sources', {}))
         for day, row in h.get('days', {}).items():
-            o = (row.get('obs') or {}).get('snow_cm')
+            obs = row.get('obs') or {}
+            o = obs.get('snow_cm')
+            water = None if o is None or obs.get('rain_mm') is None else obs['rain_mm'] + o  # neige à 10:1
             for k, fc in row.get('fc', {}).items():
+                if fc.get('v', 1) < MIN_VERSION.get(k, 1):
+                    continue  # calcul d'une version corrigée depuis
                 if o is not None and fc.get('snow_cm') is not None:
                     pairs.setdefault(k, {})[day] = (fc['snow_cm'], o)
-    return pairs, names
+                if water is not None and fc.get('tp_mm') is not None:
+                    precip.setdefault(k, {})[day] = (fc['tp_mm'], water)
+    return pairs, precip, names
 
 
 def snapshot_for(day):
@@ -110,41 +117,71 @@ def live_pairs(obs):
     return pairs
 
 
-def score(pairs):
-    snowy = [(f, o) for f, o in pairs.values() if f >= SNOWY or o >= SNOWY]
-    hits = sum(1 for f, o in pairs.values() if f >= SEUIL and o >= SEUIL)
-    miss = sum(1 for f, o in pairs.values() if f < SEUIL and o >= SEUIL)
-    false = sum(1 for f, o in pairs.values() if f >= SEUIL and o < SEUIL)
+def episodes(pairs):
+    """Épisodes de neige observés : jours consécutifs avec neige mesurée, élargis d'un jour de chaque
+    côté. Comparer les totaux par épisode évite de pénaliser une tempête qui chevauche minuit."""
+    days = sorted(pairs)
+    snowy = [d for d in days if pairs[d][1] >= SNOWY]
+    groups, cur = [], []
+    for d in snowy:
+        if cur and (dt.date.fromisoformat(d) - dt.date.fromisoformat(cur[-1])).days > 2:
+            groups.append(cur)
+            cur = []
+        cur.append(d)
+    if cur:
+        groups.append(cur)
+    out = []
+    for g in groups:
+        a = dt.date.fromisoformat(g[0]) - dt.timedelta(days=1)
+        b = dt.date.fromisoformat(g[-1]) + dt.timedelta(days=1)
+        span = [d for d in days if a <= dt.date.fromisoformat(d) <= b]
+        out.append((span, sum(pairs[d][0] for d in span), sum(pairs[d][1] for d in span)))
+    return out
+
+
+def score(pairs, precip=None):
+    eps = episodes(pairs)
+    covered = {d for span, _, _ in eps for d in span}
+    big = [(f, o) for _, f, o in eps if o >= SEUIL]
+    hits = sum(1 for f, _ in big if f >= SEUIL)
+    false = 0
+    for d, (f, o) in sorted(pairs.items()):
+        if f >= SEUIL and not any(d in span and ot >= SEUIL / 2 for span, _, ot in eps):
+            false += 1
+    daily = [(f, o) for f, o in pairs.values() if f >= SNOWY or o >= SNOWY]
+    p = [(f, o) for f, o in (precip or {}).values() if f >= 1 or o >= 1]
     return {
-        'jours': len(pairs), 'jours_neige': len(snowy),
-        'ecart_moyen_cm': round(statistics.mean(abs(f - o) for f, o in snowy), 1) if snowy else None,
-        'biais_cm': round(statistics.mean(f - o for f, o in snowy), 1) if snowy else None,
+        'jours': len(pairs), 'episodes': len(eps),
+        'ecart_moyen_cm': round(statistics.mean(abs(f - o) for _, f, o in eps), 1) if eps else None,
+        'biais_cm': round(statistics.mean(f - o for _, f, o in eps), 1) if eps else None,
+        'ecart_jour_cm': round(statistics.mean(abs(f - o) for f, o in daily), 1) if daily else None,
+        'ecart_precip_mm': round(statistics.mean(abs(f - o) for f, o in p), 1) if p else None,
         'total_prevu_cm': round(sum(f for f, _ in pairs.values()), 1), 'total_mesure_cm': round(sum(o for _, o in pairs.values()), 1),
-        'tempetes': {'detectees': hits, 'manquees': miss, 'fausses_alertes': false},
+        'tempetes': {'detectees': hits, 'manquees': len(big) - hits, 'fausses_alertes': false},
         'periode': [min(pairs), max(pairs)] if pairs else None,
     }
 
 
-def ranked(pairs, names):
-    rows = [{'id': k, 'nom': names.get(k, k), **score(v)} for k, v in pairs.items() if v]
+def ranked(pairs, names, precip=None):
+    rows = [{'id': k, 'nom': names.get(k, k), **score(v, (precip or {}).get(k))} for k, v in pairs.items() if v]
     return sorted(rows, key=lambda r: (r['ecart_moyen_cm'] is None, r['ecart_moyen_cm'] or 0))
 
 
 def main():
-    hist, names = history_pairs()
+    hist, hist_precip, names = history_pairs()
     obs = observations()
     live = live_pairs(obs)
     result = {
         'genere': dt.datetime.now(dt.timezone.utc).isoformat(),
         'seuil_cm': SEUIL,
-        'methode': 'Prévision de la veille comparée à la neige mesurée (Climat Québec 7027660). Écart moyen calculé sur les jours avec au moins 1 cm prévu ou mesuré.',
-        'historique': ranked(hist, names),
+        'methode': 'Prévision de la veille comparée à la neige mesurée par Climat Québec (station 7027660). Écart moyen = écart sur le total de chaque épisode de neige (une tempête qui chevauche minuit compte une seule fois). La neige de la station est calculée à partir des précipitations et de la température : les précipitations (mm d’eau) sont la mesure la plus sûre.',
+        'historique': ranked(hist, names, hist_precip),
         'en_direct': ranked(live, LIVE_NAMES),
     }
     (DATA / 'verification').mkdir(parents=True, exist_ok=True)
     (DATA / 'verification' / 'scores.json').write_text(json.dumps(result, ensure_ascii=False, indent=1) + '\n', encoding='utf-8')
     for r in result['historique']:
-        print(r['nom'], r['ecart_moyen_cm'], r['biais_cm'], r['tempetes'])
+        print(r['nom'], r['ecart_moyen_cm'], r['biais_cm'], r['ecart_precip_mm'], r['tempetes'])
 
 
 if __name__ == '__main__':

@@ -22,15 +22,22 @@ h = load('history')
 
 class VerifyTests(unittest.TestCase):
     def test_score_counts_storms_and_errors(self):
-        pairs = {'2026-01-01': (6, 8), '2026-01-02': (0, 7), '2026-01-03': (5, 1), '2026-01-04': (0, 0)}
+        pairs = {f'2026-01-{d:02d}': (0, 0) for d in range(1, 31)}
+        pairs['2026-01-03'] = (6, 8)                       # tempête vue
+        pairs['2026-01-10'], pairs['2026-01-11'] = (0, 4), (6, 3)  # vue, mais décalée de minuit
+        pairs['2026-01-20'] = (0, 7)                       # manquée
+        pairs['2026-01-27'] = (5, 0)                       # fausse alerte
         s = v.score(pairs)
-        self.assertEqual(s['tempetes'], {'detectees': 1, 'manquees': 1, 'fausses_alertes': 1})
-        self.assertEqual(s['jours_neige'], 3)
-        self.assertEqual(s['ecart_moyen_cm'], round((2 + 7 + 4) / 3, 1))
-        self.assertEqual(s['biais_cm'], round((-2 - 7 + 4) / 3, 1))
+        self.assertEqual(s['episodes'], 3)
+        self.assertEqual(s['tempetes'], {'detectees': 2, 'manquees': 1, 'fausses_alertes': 1})
+        self.assertEqual(s['ecart_moyen_cm'], round((2 + 1 + 7) / 3, 1))
+
+    def test_precip_score(self):
+        s = v.score({'2026-01-01': (0, 0)}, {'2026-01-01': (12, 10), '2026-01-02': (0, 0)})
+        self.assertEqual(s['ecart_precip_mm'], 2)
 
     def test_ranking_best_first(self):
-        r = v.ranked({'a': {'d': (10, 0)}, 'b': {'d': (1, 2)}}, {'a': 'A', 'b': 'B'})
+        r = v.ranked({'a': {'2026-01-01': (10, 0)}, 'b': {'2026-01-01': (1, 2)}}, {'a': 'A', 'b': 'B'})
         self.assertEqual([x['id'] for x in r], ['b', 'a'])
 
     def test_live_uses_last_snapshot_before_midnight(self):

@@ -141,11 +141,12 @@ document.addEventListener('visibilitychange',()=>{if(document.hidden)stopRadar()
 if('serviceWorker'in navigator)navigator.serviceWorker.register('./sw.js').catch(()=>{});
 function relTable(rows){
  if(!rows?.length)return '<p class="muted">Pas encore assez de jours comparés.</p>';
- return '<div class="table-scroll"><table class="rel"><thead><tr><th>Source</th><th>Écart moyen</th><th>Biais</th><th>Tempêtes 5 cm+ vues</th><th>Manquées</th><th>Fausses alertes</th><th>Jours</th></tr></thead><tbody>'+rows.map((r,i)=>'<tr'+(i===0?' class="best"':'')+'><td>'+(i===0?'★ ':'')+esc(r.nom)+'</td><td>'+(r.ecart_moyen_cm==null?'—':n(r.ecart_moyen_cm)+' cm')+'</td><td>'+(r.biais_cm==null?'—':(r.biais_cm>0?'+':'')+n(r.biais_cm)+' cm')+'</td><td>'+r.tempetes.detectees+'</td><td>'+r.tempetes.manquees+'</td><td>'+r.tempetes.fausses_alertes+'</td><td>'+r.jours+'</td></tr>').join('')+'</tbody></table></div>';
+ const cm=v=>v==null?'—':n(v)+' cm',sg=v=>v==null?'—':(v>0?'+':'')+n(v)+' cm';
+ return '<div class="table-scroll"><table class="rel"><thead><tr><th>Source</th><th>Écart par épisode</th><th>Biais</th><th>Écart précip.</th><th>Tempêtes 5 cm+ vues</th><th>Manquées</th><th>Fausses alertes</th><th>Épisodes</th></tr></thead><tbody>'+rows.map((r,i)=>'<tr'+(i===0?' class="best"':'')+'><td>'+(i===0?'★ ':'')+esc(r.nom)+'</td><td>'+cm(r.ecart_moyen_cm)+'</td><td>'+sg(r.biais_cm)+'</td><td>'+(r.ecart_precip_mm==null?'—':n(r.ecart_precip_mm)+' mm')+'</td><td>'+r.tempetes.detectees+'</td><td>'+r.tempetes.manquees+'</td><td>'+r.tempetes.fausses_alertes+'</td><td>'+(r.episodes??'—')+'</td></tr>').join('')+'</tbody></table></div>';
 }
 function renderReliability(){
  const s=state.scores;if(!s){$('reliability-method').textContent='Le tableau apparaîtra après le prochain passage du robot.';return}
- $('reliability-method').textContent=s.methode+' Biais : + = prévoit trop de neige, − = pas assez.';
+ $('reliability-method').textContent=s.methode+' Biais : + = prévoit plus de neige que mesuré, − = moins.';
  const hist=s.historique||[],live=s.en_direct||[];
  const per=r=>r?.periode?' ('+dateOnly(r.periode[0])+' – '+dateOnly(r.periode[1])+')':'';
  $('reliability').innerHTML='<h3>Hiver dernier, prévision de la veille'+per(hist[0])+'</h3>'+relTable(hist)+'<p class="footnote">Seuls les modèles dont les prévisions passées sont archivées publiquement (européens et américain) peuvent être évalués sur l’hiver dernier.</p><h3>Cet hiver, toutes les sources suivies'+per(live[0])+'</h3>'+relTable(live)+'<p class="footnote">Se remplit chaque jour à partir des archives du robot : MétéoMédia, Weather Underground, modèles canadiens, européen, américain, MET Norway et le consensus du plan.</p>';
