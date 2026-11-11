@@ -138,7 +138,6 @@ pluie sur la neige au sol. Chaque alerte n'est envoyée qu'une fois (`data/alert
   collecte suivante et le garde dans `data/push-subscriptions.json`.
 - Envoyer une notification exige la clé privée VAPID (secret `VAPID_PRIVATE_KEY`). La clé
   publique est dans `app.js`. Un téléphone désabonné est retiré automatiquement.
-- Canal ntfy facultatif : secret `NTFY_TOPIC` (application ntfy); le supprimer pour l'arrêter.
 
 ## Développement et validation
 

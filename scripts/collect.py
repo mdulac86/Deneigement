@@ -132,7 +132,8 @@ def eccc():
         # dans les périodes; pas de somme susceptible de compter deux fois un total.
         # Les quantités demeurent dans les périodes officielles : sans début/fin
         # explicites on ne les transforme pas en un total quotidien 00–24 h.
-        periods.append({'date': str(day), 'label': label, 'text': text, 'snow_cm': qty, 'risk': risk(text)})
+        pop = number(str(val(f.get('abbreviatedForecast', {}).get('pop')) or ''))
+        periods.append({'date': str(day), 'label': label, 'text': text, 'snow_cm': qty, 'risk': risk(text), 'pop': pop})
     for d in days.values():
         d['risk'] = risk(d['condition'])
     hourly = []
@@ -382,7 +383,7 @@ def climat_month(year, month):
         if date >= TODAY:
             continue
         # Colonnes réelles avec cellules séparées pour les indicateurs qualité.
-        row = {'date': str(date), 'snow_cm': number(cells[10]), 'snow_flag': cells[11], 'rain_mm': number(cells[8]), 'depth_cm': number(cells[14]), 'source': 'Climat Québec · 7027660'}
+        row = {'date': str(date), 'snow_cm': number(cells[10]), 'snow_flag': cells[11], 'rain_mm': number(cells[8]), 'depth_cm': number(cells[14]), 'tmax': number(cells[1]), 'tmin': number(cells[5]), 'source': 'Climat Québec · 7027660'}
         if row['snow_flag'].upper() == 'I':
             row['snow_cm'] = None
         rows.append(row)
@@ -402,7 +403,7 @@ def collect_climate():
     months = [(a,b) for a,b in months if dt.date(a,b,1) <= TODAY]
     errors = []
     # Relecture quotidienne de tous les mois : récupère les corrections tardives.
-    if old.get('checked_on') != str(TODAY):
+    if old.get('checked_on') != str(TODAY) or any('tmax' not in r for r in old.get('records', [])):
         with futures.ThreadPoolExecutor(max_workers=4) as pool:
             jobs = {pool.submit(climat_month, a,b): (a,b) for a,b in months}
             for job in futures.as_completed(jobs):
@@ -422,7 +423,7 @@ def collect_climate():
 
 def consensus(sources):
     result = []
-    for offset in range(7):
+    for offset in range(14):
         day = str(TODAY+dt.timedelta(days=offset))
         compared = []
         for s in sources:
@@ -468,6 +469,60 @@ def changes(old, new):
 def serial_hours(hours):
     return [{**h, 'time': h['time'].isoformat()} for h in hours]
 
+def pct(x):
+    n = number(str(x or '').replace('%', ''))
+    return None if n is None else round(n)
+
+def enrich_days(days, sources, models, pop):
+    """Probabilité de précipitations par jour et tendance des modèles européens au-delà de 7 jours."""
+    eccc_src = next((s for s in sources if s['id'] == 'eccc' and s['status'] == 'ok'), {})
+    mm_src = next((s for s in sources if s['id'] == 'mm' and s['status'] == 'ok'), {})
+    ens = {d['date']: d for d in pop.get('jours', [])}
+    long_models = [m for m in models if m['id'] in ('ifs', 'aifs', 'met') and m['status'] == 'ok']
+    for d in days:
+        cands = []
+        p = [x.get('pop') for x in eccc_src.get('periods', []) if x['date'] == d['date'] and x.get('pop') is not None]
+        if p:
+            cands.append((max(p), 'Environnement Canada'))
+        p = [pct(x.get('pop')) for x in mm_src.get('periods', []) if x['date'] == d['date']]
+        p = [x for x in p if x is not None]
+        if p:
+            cands.append((max(p), 'MétéoMédia'))
+        e = ens.get(d['date'])
+        if e and e.get('p1') is not None:
+            cands.append((e['p1'], 'ensemble européen'))
+        d['pop'] = {'value': max(c[0] for c in cands), 'sources': [c[1] for c in cands],
+                    'heavy': e.get('p10') if e else None} if cands else None
+        # Tendance : températures et précipitations des modèles quand aucune source quotidienne ne couvre le jour.
+        temps, snow, rain = [], [], []
+        for m in long_models:
+            hs = [h for h in m.get('hours', []) if dt.datetime.fromisoformat(h['time'].replace('Z', '+00:00')).astimezone(TZ).date().isoformat() == d['date']]
+            if len(hs) < 18:
+                continue
+            t = [h['temp'] for h in hs if h.get('temp') is not None]
+            if t:
+                temps.append((max(t), min(t)))
+            snow.append(sum(h.get('snow_cm') or 0 for h in hs))
+            rain.append(sum(h.get('precip_mm') or 0 for h in hs))
+        if d.get('high_mean') is None and temps:
+            d['high_mean'] = round(statistics.mean(t[0] for t in temps), 1)
+            d['low_mean'] = round(statistics.mean(t[1] for t in temps), 1)
+            d['tendance'] = True
+            sn, rn = statistics.median(snow), statistics.median(rain)
+            hi = d['high_mean']
+            risks = []
+            if sn >= 1 and rn - sn >= 2 and hi > 1:
+                risks.append('Pluie / neige')
+            elif sn >= 1:
+                risks.append('Neige')
+            elif rn >= 2:
+                risks.append('Verglas / grésil' if hi <= 1 and d['low_mean'] < -1 else 'Pluie')
+            d['risks'] = risks or ['Sans risque hivernal identifié']
+            d['confidence'] = 'Tendance'
+            d['confidence_reason'] = 'Au-delà des prévisions quotidiennes : tendance des modèles européens et de MET Norway.'
+            if d.get('model_snow') is None and snow:
+                d['model_snow'] = {'median_cm': round(sn, 1), 'min_cm': round(min(snow), 1), 'max_cm': round(max(snow), 1), 'estimated': True}
+
 def forecast_plan(sources, days):
     """Modèles horaires -> neige heure par heure (médiane) -> plan de sortie."""
     met_src = next((s for s in sources if s['id'] == 'met' and s['status'] == 'ok'), {})
@@ -488,6 +543,10 @@ def forecast_plan(sources, days):
         ensemble = {'status': 'ok', **ens}
     except Exception as e:
         ensemble = {'status': 'unavailable', 'error': str(e)[:200], 'jours': []}
+    try:
+        pop, _ = ecmwf.cached(cache, 'pop', NOW, lambda: ecmwf.precip_probability(LAT, LON, NOW, TZ))
+    except Exception as e:
+        pop = {'jours': [], 'error': str(e)[:200]}
     write(DATA / 'ecmwf-cache.json', cache)
     mm_src = next((s for s in sources if s['id'] == 'mm' and s['status'] == 'ok' and s.get('hours')), None)
     if mm_src:
@@ -505,10 +564,11 @@ def forecast_plan(sources, days):
     by_day = {d['date']: d for d in ensemble.get('jours', [])}
     for d in days:
         d['ensemble'] = by_day.get(d['date'])
+    enrich_days(days, sources, models, pop)
     for p in plan:
         t = p.get('seuil_atteint') or (p.get('seuil_fourchette') or [None])[0] or p.get('debut')
         p['ensemble'] = by_day.get(t[:10]) if t else None
-    return {'ensemble': ensemble, 'models': models, 'hourly_snow': serial_hours([{k: h[k] for k in ('time', 'snow_cm', 'lo', 'hi', 'n')} for h in hours]),
+    return {'ensemble': ensemble, 'precip_probability': pop, 'models': models, 'hourly_snow': serial_hours([{k: h[k] for k in ('time', 'snow_cm', 'lo', 'hi', 'n')} for h in hours]),
             'plan': plan, 'plan_config': cfg}
 
 def main():

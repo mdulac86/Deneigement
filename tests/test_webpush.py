@@ -42,7 +42,7 @@ class WebPushTests(unittest.TestCase):
     def test_alerts_go_to_all_phones_and_gone_are_removed(self):
         p = self.pusher({'action': 'add', 'subscription': SUB}, {'action': 'add', 'subscription': SUB2},
                         results={SUB2['endpoint']: 'gone'})
-        out = alerts.run(weather(), self.dir / 'state.json', topic='', pusher=p, today=TODAY)
+        out = alerts.run(weather(), self.dir / 'state.json', pusher=p, today=TODAY)
         self.assertTrue(any(t.startswith('Sortie prévue') for t in out))
         self.assertEqual([s['endpoint'] for s in json.loads((self.dir / 'push-subscriptions.json').read_text())['subs']], [SUB['endpoint']])
         payload = [m for e, m in self.sent if m['title'].startswith('Sortie prévue')][0]

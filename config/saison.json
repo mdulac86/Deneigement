@@ -32,6 +32,16 @@
       "central": 3.5,
       "min": 2,
       "max": 6
+    },
+    "jours_verglas": {
+      "central": 4,
+      "min": 2,
+      "max": 8
+    },
+    "jours_pluie": {
+      "central": 10,
+      "min": 7,
+      "max": 14
     }
   },
   "normale": {
@@ -41,7 +51,9 @@
     "neige_cm": 228,
     "periode": "1964-2023, 53 hivers, station ST PROSPER 7027660",
     "jours_deneigement": 20,
-    "sorties_fonte": 2.7
+    "sorties_fonte": 2.7,
+    "jours_verglas": 2.6,
+    "jours_pluie": 8.3
   },
   "par_mois": {
     "11": 1,
@@ -56,6 +68,7 @@
     "El Niño fort à très fort, probable jusqu'en mars (NOAA, 8 oct. 2026) : hiver plus doux, tempêtes plus au sud.",
     "À Saint-Prosper, les El Niño très forts (1982-83, 1997-98, 2015-16) ont donné 8 à 12 tempêtes, 14 à 20 jours de déneigement et 3 à 5 sorties d'abrasif après une fonte.",
     "Dix dernières années : un peu moins de neige au total et moins de très grosses tempêtes, nombre de tempêtes stable.",
+    "Verglas et pluie : les El Niño forts ont donné en moyenne 3 jours de verglas probable (jusqu'à 8) et 10 à 11 jours de pluie de décembre à mars, contre 2,6 et 8 en temps normal.",
     "Plus de verglas et de redoux possibles : non comptés ici."
   ],
   "sources": [
@@ -71,5 +84,6 @@
       "nom": "MétéoMédia, aperçu de l'hiver",
       "url": "https://www.meteomedia.com/fr/nouvelles/meteo/saisons/super-el-nino-lhiver-sera-t-il-annule"
     }
-  ]
+  ],
+  "regle_verglas": "Verglas probable : jour avec 1 mm de pluie et plus pendant que le maximum reste à 2 °C ou moins et le minimum à -1 °C ou moins (pluie qui gèle au sol). Jour de pluie : 2 mm de pluie et plus de décembre à mars, au-dessus de ces températures. Les deux demandent souvent de l'abrasif."
 }

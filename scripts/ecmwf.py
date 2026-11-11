@@ -43,12 +43,20 @@ def latest_run(now, stream='oper', last_step=HORIZON, model='ifs'):
     raise ValueError('Aucun run ECMWF récent disponible')
 
 
-def deterministic(lat, lon, now, model='ifs'):
-    """IFS (pas de 3 h) ou AIFS, le modèle européen à intelligence artificielle (pas de 6 h)."""
+LONG = 360  # 15 jours : tendance à long terme
+
+
+def steps_for(model, horizon=LONG):
+    if model == 'ifs':  # aux 3 h jusqu'à 144 h, puis aux 6 h
+        return list(range(0, min(horizon, 144) + 1, 3)) + list(range(150, horizon + 1, 6))
+    return list(range(0, horizon + 1, 6))
+
+
+def deterministic(lat, lon, now, model='ifs', horizon=LONG):
+    """IFS ou AIFS (modèle européen à intelligence artificielle), jusqu'à 15 jours."""
     grib.warmup()
-    run, root = latest_run(now, model=model)
-    step_h = 3 if model == 'ifs' else 6
-    steps = list(range(0, HORIZON + 1, step_h))
+    run, root = latest_run(now, model=model, last_step=horizon)
+    steps = steps_for(model, horizon)
 
     def read(step):
         u = url(root, run, 'oper', step, model)
@@ -134,8 +142,10 @@ def cached(cache, key, now, fn):
     try:
         if key == 'ens':
             run, _ = latest_run(now, 'enfo', 90)
+        elif key == 'pop':
+            run, _ = latest_run(now, 'enfo', 90)
         else:
-            run, _ = latest_run(now, model='aifs-single' if key == 'aifs' else 'ifs')
+            run, _ = latest_run(now, model='aifs-single' if key == 'aifs' else 'ifs', last_step=LONG)
     except Exception:
         run = None
     hit = cache.get(key)
@@ -144,3 +154,37 @@ def cached(cache, key, now, fn):
     result = fn()
     cache[key] = {'run': result.get('run'), 'result': result}
     return result, True
+
+
+def precip_probability(lat, lon, now, tz, days=15):
+    """Probabilités de précipitations de l'ensemble (produit « ep ») : 1 mm, 5 mm et 10 mm et plus
+    en 24 h, pour chaque jour, fenêtre 12 h UTC -> 12 h UTC (7 h -> 7 h, heure normale)."""
+    grib.warmup()
+    run, root = latest_run(now, 'enfo', 90)
+    d = run.strftime('%Y%m%d')
+    entries = []
+    for last in (240, 360):
+        base = f'{root}/{d}/{run:%H}z/ifs/0p25/enfo/{d}{run:%H}0000-{last}h-enfo-ep'
+        try:
+            entries += [(base, e) for e in grib.ecmwf_index(base + '.index') if e.get('param') in ('tpg1', 'tpg5', 'tpg10')]
+        except FileNotFoundError:
+            continue
+    by_window = {}
+    for base, e in entries:
+        a, b = (int(x) for x in str(e['step']).split('-'))
+        if b - a == 24:
+            by_window.setdefault(a, {})[e['param']] = (base, e)
+    out = []
+    first = (run + dt.timedelta(hours=1)).astimezone(tz).date()
+    for i in range(days):
+        day = first + dt.timedelta(days=i)
+        start = dt.datetime.combine(day, dt.time(12), dt.timezone.utc)
+        a = int((start - run).total_seconds() // 3600)
+        w = by_window.get(a)
+        if not w or 'tpg1' not in w:
+            continue
+        vals = {p: round(grib.field(base + '.grib2', e, lat, lon)) for p, (base, e) in w.items()}
+        out.append({'date': str(day), 'p1': vals.get('tpg1'), 'p5': vals.get('tpg5'), 'p10': vals.get('tpg10')})
+    if not out:
+        raise ValueError('Probabilités ECMWF illisibles')
+    return {'run': run.isoformat(), 'fenetre': '12 h UTC -> 12 h UTC (7 h -> 7 h)', 'jours': out}

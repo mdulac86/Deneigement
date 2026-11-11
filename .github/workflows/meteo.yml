@@ -44,7 +44,6 @@ jobs:
       - run: python -m unittest discover -s tests
       - name: Actualiser les sources et les archives
         env:
-          NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
           VAPID_PRIVATE_KEY: ${{ secrets.VAPID_PRIVATE_KEY }}
         run: python scripts/collect.py
       - name: Tableau de fiabilité

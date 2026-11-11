@@ -34,7 +34,7 @@ class EcmwfTests(unittest.TestCase):
         with patch.object(ecmwf, 'latest_run', return_value=(RUN, 'x')), \
              patch.object(ecmwf.grib, 'ecmwf_index', return_value=idx), patch.object(ecmwf.grib, 'field', side_effect=field):
             r = ecmwf.deterministic(46.2, -70.5, RUN)
-        self.assertEqual(len(r['hours']), 72)
+        self.assertEqual(len(r['hours']), 360)
         self.assertEqual(r['hours'][0]['snow_cm'], 0.1)  # 0,1 mm d'eau par heure
         self.assertEqual(r['hours'][0]['precip_mm'], 0.2)
         self.assertEqual(r['hours'][0]['temp'], -3.0)
@@ -48,9 +48,24 @@ class EcmwfTests(unittest.TestCase):
         with patch.object(ecmwf, 'latest_run', return_value=(RUN, 'x')), \
              patch.object(ecmwf.grib, 'ecmwf_index', return_value=idx), patch.object(ecmwf.grib, 'field', side_effect=field) as f:
             r = ecmwf.deterministic(46.2, -70.5, RUN, 'aifs-single')
-        self.assertEqual(len(r['hours']), 72)
+        self.assertEqual(len(r['hours']), 360)
         self.assertEqual(r['hours'][0]['snow_cm'], 0.1)
         self.assertIn('/aifs-single/', f.call_args_list[0][0][0])
+
+    def test_ifs_long_range_steps(self):
+        s = ecmwf.steps_for('ifs')
+        self.assertEqual((s[:3], s[48], s[49], s[-1]), ([0, 3, 6], 144, 150, 360))
+        self.assertEqual(ecmwf.steps_for('aifs-single')[:3], [0, 6, 12])
+
+    def test_precip_probability_windows(self):
+        idx = [{'param': p, 'step': f'{a}-{a + 24}', '_offset': 0, '_length': 1} for p in ('tpg1', 'tpg5', 'tpg10') for a in range(0, 337, 12)]
+        def field(url, entry, lat, lon):
+            return {'tpg1': 80.4, 'tpg5': 40.0, 'tpg10': 10.0}[entry['param']]
+        with patch.object(ecmwf, 'latest_run', return_value=(RUN, 'x')), \
+             patch.object(ecmwf.grib, 'ecmwf_index', return_value=idx), patch.object(ecmwf.grib, 'field', side_effect=field):
+            r = ecmwf.precip_probability(46.2, -70.5, RUN, TZ)
+        self.assertEqual(r['jours'][0], {'date': '2026-11-11', 'p1': 80, 'p5': 40, 'p10': 10})
+        self.assertEqual(len(r['jours']), 14)
 
     def test_ensemble_probability(self):
         # 51 membres : membre n donne n/5 cm sur chaque fenêtre de 24 h -> 26 membres (25..50) >= 5 cm.

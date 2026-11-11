@@ -191,7 +191,8 @@ def plan_event(ev, cfg, now):
 def build_plan(hours, cfg, now):
     for k in ('semaine', 'fin_de_semaine'):
         cfg[k]['echeance_t'] = hm(cfg[k]['echeance'])
-    upcoming = [h for h in hours if h['time'] + HOUR > now]
+    # Le plan de sortie se limite aux 108 prochaines heures (au-delà : tendance seulement).
+    upcoming = [h for h in hours if h['time'] + HOUR > now and h['time'] < now + dt.timedelta(hours=108)]
     plans = [plan_event(ev, cfg, now) for ev in events(upcoming, cfg)]
     for k in ('semaine', 'fin_de_semaine'):
         cfg[k].pop('echeance_t', None)

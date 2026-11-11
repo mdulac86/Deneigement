@@ -26,21 +26,34 @@ class AlertTests(unittest.TestCase):
         self.path = Path(tempfile.mkdtemp()) / 'state.json'
         self.sent = []
 
-    def run_once(self, w, topic='equipe'):
-        return alerts.run(w, self.path, topic=topic, post=lambda b: self.sent.append(json.loads(b)), today=TODAY)
+    def run_once(self, w):
+        test = self
+
+        class Fake:
+            subs = [{'endpoint': 'https://x'}]
+
+            def welcome(self):
+                pass
+
+            def broadcast(self, m):
+                test.sent.append({'title': m['title'], 'message': m['message'], 'priority': m['priority']})
+                return True
+
+            def save(self):
+                pass
+        return alerts.run(w, self.path, pusher=Fake(), today=TODAY)
 
     def titles(self):
         return [m['title'] for m in self.sent]
 
-    def test_no_topic_sends_nothing_and_remembers_nothing(self):
-        self.assertEqual(alerts.run(weather(), self.path, topic=None, post=lambda b: 1 / 0, today=TODAY), [])
+    def test_no_phone_sends_nothing_and_remembers_nothing(self):
+        self.assertEqual(alerts.run(weather(), self.path, today=TODAY), [])
         self.run_once(weather())
         self.assertTrue(any(t.startswith('Sortie prévue') for t in self.titles()))
 
     def test_plan_sent_once_then_change_then_cancel(self):
         self.run_once(weather())
         self.assertIn('Sortie prévue jeudi 10 déc. à 3 h 30', self.titles())
-        self.assertIn('Alertes déneigement activées', self.titles())
         n = len(self.sent)
         self.run_once(weather())
         self.assertEqual(len(self.sent), n)  # pas de doublon
