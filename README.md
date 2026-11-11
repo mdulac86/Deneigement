@@ -61,6 +61,21 @@ la restriction et sans compter une ancienne donnée dans le consensus.
   disponibles lus dans GetCapabilities, animation sur environ 2 heures. Rafraîchi
   lorsque l'onglet est ouvert. Fond Esri World Topographic Map, bibliothèque Leaflet.
 
+## Modèle européen et probabilité de 5 cm
+
+`scripts/ecmwf.py` lit les données ouvertes ECMWF (CC BY 4.0) : le modèle IFS (neige
+tombée aux 3 h, 72 h) entre dans le plan de sortie, et l'ensemble de 51 versions donne,
+pour chaque jour, la probabilité d'avoir 5 cm ou plus et la fourchette 10-90 %.
+
+## Fiabilité : qui voit juste ?
+
+`scripts/history.py` compare la prévision de la veille des modèles archivés
+publiquement (ECMWF IFS, AIFS, NOAA GFS) à la neige mesurée par Climat Québec pour
+l'hiver 2025-2026 (workflow « Base historique », relancé en modifiant
+`config/historique.json`). `scripts/verify.py` produit `data/verification/scores.json`
+et ajoute, jour après jour, toutes les sources archivées par le robot. Résultat dans
+l'onglet Sources.
+
 ## Plan de sortie (modèles horaires)
 
 Le robot interroge aussi des modèles numériques gratuits, libres pour un usage

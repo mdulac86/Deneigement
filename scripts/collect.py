@@ -18,6 +18,7 @@ import sys
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import models as nwp  # noqa: E402
 import plan as planner  # noqa: E402
+import ecmwf  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / 'data'
@@ -469,6 +470,18 @@ def forecast_plan(sources, days):
     """Modèles horaires -> neige heure par heure (médiane) -> plan de sortie."""
     met_src = next((s for s in sources if s['id'] == 'met' and s['status'] == 'ok'), {})
     models = nwp.collect_models(fetch, met_src, LAT, LON, NOW)
+    cache = read(DATA / 'ecmwf-cache.json', {})
+    try:
+        ifs, _ = ecmwf.cached(cache, 'ifs', NOW, lambda: ecmwf.deterministic(LAT, LON, NOW))
+        models.append({'id': 'ifs', 'name': 'ECMWF IFS (européen)', 'status': 'ok', 'fetched_at': stamp(), **ifs})
+    except Exception as e:
+        models.append({'id': 'ifs', 'name': 'ECMWF IFS (européen)', 'status': 'unavailable', 'fetched_at': stamp(), 'hours': [], 'error': str(e)[:200]})
+    try:
+        ens, _ = ecmwf.cached(cache, 'ens', NOW, lambda: ecmwf.ensemble(LAT, LON, NOW, TZ))
+        ensemble = {'status': 'ok', **ens}
+    except Exception as e:
+        ensemble = {'status': 'unavailable', 'error': str(e)[:200], 'jours': []}
+    write(DATA / 'ecmwf-cache.json', cache)
     mm_src = next((s for s in sources if s['id'] == 'mm' and s['status'] == 'ok' and s.get('hours')), None)
     if mm_src:
         models.append({'id': 'mm', 'name': 'MétéoMédia (cm publiés)', 'status': 'ok', 'fetched_at': mm_src['fetched_at'],
@@ -482,7 +495,13 @@ def forecast_plan(sources, days):
         hs = [h for h in hours if str(h['time'].date()) == d['date'] and h['n'] >= 2]
         d['model_snow'] = {'median_cm': round(sum(h['snow_cm'] for h in hs), 1), 'min_cm': round(sum(h['lo'] for h in hs), 1),
                            'max_cm': round(sum(h['hi'] for h in hs), 1), 'hours': len(hs), 'estimated': True} if len(hs) >= 12 else None
-    return {'models': models, 'hourly_snow': serial_hours([{k: h[k] for k in ('time', 'snow_cm', 'lo', 'hi', 'n')} for h in hours]),
+    by_day = {d['date']: d for d in ensemble.get('jours', [])}
+    for d in days:
+        d['ensemble'] = by_day.get(d['date'])
+    for p in plan:
+        t = p.get('seuil_atteint') or (p.get('seuil_fourchette') or [None])[0] or p.get('debut')
+        p['ensemble'] = by_day.get(t[:10]) if t else None
+    return {'ensemble': ensemble, 'models': models, 'hourly_snow': serial_hours([{k: h[k] for k in ('time', 'snow_cm', 'lo', 'hi', 'n')} for h in hours]),
             'plan': plan, 'plan_config': cfg}
 
 def main():

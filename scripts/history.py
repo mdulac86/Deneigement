@@ -95,6 +95,7 @@ def main(start, end):
     OUT.mkdir(parents=True, exist_ok=True)
     path = OUT / f'historique-{start:%Y%m%d}-{end:%Y%m%d}.json'
     done = json.loads(path.read_text(encoding='utf-8'))['days'] if path.exists() else {}
+    grib.warmup()
     obs = observations(start, end)
     days = [start + dt.timedelta(days=i) for i in range((end - start).days + 1)]
     todo = [d for d in days if str(d) not in done or any('error' in v for v in done[str(d)]['fc'].values())]

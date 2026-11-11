@@ -5,10 +5,20 @@ position de chaque champ. On ne télécharge que les octets des champs utiles (r
 puis eccodes lit la valeur au point de grille le plus proche.
 """
 import json
+import threading
 import time
 import urllib.error
 import urllib.request
 
+_LOCK = threading.Lock()  # eccodes n'est pas sûr entre fils d'exécution
+threading.stack_size(16 * 1024 * 1024)  # l'analyseur d'eccodes est récursif : pile plus grande dans les fils
+
+
+def warmup():
+    """Charge les définitions eccodes dans le fil principal avant les téléchargements parallèles."""
+    import eccodes
+    with _LOCK:
+        eccodes.codes_release(eccodes.codes_grib_new_from_samples('GRIB2'))
 UA = 'DeneigementSaintProsper/1.0 (https://github.com/mdulac86/Deneigement)'
 
 
@@ -53,11 +63,12 @@ def ncep_index(url, size=None):
 
 def point_value(data, lat, lon):
     import eccodes  # importé ici : seul le robot GitHub en a besoin.
-    gid = eccodes.codes_new_from_message(data)
-    try:
-        return float(eccodes.codes_grib_find_nearest(gid, lat, lon)[0].value)
-    finally:
-        eccodes.codes_release(gid)
+    with _LOCK:
+        gid = eccodes.codes_new_from_message(data)
+        try:
+            return float(eccodes.codes_grib_find_nearest(gid, lat, lon)[0].value)
+        finally:
+            eccodes.codes_release(gid)
 
 
 def field(url, entry, lat, lon):

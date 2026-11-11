@@ -13,6 +13,7 @@ async function load(){
   try{
     const r=await fetch('data/weather.json',{cache:'no-store'});if(!r.ok)throw new Error('Données indisponibles');
     const j=await r.json();if(!Array.isArray(j.sources)||!j.climate)throw new Error('Format de données non reconnu');state=j;
+    try{const s=await fetch('data/verification/scores.json',{cache:'no-store'});if(s.ok)j.scores=await s.json()}catch{}
     localStorage.setItem('deneigement-last-data',JSON.stringify(j));render();
   }catch(e){
     if(!state){try{state=JSON.parse(localStorage.getItem('deneigement-last-data'))}catch{}}
@@ -39,9 +40,9 @@ function render(){
   const title=hasOfficial?'Une alerte officielle vise le secteur.':ice?'Verglas ou grésil à surveiller.':mixed?'Épisode de pluie et neige à surveiller.':threshold?'Le seuil de 5 cm est dans la fourchette.':snow?'De la neige figure aux prévisions.':'Pas de risque hivernal identifié dans les sources disponibles.';
   const label=hasOfficial?'ALERTE OFFICIELLE':ice||mixed||snow||threshold?'VIGILANCE · PROCHAINES 72 H':'ÉTAT DES PRÉVISIONS';
   $('status').innerHTML='<div><span class="tag amber">'+label+'</span><h2>'+title+'</h2><p>Seuil opérationnel : 5 cm de nouvelle neige au sol. '+(threshold?'Les cm annoncés concernent la neige tombée; le seuil réel au sol reste à vérifier.':'Les quantités comparables ne permettent pas de confirmer l’atteinte des 5 cm au sol.')+'</p></div>';
-  $('days').innerHTML=state.consensus.map((d,i)=>'<button class="day '+(selected===i?'active':'')+'" data-day="'+i+'" aria-pressed="'+(selected===i)+'"><span class="date">'+esc(dayLabel(d.date))+'</span><span class="symbol">'+symbol(d.risks)+'</span><strong>'+n(d.high_mean)+'° <span class="muted">/ '+n(d.low_mean)+'°</span></strong><small>'+d.sources.length+' sources · '+esc(d.confidence)+'</small><small>Neige : '+(d.snow.mean_cm!=null?n(d.snow.mean_cm)+' cm':d.model_snow?'≈ '+n(d.model_snow.median_cm)+' cm (modèles)':'non chiffrable')+'</small></button>').join('');
+  $('days').innerHTML=state.consensus.map((d,i)=>'<button class="day '+(selected===i?'active':'')+'" data-day="'+i+'" aria-pressed="'+(selected===i)+'"><span class="date">'+esc(dayLabel(d.date))+'</span><span class="symbol">'+symbol(d.risks)+'</span><strong>'+n(d.high_mean)+'° <span class="muted">/ '+n(d.low_mean)+'°</span></strong><small>'+d.sources.length+' sources · '+esc(d.confidence)+'</small><small>Neige : '+(d.snow.mean_cm!=null?n(d.snow.mean_cm)+' cm':d.model_snow?'≈ '+n(d.model_snow.median_cm)+' cm (modèles)':'non chiffrable')+'</small>'+(d.ensemble?'<small class="'+(d.ensemble.prob_5cm>=30?'ens-high':'')+'">5 cm+ : '+d.ensemble.prob_5cm+' % (ensemble)</small>':'')+'</button>').join('');
   document.querySelectorAll('[data-day]').forEach(b=>b.addEventListener('click',()=>{selected=Number(b.dataset.day);render()}));
-  renderPlan();renderComparison();renderOfficial();renderWinter();renderSources();
+  renderPlan();renderComparison();renderOfficial();renderWinter();renderSources();renderReliability();
   $('previous').textContent=state.previous_at?'Depuis '+local(state.previous_at):'État de référence';$('changes').innerHTML=state.changes.map(c=>'<li>'+esc(c.text)+'</li>').join('');
 }
 function renderComparison(){
@@ -138,6 +139,18 @@ $('radar-time').addEventListener('input',()=>{stopRadar();showRadar()});$('radar
 $('radar-play').addEventListener('click',()=>{if(timer){stopRadar();return}if(!frames.length)return;$('radar-play').textContent='Ⅱ Pause';timer=setInterval(()=>{$('radar-time').value=(+$('radar-time').value+1)%frames.length;showRadar()},1100)});
 document.addEventListener('visibilitychange',()=>{if(document.hidden)stopRadar();else load()});setInterval(()=>{if(!document.hidden){load();if(map&&!$('radar').hidden)radarCapabilities().catch(()=>{})}},300000);
 if('serviceWorker'in navigator)navigator.serviceWorker.register('./sw.js').catch(()=>{});
+function relTable(rows){
+ if(!rows?.length)return '<p class="muted">Pas encore assez de jours comparés.</p>';
+ return '<div class="table-scroll"><table class="rel"><thead><tr><th>Source</th><th>Écart moyen</th><th>Biais</th><th>Tempêtes 5 cm+ vues</th><th>Manquées</th><th>Fausses alertes</th><th>Jours</th></tr></thead><tbody>'+rows.map((r,i)=>'<tr'+(i===0?' class="best"':'')+'><td>'+(i===0?'★ ':'')+esc(r.nom)+'</td><td>'+(r.ecart_moyen_cm==null?'—':n(r.ecart_moyen_cm)+' cm')+'</td><td>'+(r.biais_cm==null?'—':(r.biais_cm>0?'+':'')+n(r.biais_cm)+' cm')+'</td><td>'+r.tempetes.detectees+'</td><td>'+r.tempetes.manquees+'</td><td>'+r.tempetes.fausses_alertes+'</td><td>'+r.jours+'</td></tr>').join('')+'</tbody></table></div>';
+}
+function renderReliability(){
+ const s=state.scores;if(!s){$('reliability-method').textContent='Le tableau apparaîtra après le prochain passage du robot.';return}
+ $('reliability-method').textContent=s.methode+' Biais : + = prévoit trop de neige, − = pas assez.';
+ const hist=s.historique||[],live=s.en_direct||[];
+ const per=r=>r?.periode?' ('+dateOnly(r.periode[0])+' – '+dateOnly(r.periode[1])+')':'';
+ $('reliability').innerHTML='<h3>Hiver dernier, prévision de la veille'+per(hist[0])+'</h3>'+relTable(hist)+'<p class="footnote">Seuls les modèles dont les prévisions passées sont archivées publiquement (européens et américain) peuvent être évalués sur l’hiver dernier.</p><h3>Cet hiver, toutes les sources suivies'+per(live[0])+'</h3>'+relTable(live)+'<p class="footnote">Se remplit chaque jour à partir des archives du robot : MétéoMédia, Weather Underground, modèles canadiens, européen, américain, MET Norway et le consensus du plan.</p>';
+ if(hist[0])$('reliability-tag').textContent='Meilleur hiver dernier : '+hist[0].nom;
+}
 const hhmm=v=>v?new Intl.DateTimeFormat('fr-CA',{timeZone:'America/Toronto',hour:'numeric',minute:'2-digit'}).format(new Date(v)):'—';
 const dayOf=v=>new Intl.DateTimeFormat('fr-CA',{timeZone:'America/Toronto',weekday:'long',day:'numeric',month:'long'}).format(new Date(v));
 function between(a,b){if(!a||hhmm(a)===hhmm(b))return '';if(!b)return ' (dès '+hhmm(a)+' selon le modèle le plus enneigé; jamais selon le moins enneigé)';return ' (entre '+hhmm(a)+' et '+hhmm(b)+' selon les modèles)'}
@@ -152,7 +165,7 @@ function renderPlan(){
   const go=p.statut!=='sous_seuil',tag=p.statut==='sortie'?'SORTIE PRÉVUE':p.statut==='possible'?'SORTIE POSSIBLE':'SOUS LE SEUIL';
   let html='<div class="plan-card '+(p.statut==='sortie'?'go':p.statut==='possible'?'maybe':'calm')+'"><div class="plan-top"><span class="tag '+(p.statut==='sortie'?'amber':'')+'">'+tag+'</span><span class="muted">Confiance '+esc(p.confiance.toLowerCase())+' · '+p.modeles+' modèle'+(p.modeles>1?'s':'')+'</span></div>';
   if(go){html+='<h3>'+esc(dayOf(p.depart))+'</h3><div class="plan-times"><div><label>Départ</label><strong>'+hhmm(p.depart)+'</strong></div>'+(p.echeance?'<div><label>Propre pour</label><strong>'+hhmm(p.echeance)+'</strong></div>':'<div><label>Fin de tournée</label><strong>≈ '+hhmm(p.fin_tournee)+'</strong></div>')+'<div><label>Fin de la tempête</label><strong>≈ '+hhmm(p.fin)+'</strong></div>'+(p.final?'<div><label>'+(p.final.type==='deuxieme_tournee'?'2e tournée':'Nettoyage final')+'</label><strong>'+hhmm(p.final.heure)+'</strong></div>':'')+'</div>';
-   html+='<ul class="plan-facts"><li>'+n(p.plan_config_seuil||state.plan_config?.seuil_cm||5)+' cm atteints vers <b>'+hhmm(p.seuil_atteint||p.seuil_fourchette[0])+'</b>'+esc(between(p.seuil_fourchette[0],p.seuil_fourchette[1]))+'</li><li>Neige de l’épisode : <b>≈ '+n(p.total_cm)+' cm</b> (fourchette '+n(p.fourchette_cm[0])+'–'+n(p.fourchette_cm[1])+' cm), du '+esc(dayOf(p.debut))+' '+hhmm(p.debut)+' au '+(dayOf(p.fin)===dayOf(p.debut)?'':esc(dayOf(p.fin))+' ')+hhmm(p.fin)+'</li><li>Tournée de <b>'+n(p.duree_h)+' h</b> par machine'+(p.neige_a_echeance_cm!=null?' pour ≈ '+n(p.neige_a_echeance_cm)+' cm tombés à l’échéance':'')+'</li>'+(p.final?'<li>'+(p.final.type==='deuxieme_tournee'?'2e tournée complète':'Nettoyage final')+' : ≈ '+n(p.final.neige_cm)+' cm tombés après le départ'+(p.final.duree_h?' · '+n(p.final.duree_h)+' h':'')+'</li>':'<li>Pas de nettoyage final prévu : la neige cesse avant ou peu après le départ.</li>')+'</ul>';}
+   html+='<ul class="plan-facts"><li>'+n(p.plan_config_seuil||state.plan_config?.seuil_cm||5)+' cm atteints vers <b>'+hhmm(p.seuil_atteint||p.seuil_fourchette[0])+'</b>'+esc(between(p.seuil_fourchette[0],p.seuil_fourchette[1]))+'</li><li>Neige de l’épisode : <b>≈ '+n(p.total_cm)+' cm</b> (fourchette '+n(p.fourchette_cm[0])+'–'+n(p.fourchette_cm[1])+' cm), du '+esc(dayOf(p.debut))+' '+hhmm(p.debut)+' au '+(dayOf(p.fin)===dayOf(p.debut)?'':esc(dayOf(p.fin))+' ')+hhmm(p.fin)+'</li>'+(p.ensemble?'<li>Ensemble européen (51 versions du modèle) : <b>'+p.ensemble.prob_5cm+' %</b> de chances de 5 cm ou plus ce jour-là · médiane '+n(p.ensemble.p50_cm)+' cm, de '+n(p.ensemble.p10_cm)+' à '+n(p.ensemble.p90_cm)+' cm (10–90 %)</li>':'')+'<li>Tournée de <b>'+n(p.duree_h)+' h</b> par machine'+(p.neige_a_echeance_cm!=null?' pour ≈ '+n(p.neige_a_echeance_cm)+' cm tombés à l’échéance':'')+'</li>'+(p.final?'<li>'+(p.final.type==='deuxieme_tournee'?'2e tournée complète':'Nettoyage final')+' : ≈ '+n(p.final.neige_cm)+' cm tombés après le départ'+(p.final.duree_h?' · '+n(p.final.duree_h)+' h':'')+'</li>':'<li>Pas de nettoyage final prévu : la neige cesse avant ou peu après le départ.</li>')+'</ul>';}
   else html+='<p>'+esc(p.resume)+'</p>';
   if(p.notes?.length)html+='<ul class="plan-notes">'+p.notes.map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul>';
   return html+'</div>'}).join('');
