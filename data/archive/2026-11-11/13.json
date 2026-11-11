@@ -1,11 +1,11 @@
 {
-  "updated_at": "2026-11-11T13:11:26.706049+00:00",
+  "updated_at": "2026-11-11T13:33:51.316449+00:00",
   "sources": [
     {
       "id": "eccc",
       "status": "ok",
       "issued_at": "2026-11-11T10:00:00Z",
-      "fetched_at": "2026-11-11T13:11:26.706049+00:00",
+      "fetched_at": "2026-11-11T13:33:51.316449+00:00",
       "days": [
         {
           "date": "2026-11-11",
@@ -176,7 +176,7 @@
       "id": "met",
       "status": "ok",
       "issued_at": "2026-11-11T11:20:00Z",
-      "fetched_at": "2026-11-11T13:11:26.706049+00:00",
+      "fetched_at": "2026-11-11T13:33:51.316449+00:00",
       "days": [
         {
           "date": "2026-11-11",
@@ -450,7 +450,7 @@
       "id": "mb",
       "status": "ok",
       "issued_at": null,
-      "fetched_at": "2026-11-11T13:11:26.706049+00:00",
+      "fetched_at": "2026-11-11T13:33:51.316449+00:00",
       "days": [
         {
           "date": "2026-11-11",
@@ -1746,7 +1746,7 @@
       "confidence": "Faible",
       "confidence_reason": "Accord qualitatif et couverture des sources; précision non encore validée. Fiabilité des cm au sol indéterminée.",
       "model_snow": {
-        "median_cm": 0.3,
+        "median_cm": 0.4,
         "min_cm": 0.0,
         "max_cm": 0.7,
         "hours": 18,
@@ -2617,24 +2617,24 @@
     },
     {
       "time": "2026-11-14T07:00:00-05:00",
-      "snow_cm": 0.0,
+      "snow_cm": 0.03,
+      "lo": 0.0,
+      "hi": 0.05,
+      "n": 4
+    },
+    {
+      "time": "2026-11-14T08:00:00-05:00",
+      "snow_cm": 0.05,
       "lo": 0.0,
       "hi": 0.05,
       "n": 3
     },
     {
-      "time": "2026-11-14T08:00:00-05:00",
-      "snow_cm": 0.03,
-      "lo": 0.0,
-      "hi": 0.05,
-      "n": 2
-    },
-    {
       "time": "2026-11-14T09:00:00-05:00",
-      "snow_cm": 0.03,
+      "snow_cm": 0.05,
       "lo": 0.0,
       "hi": 0.05,
-      "n": 2
+      "n": 3
     },
     {
       "time": "2026-11-14T10:00:00-05:00",
@@ -4883,6 +4883,24 @@
           "time": "2026-11-14T11:00:00Z",
           "precip_mm": 0.05,
           "temp": -1.1,
+          "snow_cm": 0.05
+        },
+        {
+          "time": "2026-11-14T12:00:00Z",
+          "precip_mm": 0.05,
+          "temp": -0.6,
+          "snow_cm": 0.05
+        },
+        {
+          "time": "2026-11-14T13:00:00Z",
+          "precip_mm": 0.05,
+          "temp": -0.6,
+          "snow_cm": 0.05
+        },
+        {
+          "time": "2026-11-14T14:00:00Z",
+          "precip_mm": 0.05,
+          "temp": -0.6,
           "snow_cm": 0.05
         }
       ]

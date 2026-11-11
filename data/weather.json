@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-11T13:11:26.706049+00:00",
+  "updated_at": "2026-11-11T13:33:51.316449+00:00",
   "location": {
     "name": "Saint-Prosper · Beauce",
     "lat": 46.214,
@@ -13,7 +13,7 @@
       "name": "Environnement Canada",
       "url": "https://meteo.gc.ca/fr/location/index.html?coords=46.214,-70.486",
       "status": "ok",
-      "fetched_at": "2026-11-11T13:11:26.706049+00:00",
+      "fetched_at": "2026-11-11T13:33:51.316449+00:00",
       "issued_at": "2026-11-11T10:00:00Z",
       "days": [
         {
@@ -553,7 +553,7 @@
       "name": "MET Norway",
       "url": "https://api.met.no/weatherapi/locationforecast/2.0/compact?lat=46.214&lon=-70.486",
       "status": "ok",
-      "fetched_at": "2026-11-11T13:11:26.706049+00:00",
+      "fetched_at": "2026-11-11T13:33:51.316449+00:00",
       "issued_at": "2026-11-11T11:20:00Z",
       "days": [
         {
@@ -1470,7 +1470,7 @@
       "name": "meteoblue",
       "url": "https://www.meteoblue.com/fr/meteo/semaine/saint-prosper_canada_8672691",
       "status": "ok",
-      "fetched_at": "2026-11-11T13:11:26.706049+00:00",
+      "fetched_at": "2026-11-11T13:33:51.316449+00:00",
       "issued_at": null,
       "days": [
         {
@@ -3598,7 +3598,7 @@
   ],
   "official_alerts": {
     "status": "ok",
-    "fetched_at": "2026-11-11T13:11:26.706049+00:00",
+    "fetched_at": "2026-11-11T13:33:51.316449+00:00",
     "items": []
   },
   "climate": {
@@ -4321,7 +4321,7 @@
       "confidence": "Faible",
       "confidence_reason": "Accord qualitatif et couverture des sources; précision non encore validée. Fiabilité des cm au sol indéterminée.",
       "model_snow": {
-        "median_cm": 0.3,
+        "median_cm": 0.4,
         "min_cm": 0.0,
         "max_cm": 0.7,
         "hours": 18,
@@ -4594,13 +4594,82 @@
       "ensemble": null
     }
   ],
-  "previous_at": "2026-11-11T13:08:49.200783+00:00",
+  "previous_at": "2026-11-11T13:11:26.706049+00:00",
   "changes": [
     {
       "text": "Aucun changement important dans les données comparables depuis la dernière collecte.",
       "important": false
     }
   ],
+  "saison_estimation": {
+    "saison": "2026-2027",
+    "mis_a_jour": "2026-11-11",
+    "prochaine_revision": "chaque mois après la mise à jour ENSO de la NOAA (2e jeudi : 12 nov., 10 déc., 14 janv., 11 févr., 11 mars, 8 avril), et le 1er décembre avec MétéoMédia et Environnement Canada",
+    "attendu_total": {
+      "tempetes_5cm": {
+        "central": 10,
+        "min": 8,
+        "max": 13
+      },
+      "tempetes_15cm": {
+        "central": 4,
+        "min": 3,
+        "max": 6
+      },
+      "tempetes_25cm": {
+        "central": 1.5,
+        "min": 0,
+        "max": 3
+      },
+      "sorties": {
+        "central": 19,
+        "min": 16,
+        "max": 24
+      },
+      "neige_cm": {
+        "central": 190,
+        "min": 170,
+        "max": 210
+      }
+    },
+    "normale": {
+      "tempetes_5cm": 12,
+      "tempetes_15cm": 5,
+      "tempetes_25cm": 2,
+      "sorties": 22,
+      "neige_cm": 228,
+      "periode": "1964-2023, 53 hivers, station ST PROSPER 7027660"
+    },
+    "par_mois": {
+      "11": 1,
+      "12": 2.5,
+      "01": 2.5,
+      "02": 2,
+      "03": 2,
+      "04": 1
+    },
+    "regle_sorties": "Une sortie chaque fois que 5 cm sont accumulés (compteur remis à zéro après 3 jours sans neige), 2e passage les jours de 20 cm et plus.",
+    "raisons": [
+      "El Niño fort à très fort, probable jusqu'en mars (NOAA, 8 oct. 2026) : hiver plus doux, tempêtes plus au sud.",
+      "À Saint-Prosper, les El Niño très forts (1982-83, 1997-98, 2015-16) ont donné 8 à 12 tempêtes et 16 à 22 sorties.",
+      "Dix dernières années : un peu moins de neige au total et moins de très grosses tempêtes, nombre de tempêtes stable.",
+      "Plus de verglas et de redoux possibles : non comptés ici."
+    ],
+    "sources": [
+      {
+        "nom": "Environnement Canada, données climatiques quotidiennes ST PROSPER",
+        "url": "https://api.weather.gc.ca/collections/climate-daily"
+      },
+      {
+        "nom": "NOAA CPC, discussion ENSO",
+        "url": "https://www.cpc.ncep.noaa.gov/products/analysis_monitoring/enso_advisory/ensodisc.shtml"
+      },
+      {
+        "nom": "MétéoMédia, aperçu de l'hiver",
+        "url": "https://www.meteomedia.com/fr/nouvelles/meteo/saisons/super-el-nino-lhiver-sera-t-il-annule"
+      }
+    ]
+  },
   "ensemble": {
     "status": "ok",
     "run": "2026-11-11T00:00:00+00:00",
@@ -4638,7 +4707,7 @@
       "id": "hrdps",
       "name": "HRDPS 2,5 km · ECCC",
       "status": "ok",
-      "fetched_at": "2026-11-11T13:11:26Z",
+      "fetched_at": "2026-11-11T13:33:51Z",
       "note": "cm estimés à partir des mm d’eau et de la température (rapport 10:1 près de 0 °C, plus léger au froid). Pas de fonte ni de tassement.",
       "issued_at": "2026-11-11T06:00:00Z",
       "layers": [
@@ -4904,7 +4973,7 @@
       "id": "rdps",
       "name": "RDPS 10 km · ECCC",
       "status": "ok",
-      "fetched_at": "2026-11-11T13:11:26Z",
+      "fetched_at": "2026-11-11T13:33:51Z",
       "note": "cm estimés à partir des mm d’eau et de la température (rapport 10:1 près de 0 °C, plus léger au froid). Pas de fonte ni de tassement.",
       "issued_at": "2026-11-11T06:00:00Z",
       "layers": [
@@ -5356,7 +5425,7 @@
       "id": "gfs",
       "name": "GFS 0,25° · NOAA",
       "status": "ok",
-      "fetched_at": "2026-11-11T13:11:26Z",
+      "fetched_at": "2026-11-11T13:33:51Z",
       "note": "cm estimés à partir des mm d’eau et de la température (rapport 10:1 près de 0 °C, plus léger au froid). Pas de fonte ni de tassement.",
       "issued_at": null,
       "units": [
@@ -5795,6 +5864,24 @@
           "precip_mm": 0.05,
           "temp": -1.1,
           "snow_cm": 0.05
+        },
+        {
+          "time": "2026-11-14T12:00:00Z",
+          "precip_mm": 0.05,
+          "temp": -0.6,
+          "snow_cm": 0.05
+        },
+        {
+          "time": "2026-11-14T13:00:00Z",
+          "precip_mm": 0.05,
+          "temp": -0.6,
+          "snow_cm": 0.05
+        },
+        {
+          "time": "2026-11-14T14:00:00Z",
+          "precip_mm": 0.05,
+          "temp": -0.6,
+          "snow_cm": 0.05
         }
       ]
     },
@@ -5802,7 +5889,7 @@
       "id": "met",
       "name": "MET Norway",
       "status": "ok",
-      "fetched_at": "2026-11-11T13:11:26Z",
+      "fetched_at": "2026-11-11T13:33:51Z",
       "note": "cm estimés à partir des mm d’eau et de la température (rapport 10:1 près de 0 °C, plus léger au froid). Pas de fonte ni de tassement.",
       "issued_at": "2026-11-11T11:20:00Z",
       "hours": [
@@ -6316,7 +6403,7 @@
       "id": "ifs",
       "name": "ECMWF IFS (européen)",
       "status": "ok",
-      "fetched_at": "2026-11-11T13:11:26.706049+00:00",
+      "fetched_at": "2026-11-11T13:33:51.316449+00:00",
       "issued_at": "2026-11-11T00:00:00Z",
       "run": "2026-11-11T00:00:00+00:00",
       "hours": [
@@ -6759,7 +6846,7 @@
       "id": "aifs",
       "name": "ECMWF AIFS (européen, IA)",
       "status": "ok",
-      "fetched_at": "2026-11-11T13:11:26.706049+00:00",
+      "fetched_at": "2026-11-11T13:33:51.316449+00:00",
       "issued_at": "2026-11-11T00:00:00Z",
       "run": "2026-11-11T00:00:00+00:00",
       "hours": [
@@ -8999,24 +9086,24 @@
     },
     {
       "time": "2026-11-14T07:00:00-05:00",
-      "snow_cm": 0.0,
+      "snow_cm": 0.03,
+      "lo": 0.0,
+      "hi": 0.05,
+      "n": 4
+    },
+    {
+      "time": "2026-11-14T08:00:00-05:00",
+      "snow_cm": 0.05,
       "lo": 0.0,
       "hi": 0.05,
       "n": 3
     },
     {
-      "time": "2026-11-14T08:00:00-05:00",
-      "snow_cm": 0.03,
-      "lo": 0.0,
-      "hi": 0.05,
-      "n": 2
-    },
-    {
       "time": "2026-11-14T09:00:00-05:00",
-      "snow_cm": 0.03,
+      "snow_cm": 0.05,
       "lo": 0.0,
       "hi": 0.05,
-      "n": 2
+      "n": 3
     },
     {
       "time": "2026-11-14T10:00:00-05:00",
