@@ -125,11 +125,19 @@ neige au sol ni une mesure de la cour. Aucun relevé de l'équipe n'est demandé
 
 ## Alertes et partage
 
-Les alertes et changements s'affichent dans l'application. Celle-ci ne possède
-pas de service de notification push/SMS. Le robot ChatGPT déjà configuré reste
-séparé. Les employés consultent les mêmes JSON publiés, sans compte GitHub.
-Sur iPhone, Safari → Partager → Sur l'écran d'accueil. Une dernière copie est
-disponible hors ligne avec sa date visible; elle ne devient pas une météo actuelle.
+Les alertes sont envoyées sur les téléphones de l'équipe par l'application gratuite ntfy
+(`scripts/alerts.py`, appelé à chaque collecte) : sortie prévue, déplacée d'une heure et plus
+ou annulée; alerte officielle d'Environnement Canada; probabilité de 5 cm et plus de 50 % et
+plus pour aujourd'hui ou demain (ensemble européen); risque de verglas ou pluie sur la neige
+au sol. Chaque alerte n'est envoyée qu'une fois (`data/alerts-state.json`).
+
+Le nom du canal ntfy est un secret du dépôt (`NTFY_TOPIC`, Settings → Secrets and variables →
+Actions) : il n'apparaît ni dans le code ni sur le site. Sans ce secret, aucune alerte n'est
+envoyée. Pour changer de canal (ex. un employé quitte l'équipe), remplacer le secret et
+donner le nouveau nom à l'équipe.
+
+Sur iPhone, Safari → Partager → Sur l'écran d'accueil. Une dernière copie est disponible hors
+ligne avec sa date visible; elle ne devient pas une météo actuelle.
 
 ## Développement et validation
 

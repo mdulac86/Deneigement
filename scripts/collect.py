@@ -20,6 +20,7 @@ import models as nwp  # noqa: E402
 import plan as planner  # noqa: E402
 import ecmwf  # noqa: E402
 import snowdepth  # noqa: E402
+import alerts as notifier  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / 'data'
@@ -535,6 +536,11 @@ def main():
     except Exception as e:  # Le plan ne doit jamais bloquer la collecte principale.
         result.update({'models': [], 'hourly_snow': [], 'plan': [], 'plan_error': str(e)[:200]})
     write(DATA/'weather.json',result)
+    try:
+        sent=notifier.run(result,DATA/'alerts-state.json',today=TODAY)
+        result['alerts_sent']=sent
+    except Exception as e:
+        print('alertes :',e)
     # Archives horaires durables : pas d'accumulation de prévisions présentée en relevé.
     snapshot={'updated_at':stamp(),'sources':[{k:s[k] for k in ('id','status','issued_at','fetched_at','days','periods') if k in s} for s in sources], 'consensus':result['consensus'],'changes':result['changes'],'plan':result.get('plan'),'hourly_snow':result.get('hourly_snow'),'models':[{k:x[k] for k in ('id','status','issued_at','hours') if k in x} for x in result.get('models',[])]}
     write(DATA/'archive'/NOW.strftime('%Y-%m-%d')/NOW.strftime('%H.json'),snapshot)
