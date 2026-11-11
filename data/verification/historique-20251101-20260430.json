@@ -136,7 +136,10 @@
    },
    "fc": {
     "ifs": {
-     "error": "HTTP Error 503: Service Unavailable"
+     "tp_mm": 0.9,
+     "snow_cm": 0.9,
+     "calcul": "estimée (pluie + température)",
+     "v": 1
     },
     "aifs": {
      "tp_mm": 1.4,
@@ -349,7 +352,10 @@
    },
    "fc": {
     "ifs": {
-     "error": "HTTP Error 503: Service Unavailable"
+     "tp_mm": 0.0,
+     "snow_cm": 0.0,
+     "calcul": "estimée (pluie + température)",
+     "v": 1
     },
     "aifs": {
      "tp_mm": 0.0,
@@ -2454,7 +2460,10 @@
      "snow_cm": 0.1
     },
     "aifs": {
-     "error": "HTTP Error 503: Service Unavailable"
+     "tp_mm": 1.1,
+     "snow_cm": 1.1,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 0.7,
