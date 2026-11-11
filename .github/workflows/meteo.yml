@@ -59,7 +59,7 @@ jobs:
       - name: Préparer le site
         run: |
           mkdir -p dist/data
-          cp index.html app.js style.css manifest.webmanifest icon.svg sw.js dist/
+          cp index.html app.js style.css manifest.webmanifest icon.svg logo-dulac.png sw.js dist/
           cp data/weather.json dist/data/
           cp data/season-*.json dist/data/
           mkdir -p dist/data/verification && cp data/verification/scores.json dist/data/verification/ 2>/dev/null || true
