@@ -25,36 +25,44 @@ def runs(now):
         yield t - dt.timedelta(hours=12 * i)
 
 
-def url(root, run, stream, step):
+def url(root, run, stream, step, model='ifs'):
     d = run.strftime('%Y%m%d')
     kind = 'oper-fc' if stream == 'oper' else 'enfo-ef'
-    return f'{root}/{d}/{run:%H}z/ifs/0p25/{stream}/{d}{run:%H}0000-{step}h-{kind}'
+    return f'{root}/{d}/{run:%H}z/{model}/0p25/{stream}/{d}{run:%H}0000-{step}h-{kind}'
 
 
-def latest_run(now, stream='oper', last_step=HORIZON):
+def latest_run(now, stream='oper', last_step=HORIZON, model='ifs'):
     """Dernier run complètement publié (l'index de la dernière échéance existe)."""
     for run in runs(now):
         for root in (BASE, FALLBACK):
             try:
-                grib.get(url(root, run, stream, last_step) + '.index', tries=2)
+                grib.get(url(root, run, stream, last_step, model) + '.index', tries=2)
                 return run, root
             except Exception:
                 continue
     raise ValueError('Aucun run ECMWF récent disponible')
 
 
-def deterministic(lat, lon, now):
+def deterministic(lat, lon, now, model='ifs'):
+    """IFS (pas de 3 h) ou AIFS, le modèle européen à intelligence artificielle (pas de 6 h)."""
     grib.warmup()
-    run, root = latest_run(now)
-    steps = list(range(0, HORIZON + 1, 3))
+    run, root = latest_run(now, model=model)
+    step_h = 3 if model == 'ifs' else 6
+    steps = list(range(0, HORIZON + 1, step_h))
 
     def read(step):
-        u = url(root, run, 'oper', step)
+        u = url(root, run, 'oper', step, model)
         idx = grib.ecmwf_index(u + '.index')
         out = {}
         for p in ('tp', 'sf', '2t'):
             e = next((x for x in idx if x.get('param') == p), None)
-            out[p] = grib.field(u + '.grib2', e, lat, lon) if e else None
+            if e is None:
+                out[p] = None
+            elif p == '2t':
+                out[p] = grib.field(u + '.grib2', e, lat, lon)
+            else:
+                v, unit = grib.field(u + '.grib2', e, lat, lon, units=True)
+                out[p] = grib.to_mm(v, unit)
         return step, out
 
     with futures.ThreadPoolExecutor(max_workers=6) as pool:
@@ -64,16 +72,17 @@ def deterministic(lat, lon, now):
         va, vb = vals[a], vals[b]
         if None in (va['tp'], vb['tp'], va['sf'], vb['sf']):
             continue
-        mm = max(0.0, (vb['tp'] - va['tp']) * 1000) / (b - a)
-        cm = max(0.0, (vb['sf'] - va['sf']) * 1000) / (b - a)
+        mm = max(0.0, vb['tp'] - va['tp']) / (b - a)
+        cm = max(0.0, vb['sf'] - va['sf']) / (b - a)
         temp = None if vb['2t'] is None else round(vb['2t'] - 273.15, 1)
         for k in range(b - a):
             t = run + dt.timedelta(hours=a + k)
             hours.append({'time': t.strftime('%Y-%m-%dT%H:%M:%SZ'), 'precip_mm': round(mm, 2), 'temp': temp, 'snow_cm': round(cm, 2)})
     if len(hours) < 24:
         raise ValueError('Série ECMWF trop courte')
+    label = 'IFS 0,25°' if model == 'ifs' else 'AIFS (intelligence artificielle) 0,25°'
     return {'issued_at': run.strftime('%Y-%m-%dT%H:%M:%SZ'), 'run': run.isoformat(), 'hours': hours,
-            'note': 'Modèle européen IFS 0,25° (ECMWF, CC BY 4.0). Neige tombée fournie par le modèle (équivalent eau, 10:1), pas une estimation.'}
+            'note': f'Modèle européen {label} (ECMWF, CC BY 4.0). Neige tombée fournie par le modèle (équivalent eau, 10:1), pas une estimation.'}
 
 
 def day_windows(run, tz, days=3):
@@ -123,7 +132,10 @@ def ensemble(lat, lon, now, tz):
 def cached(cache, key, now, fn):
     """Réutilise le résultat si le run n'a pas changé (évite de retélécharger ~25 Mo)."""
     try:
-        run, _ = latest_run(now, 'oper' if key == 'ifs' else 'enfo', HORIZON if key == 'ifs' else 90)
+        if key == 'ens':
+            run, _ = latest_run(now, 'enfo', 90)
+        else:
+            run, _ = latest_run(now, model='aifs-single' if key == 'aifs' else 'ifs')
     except Exception:
         run = None
     hit = cache.get(key)

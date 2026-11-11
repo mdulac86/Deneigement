@@ -477,6 +477,11 @@ def forecast_plan(sources, days):
     except Exception as e:
         models.append({'id': 'ifs', 'name': 'ECMWF IFS (européen)', 'status': 'unavailable', 'fetched_at': stamp(), 'hours': [], 'error': str(e)[:200]})
     try:
+        aifs, _ = ecmwf.cached(cache, 'aifs', NOW, lambda: ecmwf.deterministic(LAT, LON, NOW, 'aifs-single'))
+        models.append({'id': 'aifs', 'name': 'ECMWF AIFS (européen, IA)', 'status': 'ok', 'fetched_at': stamp(), **aifs})
+    except Exception as e:
+        models.append({'id': 'aifs', 'name': 'ECMWF AIFS (européen, IA)', 'status': 'unavailable', 'fetched_at': stamp(), 'hours': [], 'error': str(e)[:200]})
+    try:
         ens, _ = ecmwf.cached(cache, 'ens', NOW, lambda: ecmwf.ensemble(LAT, LON, NOW, TZ))
         ensemble = {'status': 'ok', **ens}
     except Exception as e:

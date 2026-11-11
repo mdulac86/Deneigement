@@ -64,7 +64,8 @@ la restriction et sans compter une ancienne donnée dans le consensus.
 ## Modèle européen et probabilité de 5 cm
 
 `scripts/ecmwf.py` lit les données ouvertes ECMWF (CC BY 4.0) : le modèle IFS (neige
-tombée aux 3 h, 72 h) entre dans le plan de sortie, et l'ensemble de 51 versions donne,
+tombée aux 3 h, 72 h) et le modèle AIFS à intelligence artificielle (aux 6 h) entrent dans le
+plan de sortie, et l'ensemble de 51 versions donne,
 pour chaque jour, la probabilité d'avoir 5 cm ou plus et la fourchette 10-90 %.
 
 ## Fiabilité : qui voit juste ?

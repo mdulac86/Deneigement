@@ -25,7 +25,7 @@ MIN_VERSION = {'aifs': 2}  # AIFS v1 : unités mal converties
 
 LIVE_NAMES = {
     'mm': 'MétéoMédia', 'wu': 'Weather Underground', 'hrdps': 'HRDPS (canadien 2,5 km)', 'rdps': 'RDPS (canadien 10 km)',
-    'gfs-live': 'NOAA GFS (américain)', 'met': 'MET Norway', 'ifs-live': 'ECMWF IFS (européen)', 'consensus': 'Consensus du plan (médiane)',
+    'gfs-live': 'NOAA GFS (américain)', 'met': 'MET Norway', 'ifs-live': 'ECMWF IFS (européen)', 'aifs-live': 'ECMWF AIFS (européen, IA)', 'consensus': 'Consensus du plan (médiane)',
 }
 
 
@@ -100,7 +100,7 @@ def live_forecasts(day):
         if m.get('status') == 'ok' and m['id'] != 'mm':
             v = day_hours_sum(m.get('hours'), day)
             if v is not None:
-                out[{'gfs': 'gfs-live', 'ifs': 'ifs-live'}.get(m['id'], m['id'])] = v
+                out[{'gfs': 'gfs-live', 'ifs': 'ifs-live', 'aifs': 'aifs-live'}.get(m['id'], m['id'])] = v
     v = day_hours_sum(snap.get('hourly_snow'), day)
     if v is not None:
         out['consensus'] = v

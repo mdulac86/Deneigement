@@ -26,9 +26,10 @@ class EcmwfTests(unittest.TestCase):
         self.assertEqual(w12[0], (dt.date(2026, 11, 12), 18, 42))
 
     def test_deterministic_rates_from_accumulations(self):
-        def field(url, entry, lat, lon):
+        def field(url, entry, lat, lon, units=False):
             step = int(re.search(r'-(\d+)h-', url)[1])
-            return {'tp': step * 0.0002, 'sf': step * 0.0001, '2t': 270.15}[entry['param']]
+            v = {'tp': step * 0.0002, 'sf': step * 0.0001, '2t': 270.15}[entry['param']]
+            return (v, 'm') if units else v
         idx = [{'param': p, '_offset': 0, '_length': 1} for p in ('tp', 'sf', '2t')]
         with patch.object(ecmwf, 'latest_run', return_value=(RUN, 'x')), \
              patch.object(ecmwf.grib, 'ecmwf_index', return_value=idx), patch.object(ecmwf.grib, 'field', side_effect=field):
@@ -37,6 +38,19 @@ class EcmwfTests(unittest.TestCase):
         self.assertEqual(r['hours'][0]['snow_cm'], 0.1)  # 0,1 mm d'eau par heure
         self.assertEqual(r['hours'][0]['precip_mm'], 0.2)
         self.assertEqual(r['hours'][0]['temp'], -3.0)
+
+    def test_aifs_six_hour_steps_in_kg(self):
+        def field(url, entry, lat, lon, units=False):
+            step = int(re.search(r'-(\d+)h-', url)[1])
+            v = {'tp': step * 0.2, 'sf': step * 0.1, '2t': 270.15}[entry['param']]
+            return (v, 'kg m**-2') if units else v
+        idx = [{'param': p, '_offset': 0, '_length': 1} for p in ('tp', 'sf', '2t')]
+        with patch.object(ecmwf, 'latest_run', return_value=(RUN, 'x')), \
+             patch.object(ecmwf.grib, 'ecmwf_index', return_value=idx), patch.object(ecmwf.grib, 'field', side_effect=field) as f:
+            r = ecmwf.deterministic(46.2, -70.5, RUN, 'aifs-single')
+        self.assertEqual(len(r['hours']), 72)
+        self.assertEqual(r['hours'][0]['snow_cm'], 0.1)
+        self.assertIn('/aifs-single/', f.call_args_list[0][0][0])
 
     def test_ensemble_probability(self):
         # 51 membres : membre n donne n/5 cm sur chaque fenêtre de 24 h -> 26 membres (25..50) >= 5 cm.
