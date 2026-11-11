@@ -16,11 +16,16 @@
    },
    "fc": {
     "ifs": {
-     "error": "sf absent (ifs 20251031 +30 h)"
+     "tp_mm": 2.8,
+     "snow_cm": 0.0,
+     "calcul": "estimée (pluie + température)",
+     "v": 1
     },
     "aifs": {
-     "tp_mm": 3543.0,
-     "snow_cm": 113.3
+     "tp_mm": 3.5,
+     "snow_cm": 0.1,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 1.1,
@@ -35,11 +40,16 @@
    },
    "fc": {
     "ifs": {
-     "error": "sf absent (ifs 20251101 +30 h)"
+     "tp_mm": 0.1,
+     "snow_cm": 0.1,
+     "calcul": "estimée (pluie + température)",
+     "v": 1
     },
     "aifs": {
-     "tp_mm": 3.9,
-     "snow_cm": 2.0
+     "tp_mm": 0.0,
+     "snow_cm": 0.0,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 0.0,
@@ -54,11 +64,16 @@
    },
    "fc": {
     "ifs": {
-     "error": "sf absent (ifs 20251102 +30 h)"
+     "tp_mm": 6.8,
+     "snow_cm": 3.0,
+     "calcul": "estimée (pluie + température)",
+     "v": 1
     },
     "aifs": {
-     "tp_mm": 6890.6,
-     "snow_cm": 17.6
+     "tp_mm": 6.9,
+     "snow_cm": 0.0,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 9.2,
@@ -73,11 +88,16 @@
    },
    "fc": {
     "ifs": {
-     "error": "sf absent (ifs 20251103 +30 h)"
+     "tp_mm": 4.0,
+     "snow_cm": 0.0,
+     "calcul": "estimée (pluie + température)",
+     "v": 1
     },
     "aifs": {
-     "tp_mm": 4082.0,
-     "snow_cm": 356.4
+     "tp_mm": 4.1,
+     "snow_cm": 0.4,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 1.8,
@@ -92,11 +112,16 @@
    },
    "fc": {
     "ifs": {
-     "error": "sf absent (ifs 20251104 +30 h)"
+     "tp_mm": 5.3,
+     "snow_cm": 2.6,
+     "calcul": "estimée (pluie + température)",
+     "v": 1
     },
     "aifs": {
-     "tp_mm": 5589.8,
-     "snow_cm": 2626.0
+     "tp_mm": 5.6,
+     "snow_cm": 2.6,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 5.6,
@@ -111,11 +136,13 @@
    },
    "fc": {
     "ifs": {
-     "error": "sf absent (ifs 20251105 +30 h)"
+     "error": "HTTP Error 503: Service Unavailable"
     },
     "aifs": {
-     "tp_mm": 1382.8,
-     "snow_cm": 933.6
+     "tp_mm": 1.4,
+     "snow_cm": 0.9,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 0.6,
@@ -130,11 +157,16 @@
    },
    "fc": {
     "ifs": {
-     "error": "sf absent (ifs 20251106 +30 h)"
+     "tp_mm": 3.6,
+     "snow_cm": 2.3,
+     "calcul": "estimée (pluie + température)",
+     "v": 1
     },
     "aifs": {
-     "tp_mm": 4964.8,
-     "snow_cm": 3121.1
+     "tp_mm": 5.0,
+     "snow_cm": 3.1,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 4.1,
@@ -149,11 +181,16 @@
    },
    "fc": {
     "ifs": {
-     "error": "sf absent (ifs 20251107 +30 h)"
+     "tp_mm": 0.8,
+     "snow_cm": 0.8,
+     "calcul": "estimée (pluie + température)",
+     "v": 1
     },
     "aifs": {
-     "tp_mm": 1730.5,
-     "snow_cm": 2.0
+     "tp_mm": 1.7,
+     "snow_cm": 0.0,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 1.4,
@@ -168,11 +205,16 @@
    },
    "fc": {
     "ifs": {
-     "error": "sf absent (ifs 20251108 +30 h)"
+     "tp_mm": 6.2,
+     "snow_cm": 8.0,
+     "calcul": "estimée (pluie + température)",
+     "v": 1
     },
     "aifs": {
-     "tp_mm": 4980.5,
-     "snow_cm": 3195.3
+     "tp_mm": 5.0,
+     "snow_cm": 3.2,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 8.4,
@@ -187,11 +229,16 @@
    },
    "fc": {
     "ifs": {
-     "error": "sf absent (ifs 20251109 +30 h)"
+     "tp_mm": 14.5,
+     "snow_cm": 9.6,
+     "calcul": "estimée (pluie + température)",
+     "v": 1
     },
     "aifs": {
-     "tp_mm": 14726.6,
-     "snow_cm": 2783.2
+     "tp_mm": 14.7,
+     "snow_cm": 2.8,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 18.4,
@@ -206,11 +253,16 @@
    },
    "fc": {
     "ifs": {
-     "error": "sf absent (ifs 20251110 +30 h)"
+     "tp_mm": 3.9,
+     "snow_cm": 3.9,
+     "calcul": "estimée (pluie + température)",
+     "v": 1
     },
     "aifs": {
-     "tp_mm": 5484.4,
-     "snow_cm": 5486.3
+     "tp_mm": 5.5,
+     "snow_cm": 5.5,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 3.9,
@@ -225,11 +277,16 @@
    },
    "fc": {
     "ifs": {
-     "error": "sf absent (ifs 20251111 +30 h)"
+     "tp_mm": 0.2,
+     "snow_cm": 0.3,
+     "calcul": "estimée (pluie + température)",
+     "v": 1
     },
     "aifs": {
-     "tp_mm": 1003.9,
-     "snow_cm": 1005.9
+     "tp_mm": 1.0,
+     "snow_cm": 1.0,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 1.4,
@@ -244,11 +301,16 @@
    },
    "fc": {
     "ifs": {
-     "error": "sf absent (ifs 20251112 +30 h)"
+     "tp_mm": 1.4,
+     "snow_cm": 1.8,
+     "calcul": "estimée (pluie + température)",
+     "v": 1
     },
     "aifs": {
-     "tp_mm": 1515.6,
-     "snow_cm": 1462.9
+     "tp_mm": 1.5,
+     "snow_cm": 1.5,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 4.2,
@@ -263,11 +325,16 @@
    },
    "fc": {
     "ifs": {
-     "error": "sf absent (ifs 20251113 +30 h)"
+     "tp_mm": 0.2,
+     "snow_cm": 0.2,
+     "calcul": "estimée (pluie + température)",
+     "v": 1
     },
     "aifs": {
-     "tp_mm": 988.3,
-     "snow_cm": 988.3
+     "tp_mm": 1.0,
+     "snow_cm": 1.0,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 0.6,
@@ -282,11 +349,13 @@
    },
    "fc": {
     "ifs": {
-     "error": "sf absent (ifs 20251114 +30 h)"
+     "error": "HTTP Error 503: Service Unavailable"
     },
     "aifs": {
      "tp_mm": 0.0,
-     "snow_cm": 2.0
+     "snow_cm": 0.0,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 0.1,
@@ -301,11 +370,16 @@
    },
    "fc": {
     "ifs": {
-     "error": "sf absent (ifs 20251115 +30 h)"
+     "tp_mm": 12.2,
+     "snow_cm": 15.9,
+     "calcul": "estimée (pluie + température)",
+     "v": 1
     },
     "aifs": {
-     "tp_mm": 8679.7,
-     "snow_cm": 8679.7
+     "tp_mm": 8.7,
+     "snow_cm": 8.7,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 10.9,
@@ -320,11 +394,16 @@
    },
    "fc": {
     "ifs": {
-     "error": "sf absent (ifs 20251116 +30 h)"
+     "tp_mm": 2.3,
+     "snow_cm": 3.0,
+     "calcul": "estimée (pluie + température)",
+     "v": 1
     },
     "aifs": {
-     "tp_mm": 4199.2,
-     "snow_cm": 4195.3
+     "tp_mm": 4.2,
+     "snow_cm": 4.2,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 3.9,
@@ -339,11 +418,16 @@
    },
    "fc": {
     "ifs": {
-     "error": "sf absent (ifs 20251117 +30 h)"
+     "tp_mm": 1.5,
+     "snow_cm": 1.9,
+     "calcul": "estimée (pluie + température)",
+     "v": 1
     },
     "aifs": {
-     "tp_mm": 980.5,
-     "snow_cm": 980.5
+     "tp_mm": 1.0,
+     "snow_cm": 1.0,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 2.9,
@@ -358,11 +442,16 @@
    },
    "fc": {
     "ifs": {
-     "error": "sf absent (ifs 20251118 +30 h)"
+     "tp_mm": 0.3,
+     "snow_cm": 0.4,
+     "calcul": "estimée (pluie + température)",
+     "v": 1
     },
     "aifs": {
-     "tp_mm": 78.1,
-     "snow_cm": 78.1
+     "tp_mm": 0.1,
+     "snow_cm": 0.1,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 0.3,
@@ -377,11 +466,16 @@
    },
    "fc": {
     "ifs": {
-     "error": "sf absent (ifs 20251119 +30 h)"
+     "tp_mm": 0.0,
+     "snow_cm": 0.0,
+     "calcul": "estimée (pluie + température)",
+     "v": 1
     },
     "aifs": {
-     "tp_mm": 3.9,
-     "snow_cm": 0.0
+     "tp_mm": 0.0,
+     "snow_cm": 0.0,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 0.1,
@@ -396,11 +490,16 @@
    },
    "fc": {
     "ifs": {
-     "error": "sf absent (ifs 20251120 +30 h)"
+     "tp_mm": 4.4,
+     "snow_cm": 5.7,
+     "calcul": "estimée (pluie + température)",
+     "v": 1
     },
     "aifs": {
-     "tp_mm": 3671.9,
-     "snow_cm": 3160.2
+     "tp_mm": 3.7,
+     "snow_cm": 3.2,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 5.1,
@@ -419,8 +518,10 @@
      "snow_cm": 0.2
     },
     "aifs": {
-     "tp_mm": 453.1,
-     "snow_cm": 453.1
+     "tp_mm": 0.5,
+     "snow_cm": 0.5,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 0.4,
@@ -439,8 +540,10 @@
      "snow_cm": 1.1
     },
     "aifs": {
-     "tp_mm": 742.2,
-     "snow_cm": 741.2
+     "tp_mm": 0.7,
+     "snow_cm": 0.7,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 1.5,
@@ -459,8 +562,10 @@
      "snow_cm": 0.2
     },
     "aifs": {
-     "tp_mm": 117.2,
-     "snow_cm": 116.2
+     "tp_mm": 0.1,
+     "snow_cm": 0.1,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 0.5,
@@ -479,8 +584,10 @@
      "snow_cm": 0.0
     },
     "aifs": {
-     "tp_mm": 226.6,
-     "snow_cm": 23.4
+     "tp_mm": 0.2,
+     "snow_cm": 0.0,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 0.0,
@@ -499,8 +606,10 @@
      "snow_cm": 0.0
     },
     "aifs": {
-     "tp_mm": 6843.8,
-     "snow_cm": 154.3
+     "tp_mm": 6.8,
+     "snow_cm": 0.2,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 5.6,
@@ -519,8 +628,10 @@
      "snow_cm": 2.6
     },
     "aifs": {
-     "tp_mm": 3320.3,
-     "snow_cm": 1824.2
+     "tp_mm": 3.3,
+     "snow_cm": 1.8,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 5.1,
@@ -539,8 +650,10 @@
      "snow_cm": 2.9
     },
     "aifs": {
-     "tp_mm": 2640.6,
-     "snow_cm": 2638.7
+     "tp_mm": 2.6,
+     "snow_cm": 2.6,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 2.9,
@@ -559,8 +672,10 @@
      "snow_cm": 0.5
     },
     "aifs": {
-     "tp_mm": 828.1,
-     "snow_cm": 830.1
+     "tp_mm": 0.8,
+     "snow_cm": 0.8,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 1.1,
@@ -579,8 +694,10 @@
      "snow_cm": 6.2
     },
     "aifs": {
-     "tp_mm": 6191.4,
-     "snow_cm": 6107.4
+     "tp_mm": 6.2,
+     "snow_cm": 6.1,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 7.3,
@@ -599,8 +716,10 @@
      "snow_cm": 1.9
     },
     "aifs": {
-     "tp_mm": 1500.0,
-     "snow_cm": 1501.0
+     "tp_mm": 1.5,
+     "snow_cm": 1.5,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 2.4,
@@ -619,8 +738,10 @@
      "snow_cm": 1.9
     },
     "aifs": {
-     "tp_mm": 5429.7,
-     "snow_cm": 5433.6
+     "tp_mm": 5.4,
+     "snow_cm": 5.4,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 3.1,
@@ -639,8 +760,10 @@
      "snow_cm": 0.2
     },
     "aifs": {
-     "tp_mm": 421.9,
-     "snow_cm": 419.9
+     "tp_mm": 0.4,
+     "snow_cm": 0.4,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 0.0,
@@ -659,8 +782,10 @@
      "snow_cm": 1.6
     },
     "aifs": {
-     "tp_mm": 2195.3,
-     "snow_cm": 2197.3
+     "tp_mm": 2.2,
+     "snow_cm": 2.2,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 1.9,
@@ -680,7 +805,9 @@
     },
     "aifs": {
      "tp_mm": 0.0,
-     "snow_cm": 0.0
+     "snow_cm": 0.0,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 0.0,
@@ -699,8 +826,10 @@
      "snow_cm": 2.4
     },
     "aifs": {
-     "tp_mm": 1789.1,
-     "snow_cm": 1791.0
+     "tp_mm": 1.8,
+     "snow_cm": 1.8,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 0.8,
@@ -719,8 +848,10 @@
      "snow_cm": 0.3
     },
     "aifs": {
-     "tp_mm": 136.7,
-     "snow_cm": 134.8
+     "tp_mm": 0.1,
+     "snow_cm": 0.1,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 0.6,
@@ -739,8 +870,10 @@
      "snow_cm": 0.1
     },
     "aifs": {
-     "tp_mm": 187.5,
-     "snow_cm": 187.5
+     "tp_mm": 0.2,
+     "snow_cm": 0.2,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 0.1,
@@ -759,8 +892,10 @@
      "snow_cm": 0.2
     },
     "aifs": {
-     "tp_mm": 66.4,
-     "snow_cm": 64.5
+     "tp_mm": 0.1,
+     "snow_cm": 0.1,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 0.1,
@@ -779,8 +914,10 @@
      "snow_cm": 7.4
     },
     "aifs": {
-     "tp_mm": 6865.2,
-     "snow_cm": 6865.2
+     "tp_mm": 6.9,
+     "snow_cm": 6.9,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 9.9,
@@ -799,8 +936,10 @@
      "snow_cm": 6.9
     },
     "aifs": {
-     "tp_mm": 4179.7,
-     "snow_cm": 4175.8
+     "tp_mm": 4.2,
+     "snow_cm": 4.2,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 8.4,
@@ -819,8 +958,10 @@
      "snow_cm": 2.9
     },
     "aifs": {
-     "tp_mm": 1582.0,
-     "snow_cm": 1582.0
+     "tp_mm": 1.6,
+     "snow_cm": 1.6,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 3.2,
@@ -839,8 +980,10 @@
      "snow_cm": 0.9
     },
     "aifs": {
-     "tp_mm": 1093.8,
-     "snow_cm": 1097.7
+     "tp_mm": 1.1,
+     "snow_cm": 1.1,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 1.9,
@@ -859,8 +1002,10 @@
      "snow_cm": 0.4
     },
     "aifs": {
-     "tp_mm": 691.4,
-     "snow_cm": 689.5
+     "tp_mm": 0.7,
+     "snow_cm": 0.7,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 0.4,
@@ -879,8 +1024,10 @@
      "snow_cm": 0.2
     },
     "aifs": {
-     "tp_mm": 367.2,
-     "snow_cm": 365.2
+     "tp_mm": 0.4,
+     "snow_cm": 0.4,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 0.7,
@@ -899,8 +1046,10 @@
      "snow_cm": 0.6
     },
     "aifs": {
-     "tp_mm": 582.0,
-     "snow_cm": 582.0
+     "tp_mm": 0.6,
+     "snow_cm": 0.6,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 0.4,
@@ -919,8 +1068,10 @@
      "snow_cm": 5.0
     },
     "aifs": {
-     "tp_mm": 2460.9,
-     "snow_cm": 2199.2
+     "tp_mm": 2.5,
+     "snow_cm": 2.2,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 7.8,
@@ -940,7 +1091,9 @@
     },
     "aifs": {
      "tp_mm": 0.0,
-     "snow_cm": 0.0
+     "snow_cm": 0.0,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 0.0,
@@ -959,8 +1112,10 @@
      "snow_cm": 0.8
     },
     "aifs": {
-     "tp_mm": 13918.0,
-     "snow_cm": 1044.9
+     "tp_mm": 13.9,
+     "snow_cm": 1.0,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 9.8,
@@ -979,8 +1134,10 @@
      "snow_cm": 1.5
     },
     "aifs": {
-     "tp_mm": 2175.8,
-     "snow_cm": 2176.8
+     "tp_mm": 2.2,
+     "snow_cm": 2.2,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 1.8,
@@ -999,8 +1156,10 @@
      "snow_cm": 2.3
     },
     "aifs": {
-     "tp_mm": 2062.5,
-     "snow_cm": 2063.5
+     "tp_mm": 2.1,
+     "snow_cm": 2.1,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 1.8,
@@ -1019,8 +1178,10 @@
      "snow_cm": 0.1
     },
     "aifs": {
-     "tp_mm": 50.8,
-     "snow_cm": 50.8
+     "tp_mm": 0.1,
+     "snow_cm": 0.1,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 0.4,
@@ -1039,8 +1200,10 @@
      "snow_cm": 3.4
     },
     "aifs": {
-     "tp_mm": 1988.3,
-     "snow_cm": 1986.3
+     "tp_mm": 2.0,
+     "snow_cm": 2.0,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 2.8,
@@ -1059,8 +1222,10 @@
      "snow_cm": 5.0
     },
     "aifs": {
-     "tp_mm": 3550.8,
-     "snow_cm": 3552.7
+     "tp_mm": 3.6,
+     "snow_cm": 3.6,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 4.9,
@@ -1079,8 +1244,10 @@
      "snow_cm": 4.1
     },
     "aifs": {
-     "tp_mm": 4019.5,
-     "snow_cm": 4019.5
+     "tp_mm": 4.0,
+     "snow_cm": 4.0,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 3.9,
@@ -1100,7 +1267,9 @@
     },
     "aifs": {
      "tp_mm": 0.0,
-     "snow_cm": 0.0
+     "snow_cm": 0.0,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 0.0,
@@ -1120,7 +1289,9 @@
     },
     "aifs": {
      "tp_mm": 0.0,
-     "snow_cm": 0.0
+     "snow_cm": 0.0,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 0.0,
@@ -1140,7 +1311,9 @@
     },
     "aifs": {
      "tp_mm": 0.0,
-     "snow_cm": 0.0
+     "snow_cm": 0.0,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 0.0,
@@ -1159,8 +1332,10 @@
      "snow_cm": 4.7
     },
     "aifs": {
-     "tp_mm": 17796.9,
-     "snow_cm": 8738.3
+     "tp_mm": 17.8,
+     "snow_cm": 8.7,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 19.5,
@@ -1179,8 +1354,10 @@
      "snow_cm": 1.8
     },
     "aifs": {
-     "tp_mm": 1398.4,
-     "snow_cm": 1402.3
+     "tp_mm": 1.4,
+     "snow_cm": 1.4,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 1.9,
@@ -1199,8 +1376,10 @@
      "snow_cm": 0.5
     },
     "aifs": {
-     "tp_mm": 281.2,
-     "snow_cm": 283.2
+     "tp_mm": 0.3,
+     "snow_cm": 0.3,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 0.7,
@@ -1219,8 +1398,10 @@
      "snow_cm": 2.1
     },
     "aifs": {
-     "tp_mm": 2062.5,
-     "snow_cm": 2062.5
+     "tp_mm": 2.1,
+     "snow_cm": 2.1,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 4.8,
@@ -1239,8 +1420,10 @@
      "snow_cm": 0.0
     },
     "aifs": {
-     "tp_mm": 3.9,
-     "snow_cm": 2.0
+     "tp_mm": 0.0,
+     "snow_cm": 0.0,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 0.0,
@@ -1259,8 +1442,10 @@
      "snow_cm": 0.1
     },
     "aifs": {
-     "tp_mm": 11.7,
-     "snow_cm": 8.8
+     "tp_mm": 0.0,
+     "snow_cm": 0.0,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 0.1,
@@ -1279,8 +1464,10 @@
      "snow_cm": 0.1
     },
     "aifs": {
-     "tp_mm": 19.5,
-     "snow_cm": 19.5
+     "tp_mm": 0.0,
+     "snow_cm": 0.0,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 0.1,
@@ -1299,8 +1486,10 @@
      "snow_cm": 0.0
     },
     "aifs": {
-     "tp_mm": 558.6,
-     "snow_cm": 558.6
+     "tp_mm": 0.6,
+     "snow_cm": 0.6,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 0.1,
@@ -1319,8 +1508,10 @@
      "snow_cm": 0.9
     },
     "aifs": {
-     "tp_mm": 89.8,
-     "snow_cm": 87.9
+     "tp_mm": 0.1,
+     "snow_cm": 0.1,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 1.3,
@@ -1339,8 +1530,10 @@
      "snow_cm": 4.7
     },
     "aifs": {
-     "tp_mm": 4468.8,
-     "snow_cm": 4462.9
+     "tp_mm": 4.5,
+     "snow_cm": 4.5,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 6.3,
@@ -1359,8 +1552,10 @@
      "snow_cm": 0.2
     },
     "aifs": {
-     "tp_mm": 367.2,
-     "snow_cm": 369.1
+     "tp_mm": 0.4,
+     "snow_cm": 0.4,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 0.2,
@@ -1379,8 +1574,10 @@
      "snow_cm": 1.8
     },
     "aifs": {
-     "tp_mm": 6222.7,
-     "snow_cm": 53.7
+     "tp_mm": 6.2,
+     "snow_cm": 0.1,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 4.8,
@@ -1399,8 +1596,10 @@
      "snow_cm": 0.1
     },
     "aifs": {
-     "tp_mm": 2062.5,
-     "snow_cm": 1986.3
+     "tp_mm": 2.1,
+     "snow_cm": 2.0,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 1.8,
@@ -1419,8 +1618,10 @@
      "snow_cm": 14.2
     },
     "aifs": {
-     "tp_mm": 13136.7,
-     "snow_cm": 13138.7
+     "tp_mm": 13.1,
+     "snow_cm": 13.1,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 14.8,
@@ -1439,8 +1640,10 @@
      "snow_cm": 2.0
     },
     "aifs": {
-     "tp_mm": 2484.4,
-     "snow_cm": 2488.3
+     "tp_mm": 2.5,
+     "snow_cm": 2.5,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 3.1,
@@ -1459,8 +1662,10 @@
      "snow_cm": 1.4
     },
     "aifs": {
-     "tp_mm": 2859.4,
-     "snow_cm": 2861.3
+     "tp_mm": 2.9,
+     "snow_cm": 2.9,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 2.4,
@@ -1479,8 +1684,10 @@
      "snow_cm": 0.5
     },
     "aifs": {
-     "tp_mm": 2171.9,
-     "snow_cm": 1171.9
+     "tp_mm": 2.2,
+     "snow_cm": 1.2,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 1.6,
@@ -1499,8 +1706,10 @@
      "snow_cm": 8.2
     },
     "aifs": {
-     "tp_mm": 10066.4,
-     "snow_cm": 9074.2
+     "tp_mm": 10.1,
+     "snow_cm": 9.1,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 11.9,
@@ -1519,8 +1728,10 @@
      "snow_cm": 2.4
     },
     "aifs": {
-     "tp_mm": 4687.5,
-     "snow_cm": 4687.5
+     "tp_mm": 4.7,
+     "snow_cm": 4.7,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 1.2,
@@ -1539,8 +1750,10 @@
      "snow_cm": 2.4
     },
     "aifs": {
-     "tp_mm": 2058.6,
-     "snow_cm": 2058.6
+     "tp_mm": 2.1,
+     "snow_cm": 2.1,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 2.3,
@@ -1559,8 +1772,10 @@
      "snow_cm": 2.2
     },
     "aifs": {
-     "tp_mm": 1238.3,
-     "snow_cm": 1238.3
+     "tp_mm": 1.2,
+     "snow_cm": 1.2,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 1.1,
@@ -1579,8 +1794,10 @@
      "snow_cm": 0.7
     },
     "aifs": {
-     "tp_mm": 1527.3,
-     "snow_cm": 1527.3
+     "tp_mm": 1.5,
+     "snow_cm": 1.5,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 0.9,
@@ -1599,8 +1816,10 @@
      "snow_cm": 0.5
     },
     "aifs": {
-     "tp_mm": 925.8,
-     "snow_cm": 927.7
+     "tp_mm": 0.9,
+     "snow_cm": 0.9,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 0.8,
@@ -1619,8 +1838,10 @@
      "snow_cm": 0.9
     },
     "aifs": {
-     "tp_mm": 1656.2,
-     "snow_cm": 1658.2
+     "tp_mm": 1.7,
+     "snow_cm": 1.7,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 0.5,
@@ -1639,8 +1860,10 @@
      "snow_cm": 2.6
     },
     "aifs": {
-     "tp_mm": 3484.4,
-     "snow_cm": 3490.2
+     "tp_mm": 3.5,
+     "snow_cm": 3.5,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 1.6,
@@ -1659,8 +1882,10 @@
      "snow_cm": 0.6
     },
     "aifs": {
-     "tp_mm": 1500.0,
-     "snow_cm": 1500.0
+     "tp_mm": 1.5,
+     "snow_cm": 1.5,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 1.9,
@@ -1679,8 +1904,10 @@
      "snow_cm": 0.0
     },
     "aifs": {
-     "tp_mm": 70.3,
-     "snow_cm": 70.3
+     "tp_mm": 0.1,
+     "snow_cm": 0.1,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 0.2,
@@ -1699,8 +1926,10 @@
      "snow_cm": 1.6
     },
     "aifs": {
-     "tp_mm": 2019.5,
-     "snow_cm": 2019.5
+     "tp_mm": 2.0,
+     "snow_cm": 2.0,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 1.4,
@@ -1719,8 +1948,10 @@
      "snow_cm": 7.7
     },
     "aifs": {
-     "tp_mm": 7257.8,
-     "snow_cm": 7253.9
+     "tp_mm": 7.3,
+     "snow_cm": 7.3,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 7.5,
@@ -1739,8 +1970,10 @@
      "snow_cm": 1.0
     },
     "aifs": {
-     "tp_mm": 746.1,
-     "snow_cm": 746.1
+     "tp_mm": 0.7,
+     "snow_cm": 0.7,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 0.9,
@@ -1760,7 +1993,9 @@
     },
     "aifs": {
      "tp_mm": 0.0,
-     "snow_cm": 0.0
+     "snow_cm": 0.0,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 0.2,
@@ -1779,8 +2014,10 @@
      "snow_cm": 0.9
     },
     "aifs": {
-     "tp_mm": 710.9,
-     "snow_cm": 707.0
+     "tp_mm": 0.7,
+     "snow_cm": 0.7,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 1.7,
@@ -1799,8 +2036,10 @@
      "snow_cm": 2.0
     },
     "aifs": {
-     "tp_mm": 734.4,
-     "snow_cm": 734.4
+     "tp_mm": 0.7,
+     "snow_cm": 0.7,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 1.7,
@@ -1820,7 +2059,9 @@
     },
     "aifs": {
      "tp_mm": 0.0,
-     "snow_cm": 0.0
+     "snow_cm": 0.0,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 0.5,
@@ -1840,7 +2081,9 @@
     },
     "aifs": {
      "tp_mm": 0.0,
-     "snow_cm": 0.0
+     "snow_cm": 0.0,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 0.1,
@@ -1860,7 +2103,9 @@
     },
     "aifs": {
      "tp_mm": 0.0,
-     "snow_cm": 0.0
+     "snow_cm": 0.0,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 0.1,
@@ -1880,7 +2125,9 @@
     },
     "aifs": {
      "tp_mm": 0.0,
-     "snow_cm": 0.0
+     "snow_cm": 0.0,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 0.3,
@@ -1899,8 +2146,10 @@
      "snow_cm": 0.5
     },
     "aifs": {
-     "tp_mm": 492.2,
-     "snow_cm": 492.2
+     "tp_mm": 0.5,
+     "snow_cm": 0.5,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 1.4,
@@ -1919,8 +2168,10 @@
      "snow_cm": 0.5
     },
     "aifs": {
-     "tp_mm": 242.2,
-     "snow_cm": 244.1
+     "tp_mm": 0.2,
+     "snow_cm": 0.2,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 1.4,
@@ -1939,8 +2190,10 @@
      "snow_cm": 0.1
     },
     "aifs": {
-     "tp_mm": 97.7,
-     "snow_cm": 97.7
+     "tp_mm": 0.1,
+     "snow_cm": 0.1,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 0.1,
@@ -1959,8 +2212,10 @@
      "snow_cm": 0.2
     },
     "aifs": {
-     "tp_mm": 1058.6,
-     "snow_cm": 1058.6
+     "tp_mm": 1.1,
+     "snow_cm": 1.1,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 3.3,
@@ -1980,7 +2235,9 @@
     },
     "aifs": {
      "tp_mm": 0.0,
-     "snow_cm": 0.0
+     "snow_cm": 0.0,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 0.2,
@@ -2000,7 +2257,9 @@
     },
     "aifs": {
      "tp_mm": 0.0,
-     "snow_cm": 1.0
+     "snow_cm": 0.0,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 0.2,
@@ -2019,8 +2278,10 @@
      "snow_cm": 0.3
     },
     "aifs": {
-     "tp_mm": 1835.9,
-     "snow_cm": 1834.0
+     "tp_mm": 1.8,
+     "snow_cm": 1.8,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 6.2,
@@ -2039,8 +2300,10 @@
      "snow_cm": 4.5
     },
     "aifs": {
-     "tp_mm": 4535.2,
-     "snow_cm": 4532.2
+     "tp_mm": 4.5,
+     "snow_cm": 4.5,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 5.5,
@@ -2059,8 +2322,10 @@
      "snow_cm": 0.2
     },
     "aifs": {
-     "tp_mm": 503.9,
-     "snow_cm": 503.9
+     "tp_mm": 0.5,
+     "snow_cm": 0.5,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 0.0,
@@ -2080,7 +2345,9 @@
     },
     "aifs": {
      "tp_mm": 0.0,
-     "snow_cm": 0.0
+     "snow_cm": 0.0,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 0.2,
@@ -2099,8 +2366,10 @@
      "snow_cm": 0.9
     },
     "aifs": {
-     "tp_mm": 1738.3,
-     "snow_cm": 1738.3
+     "tp_mm": 1.7,
+     "snow_cm": 1.7,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 1.9,
@@ -2119,8 +2388,10 @@
      "snow_cm": 0.0
     },
     "aifs": {
-     "tp_mm": 70.3,
-     "snow_cm": 69.3
+     "tp_mm": 0.1,
+     "snow_cm": 0.1,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 0.0,
@@ -2139,8 +2410,10 @@
      "snow_cm": 0.3
     },
     "aifs": {
-     "tp_mm": 316.4,
-     "snow_cm": 311.5
+     "tp_mm": 0.3,
+     "snow_cm": 0.3,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 0.0,
@@ -2159,8 +2432,10 @@
      "snow_cm": 0.6
     },
     "aifs": {
-     "tp_mm": 3117.2,
-     "snow_cm": 2950.2
+     "tp_mm": 3.1,
+     "snow_cm": 3.0,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 4.6,
@@ -2179,8 +2454,7 @@
      "snow_cm": 0.1
     },
     "aifs": {
-     "tp_mm": 1062.5,
-     "snow_cm": 1062.5
+     "error": "HTTP Error 503: Service Unavailable"
     },
     "gfs": {
      "tp_mm": 0.7,
@@ -2200,7 +2474,9 @@
     },
     "aifs": {
      "tp_mm": 0.0,
-     "snow_cm": 0.0
+     "snow_cm": 0.0,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 0.0,
@@ -2219,8 +2495,10 @@
      "snow_cm": 0.0
     },
     "aifs": {
-     "tp_mm": 171.9,
-     "snow_cm": 171.9
+     "tp_mm": 0.2,
+     "snow_cm": 0.2,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 0.2,
@@ -2240,7 +2518,9 @@
     },
     "aifs": {
      "tp_mm": 0.0,
-     "snow_cm": 1.0
+     "snow_cm": 0.0,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 0.1,
@@ -2260,7 +2540,9 @@
     },
     "aifs": {
      "tp_mm": 0.0,
-     "snow_cm": 1.0
+     "snow_cm": 0.0,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 0.1,
@@ -2279,8 +2561,10 @@
      "snow_cm": 1.9
     },
     "aifs": {
-     "tp_mm": 640.6,
-     "snow_cm": 640.6
+     "tp_mm": 0.6,
+     "snow_cm": 0.6,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 0.8,
@@ -2299,8 +2583,10 @@
      "snow_cm": 0.3
     },
     "aifs": {
-     "tp_mm": 82.0,
-     "snow_cm": 84.0
+     "tp_mm": 0.1,
+     "snow_cm": 0.1,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 0.8,
@@ -2319,8 +2605,10 @@
      "snow_cm": 2.7
     },
     "aifs": {
-     "tp_mm": 2238.3,
-     "snow_cm": 2238.3
+     "tp_mm": 2.2,
+     "snow_cm": 2.2,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 1.8,
@@ -2339,8 +2627,10 @@
      "snow_cm": 0.6
     },
     "aifs": {
-     "tp_mm": 1433.6,
-     "snow_cm": 1433.6
+     "tp_mm": 1.4,
+     "snow_cm": 1.4,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 1.8,
@@ -2359,8 +2649,10 @@
      "snow_cm": 0.0
     },
     "aifs": {
-     "tp_mm": 304.7,
-     "snow_cm": 298.8
+     "tp_mm": 0.3,
+     "snow_cm": 0.3,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 0.2,
@@ -2379,8 +2671,10 @@
      "snow_cm": 0.6
     },
     "aifs": {
-     "tp_mm": 1242.2,
-     "snow_cm": 678.7
+     "tp_mm": 1.2,
+     "snow_cm": 0.7,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 3.0,
@@ -2399,8 +2693,10 @@
      "snow_cm": 0.1
     },
     "aifs": {
-     "tp_mm": 386.7,
-     "snow_cm": 384.8
+     "tp_mm": 0.4,
+     "snow_cm": 0.4,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 0.1,
@@ -2419,8 +2715,10 @@
      "snow_cm": 0.0
     },
     "aifs": {
-     "tp_mm": 2.0,
-     "snow_cm": 0.0
+     "tp_mm": 0.0,
+     "snow_cm": 0.0,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 0.1,
@@ -2439,8 +2737,10 @@
      "snow_cm": 0.0
     },
     "aifs": {
-     "tp_mm": 394.5,
-     "snow_cm": 396.5
+     "tp_mm": 0.4,
+     "snow_cm": 0.4,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 0.3,
@@ -2459,8 +2759,10 @@
      "snow_cm": 0.1
     },
     "aifs": {
-     "tp_mm": 468.8,
-     "snow_cm": 472.7
+     "tp_mm": 0.5,
+     "snow_cm": 0.5,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 1.4,
@@ -2479,8 +2781,10 @@
      "snow_cm": 1.2
     },
     "aifs": {
-     "tp_mm": 1125.0,
-     "snow_cm": 1127.0
+     "tp_mm": 1.1,
+     "snow_cm": 1.1,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 0.4,
@@ -2499,8 +2803,10 @@
      "snow_cm": 0.0
     },
     "aifs": {
-     "tp_mm": 312.5,
-     "snow_cm": 207.0
+     "tp_mm": 0.3,
+     "snow_cm": 0.2,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 0.1,
@@ -2519,8 +2825,10 @@
      "snow_cm": 0.0
     },
     "aifs": {
-     "tp_mm": 8035.2,
-     "snow_cm": 41.0
+     "tp_mm": 8.0,
+     "snow_cm": 0.0,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 9.6,
@@ -2539,8 +2847,10 @@
      "snow_cm": 0.2
     },
     "aifs": {
-     "tp_mm": 3003.9,
-     "snow_cm": 271.5
+     "tp_mm": 3.0,
+     "snow_cm": 0.3,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 2.1,
@@ -2559,8 +2869,10 @@
      "snow_cm": 0.0
     },
     "aifs": {
-     "tp_mm": 293.0,
-     "snow_cm": 39.1
+     "tp_mm": 0.3,
+     "snow_cm": 0.0,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 0.0,
@@ -2579,8 +2891,10 @@
      "snow_cm": 0.0
     },
     "aifs": {
-     "tp_mm": 375.0,
-     "snow_cm": 35.2
+     "tp_mm": 0.4,
+     "snow_cm": 0.0,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 0.5,
@@ -2599,8 +2913,10 @@
      "snow_cm": 1.5
     },
     "aifs": {
-     "tp_mm": 22441.4,
-     "snow_cm": 3943.4
+     "tp_mm": 22.4,
+     "snow_cm": 3.9,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 23.9,
@@ -2619,8 +2935,10 @@
      "snow_cm": 0.3
     },
     "aifs": {
-     "tp_mm": 5558.6,
-     "snow_cm": 738.3
+     "tp_mm": 5.6,
+     "snow_cm": 0.7,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 6.2,
@@ -2639,8 +2957,10 @@
      "snow_cm": 1.5
     },
     "aifs": {
-     "tp_mm": 668.0,
-     "snow_cm": 668.0
+     "tp_mm": 0.7,
+     "snow_cm": 0.7,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 0.3,
@@ -2659,8 +2979,10 @@
      "snow_cm": 5.4
     },
     "aifs": {
-     "tp_mm": 5238.3,
-     "snow_cm": 5238.3
+     "tp_mm": 5.2,
+     "snow_cm": 5.2,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 5.2,
@@ -2679,8 +3001,10 @@
      "snow_cm": 0.2
     },
     "aifs": {
-     "tp_mm": 1261.7,
-     "snow_cm": 1261.7
+     "tp_mm": 1.3,
+     "snow_cm": 1.3,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 1.0,
@@ -2699,8 +3023,10 @@
      "snow_cm": 0.0
     },
     "aifs": {
-     "tp_mm": 9300.8,
-     "snow_cm": 621.1
+     "tp_mm": 9.3,
+     "snow_cm": 0.6,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 4.0,
@@ -2719,8 +3045,10 @@
      "snow_cm": 0.6
     },
     "aifs": {
-     "tp_mm": 6218.8,
-     "snow_cm": 984.4
+     "tp_mm": 6.2,
+     "snow_cm": 1.0,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 6.6,
@@ -2740,7 +3068,9 @@
     },
     "aifs": {
      "tp_mm": 0.0,
-     "snow_cm": 0.0
+     "snow_cm": 0.0,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 0.1,
@@ -2759,8 +3089,10 @@
      "snow_cm": 1.8
     },
     "aifs": {
-     "tp_mm": 1902.3,
-     "snow_cm": 1904.3
+     "tp_mm": 1.9,
+     "snow_cm": 1.9,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 1.6,
@@ -2779,8 +3111,10 @@
      "snow_cm": 5.3
     },
     "aifs": {
-     "tp_mm": 2679.7,
-     "snow_cm": 2683.6
+     "tp_mm": 2.7,
+     "snow_cm": 2.7,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 5.0,
@@ -2799,8 +3133,10 @@
      "snow_cm": 0.1
     },
     "aifs": {
-     "tp_mm": 570.3,
-     "snow_cm": 568.4
+     "tp_mm": 0.6,
+     "snow_cm": 0.6,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 0.9,
@@ -2819,8 +3155,10 @@
      "snow_cm": 6.7
     },
     "aifs": {
-     "tp_mm": 4132.8,
-     "snow_cm": 4132.8
+     "tp_mm": 4.1,
+     "snow_cm": 4.1,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 3.8,
@@ -2839,8 +3177,10 @@
      "snow_cm": 0.6
     },
     "aifs": {
-     "tp_mm": 808.6,
-     "snow_cm": 809.6
+     "tp_mm": 0.8,
+     "snow_cm": 0.8,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 1.2,
@@ -2859,8 +3199,10 @@
      "snow_cm": 0.1
     },
     "aifs": {
-     "tp_mm": 449.2,
-     "snow_cm": 449.2
+     "tp_mm": 0.4,
+     "snow_cm": 0.4,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 0.9,
@@ -2879,8 +3221,10 @@
      "snow_cm": 1.2
     },
     "aifs": {
-     "tp_mm": 968.8,
-     "snow_cm": 966.8
+     "tp_mm": 1.0,
+     "snow_cm": 1.0,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 0.8,
@@ -2899,8 +3243,10 @@
      "snow_cm": 2.6
     },
     "aifs": {
-     "tp_mm": 5730.5,
-     "snow_cm": 3933.6
+     "tp_mm": 5.7,
+     "snow_cm": 3.9,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 11.8,
@@ -2919,8 +3265,10 @@
      "snow_cm": 0.3
     },
     "aifs": {
-     "tp_mm": 488.3,
-     "snow_cm": 488.3
+     "tp_mm": 0.5,
+     "snow_cm": 0.5,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 0.4,
@@ -2939,8 +3287,10 @@
      "snow_cm": 0.1
     },
     "aifs": {
-     "tp_mm": 136.7,
-     "snow_cm": 136.7
+     "tp_mm": 0.1,
+     "snow_cm": 0.1,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 0.2,
@@ -2959,8 +3309,10 @@
      "snow_cm": 0.5
     },
     "aifs": {
-     "tp_mm": 867.2,
-     "snow_cm": 867.2
+     "tp_mm": 0.9,
+     "snow_cm": 0.9,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 9.6,
@@ -2979,8 +3331,10 @@
      "snow_cm": 0.2
     },
     "aifs": {
-     "tp_mm": 144.5,
-     "snow_cm": 82.0
+     "tp_mm": 0.1,
+     "snow_cm": 0.1,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 1.7,
@@ -2999,8 +3353,10 @@
      "snow_cm": 1.6
     },
     "aifs": {
-     "tp_mm": 8464.8,
-     "snow_cm": 1773.4
+     "tp_mm": 8.5,
+     "snow_cm": 1.8,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 18.6,
@@ -3019,8 +3375,10 @@
      "snow_cm": 0.0
     },
     "aifs": {
-     "tp_mm": 2201.2,
-     "snow_cm": 1023.4
+     "tp_mm": 2.2,
+     "snow_cm": 1.0,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 2.0,
@@ -3039,8 +3397,10 @@
      "snow_cm": 2.3
     },
     "aifs": {
-     "tp_mm": 3406.2,
-     "snow_cm": 3158.2
+     "tp_mm": 3.4,
+     "snow_cm": 3.2,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 4.6,
@@ -3059,8 +3419,10 @@
      "snow_cm": 0.7
     },
     "aifs": {
-     "tp_mm": 16007.8,
-     "snow_cm": 1046.9
+     "tp_mm": 16.0,
+     "snow_cm": 1.0,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 15.0,
@@ -3079,8 +3441,10 @@
      "snow_cm": 0.0
     },
     "aifs": {
-     "tp_mm": 5406.2,
-     "snow_cm": 1433.6
+     "tp_mm": 5.4,
+     "snow_cm": 1.4,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 5.4,
@@ -3099,8 +3463,10 @@
      "snow_cm": 0.1
     },
     "aifs": {
-     "tp_mm": 14757.8,
-     "snow_cm": 242.2
+     "tp_mm": 14.8,
+     "snow_cm": 0.2,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 17.6,
@@ -3119,8 +3485,10 @@
      "snow_cm": 0.9
     },
     "aifs": {
-     "tp_mm": 1875.0,
-     "snow_cm": 1885.7
+     "tp_mm": 1.9,
+     "snow_cm": 1.9,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 2.4,
@@ -3139,8 +3507,10 @@
      "snow_cm": 0.0
     },
     "aifs": {
-     "tp_mm": 171.9,
-     "snow_cm": 175.8
+     "tp_mm": 0.2,
+     "snow_cm": 0.2,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 0.1,
@@ -3160,7 +3530,9 @@
     },
     "aifs": {
      "tp_mm": 0.0,
-     "snow_cm": 0.0
+     "snow_cm": 0.0,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 0.0,
@@ -3179,8 +3551,10 @@
      "snow_cm": 0.2
     },
     "aifs": {
-     "tp_mm": 15.6,
-     "snow_cm": 0.0
+     "tp_mm": 0.0,
+     "snow_cm": 0.0,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 0.7,
@@ -3199,8 +3573,10 @@
      "snow_cm": 0.0
     },
     "aifs": {
-     "tp_mm": 5781.2,
-     "snow_cm": 146.5
+     "tp_mm": 5.8,
+     "snow_cm": 0.1,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 8.9,
@@ -3219,8 +3595,10 @@
      "snow_cm": 0.3
     },
     "aifs": {
-     "tp_mm": 1328.1,
-     "snow_cm": 796.9
+     "tp_mm": 1.3,
+     "snow_cm": 0.8,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 1.6,
@@ -3239,8 +3617,10 @@
      "snow_cm": 0.0
     },
     "aifs": {
-     "tp_mm": 273.4,
-     "snow_cm": 72.3
+     "tp_mm": 0.3,
+     "snow_cm": 0.1,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 0.0,
@@ -3259,8 +3639,10 @@
      "snow_cm": 0.0
     },
     "aifs": {
-     "tp_mm": 19062.5,
-     "snow_cm": 0.0
+     "tp_mm": 19.1,
+     "snow_cm": 0.0,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 18.7,
@@ -3279,8 +3661,10 @@
      "snow_cm": 0.0
     },
     "aifs": {
-     "tp_mm": 14750.0,
-     "snow_cm": 0.0
+     "tp_mm": 14.8,
+     "snow_cm": 0.0,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 24.9,
@@ -3299,8 +3683,10 @@
      "snow_cm": 0.0
     },
     "aifs": {
-     "tp_mm": 1656.2,
-     "snow_cm": 0.0
+     "tp_mm": 1.7,
+     "snow_cm": 0.0,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 0.4,
@@ -3319,8 +3705,10 @@
      "snow_cm": 0.0
     },
     "aifs": {
-     "tp_mm": 17054.7,
-     "snow_cm": 0.0
+     "tp_mm": 17.1,
+     "snow_cm": 0.0,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 10.7,
@@ -3339,8 +3727,10 @@
      "snow_cm": 0.0
     },
     "aifs": {
-     "tp_mm": 93.8,
-     "snow_cm": 0.0
+     "tp_mm": 0.1,
+     "snow_cm": 0.0,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 0.1,
@@ -3359,8 +3749,10 @@
      "snow_cm": 0.0
     },
     "aifs": {
-     "tp_mm": 414.1,
-     "snow_cm": 0.0
+     "tp_mm": 0.4,
+     "snow_cm": 0.0,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 0.1,
@@ -3379,8 +3771,10 @@
      "snow_cm": 4.4
     },
     "aifs": {
-     "tp_mm": 15300.8,
-     "snow_cm": 3820.3
+     "tp_mm": 15.3,
+     "snow_cm": 3.8,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 12.2,
@@ -3399,8 +3793,10 @@
      "snow_cm": 0.1
     },
     "aifs": {
-     "tp_mm": 324.2,
-     "snow_cm": 324.2
+     "tp_mm": 0.3,
+     "snow_cm": 0.3,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 0.4,
@@ -3420,7 +3816,9 @@
     },
     "aifs": {
      "tp_mm": 0.0,
-     "snow_cm": 1.0
+     "snow_cm": 0.0,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 0.0,
@@ -3439,8 +3837,10 @@
      "snow_cm": 0.3
     },
     "aifs": {
-     "tp_mm": 804.7,
-     "snow_cm": 97.7
+     "tp_mm": 0.8,
+     "snow_cm": 0.1,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 0.9,
@@ -3459,8 +3859,10 @@
      "snow_cm": 0.8
     },
     "aifs": {
-     "tp_mm": 3265.6,
-     "snow_cm": 914.1
+     "tp_mm": 3.3,
+     "snow_cm": 0.9,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 3.4,
@@ -3479,8 +3881,10 @@
      "snow_cm": 0.1
     },
     "aifs": {
-     "tp_mm": 58.6,
-     "snow_cm": 39.1
+     "tp_mm": 0.1,
+     "snow_cm": 0.0,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 0.3,
@@ -3500,7 +3904,9 @@
     },
     "aifs": {
      "tp_mm": 0.0,
-     "snow_cm": 0.0
+     "snow_cm": 0.0,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 0.0,
@@ -3520,7 +3926,9 @@
     },
     "aifs": {
      "tp_mm": 0.0,
-     "snow_cm": 0.0
+     "snow_cm": 0.0,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 0.0,
@@ -3540,7 +3948,9 @@
     },
     "aifs": {
      "tp_mm": 0.0,
-     "snow_cm": 0.0
+     "snow_cm": 0.0,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 0.0,
@@ -3560,7 +3970,9 @@
     },
     "aifs": {
      "tp_mm": 0.0,
-     "snow_cm": 0.0
+     "snow_cm": 0.0,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 0.0,
@@ -3579,8 +3991,10 @@
      "snow_cm": 0.0
     },
     "aifs": {
-     "tp_mm": 320.3,
-     "snow_cm": 0.0
+     "tp_mm": 0.3,
+     "snow_cm": 0.0,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 0.0,
@@ -3599,8 +4013,10 @@
      "snow_cm": 0.0
     },
     "aifs": {
-     "tp_mm": 11027.3,
-     "snow_cm": 0.0
+     "tp_mm": 11.0,
+     "snow_cm": 0.0,
+     "calcul": "neige du modèle",
+     "v": 2
     },
     "gfs": {
      "tp_mm": 18.7,
