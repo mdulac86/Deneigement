@@ -1,7 +1,65 @@
 {
- "genere": "2026-11-11T12:23:19.332480+00:00",
+ "genere": "2026-11-11T12:34:06.689638+00:00",
  "seuil_cm": 5,
  "methode": "Prévision de la veille comparée à la neige mesurée (Climat Québec 7027660). Écart moyen calculé sur les jours avec au moins 1 cm prévu ou mesuré.",
- "historique": [],
+ "historique": [
+  {
+   "id": "ifs",
+   "nom": "ECMWF IFS (européen)",
+   "jours": 159,
+   "jours_neige": 56,
+   "ecart_moyen_cm": 2.8,
+   "biais_cm": 0.8,
+   "total_prevu_cm": 188.1,
+   "total_mesure_cm": 128.6,
+   "tempetes": {
+    "detectees": 2,
+    "manquees": 3,
+    "fausses_alertes": 9
+   },
+   "periode": [
+    "2025-11-22",
+    "2026-04-30"
+   ]
+  },
+  {
+   "id": "gfs",
+   "nom": "NOAA GFS (américain)",
+   "jours": 181,
+   "jours_neige": 98,
+   "ecart_moyen_cm": 3.5,
+   "biais_cm": 2.9,
+   "total_prevu_cm": 446.1,
+   "total_mesure_cm": 148.0,
+   "tempetes": {
+    "detectees": 3,
+    "manquees": 4,
+    "fausses_alertes": 24
+   },
+   "periode": [
+    "2025-11-01",
+    "2026-04-30"
+   ]
+  },
+  {
+   "id": "aifs",
+   "nom": "ECMWF AIFS (européen, IA)",
+   "jours": 180,
+   "jours_neige": 150,
+   "ecart_moyen_cm": 1592.8,
+   "biais_cm": 1592.8,
+   "total_prevu_cm": 239061.1,
+   "total_mesure_cm": 145.3,
+   "tempetes": {
+    "detectees": 6,
+    "manquees": 1,
+    "fausses_alertes": 136
+   },
+   "periode": [
+    "2025-11-01",
+    "2026-04-30"
+   ]
+  }
+ ],
  "en_direct": []
 }

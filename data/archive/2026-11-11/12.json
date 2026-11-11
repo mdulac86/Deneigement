@@ -1,11 +1,11 @@
 {
-  "updated_at": "2026-11-11T12:22:46.452213+00:00",
+  "updated_at": "2026-11-11T12:33:29.999227+00:00",
   "sources": [
     {
       "id": "eccc",
       "status": "ok",
       "issued_at": "2026-11-11T10:00:00Z",
-      "fetched_at": "2026-11-11T12:22:46.452213+00:00",
+      "fetched_at": "2026-11-11T12:33:29.999227+00:00",
       "days": [
         {
           "date": "2026-11-11",
@@ -176,7 +176,7 @@
       "id": "met",
       "status": "ok",
       "issued_at": "2026-11-11T11:20:00Z",
-      "fetched_at": "2026-11-11T12:22:46.452213+00:00",
+      "fetched_at": "2026-11-11T12:33:29.999227+00:00",
       "days": [
         {
           "date": "2026-11-11",
@@ -450,7 +450,7 @@
       "id": "mb",
       "status": "ok",
       "issued_at": null,
-      "fetched_at": "2026-11-11T12:22:46.452213+00:00",
+      "fetched_at": "2026-11-11T12:33:29.999227+00:00",
       "days": [
         {
           "date": "2026-11-11",
@@ -2021,40 +2021,8 @@
   ],
   "changes": [
     {
-      "text": "Weather Underground : disponibilité stale → ok.",
+      "text": "Aucun changement important dans les données comparables depuis la dernière collecte.",
       "important": false
-    },
-    {
-      "text": "MétéoMédia : disponibilité stale → ok.",
-      "important": false
-    },
-    {
-      "text": "MétéoMédia · 2026-11-12 : Neige → Sans risque hivernal identifié.",
-      "important": true
-    },
-    {
-      "text": "MétéoMédia · 2026-11-12 : neige [0.0, 1.0] → [0.0, 0.0] cm (prévision tombée).",
-      "important": true
-    },
-    {
-      "text": "MétéoMédia · 2026-11-13 : Neige → Sans risque hivernal identifié.",
-      "important": true
-    },
-    {
-      "text": "MétéoMédia · 2026-11-13 : neige [0.0, 2.0] → [0.0, 0.0] cm (prévision tombée).",
-      "important": true
-    },
-    {
-      "text": "MétéoMédia · 2026-11-14 : neige [0.0, 2.0] → [0.0, 0.0] cm (prévision tombée).",
-      "important": true
-    },
-    {
-      "text": "MétéoMédia · 2026-11-15 : Pluie / neige → Sans risque hivernal identifié.",
-      "important": true
-    },
-    {
-      "text": "MétéoMédia · 2026-11-20 : Sans risque hivernal identifié → Pluie.",
-      "important": true
     }
   ],
   "plan": [],
