@@ -57,13 +57,13 @@ class HistoryTests(unittest.TestCase):
         values = {('tp', 30): 0.002, ('sf', 30): 0.001, ('tp', 54): 0.010, ('sf', 54): 0.007}
         calls = []
 
-        def field(url, entry, lat, lon):
+        def field(url, entry, lat, lon, units=False):
             step = 30 if '-30h-' in url else 54
             calls.append(url)
-            return values[(entry['param'], step)]
+            return values[(entry['param'], step)], 'm'
         with patch.object(h.grib, 'ecmwf_index', return_value=idx), patch.object(h.grib, 'field', side_effect=field):
             r = h.ecmwf_day(dt.date(2026, 1, 10), 'ifs')
-        self.assertEqual(r, {'tp_mm': 8.0, 'snow_cm': 6.0})
+        self.assertEqual((r['tp_mm'], r['snow_cm']), (8.0, 6.0))
         self.assertIn('/20260109/00z/ifs/', calls[0])
 
     def test_gfs_buckets_and_temperature(self):
@@ -72,11 +72,26 @@ class HistoryTests(unittest.TestCase):
             return [{'var': 'TMP', 'level': '2 m above ground', 'desc': f'{step} hour fcst', 'step': step, 'kind': 't', '_offset': 0, '_length': 1},
                     {'var': 'APCP', 'level': 'surface', 'desc': f'{step-6}-{step} hour acc fcst', 'step': step, 'kind': 'p', '_offset': 1, '_length': 1}]
 
-        def field(url, entry, lat, lon):
+        def field(url, entry, lat, lon, units=False):
             return 268.15 if entry['kind'] == 't' else 2.0  # -5 °C, 2 mm par tranche de 6 h
         with patch.object(h.grib, 'ncep_index', side_effect=idx), patch.object(h.grib, 'field', side_effect=field):
             r = h.gfs_day(dt.date(2026, 1, 10))
-        self.assertEqual(r, {'tp_mm': 8.0, 'snow_cm': 10.4})
+        self.assertEqual((r['tp_mm'], r['snow_cm']), (8.0, 10.4))
+
+    def test_aifs_units_and_missing_sf(self):
+        idx = [{'param': 'tp', '_offset': 0, '_length': 1}, {'param': '2t', '_offset': 1, '_length': 1}]
+        def field(url, entry, lat, lon, units=False):
+            step = 30 if '-30h-' in url else 54
+            return ({'tp': 2.0 if step == 30 else 10.0, '2t': 268.15}[entry['param']], 'kg m**-2' if entry['param'] == 'tp' else 'K')
+        with patch.object(h.grib, 'ecmwf_index', return_value=idx), patch.object(h.grib, 'field', side_effect=field):
+            r = h.ecmwf_day(dt.date(2026, 1, 10), 'aifs-single')
+        self.assertEqual(r['tp_mm'], 8.0)  # kg m-2 = mm, pas de x1000
+        self.assertEqual(r['snow_cm'], 10.4)  # estimée à -5 °C
+        self.assertIn('estimée', r['calcul'])
+
+    def test_stale_reruns_old_versions(self):
+        fc = {'ifs': {'snow_cm': 1}, 'aifs': {'snow_cm': 900}, 'gfs': {'error': 'x'}}
+        self.assertEqual(h.stale(fc), ['aifs', 'gfs'])
 
 
 if __name__ == '__main__':

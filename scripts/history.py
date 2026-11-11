@@ -32,20 +32,29 @@ GFS = 'https://noaa-gfs-bdp-pds.s3.amazonaws.com'
 STEPS = (30, 54)
 
 
+VERSION = {'ifs': 1, 'aifs': 2, 'gfs': 1}
+
+
 def ecmwf_day(day, model):
     run = (day - dt.timedelta(days=1)).strftime('%Y%m%d')
     vals = {}
     for step in STEPS:
         base = f'{ECMWF}/{run}/00z/{model}/0p25/oper/{run}000000-{step}h-oper-fc'
         idx = grib.ecmwf_index(base + '.index')
-        for param in ('tp', 'sf'):
+        for param in ('tp', 'sf', '2t'):
             entry = next((e for e in idx if e.get('param') == param), None)
-            if entry is None:
-                raise ValueError(f'{param} absent ({model} {run} +{step} h)')
-            vals[(param, step)] = grib.field(base + '.grib2', entry, LAT, LON)
-    tp = max(0.0, (vals[('tp', 54)] - vals[('tp', 30)]) * 1000)
-    sf = max(0.0, (vals[('sf', 54)] - vals[('sf', 30)]) * 1000)
-    return {'tp_mm': round(tp, 1), 'snow_cm': round(sf, 1)}  # 1 mm d'eau ≈ 1 cm de neige (10:1)
+            if entry is not None:
+                v, u = grib.field(base + '.grib2', entry, LAT, LON, units=True)
+                vals[(param, step)] = v if param == '2t' else grib.to_mm(v, u)
+    if ('tp', 30) not in vals or ('tp', 54) not in vals:
+        raise ValueError(f'tp absent ({model} {run})')
+    tp = max(0.0, vals[('tp', 54)] - vals[('tp', 30)])
+    if ('sf', 30) in vals and ('sf', 54) in vals:
+        snow, how = max(0.0, vals[('sf', 54)] - vals[('sf', 30)]), 'neige du modèle'
+    else:  # Anciennes données sans « sf » : estimation par la température comme les autres modèles.
+        temps = [vals[('2t', s)] - 273.15 for s in STEPS if ('2t', s) in vals]
+        snow, how = snow_from_precip(tp, sum(temps) / len(temps)) if temps else None, 'estimée (pluie + température)'
+    return {'tp_mm': round(tp, 1), 'snow_cm': None if snow is None else round(snow, 1), 'calcul': how}  # 1 mm d'eau ≈ 1 cm (10:1)
 
 
 def gfs_day(day):
@@ -61,7 +70,7 @@ def gfs_day(day):
             buckets[step] = max(0.0, grib.field(base, a, LAT, LON))
     tp = sum(buckets.values())
     snow = sum(snow_from_precip(mm, (temps[s - 6] + temps[s]) / 2) for s, mm in buckets.items())
-    return {'tp_mm': round(tp, 1), 'snow_cm': round(snow, 1)}
+    return {'tp_mm': round(tp, 1), 'snow_cm': round(snow, 1), 'calcul': 'estimée (pluie + température)'}
 
 
 SOURCES = {
@@ -81,11 +90,16 @@ def observations(start, end):
     return rows
 
 
-def one_day(day):
-    out = {}
-    for key, (_, fn) in SOURCES.items():
+def stale(fc):
+    """Sources à (re)calculer pour un jour : absentes, en erreur ou calculées par une ancienne version."""
+    return [k for k in SOURCES if k not in fc or 'error' in fc[k] or fc[k].get('v', 1) != VERSION[k]]
+
+
+def one_day(day, previous=None):
+    out = dict(previous or {})
+    for key in stale(out):
         try:
-            out[key] = fn(day)
+            out[key] = {**SOURCES[key][1](day), 'v': VERSION[key]}
         except Exception as e:
             out[key] = {'error': str(e)[:120]}
     return str(day), out
@@ -98,10 +112,11 @@ def main(start, end):
     grib.warmup()
     obs = observations(start, end)
     days = [start + dt.timedelta(days=i) for i in range((end - start).days + 1)]
-    todo = [d for d in days if str(d) not in done or any('error' in v for v in done[str(d)]['fc'].values())]
+    todo = [d for d in days if str(d) not in done or stale(done[str(d)]['fc'])]
     print(f'{len(todo)} jours à calculer sur {len(days)}', flush=True)
     with futures.ThreadPoolExecutor(max_workers=3) as pool:
-        for i, (day, fc) in enumerate(pool.map(one_day, todo)):
+        jobs = pool.map(lambda d: one_day(d, done.get(str(d), {}).get('fc')), todo)
+        for i, (day, fc) in enumerate(jobs):
             done[day] = {'obs': obs.get(day), 'fc': fc}
             if i % 10 == 0:
                 print(day, json.dumps(fc), flush=True)

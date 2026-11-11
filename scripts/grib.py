@@ -61,16 +61,22 @@ def ncep_index(url, size=None):
     return rows
 
 
-def point_value(data, lat, lon):
+def point_value(data, lat, lon, units=False):
     import eccodes  # importé ici : seul le robot GitHub en a besoin.
     with _LOCK:
         gid = eccodes.codes_new_from_message(data)
         try:
-            return float(eccodes.codes_grib_find_nearest(gid, lat, lon)[0].value)
+            v = float(eccodes.codes_grib_find_nearest(gid, lat, lon)[0].value)
+            return (v, eccodes.codes_get(gid, 'units')) if units else v
         finally:
             eccodes.codes_release(gid)
 
 
-def field(url, entry, lat, lon):
+def field(url, entry, lat, lon, units=False):
     data = get(url, (entry['_offset'], entry['_offset'] + entry['_length'] - 1))
-    return point_value(data, lat, lon)
+    return point_value(data, lat, lon, units)
+
+
+def to_mm(value, units):
+    """Accumulation en mm d'eau, que le champ soit en m (IFS) ou en kg m-2 (AIFS, GFS)."""
+    return value * 1000 if units.strip().startswith('m') and 'kg' not in units else value
