@@ -3,24 +3,73 @@
   "mis_a_jour": "2026-11-11",
   "prochaine_revision": "chaque mois après la mise à jour ENSO de la NOAA (2e jeudi : 12 nov., 10 déc., 14 janv., 11 févr., 11 mars, 8 avril), et le 1er décembre avec MétéoMédia et Environnement Canada",
   "attendu_total": {
-    "tempetes_5cm": {"central": 10, "min": 8, "max": 13},
-    "tempetes_15cm": {"central": 4, "min": 3, "max": 6},
-    "tempetes_25cm": {"central": 1.5, "min": 0, "max": 3},
-    "sorties": {"central": 19, "min": 16, "max": 24},
-    "neige_cm": {"central": 190, "min": 170, "max": 210}
+    "tempetes_5cm": {
+      "central": 10,
+      "min": 8,
+      "max": 13
+    },
+    "tempetes_15cm": {
+      "central": 4,
+      "min": 3,
+      "max": 6
+    },
+    "tempetes_25cm": {
+      "central": 1.5,
+      "min": 0,
+      "max": 3
+    },
+    "neige_cm": {
+      "central": 190,
+      "min": 170,
+      "max": 210
+    },
+    "jours_deneigement": {
+      "central": 17,
+      "min": 14,
+      "max": 21
+    },
+    "sorties_fonte": {
+      "central": 3.5,
+      "min": 2,
+      "max": 6
+    }
   },
-  "normale": {"tempetes_5cm": 12, "tempetes_15cm": 5, "tempetes_25cm": 2, "sorties": 22, "neige_cm": 228, "periode": "1964-2023, 53 hivers, station ST PROSPER 7027660"},
-  "par_mois": {"11": 1, "12": 2.5, "01": 2.5, "02": 2, "03": 2, "04": 1},
-  "regle_sorties": "Une sortie chaque fois que 5 cm sont accumulés (compteur remis à zéro après 3 jours sans neige), 2e passage les jours de 20 cm et plus.",
+  "normale": {
+    "tempetes_5cm": 12,
+    "tempetes_15cm": 5,
+    "tempetes_25cm": 2,
+    "neige_cm": 228,
+    "periode": "1964-2023, 53 hivers, station ST PROSPER 7027660",
+    "jours_deneigement": 20,
+    "sorties_fonte": 2.7
+  },
+  "par_mois": {
+    "11": 1,
+    "12": 2.5,
+    "01": 2.5,
+    "02": 2,
+    "03": 2,
+    "04": 1
+  },
+  "regle_sorties": "Jour de déneigement : le matin où 5 cm de neige accumulée sont atteints, on sort vers 2-3 h, premier tour puis passe finale; s'il continue de neiger et qu'il retombe 5 cm et plus, on compte un autre jour le lendemain matin. Sortie d'abrasif / bord de rue : de la neige est tombée puis la pluie la fait fondre (5 mm de pluie et plus) : pas de déneigement, mais une sortie d'abrasif et de nettoyage de bord de rue. Le verglas sans neige n'est pas compté (pas de donnée fiable dans les relevés).",
   "raisons": [
     "El Niño fort à très fort, probable jusqu'en mars (NOAA, 8 oct. 2026) : hiver plus doux, tempêtes plus au sud.",
-    "À Saint-Prosper, les El Niño très forts (1982-83, 1997-98, 2015-16) ont donné 8 à 12 tempêtes et 16 à 22 sorties.",
+    "À Saint-Prosper, les El Niño très forts (1982-83, 1997-98, 2015-16) ont donné 8 à 12 tempêtes, 14 à 20 jours de déneigement et 3 à 5 sorties d'abrasif après une fonte.",
     "Dix dernières années : un peu moins de neige au total et moins de très grosses tempêtes, nombre de tempêtes stable.",
     "Plus de verglas et de redoux possibles : non comptés ici."
   ],
   "sources": [
-    {"nom": "Environnement Canada, données climatiques quotidiennes ST PROSPER", "url": "https://api.weather.gc.ca/collections/climate-daily"},
-    {"nom": "NOAA CPC, discussion ENSO", "url": "https://www.cpc.ncep.noaa.gov/products/analysis_monitoring/enso_advisory/ensodisc.shtml"},
-    {"nom": "MétéoMédia, aperçu de l'hiver", "url": "https://www.meteomedia.com/fr/nouvelles/meteo/saisons/super-el-nino-lhiver-sera-t-il-annule"}
+    {
+      "nom": "Environnement Canada, données climatiques quotidiennes ST PROSPER",
+      "url": "https://api.weather.gc.ca/collections/climate-daily"
+    },
+    {
+      "nom": "NOAA CPC, discussion ENSO",
+      "url": "https://www.cpc.ncep.noaa.gov/products/analysis_monitoring/enso_advisory/ensodisc.shtml"
+    },
+    {
+      "nom": "MétéoMédia, aperçu de l'hiver",
+      "url": "https://www.meteomedia.com/fr/nouvelles/meteo/saisons/super-el-nino-lhiver-sera-t-il-annule"
+    }
   ]
 }

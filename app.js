@@ -78,10 +78,13 @@ function observedSeason(records){
  const eps=[];let cur=null,last=null;
  for(const r of rows){if(r.snow_cm<0.2)continue;const t=Date.parse(r.date);if(cur&&t-last>2*86400000){eps.push(cur);cur=null}cur=cur||{start:r.date,total:0};cur.total+=r.snow_cm;last=t}
  if(cur)eps.push(cur);
- let acc=0,dry=0,sorties=0;const byMonth={};
- for(const r of rows){const s=r.snow_cm;if(s>=0.2){acc+=s;dry=0}else if(++dry>=3)acc=0;if(acc>=5){sorties+=s>=20?2:1;acc=0}}
+ let acc=0,dry=0,jours=0,fonte=0;const byMonth={};
+ for(const r of rows){const s=r.snow_cm,rain=r.rain_mm||0;
+  if(rain>=5&&acc+s>=2){fonte++;acc=0;dry=0;continue} // la pluie fait fondre : abrasif et bord de rue, pas de déneigement
+  if(s>=0.2){acc+=s;dry=0}else if(++dry>=3)acc=0;
+  if(acc>=5){jours++;acc=0}}
  for(const e of eps.filter(e=>e.total>=5)){const m=e.start.slice(5,7);byMonth[m]=(byMonth[m]||0)+1}
- return {t5:eps.filter(e=>e.total>=5).length,t15:eps.filter(e=>e.total>=15).length,t25:eps.filter(e=>e.total>=25).length,sorties,byMonth};
+ return {t5:eps.filter(e=>e.total>=5).length,t15:eps.filter(e=>e.total>=15).length,t25:eps.filter(e=>e.total>=25).length,jours,fonte,byMonth};
 }
 function seasonBar(label,done,exp,norm,unit=''){
  const max=Math.max(exp.max,norm,done,1),pct=v=>Math.min(100,v/max*100);
@@ -91,7 +94,7 @@ function renderSeason(){
  const e=state.saison_estimation;if(!e){$('season-panel').hidden=true;return}$('season-panel').hidden=false;
  const o=observedSeason(state.climate.records),a=e.attendu_total,no=e.normale;
  $('season-updated').textContent='Estimation du '+dateOnly(e.mis_a_jour);
- $('season-progress').innerHTML='<p class="muted">Ce qui est tombé depuis le 1er octobre (relevés publiés) comparé à ce qu’on attend pour tout l’hiver '+esc(e.saison)+'. Le trait blanc marque la normale.</p>'+seasonBar('Tempêtes de 5 cm et plus',o.t5,a.tempetes_5cm,no.tempetes_5cm)+seasonBar('Grosses tempêtes (15 cm et plus)',o.t15,a.tempetes_15cm,no.tempetes_15cm)+seasonBar('Sorties de déneigement',o.sorties,a.sorties,no.sorties)+seasonBar('Neige totale',state.climate.total_cm||0,a.neige_cm,no.neige_cm,' cm');
+ $('season-progress').innerHTML='<p class="muted">Ce qui est tombé depuis le 1er octobre (relevés publiés) comparé à ce qu’on attend pour tout l’hiver '+esc(e.saison)+'. Le trait blanc marque la normale.</p>'+seasonBar('Tempêtes de 5 cm et plus',o.t5,a.tempetes_5cm,no.tempetes_5cm)+seasonBar('Grosses tempêtes (15 cm et plus)',o.t15,a.tempetes_15cm,no.tempetes_15cm)+seasonBar('Jours de déneigement',o.jours,a.jours_deneigement,no.jours_deneigement)+seasonBar('Sorties d’abrasif après une fonte',o.fonte,a.sorties_fonte,no.sorties_fonte)+seasonBar('Neige totale',state.climate.total_cm||0,a.neige_cm,no.neige_cm,' cm');
  const names={'11':'nov.','12':'déc.','01':'janv.','02':'févr.','03':'mars','04':'avr.'};
  $('season-months').innerHTML=Object.entries(e.par_mois).map(([m,v])=>'<div><small>'+names[m]+'</small><strong>'+n(o.byMonth[m]||0)+'<span> / '+n(v)+'</span></strong></div>').join('');
  $('season-why').innerHTML='<ul>'+e.raisons.map(r=>'<li>'+esc(r)+'</li>').join('')+'</ul><p class="footnote">'+esc(e.regle_sorties)+' Normale : '+esc(no.periode)+'. Prochaine révision : '+esc(e.prochaine_revision)+'.</p><p class="footnote">Sources : '+e.sources.map(s=>'<a href="'+esc(s.url)+'" target="_blank" rel="noopener">'+esc(s.nom)+' ↗</a>').join(' · ')+'</p>';
