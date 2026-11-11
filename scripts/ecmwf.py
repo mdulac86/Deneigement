@@ -149,7 +149,8 @@ def cached(cache, key, now, fn):
     except Exception:
         run = None
     hit = cache.get(key)
-    if hit and run and hit.get('run') == run.isoformat():
+    short = key in ('ifs', 'aifs') and hit and len(hit.get('result', {}).get('hours', [])) < 300  # ancien cache de 72 h
+    if hit and run and hit.get('run') == run.isoformat() and not short:
         return hit['result'], False
     result = fn()
     cache[key] = {'run': result.get('run'), 'result': result}
