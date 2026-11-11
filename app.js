@@ -72,7 +72,31 @@ function renderOfficial(){
 function renderSources(){
  $('source-cards').innerHTML=state.sources.map(s=>'<article class="panel"><div class="section-heading"><h2>'+esc(s.name)+'</h2><span class="tag '+(stale(s)?'amber':'green')+'">'+(stale(s)?s.status==='stale'?'Anciennes données':'Non disponible':'Données actuelles')+'</span></div><span class="meta">Consultée : '+local(s.fetched_at)+'</span><span class="meta">Émise : '+local(s.issued_at)+'</span><p>'+esc(s.error||s.note||'')+'</p><a href="'+esc(s.url)+'" target="_blank" rel="noopener">Voir la prévision originale ↗</a></article>').join('');
 }
-function renderWinter(){
+function observedSeason(records){
+ // Mêmes règles que l'analyse historique : épisodes de 5 cm+ (pause d'un jour max) et sorties (5 cm accumulés).
+ const rows=records.filter(r=>r.snow_cm!=null).slice().sort((a,b)=>a.date.localeCompare(b.date));
+ const eps=[];let cur=null,last=null;
+ for(const r of rows){if(r.snow_cm<0.2)continue;const t=Date.parse(r.date);if(cur&&t-last>2*86400000){eps.push(cur);cur=null}cur=cur||{start:r.date,total:0};cur.total+=r.snow_cm;last=t}
+ if(cur)eps.push(cur);
+ let acc=0,dry=0,sorties=0;const byMonth={};
+ for(const r of rows){const s=r.snow_cm;if(s>=0.2){acc+=s;dry=0}else if(++dry>=3)acc=0;if(acc>=5){sorties+=s>=20?2:1;acc=0}}
+ for(const e of eps.filter(e=>e.total>=5)){const m=e.start.slice(5,7);byMonth[m]=(byMonth[m]||0)+1}
+ return {t5:eps.filter(e=>e.total>=5).length,t15:eps.filter(e=>e.total>=15).length,t25:eps.filter(e=>e.total>=25).length,sorties,byMonth};
+}
+function seasonBar(label,done,exp,norm,unit=''){
+ const max=Math.max(exp.max,norm,done,1),pct=v=>Math.min(100,v/max*100);
+ return '<div class="season-row"><div class="season-label"><b>'+label+'</b><span>'+n(done)+unit+' à ce jour · '+n(exp.central)+unit+' attendus ('+n(exp.min)+'–'+n(exp.max)+')</span></div><div class="season-bar"><span class="range" style="left:'+pct(exp.min)+'%;width:'+(pct(exp.max)-pct(exp.min))+'%"></span><span class="done" style="width:'+pct(done)+'%"></span><i class="normal" style="left:'+pct(norm)+'%" title="Normale : '+n(norm)+unit+'"></i></div></div>';
+}
+function renderSeason(){
+ const e=state.saison_estimation;if(!e){$('season-panel').hidden=true;return}$('season-panel').hidden=false;
+ const o=observedSeason(state.climate.records),a=e.attendu_total,no=e.normale;
+ $('season-updated').textContent='Estimation du '+dateOnly(e.mis_a_jour);
+ $('season-progress').innerHTML='<p class="muted">Ce qui est tombé depuis le 1er octobre (relevés publiés) comparé à ce qu’on attend pour tout l’hiver '+esc(e.saison)+'. Le trait blanc marque la normale.</p>'+seasonBar('Tempêtes de 5 cm et plus',o.t5,a.tempetes_5cm,no.tempetes_5cm)+seasonBar('Grosses tempêtes (15 cm et plus)',o.t15,a.tempetes_15cm,no.tempetes_15cm)+seasonBar('Sorties de déneigement',o.sorties,a.sorties,no.sorties)+seasonBar('Neige totale',state.climate.total_cm||0,a.neige_cm,no.neige_cm,' cm');
+ const names={'11':'nov.','12':'déc.','01':'janv.','02':'févr.','03':'mars','04':'avr.'};
+ $('season-months').innerHTML=Object.entries(e.par_mois).map(([m,v])=>'<div><small>'+names[m]+'</small><strong>'+n(o.byMonth[m]||0)+'<span> / '+n(v)+'</span></strong></div>').join('');
+ $('season-why').innerHTML='<ul>'+e.raisons.map(r=>'<li>'+esc(r)+'</li>').join('')+'</ul><p class="footnote">'+esc(e.regle_sorties)+' Normale : '+esc(no.periode)+'. Prochaine révision : '+esc(e.prochaine_revision)+'.</p><p class="footnote">Sources : '+e.sources.map(s=>'<a href="'+esc(s.url)+'" target="_blank" rel="noopener">'+esc(s.nom)+' ↗</a>').join(' · ')+'</p>';
+}
+function renderWinter(){renderSeason();
  const rows=state.climate.records,months={};
  for(const r of rows){const m=r.date.slice(0,7);if(!months[m])months[m]={total:0,count:0};if(r.snow_cm!=null){months[m].total+=r.snow_cm;months[m].count++}}
  const max=Math.max(1,...Object.values(months).map(m=>m.total));

@@ -227,3 +227,20 @@ footer .credits{color:#6b6b73}
   footer{padding:18px 16px 28px}
 }
 @media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+.season-panel{border-color:#4a3c1c}
+.season-row{margin:14px 0}
+.season-label{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:14px;margin-bottom:6px}
+.season-label span{color:var(--muted);font-size:12.5px}
+.season-bar{position:relative;height:14px;background:var(--panel2);border-radius:999px;overflow:visible}
+.season-bar .range{position:absolute;top:0;bottom:0;background:#FFB81C2e;border-radius:999px}
+.season-bar .done{position:absolute;left:0;top:0;bottom:0;background:var(--yellow);border-radius:999px;min-width:4px}
+.season-bar .normal{position:absolute;top:-4px;bottom:-4px;width:2px;background:#fff;border-radius:1px}
+.season-months{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin:18px 0 8px}
+.season-months div{background:var(--panel2);border:1px solid var(--line);border-radius:var(--r);padding:10px;text-align:center}
+.season-months small{display:block;color:var(--muted);font-weight:600;text-transform:uppercase;font-size:11px}
+.season-months strong{font:900 20px var(--title)}
+.season-months strong span{font-size:13px;color:var(--muted);font-weight:600}
+.season-why{margin-top:10px}
+.season-why summary{cursor:pointer;font-weight:600;color:var(--yellow)}
+.season-why ul{color:var(--soft);font-size:14px;padding-left:18px}
+@media(max-width:600px){.season-months{grid-template-columns:repeat(3,1fr)}}

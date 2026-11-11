@@ -524,6 +524,7 @@ def main():
     climate=collect_climate()
     result={'updated_at':stamp(),'location':{'name':'Saint-Prosper · Beauce','lat':LAT,'lon':LON,'timezone':'America/Toronto'},'threshold_cm':5,'sources':sources,'official_alerts':alerts,'climate':climate,'consensus':consensus(sources),'previous_at':previous.get('updated_at')}
     result['changes']=changes(previous,result)
+    result['saison_estimation']=read(ROOT/'config'/'saison.json',None)
     try:
         result.update(forecast_plan(sources, result['consensus']))
     except Exception as e:  # Le plan ne doit jamais bloquer la collecte principale.
