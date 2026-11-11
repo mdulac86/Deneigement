@@ -168,6 +168,41 @@ $('radar-time').addEventListener('input',()=>{stopRadar();showRadar()});$('radar
 $('radar-play').addEventListener('click',()=>{if(timer){stopRadar();return}if(!frames.length)return;$('radar-play').textContent='Ⅱ Pause';timer=setInterval(()=>{$('radar-time').value=(+$('radar-time').value+1)%frames.length;showRadar()},1100)});
 document.addEventListener('visibilitychange',()=>{if(document.hidden)stopRadar();else load()});setInterval(()=>{if(!document.hidden){load();if(map&&!$('radar').hidden)radarCapabilities().catch(()=>{})}},300000);
 if('serviceWorker'in navigator)navigator.serviceWorker.register('./sw.js').catch(()=>{});
+const VAPID_PUBLIC='BPaBeYPCMQ81QiCRF-FnyjtmV1Xm9PaMKuPGvMblz5ACoCVPS6SLSTq_NAbUTUSn7HNWwpMyuLq4xsxqnGE0Eb4',REG_URL='https://ntfy.sh/dulac-deneigement-inscriptions-k7p2';
+function b64u(s){const p='='.repeat((4-s.length%4)%4),b=atob((s+p).replace(/-/g,'+').replace(/_/g,'/'));return Uint8Array.from(b,c=>c.charCodeAt(0))}
+const isIOS=/iPhone|iPad|iPod/.test(navigator.userAgent),standalone=window.navigator.standalone===true||matchMedia('(display-mode: standalone)').matches;
+async function pushState(){
+ if(isIOS&&!standalone)return 'ios-browser';
+ if(!('serviceWorker'in navigator)||!('PushManager'in window)||!('Notification'in window))return 'unsupported';
+ const reg=await navigator.serviceWorker.ready,sub=await reg.pushManager.getSubscription();
+ return sub?'on':Notification.permission==='denied'?'denied':'off';
+}
+async function renderPush(){
+ let s;try{s=await pushState()}catch{s='unsupported'}
+ const help={'ios-browser':'Sur iPhone, ajoute d’abord le site à l’écran d’accueil (Partager → « Sur l’écran d’accueil »), puis ouvre-le depuis l’icône.','unsupported':'Ce navigateur ne permet pas les notifications.','denied':'Les notifications sont bloquées pour ce site : les réactiver dans les réglages du téléphone.','off':'Pas encore activées sur ce téléphone.','on':'Activées sur ce téléphone.'}[s];
+ $('push-help').textContent=help;$('push-tag').textContent=s==='on'?'Activées':'Désactivées';$('push-tag').className='tag '+(s==='on'?'green':'');
+ $('push-on').hidden=s==='on';$('push-on').disabled=s!=='off';$('push-off').hidden=s!=='on';$('push-label').hidden=s==='on';
+ let dismissed=false;try{dismissed=localStorage.getItem('push-banner-off')==='1'}catch{}
+ $('push-banner').hidden=!(s==='off'||s==='ios-browser')||dismissed;
+}
+async function enablePush(){
+ try{
+  if(await pushState()==='ios-browser'){tab('sources');$('push-panel').scrollIntoView({behavior:'smooth'});return}
+  const perm=await Notification.requestPermission();if(perm!=='granted'){await renderPush();return}
+  const reg=await navigator.serviceWorker.ready;
+  const sub=await reg.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:b64u(VAPID_PUBLIC)});
+  const r=await fetch(REG_URL,{method:'POST',body:JSON.stringify({action:'add',subscription:sub.toJSON(),label:$('push-label').value.trim()})});
+  if(!r.ok)throw Error('Inscription non transmise');
+  reg.showNotification('Notifications activées sur ce téléphone',{body:'Le robot confirmera à sa prochaine mise à jour.',icon:'icon.svg'});
+ }catch(e){$('push-help').textContent='Activation impossible : '+e.message}
+ renderPush();
+}
+async function disablePush(){
+ try{const reg=await navigator.serviceWorker.ready,sub=await reg.pushManager.getSubscription();if(sub){await fetch(REG_URL,{method:'POST',body:JSON.stringify({action:'remove',subscription:sub.toJSON()})}).catch(()=>{});await sub.unsubscribe()}}catch{}
+ renderPush();
+}
+$('push-on').addEventListener('click',enablePush);$('push-banner-on').addEventListener('click',enablePush);$('push-off').addEventListener('click',disablePush);
+renderPush();
 function spark(series){
  const pts=series.filter(s=>s.depth_cm!=null);if(pts.length<2)return '';
  const t0=Date.parse(series[0].time),t1=Date.parse(series.at(-1).time)||t0+1,max=Math.max(5,...pts.map(p=>p.depth_cm));

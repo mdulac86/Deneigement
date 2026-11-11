@@ -125,19 +125,20 @@ neige au sol ni une mesure de la cour. Aucun relevé de l'équipe n'est demandé
 
 ## Alertes et partage
 
-Les alertes sont envoyées sur les téléphones de l'équipe par l'application gratuite ntfy
-(`scripts/alerts.py`, appelé à chaque collecte) : sortie prévue, déplacée d'une heure et plus
-ou annulée; alerte officielle d'Environnement Canada; probabilité de 5 cm et plus de 50 % et
-plus pour aujourd'hui ou demain (ensemble européen); risque de verglas ou pluie sur la neige
-au sol. Chaque alerte n'est envoyée qu'une fois (`data/alerts-state.json`).
+Les alertes arrivent comme notifications du site (Web Push), sans application à installer
+(`scripts/alerts.py` et `scripts/webpush_channel.py`, appelés à chaque collecte) : sortie
+prévue, déplacée d'une heure et plus ou annulée; alerte officielle d'Environnement Canada;
+probabilité de 5 cm et plus de 50 % et plus pour aujourd'hui ou demain; risque de verglas ou
+pluie sur la neige au sol. Chaque alerte n'est envoyée qu'une fois (`data/alerts-state.json`).
 
-Le nom du canal ntfy est un secret du dépôt (`NTFY_TOPIC`, Settings → Secrets and variables →
-Actions) : il n'apparaît ni dans le code ni sur le site. Sans ce secret, aucune alerte n'est
-envoyée. Pour changer de canal (ex. un employé quitte l'équipe), remplacer le secret et
-donner le nouveau nom à l'équipe.
-
-Sur iPhone, Safari → Partager → Sur l'écran d'accueil. Une dernière copie est disponible hors
-ligne avec sa date visible; elle ne devient pas une météo actuelle.
+- iPhone (iOS 16.4+) : Safari → Partager → « Sur l'écran d'accueil », ouvrir le site depuis
+  l'icône, onglet Sources → « Activer les notifications ». Android : directement dans Chrome.
+- Le téléphone dépose son abonnement dans une boîte d'inscription (un canal ntfy.sh utilisé
+  comme simple boîte aux lettres, invisible pour l'équipe); le robot le récupère à la
+  collecte suivante et le garde dans `data/push-subscriptions.json`.
+- Envoyer une notification exige la clé privée VAPID (secret `VAPID_PRIVATE_KEY`). La clé
+  publique est dans `app.js`. Un téléphone désabonné est retiré automatiquement.
+- Canal ntfy facultatif : secret `NTFY_TOPIC` (application ntfy); le supprimer pour l'arrêter.
 
 ## Développement et validation
 

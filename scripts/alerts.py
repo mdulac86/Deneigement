@@ -1,4 +1,4 @@
-"""Alertes sur les téléphones de l'équipe (application ntfy, notifications instantanées).
+"""Alertes sur les téléphones de l'équipe : notifications du site (Web Push) et canal ntfy facultatif.
 
 Le nom du canal est secret (variable NTFY_TOPIC, stockée dans les secrets GitHub) : sans lui,
 rien n'est envoyé. Chaque alerte n'est envoyée qu'une fois (mémoire : data/alerts-state.json).
@@ -136,18 +136,44 @@ def send(topic, msg, post=None):
         return r.status
 
 
-def run(weather, state_path, topic=None, post=None, today=None):
-    """Envoie les nouvelles alertes. Sans canal configuré, rien n'est envoyé ni marqué comme envoyé."""
+def run(weather, state_path, topic=None, post=None, today=None, pusher=None):
+    """Envoie les nouvelles alertes par les canaux configurés : notifications du site (Web Push)
+    et, si son secret existe, le canal ntfy. Sans canal, rien n'est envoyé ni marqué comme envoyé."""
     topic = topic or os.environ.get('NTFY_TOPIC')
+    vapid = os.environ.get('VAPID_PRIVATE_KEY')
+    if pusher is None and vapid:
+        import webpush_channel
+        try:
+            pusher = webpush_channel.Pusher(vapid, state_path.parent / 'push-subscriptions.json')
+        except Exception as e:  # boîte d'inscription injoignable : on réessaiera
+            print('inscriptions non lues :', e)
+            pusher = None
     today = today or dt.date.today()
     try:
         state = json.loads(state_path.read_text(encoding='utf-8'))
     except (OSError, ValueError):
         state = {}
-    if not topic:
+    if pusher:
+        pusher.welcome()
+    if not topic and not (pusher and pusher.subs):
         state['active'] = False
         state_path.write_text(json.dumps(state, ensure_ascii=False, indent=1) + '\n', encoding='utf-8')
+        if pusher:
+            pusher.save()
         return []
+
+    def deliver(m):
+        ok = False
+        if topic:
+            try:
+                send(topic, m, post)
+                ok = True
+            except Exception as e:
+                print('ntfy :', e)
+        if pusher and pusher.subs:
+            ok = pusher.broadcast(m) or ok
+        return ok
+
     first_run = not state.get('active')
     plan_msgs, seen = plans(weather, state, today)
     msgs = official(weather) + plan_msgs + probability(weather, today) + ice_melt(weather, today)
@@ -156,23 +182,19 @@ def run(weather, state_path, topic=None, post=None, today=None):
     for m in msgs:
         if m['key'] in sent_keys:
             continue
-        try:
-            send(topic, m, post)
+        if deliver(m):  # une alerte ratée sera retentée à la prochaine collecte
             out.append(m['title'])
-        except Exception as e:  # une alerte ratée ne bloque pas la collecte; elle sera retentée
-            print('alerte non envoyée :', e)
-            continue
-        sent_keys.add(m['key'])
-    if first_run:
-        welcome = {'key': 'bienvenue', 'title': 'Alertes déneigement activées',
-                   'message': 'Vous recevrez ici les sorties prévues, les alertes officielles, les risques de verglas et de fonte.',
-                   'priority': 3, 'tags': ['white_check_mark']}
-        if 'bienvenue' not in sent_keys:
-            try:
-                send(topic, welcome, post)
-                sent_keys.add('bienvenue')
-            except Exception as e:
-                print('message de bienvenue non envoyé :', e)
+            sent_keys.add(m['key'])
+    if first_run and topic and 'bienvenue' not in sent_keys:
+        try:
+            send(topic, {'key': 'bienvenue', 'title': 'Alertes déneigement activées',
+                         'message': 'Vous recevrez ici les sorties prévues, les alertes officielles, les risques de verglas et de fonte.',
+                         'priority': 3, 'tags': ['white_check_mark']}, post)
+            sent_keys.add('bienvenue')
+        except Exception as e:
+            print('message de bienvenue non envoyé :', e)
     state = {'plans': seen, 'sent': sorted(sent_keys)[-300:], 'updated': dt.datetime.now(dt.timezone.utc).isoformat(), 'active': True}
     state_path.write_text(json.dumps(state, ensure_ascii=False, indent=1) + '\n', encoding='utf-8')
+    if pusher:
+        pusher.save()
     return out
