@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-11T14:49:47.514589+00:00",
+  "updated_at": "2026-11-11T14:54:54.550513+00:00",
   "location": {
     "name": "Saint-Prosper · Beauce",
     "lat": 46.214,
@@ -13,7 +13,7 @@
       "name": "Environnement Canada",
       "url": "https://meteo.gc.ca/fr/location/index.html?coords=46.214,-70.486",
       "status": "ok",
-      "fetched_at": "2026-11-11T14:49:47.514589+00:00",
+      "fetched_at": "2026-11-11T14:54:54.550513+00:00",
       "issued_at": "2026-11-11T10:00:00Z",
       "days": [
         {
@@ -93,91 +93,104 @@
           "label": "Aujourd'hui",
           "text": "Nuageux avec 30 pour cent de probabilité d'averses de neige. Maximum plus 3. Indice UV de 1 ou bas.",
           "snow_cm": null,
-          "risk": "Neige"
+          "risk": "Neige",
+          "pop": null
         },
         {
           "date": "2026-11-11",
           "label": "Ce soir et cette nuit",
           "text": "Généralement nuageux. 30 pour cent de probabilité d'averses de neige ce soir. Vents jusqu'à 15 km/h. Minimum moins 7. Refroidissement éolien moins 9 au cours de la nuit.",
           "snow_cm": null,
-          "risk": "Neige"
+          "risk": "Neige",
+          "pop": null
         },
         {
           "date": "2026-11-12",
           "label": "Jeudi",
           "text": "Alternance de soleil et de nuages. Vents jusqu'à 15 km/h. Maximum plus 3. Refroidissement éolien moins 10 le matin. Indice UV de 1 ou bas.",
           "snow_cm": null,
-          "risk": "Sans risque hivernal identifié"
+          "risk": "Sans risque hivernal identifié",
+          "pop": null
         },
         {
           "date": "2026-11-12",
           "label": "Jeudi soir et nuit",
           "text": "Dégagé. Minimum moins 9.",
           "snow_cm": null,
-          "risk": "Sans risque hivernal identifié"
+          "risk": "Sans risque hivernal identifié",
+          "pop": null
         },
         {
           "date": "2026-11-13",
           "label": "Vendredi",
           "text": "Ensoleillé. Maximum plus 2.",
           "snow_cm": null,
-          "risk": "Sans risque hivernal identifié"
+          "risk": "Sans risque hivernal identifié",
+          "pop": null
         },
         {
           "date": "2026-11-13",
           "label": "Vendredi soir et nuit",
           "text": "Ennuagement. Minimum moins 6.",
           "snow_cm": null,
-          "risk": "Sans risque hivernal identifié"
+          "risk": "Sans risque hivernal identifié",
+          "pop": null
         },
         {
           "date": "2026-11-14",
           "label": "Samedi",
           "text": "Nuageux. Maximum plus 2.",
           "snow_cm": null,
-          "risk": "Sans risque hivernal identifié"
+          "risk": "Sans risque hivernal identifié",
+          "pop": null
         },
         {
           "date": "2026-11-14",
           "label": "Samedi soir et nuit",
           "text": "Nuageux. Minimum moins 3.",
           "snow_cm": null,
-          "risk": "Sans risque hivernal identifié"
+          "risk": "Sans risque hivernal identifié",
+          "pop": null
         },
         {
           "date": "2026-11-15",
           "label": "Dimanche",
           "text": "Nuageux. Maximum plus 5.",
           "snow_cm": null,
-          "risk": "Sans risque hivernal identifié"
+          "risk": "Sans risque hivernal identifié",
+          "pop": null
         },
         {
           "date": "2026-11-15",
           "label": "Dimanche soir et nuit",
           "text": "Passages nuageux. Minimum moins 2.",
           "snow_cm": null,
-          "risk": "Sans risque hivernal identifié"
+          "risk": "Sans risque hivernal identifié",
+          "pop": null
         },
         {
           "date": "2026-11-16",
           "label": "Lundi",
           "text": "Alternance de soleil et de nuages. Maximum plus 2.",
           "snow_cm": null,
-          "risk": "Sans risque hivernal identifié"
+          "risk": "Sans risque hivernal identifié",
+          "pop": null
         },
         {
           "date": "2026-11-16",
           "label": "Lundi soir et nuit",
           "text": "Dégagé. Minimum moins 4.",
           "snow_cm": null,
-          "risk": "Sans risque hivernal identifié"
+          "risk": "Sans risque hivernal identifié",
+          "pop": null
         },
         {
           "date": "2026-11-17",
           "label": "Mardi",
           "text": "Ensoleillé. Maximum plus 4.",
           "snow_cm": null,
-          "risk": "Sans risque hivernal identifié"
+          "risk": "Sans risque hivernal identifié",
+          "pop": null
         }
       ],
       "hourly": [
@@ -553,7 +566,7 @@
       "name": "MET Norway",
       "url": "https://api.met.no/weatherapi/locationforecast/2.0/compact?lat=46.214&lon=-70.486",
       "status": "ok",
-      "fetched_at": "2026-11-11T14:49:47.514589+00:00",
+      "fetched_at": "2026-11-11T14:54:54.550513+00:00",
       "issued_at": "2026-11-11T13:17:23Z",
       "days": [
         {
@@ -1484,7 +1497,7 @@
       "name": "meteoblue",
       "url": "https://www.meteoblue.com/fr/meteo/semaine/saint-prosper_canada_8672691",
       "status": "ok",
-      "fetched_at": "2026-11-11T14:49:47.514589+00:00",
+      "fetched_at": "2026-11-11T14:54:54.550513+00:00",
       "issued_at": null,
       "days": [
         {
@@ -3612,7 +3625,7 @@
   ],
   "official_alerts": {
     "status": "ok",
-    "fetched_at": "2026-11-11T14:49:47.514589+00:00",
+    "fetched_at": "2026-11-11T14:54:54.550513+00:00",
     "items": []
   },
   "climate": {
@@ -3626,6 +3639,8 @@
         "snow_flag": "",
         "rain_mm": 3.9,
         "depth_cm": null,
+        "tmax": 24.0,
+        "tmin": 6.4,
         "source": "Climat Québec · 7027660"
       },
       {
@@ -3634,6 +3649,8 @@
         "snow_flag": "",
         "rain_mm": 3.4,
         "depth_cm": null,
+        "tmax": 16.4,
+        "tmin": 8.7,
         "source": "Climat Québec · 7027660"
       },
       {
@@ -3642,6 +3659,8 @@
         "snow_flag": "",
         "rain_mm": 0.0,
         "depth_cm": null,
+        "tmax": 13.2,
+        "tmin": 2.3,
         "source": "Climat Québec · 7027660"
       },
       {
@@ -3650,6 +3669,8 @@
         "snow_flag": "",
         "rain_mm": 2.6,
         "depth_cm": null,
+        "tmax": 15.6,
+        "tmin": -3.9,
         "source": "Climat Québec · 7027660"
       },
       {
@@ -3658,6 +3679,8 @@
         "snow_flag": "",
         "rain_mm": 1.4,
         "depth_cm": null,
+        "tmax": 12.3,
+        "tmin": 6.4,
         "source": "Climat Québec · 7027660"
       },
       {
@@ -3666,6 +3689,8 @@
         "snow_flag": "",
         "rain_mm": 0.0,
         "depth_cm": null,
+        "tmax": 10.1,
+        "tmin": 3.8,
         "source": "Climat Québec · 7027660"
       },
       {
@@ -3674,6 +3699,8 @@
         "snow_flag": "",
         "rain_mm": 7.3,
         "depth_cm": null,
+        "tmax": 10.9,
+        "tmin": -1.7,
         "source": "Climat Québec · 7027660"
       },
       {
@@ -3682,6 +3709,8 @@
         "snow_flag": "",
         "rain_mm": 13.3,
         "depth_cm": null,
+        "tmax": 12.3,
+        "tmin": 7.4,
         "source": "Climat Québec · 7027660"
       },
       {
@@ -3690,6 +3719,8 @@
         "snow_flag": "",
         "rain_mm": 2.5,
         "depth_cm": null,
+        "tmax": 9.3,
+        "tmin": 6.1,
         "source": "Climat Québec · 7027660"
       },
       {
@@ -3698,6 +3729,8 @@
         "snow_flag": "",
         "rain_mm": 0.0,
         "depth_cm": null,
+        "tmax": 9.6,
+        "tmin": 0.8,
         "source": "Climat Québec · 7027660"
       },
       {
@@ -3706,6 +3739,8 @@
         "snow_flag": "",
         "rain_mm": 0.0,
         "depth_cm": null,
+        "tmax": 17.0,
+        "tmin": -2.1,
         "source": "Climat Québec · 7027660"
       },
       {
@@ -3714,6 +3749,8 @@
         "snow_flag": "",
         "rain_mm": 2.3,
         "depth_cm": null,
+        "tmax": 12.5,
+        "tmin": 5.4,
         "source": "Climat Québec · 7027660"
       },
       {
@@ -3722,6 +3759,8 @@
         "snow_flag": "",
         "rain_mm": 34.4,
         "depth_cm": null,
+        "tmax": 6.2,
+        "tmin": 2.0,
         "source": "Climat Québec · 7027660"
       },
       {
@@ -3730,6 +3769,8 @@
         "snow_flag": "",
         "rain_mm": 1.2,
         "depth_cm": null,
+        "tmax": 7.9,
+        "tmin": 3.5,
         "source": "Climat Québec · 7027660"
       },
       {
@@ -3738,6 +3779,8 @@
         "snow_flag": "",
         "rain_mm": 3.0,
         "depth_cm": null,
+        "tmax": 9.2,
+        "tmin": 2.0,
         "source": "Climat Québec · 7027660"
       },
       {
@@ -3746,6 +3789,8 @@
         "snow_flag": "",
         "rain_mm": 5.5,
         "depth_cm": null,
+        "tmax": 11.4,
+        "tmin": -2.5,
         "source": "Climat Québec · 7027660"
       },
       {
@@ -3754,6 +3799,8 @@
         "snow_flag": "",
         "rain_mm": 0.0,
         "depth_cm": null,
+        "tmax": 3.8,
+        "tmin": -0.3,
         "source": "Climat Québec · 7027660"
       },
       {
@@ -3762,6 +3809,8 @@
         "snow_flag": "",
         "rain_mm": 0.0,
         "depth_cm": null,
+        "tmax": 11.0,
+        "tmin": -4.2,
         "source": "Climat Québec · 7027660"
       },
       {
@@ -3770,6 +3819,8 @@
         "snow_flag": "",
         "rain_mm": 0.0,
         "depth_cm": null,
+        "tmax": 18.4,
+        "tmin": -2.4,
         "source": "Climat Québec · 7027660"
       },
       {
@@ -3778,6 +3829,8 @@
         "snow_flag": "",
         "rain_mm": 0.0,
         "depth_cm": null,
+        "tmax": 13.0,
+        "tmin": -2.8,
         "source": "Climat Québec · 7027660"
       },
       {
@@ -3786,6 +3839,8 @@
         "snow_flag": "",
         "rain_mm": 0.0,
         "depth_cm": null,
+        "tmax": 14.0,
+        "tmin": -6.1,
         "source": "Climat Québec · 7027660"
       },
       {
@@ -3794,6 +3849,8 @@
         "snow_flag": "",
         "rain_mm": 0.0,
         "depth_cm": null,
+        "tmax": 12.3,
+        "tmin": -5.7,
         "source": "Climat Québec · 7027660"
       },
       {
@@ -3802,6 +3859,8 @@
         "snow_flag": "",
         "rain_mm": 0.0,
         "depth_cm": null,
+        "tmax": 9.5,
+        "tmin": -5.4,
         "source": "Climat Québec · 7027660"
       },
       {
@@ -3810,6 +3869,8 @@
         "snow_flag": "",
         "rain_mm": 0.0,
         "depth_cm": null,
+        "tmax": 12.3,
+        "tmin": -7.9,
         "source": "Climat Québec · 7027660"
       },
       {
@@ -3818,6 +3879,8 @@
         "snow_flag": "",
         "rain_mm": 0.0,
         "depth_cm": null,
+        "tmax": 15.3,
+        "tmin": -4.6,
         "source": "Climat Québec · 7027660"
       },
       {
@@ -3826,6 +3889,8 @@
         "snow_flag": "",
         "rain_mm": 0.0,
         "depth_cm": null,
+        "tmax": 11.8,
+        "tmin": 1.2,
         "source": "Climat Québec · 7027660"
       },
       {
@@ -3834,6 +3899,8 @@
         "snow_flag": "",
         "rain_mm": 0.0,
         "depth_cm": null,
+        "tmax": 4.8,
+        "tmin": -3.3,
         "source": "Climat Québec · 7027660"
       },
       {
@@ -3842,6 +3909,8 @@
         "snow_flag": "",
         "rain_mm": 0.0,
         "depth_cm": null,
+        "tmax": 7.2,
+        "tmin": -7.5,
         "source": "Climat Québec · 7027660"
       },
       {
@@ -3850,6 +3919,8 @@
         "snow_flag": "",
         "rain_mm": 1.6,
         "depth_cm": null,
+        "tmax": 18.2,
+        "tmin": -1.7,
         "source": "Climat Québec · 7027660"
       },
       {
@@ -3858,6 +3929,8 @@
         "snow_flag": "",
         "rain_mm": 2.6,
         "depth_cm": null,
+        "tmax": 12.3,
+        "tmin": 5.6,
         "source": "Climat Québec · 7027660"
       },
       {
@@ -3866,6 +3939,8 @@
         "snow_flag": "",
         "rain_mm": 0.0,
         "depth_cm": null,
+        "tmax": 3.5,
+        "tmin": -1.3,
         "source": "Climat Québec · 7027660"
       },
       {
@@ -3874,6 +3949,8 @@
         "snow_flag": "",
         "rain_mm": 0.0,
         "depth_cm": null,
+        "tmax": 12.0,
+        "tmin": 1.3,
         "source": "Climat Québec · 7027660"
       },
       {
@@ -3882,6 +3959,8 @@
         "snow_flag": "",
         "rain_mm": 1.4,
         "depth_cm": null,
+        "tmax": 9.9,
+        "tmin": 6.3,
         "source": "Climat Québec · 7027660"
       },
       {
@@ -3890,6 +3969,8 @@
         "snow_flag": "",
         "rain_mm": 11.0,
         "depth_cm": null,
+        "tmax": 13.4,
+        "tmin": 8.4,
         "source": "Climat Québec · 7027660"
       },
       {
@@ -3898,6 +3979,8 @@
         "snow_flag": "",
         "rain_mm": 0.0,
         "depth_cm": null,
+        "tmax": 19.4,
+        "tmin": 10.5,
         "source": "Climat Québec · 7027660"
       },
       {
@@ -3906,6 +3989,8 @@
         "snow_flag": "",
         "rain_mm": 4.0,
         "depth_cm": null,
+        "tmax": 17.3,
+        "tmin": 4.7,
         "source": "Climat Québec · 7027660"
       },
       {
@@ -3914,6 +3999,8 @@
         "snow_flag": "",
         "rain_mm": 0.0,
         "depth_cm": null,
+        "tmax": 14.3,
+        "tmin": 9.7,
         "source": "Climat Québec · 7027660"
       },
       {
@@ -3922,6 +4009,8 @@
         "snow_flag": "",
         "rain_mm": 9.7,
         "depth_cm": null,
+        "tmax": 3.7,
+        "tmin": 2.6,
         "source": "Climat Québec · 7027660"
       },
       {
@@ -3930,6 +4019,8 @@
         "snow_flag": "",
         "rain_mm": 1.5,
         "depth_cm": null,
+        "tmax": 2.8,
+        "tmin": 1.3,
         "source": "Climat Québec · 7027660"
       },
       {
@@ -3938,6 +4029,8 @@
         "snow_flag": "",
         "rain_mm": 0.0,
         "depth_cm": null,
+        "tmax": 3.4,
+        "tmin": -0.4,
         "source": "Climat Québec · 7027660"
       },
       {
@@ -3946,6 +4039,8 @@
         "snow_flag": "I",
         "rain_mm": 3.0,
         "depth_cm": null,
+        "tmax": 2.9,
+        "tmin": 0.3,
         "source": "Climat Québec · 7027660"
       }
     ],
@@ -4043,6 +4138,14 @@
         "p10_cm": 0.1,
         "p50_cm": 0.2,
         "p90_cm": 0.4
+      },
+      "pop": {
+        "value": 30,
+        "sources": [
+          "MétéoMédia",
+          "ensemble européen"
+        ],
+        "heavy": 0
       }
     },
     {
@@ -4144,6 +4247,14 @@
         "p10_cm": 0.0,
         "p50_cm": 0.0,
         "p90_cm": 0.8
+      },
+      "pop": {
+        "value": 20,
+        "sources": [
+          "MétéoMédia",
+          "ensemble européen"
+        ],
+        "heavy": 2
       }
     },
     {
@@ -4245,6 +4356,14 @@
         "p10_cm": 0.0,
         "p50_cm": 0.1,
         "p90_cm": 8.1
+      },
+      "pop": {
+        "value": 39,
+        "sources": [
+          "MétéoMédia",
+          "ensemble européen"
+        ],
+        "heavy": 4
       }
     },
     {
@@ -4341,7 +4460,15 @@
         "hours": 18,
         "estimated": true
       },
-      "ensemble": null
+      "ensemble": null,
+      "pop": {
+        "value": 70,
+        "sources": [
+          "MétéoMédia",
+          "ensemble européen"
+        ],
+        "heavy": 0
+      }
     },
     {
       "date": "2026-11-15",
@@ -4429,7 +4556,15 @@
       "confidence": "Faible",
       "confidence_reason": "Accord qualitatif et couverture des sources; précision non encore validée. Fiabilité des cm au sol indéterminée.",
       "model_snow": null,
-      "ensemble": null
+      "ensemble": null,
+      "pop": {
+        "value": 30,
+        "sources": [
+          "MétéoMédia",
+          "ensemble européen"
+        ],
+        "heavy": 0
+      }
     },
     {
       "date": "2026-11-16",
@@ -4517,7 +4652,15 @@
       "confidence": "Faible",
       "confidence_reason": "Accord qualitatif et couverture des sources; précision non encore validée. Fiabilité des cm au sol indéterminée.",
       "model_snow": null,
-      "ensemble": null
+      "ensemble": null,
+      "pop": {
+        "value": 30,
+        "sources": [
+          "MétéoMédia",
+          "ensemble européen"
+        ],
+        "heavy": 0
+      }
     },
     {
       "date": "2026-11-17",
@@ -4605,10 +4748,359 @@
       "confidence": "Faible",
       "confidence_reason": "Accord qualitatif et couverture des sources; précision non encore validée. Fiabilité des cm au sol indéterminée.",
       "model_snow": null,
-      "ensemble": null
+      "ensemble": null,
+      "pop": {
+        "value": 20,
+        "sources": [
+          "MétéoMédia",
+          "ensemble européen"
+        ],
+        "heavy": 0
+      }
+    },
+    {
+      "date": "2026-11-18",
+      "sources": [
+        {
+          "source": "met",
+          "date": "2026-11-18",
+          "high": 6.3,
+          "low": -0.7,
+          "snow_cm": null,
+          "rain_mm": null,
+          "ice_mm": null,
+          "condition": "Sans risque hivernal identifié",
+          "risk": "Sans risque hivernal identifié"
+        },
+        {
+          "source": "wu",
+          "date": "2026-11-18",
+          "high": 6.0,
+          "low": -1.0,
+          "snow_cm": null,
+          "rain_mm": 0.0,
+          "ice_mm": null,
+          "condition": "Partly Cloudy",
+          "risk": "Sans risque hivernal identifié"
+        },
+        {
+          "source": "mb",
+          "date": "2026-11-18",
+          "high": 4.0,
+          "low": -2.0,
+          "snow_cm": null,
+          "rain_mm": null,
+          "ice_mm": null,
+          "condition": "Partiellement nuageux / Clair avec quelques nuages",
+          "risk": "Sans risque hivernal identifié"
+        },
+        {
+          "source": "mm",
+          "date": "2026-11-18",
+          "high": 7.0,
+          "low": -2.0,
+          "snow_cm": [
+            0.0,
+            0.0
+          ],
+          "rain_mm": null,
+          "ice_mm": null,
+          "condition": "Ciel variable · Ciel variable · Ciel variable · Généralement dégagé",
+          "risk": "Sans risque hivernal identifié",
+          "snow_period": "00-24-local"
+        }
+      ],
+      "snow": {
+        "mean_cm": null,
+        "median_cm": null,
+        "min_cm": 0.0,
+        "max_cm": 0.0,
+        "count": 1
+      },
+      "risks": [
+        "Sans risque hivernal identifié"
+      ],
+      "high_mean": 5.8,
+      "low_mean": -1.4,
+      "high_range": [
+        4.0,
+        7.0
+      ],
+      "low_range": [
+        -2.0,
+        -0.7
+      ],
+      "confidence": "Faible",
+      "confidence_reason": "Accord qualitatif et couverture des sources; précision non encore validée. Fiabilité des cm au sol indéterminée.",
+      "model_snow": null,
+      "ensemble": null,
+      "pop": {
+        "value": 20,
+        "sources": [
+          "MétéoMédia",
+          "ensemble européen"
+        ],
+        "heavy": 0
+      }
+    },
+    {
+      "date": "2026-11-19",
+      "sources": [
+        {
+          "source": "met",
+          "date": "2026-11-19",
+          "high": 4.8,
+          "low": -0.5,
+          "snow_cm": null,
+          "rain_mm": null,
+          "ice_mm": null,
+          "condition": "Sans risque hivernal identifié",
+          "risk": "Sans risque hivernal identifié"
+        },
+        {
+          "source": "mm",
+          "date": "2026-11-19",
+          "high": 8.0,
+          "low": -1.0,
+          "snow_cm": [
+            0.0,
+            0.0
+          ],
+          "rain_mm": null,
+          "ice_mm": null,
+          "condition": "Dégagé · Ensoleillé · Ensoleillé · Dégagé",
+          "risk": "Sans risque hivernal identifié",
+          "snow_period": "00-24-local"
+        }
+      ],
+      "snow": {
+        "mean_cm": null,
+        "median_cm": null,
+        "min_cm": 0.0,
+        "max_cm": 0.0,
+        "count": 1
+      },
+      "risks": [
+        "Sans risque hivernal identifié"
+      ],
+      "high_mean": 6.4,
+      "low_mean": -0.8,
+      "high_range": [
+        4.8,
+        8.0
+      ],
+      "low_range": [
+        -1.0,
+        -0.5
+      ],
+      "confidence": "Faible",
+      "confidence_reason": "Accord qualitatif et couverture des sources; précision non encore validée. Fiabilité des cm au sol indéterminée.",
+      "model_snow": null,
+      "ensemble": null,
+      "pop": {
+        "value": 13,
+        "sources": [
+          "MétéoMédia",
+          "ensemble européen"
+        ],
+        "heavy": 0
+      }
+    },
+    {
+      "date": "2026-11-20",
+      "sources": [
+        {
+          "source": "met",
+          "date": "2026-11-20",
+          "high": 5.4,
+          "low": -0.6,
+          "snow_cm": null,
+          "rain_mm": null,
+          "ice_mm": null,
+          "condition": "Sans risque hivernal identifié",
+          "risk": "Sans risque hivernal identifié"
+        },
+        {
+          "source": "mm",
+          "date": "2026-11-20",
+          "high": 9.0,
+          "low": 0.0,
+          "snow_cm": [
+            0.0,
+            0.0
+          ],
+          "rain_mm": null,
+          "ice_mm": null,
+          "condition": "Dégagé · Ensoleillé · Quelques averses · Quelques averses",
+          "risk": "Pluie",
+          "snow_period": "00-24-local"
+        }
+      ],
+      "snow": {
+        "mean_cm": null,
+        "median_cm": null,
+        "min_cm": 0.0,
+        "max_cm": 0.0,
+        "count": 1
+      },
+      "risks": [
+        "Pluie",
+        "Sans risque hivernal identifié"
+      ],
+      "high_mean": 7.2,
+      "low_mean": -0.3,
+      "high_range": [
+        5.4,
+        9.0
+      ],
+      "low_range": [
+        -0.6,
+        0.0
+      ],
+      "confidence": "Faible",
+      "confidence_reason": "Accord qualitatif et couverture des sources; précision non encore validée. Fiabilité des cm au sol indéterminée.",
+      "model_snow": null,
+      "ensemble": null,
+      "pop": {
+        "value": 60,
+        "sources": [
+          "MétéoMédia",
+          "ensemble européen"
+        ],
+        "heavy": 0
+      }
+    },
+    {
+      "date": "2026-11-21",
+      "sources": [
+        {
+          "source": "mm",
+          "date": "2026-11-21",
+          "high": 3.0,
+          "low": 2.0,
+          "snow_cm": null,
+          "rain_mm": null,
+          "ice_mm": null,
+          "condition": "Nuageux avec averses · Généralement ensoleillé",
+          "risk": "Pluie"
+        }
+      ],
+      "snow": {
+        "mean_cm": null,
+        "median_cm": null,
+        "min_cm": null,
+        "max_cm": null,
+        "count": 0
+      },
+      "risks": [
+        "Pluie"
+      ],
+      "high_mean": 3.0,
+      "low_mean": 2.0,
+      "high_range": [
+        3.0,
+        3.0
+      ],
+      "low_range": [
+        2.0,
+        2.0
+      ],
+      "confidence": "Faible",
+      "confidence_reason": "Accord qualitatif et couverture des sources; précision non encore validée. Fiabilité des cm au sol indéterminée.",
+      "model_snow": null,
+      "ensemble": null,
+      "pop": {
+        "value": 41,
+        "sources": [
+          "MétéoMédia",
+          "ensemble européen"
+        ],
+        "heavy": 2
+      }
+    },
+    {
+      "date": "2026-11-22",
+      "sources": [],
+      "snow": {
+        "mean_cm": null,
+        "median_cm": null,
+        "min_cm": null,
+        "max_cm": null,
+        "count": 0
+      },
+      "risks": [],
+      "high_mean": null,
+      "low_mean": null,
+      "high_range": null,
+      "low_range": null,
+      "confidence": "Faible",
+      "confidence_reason": "Accord qualitatif et couverture des sources; précision non encore validée. Fiabilité des cm au sol indéterminée.",
+      "model_snow": null,
+      "ensemble": null,
+      "pop": {
+        "value": 43,
+        "sources": [
+          "ensemble européen"
+        ],
+        "heavy": 8
+      }
+    },
+    {
+      "date": "2026-11-23",
+      "sources": [],
+      "snow": {
+        "mean_cm": null,
+        "median_cm": null,
+        "min_cm": null,
+        "max_cm": null,
+        "count": 0
+      },
+      "risks": [],
+      "high_mean": null,
+      "low_mean": null,
+      "high_range": null,
+      "low_range": null,
+      "confidence": "Faible",
+      "confidence_reason": "Accord qualitatif et couverture des sources; précision non encore validée. Fiabilité des cm au sol indéterminée.",
+      "model_snow": null,
+      "ensemble": null,
+      "pop": {
+        "value": 47,
+        "sources": [
+          "ensemble européen"
+        ],
+        "heavy": 12
+      }
+    },
+    {
+      "date": "2026-11-24",
+      "sources": [],
+      "snow": {
+        "mean_cm": null,
+        "median_cm": null,
+        "min_cm": null,
+        "max_cm": null,
+        "count": 0
+      },
+      "risks": [],
+      "high_mean": null,
+      "low_mean": null,
+      "high_range": null,
+      "low_range": null,
+      "confidence": "Faible",
+      "confidence_reason": "Accord qualitatif et couverture des sources; précision non encore validée. Fiabilité des cm au sol indéterminée.",
+      "model_snow": null,
+      "ensemble": null,
+      "pop": {
+        "value": 49,
+        "sources": [
+          "ensemble européen"
+        ],
+        "heavy": 26
+      }
     }
   ],
-  "previous_at": "2026-11-11T14:45:08.211089+00:00",
+  "previous_at": "2026-11-11T14:49:47.514589+00:00",
   "changes": [
     {
       "text": "Aucun changement important dans les données comparables depuis la dernière collecte.",
@@ -4649,6 +5141,16 @@
         "central": 3.5,
         "min": 2,
         "max": 6
+      },
+      "jours_verglas": {
+        "central": 4,
+        "min": 2,
+        "max": 8
+      },
+      "jours_pluie": {
+        "central": 10,
+        "min": 7,
+        "max": 14
       }
     },
     "normale": {
@@ -4658,7 +5160,9 @@
       "neige_cm": 228,
       "periode": "1964-2023, 53 hivers, station ST PROSPER 7027660",
       "jours_deneigement": 20,
-      "sorties_fonte": 2.7
+      "sorties_fonte": 2.7,
+      "jours_verglas": 2.6,
+      "jours_pluie": 8.3
     },
     "par_mois": {
       "11": 1,
@@ -4673,6 +5177,7 @@
       "El Niño fort à très fort, probable jusqu'en mars (NOAA, 8 oct. 2026) : hiver plus doux, tempêtes plus au sud.",
       "À Saint-Prosper, les El Niño très forts (1982-83, 1997-98, 2015-16) ont donné 8 à 12 tempêtes, 14 à 20 jours de déneigement et 3 à 5 sorties d'abrasif après une fonte.",
       "Dix dernières années : un peu moins de neige au total et moins de très grosses tempêtes, nombre de tempêtes stable.",
+      "Verglas et pluie : les El Niño forts ont donné en moyenne 3 jours de verglas probable (jusqu'à 8) et 10 à 11 jours de pluie de décembre à mars, contre 2,6 et 8 en temps normal.",
       "Plus de verglas et de redoux possibles : non comptés ici."
     ],
     "sources": [
@@ -4688,7 +5193,8 @@
         "nom": "MétéoMédia, aperçu de l'hiver",
         "url": "https://www.meteomedia.com/fr/nouvelles/meteo/saisons/super-el-nino-lhiver-sera-t-il-annule"
       }
-    ]
+    ],
+    "regle_verglas": "Verglas probable : jour avec 1 mm de pluie et plus pendant que le maximum reste à 2 °C ou moins et le minimum à -1 °C ou moins (pluie qui gèle au sol). Jour de pluie : 2 mm de pluie et plus de décembre à mars, au-dessus de ces températures. Les deux demandent souvent de l'abrasif."
   },
   "snow_depth": {
     "stations": [
@@ -5867,12 +6373,102 @@
     ],
     "note": "Ensemble ECMWF : 51 versions du modèle européen. Probabilité = part des versions qui donnent 5 cm ou plus."
   },
+  "precip_probability": {
+    "run": "2026-11-11T00:00:00+00:00",
+    "fenetre": "12 h UTC -> 12 h UTC (7 h -> 7 h)",
+    "jours": [
+      {
+        "date": "2026-11-11",
+        "p1": 0,
+        "p5": 0,
+        "p10": 0
+      },
+      {
+        "date": "2026-11-12",
+        "p1": 15,
+        "p5": 8,
+        "p10": 2
+      },
+      {
+        "date": "2026-11-13",
+        "p1": 39,
+        "p5": 13,
+        "p10": 4
+      },
+      {
+        "date": "2026-11-14",
+        "p1": 50,
+        "p5": 4,
+        "p10": 0
+      },
+      {
+        "date": "2026-11-15",
+        "p1": 9,
+        "p5": 0,
+        "p10": 0
+      },
+      {
+        "date": "2026-11-16",
+        "p1": 2,
+        "p5": 0,
+        "p10": 0
+      },
+      {
+        "date": "2026-11-17",
+        "p1": 0,
+        "p5": 0,
+        "p10": 0
+      },
+      {
+        "date": "2026-11-18",
+        "p1": 2,
+        "p5": 0,
+        "p10": 0
+      },
+      {
+        "date": "2026-11-19",
+        "p1": 13,
+        "p5": 0,
+        "p10": 0
+      },
+      {
+        "date": "2026-11-20",
+        "p1": 37,
+        "p5": 8,
+        "p10": 0
+      },
+      {
+        "date": "2026-11-21",
+        "p1": 41,
+        "p5": 10,
+        "p10": 2
+      },
+      {
+        "date": "2026-11-22",
+        "p1": 43,
+        "p5": 27,
+        "p10": 8
+      },
+      {
+        "date": "2026-11-23",
+        "p1": 47,
+        "p5": 24,
+        "p10": 12
+      },
+      {
+        "date": "2026-11-24",
+        "p1": 49,
+        "p5": 38,
+        "p10": 26
+      }
+    ]
+  },
   "models": [
     {
       "id": "hrdps",
       "name": "HRDPS 2,5 km · ECCC",
       "status": "ok",
-      "fetched_at": "2026-11-11T14:49:47Z",
+      "fetched_at": "2026-11-11T14:54:54Z",
       "note": "cm estimés à partir des mm d’eau et de la température (rapport 10:1 près de 0 °C, plus léger au froid). Pas de fonte ni de tassement.",
       "issued_at": "2026-11-11T06:00:00Z",
       "layers": [
@@ -6132,7 +6728,7 @@
       "id": "rdps",
       "name": "RDPS 10 km · ECCC",
       "status": "ok",
-      "fetched_at": "2026-11-11T14:49:47Z",
+      "fetched_at": "2026-11-11T14:54:54Z",
       "note": "cm estimés à partir des mm d’eau et de la température (rapport 10:1 près de 0 °C, plus léger au froid). Pas de fonte ni de tassement.",
       "issued_at": "2026-11-11T06:00:00Z",
       "layers": [
@@ -6584,7 +7180,7 @@
       "id": "gfs",
       "name": "GFS 0,25° · NOAA",
       "status": "ok",
-      "fetched_at": "2026-11-11T14:49:47Z",
+      "fetched_at": "2026-11-11T14:54:54Z",
       "note": "cm estimés à partir des mm d’eau et de la température (rapport 10:1 près de 0 °C, plus léger au froid). Pas de fonte ni de tassement.",
       "issued_at": null,
       "units": [
@@ -7030,7 +7626,7 @@
       "id": "met",
       "name": "MET Norway",
       "status": "ok",
-      "fetched_at": "2026-11-11T14:49:47Z",
+      "fetched_at": "2026-11-11T14:54:54Z",
       "note": "cm estimés à partir des mm d’eau et de la température (rapport 10:1 près de 0 °C, plus léger au froid). Pas de fonte ni de tassement.",
       "issued_at": "2026-11-11T13:17:23Z",
       "hours": [
@@ -7544,7 +8140,7 @@
       "id": "ifs",
       "name": "ECMWF IFS (européen)",
       "status": "ok",
-      "fetched_at": "2026-11-11T14:49:47.514589+00:00",
+      "fetched_at": "2026-11-11T14:54:54.550513+00:00",
       "issued_at": "2026-11-11T00:00:00Z",
       "run": "2026-11-11T00:00:00+00:00",
       "hours": [
@@ -7987,7 +8583,7 @@
       "id": "aifs",
       "name": "ECMWF AIFS (européen, IA)",
       "status": "ok",
-      "fetched_at": "2026-11-11T14:49:47.514589+00:00",
+      "fetched_at": "2026-11-11T14:54:54.550513+00:00",
       "issued_at": "2026-11-11T00:00:00Z",
       "run": "2026-11-11T00:00:00+00:00",
       "hours": [

@@ -9,6 +9,8 @@
       "snow_flag": "",
       "rain_mm": 3.9,
       "depth_cm": null,
+      "tmax": 24.0,
+      "tmin": 6.4,
       "source": "Climat Québec · 7027660"
     },
     {
@@ -17,6 +19,8 @@
       "snow_flag": "",
       "rain_mm": 3.4,
       "depth_cm": null,
+      "tmax": 16.4,
+      "tmin": 8.7,
       "source": "Climat Québec · 7027660"
     },
     {
@@ -25,6 +29,8 @@
       "snow_flag": "",
       "rain_mm": 0.0,
       "depth_cm": null,
+      "tmax": 13.2,
+      "tmin": 2.3,
       "source": "Climat Québec · 7027660"
     },
     {
@@ -33,6 +39,8 @@
       "snow_flag": "",
       "rain_mm": 2.6,
       "depth_cm": null,
+      "tmax": 15.6,
+      "tmin": -3.9,
       "source": "Climat Québec · 7027660"
     },
     {
@@ -41,6 +49,8 @@
       "snow_flag": "",
       "rain_mm": 1.4,
       "depth_cm": null,
+      "tmax": 12.3,
+      "tmin": 6.4,
       "source": "Climat Québec · 7027660"
     },
     {
@@ -49,6 +59,8 @@
       "snow_flag": "",
       "rain_mm": 0.0,
       "depth_cm": null,
+      "tmax": 10.1,
+      "tmin": 3.8,
       "source": "Climat Québec · 7027660"
     },
     {
@@ -57,6 +69,8 @@
       "snow_flag": "",
       "rain_mm": 7.3,
       "depth_cm": null,
+      "tmax": 10.9,
+      "tmin": -1.7,
       "source": "Climat Québec · 7027660"
     },
     {
@@ -65,6 +79,8 @@
       "snow_flag": "",
       "rain_mm": 13.3,
       "depth_cm": null,
+      "tmax": 12.3,
+      "tmin": 7.4,
       "source": "Climat Québec · 7027660"
     },
     {
@@ -73,6 +89,8 @@
       "snow_flag": "",
       "rain_mm": 2.5,
       "depth_cm": null,
+      "tmax": 9.3,
+      "tmin": 6.1,
       "source": "Climat Québec · 7027660"
     },
     {
@@ -81,6 +99,8 @@
       "snow_flag": "",
       "rain_mm": 0.0,
       "depth_cm": null,
+      "tmax": 9.6,
+      "tmin": 0.8,
       "source": "Climat Québec · 7027660"
     },
     {
@@ -89,6 +109,8 @@
       "snow_flag": "",
       "rain_mm": 0.0,
       "depth_cm": null,
+      "tmax": 17.0,
+      "tmin": -2.1,
       "source": "Climat Québec · 7027660"
     },
     {
@@ -97,6 +119,8 @@
       "snow_flag": "",
       "rain_mm": 2.3,
       "depth_cm": null,
+      "tmax": 12.5,
+      "tmin": 5.4,
       "source": "Climat Québec · 7027660"
     },
     {
@@ -105,6 +129,8 @@
       "snow_flag": "",
       "rain_mm": 34.4,
       "depth_cm": null,
+      "tmax": 6.2,
+      "tmin": 2.0,
       "source": "Climat Québec · 7027660"
     },
     {
@@ -113,6 +139,8 @@
       "snow_flag": "",
       "rain_mm": 1.2,
       "depth_cm": null,
+      "tmax": 7.9,
+      "tmin": 3.5,
       "source": "Climat Québec · 7027660"
     },
     {
@@ -121,6 +149,8 @@
       "snow_flag": "",
       "rain_mm": 3.0,
       "depth_cm": null,
+      "tmax": 9.2,
+      "tmin": 2.0,
       "source": "Climat Québec · 7027660"
     },
     {
@@ -129,6 +159,8 @@
       "snow_flag": "",
       "rain_mm": 5.5,
       "depth_cm": null,
+      "tmax": 11.4,
+      "tmin": -2.5,
       "source": "Climat Québec · 7027660"
     },
     {
@@ -137,6 +169,8 @@
       "snow_flag": "",
       "rain_mm": 0.0,
       "depth_cm": null,
+      "tmax": 3.8,
+      "tmin": -0.3,
       "source": "Climat Québec · 7027660"
     },
     {
@@ -145,6 +179,8 @@
       "snow_flag": "",
       "rain_mm": 0.0,
       "depth_cm": null,
+      "tmax": 11.0,
+      "tmin": -4.2,
       "source": "Climat Québec · 7027660"
     },
     {
@@ -153,6 +189,8 @@
       "snow_flag": "",
       "rain_mm": 0.0,
       "depth_cm": null,
+      "tmax": 18.4,
+      "tmin": -2.4,
       "source": "Climat Québec · 7027660"
     },
     {
@@ -161,6 +199,8 @@
       "snow_flag": "",
       "rain_mm": 0.0,
       "depth_cm": null,
+      "tmax": 13.0,
+      "tmin": -2.8,
       "source": "Climat Québec · 7027660"
     },
     {
@@ -169,6 +209,8 @@
       "snow_flag": "",
       "rain_mm": 0.0,
       "depth_cm": null,
+      "tmax": 14.0,
+      "tmin": -6.1,
       "source": "Climat Québec · 7027660"
     },
     {
@@ -177,6 +219,8 @@
       "snow_flag": "",
       "rain_mm": 0.0,
       "depth_cm": null,
+      "tmax": 12.3,
+      "tmin": -5.7,
       "source": "Climat Québec · 7027660"
     },
     {
@@ -185,6 +229,8 @@
       "snow_flag": "",
       "rain_mm": 0.0,
       "depth_cm": null,
+      "tmax": 9.5,
+      "tmin": -5.4,
       "source": "Climat Québec · 7027660"
     },
     {
@@ -193,6 +239,8 @@
       "snow_flag": "",
       "rain_mm": 0.0,
       "depth_cm": null,
+      "tmax": 12.3,
+      "tmin": -7.9,
       "source": "Climat Québec · 7027660"
     },
     {
@@ -201,6 +249,8 @@
       "snow_flag": "",
       "rain_mm": 0.0,
       "depth_cm": null,
+      "tmax": 15.3,
+      "tmin": -4.6,
       "source": "Climat Québec · 7027660"
     },
     {
@@ -209,6 +259,8 @@
       "snow_flag": "",
       "rain_mm": 0.0,
       "depth_cm": null,
+      "tmax": 11.8,
+      "tmin": 1.2,
       "source": "Climat Québec · 7027660"
     },
     {
@@ -217,6 +269,8 @@
       "snow_flag": "",
       "rain_mm": 0.0,
       "depth_cm": null,
+      "tmax": 4.8,
+      "tmin": -3.3,
       "source": "Climat Québec · 7027660"
     },
     {
@@ -225,6 +279,8 @@
       "snow_flag": "",
       "rain_mm": 0.0,
       "depth_cm": null,
+      "tmax": 7.2,
+      "tmin": -7.5,
       "source": "Climat Québec · 7027660"
     },
     {
@@ -233,6 +289,8 @@
       "snow_flag": "",
       "rain_mm": 1.6,
       "depth_cm": null,
+      "tmax": 18.2,
+      "tmin": -1.7,
       "source": "Climat Québec · 7027660"
     },
     {
@@ -241,6 +299,8 @@
       "snow_flag": "",
       "rain_mm": 2.6,
       "depth_cm": null,
+      "tmax": 12.3,
+      "tmin": 5.6,
       "source": "Climat Québec · 7027660"
     },
     {
@@ -249,6 +309,8 @@
       "snow_flag": "",
       "rain_mm": 0.0,
       "depth_cm": null,
+      "tmax": 3.5,
+      "tmin": -1.3,
       "source": "Climat Québec · 7027660"
     },
     {
@@ -257,6 +319,8 @@
       "snow_flag": "",
       "rain_mm": 0.0,
       "depth_cm": null,
+      "tmax": 12.0,
+      "tmin": 1.3,
       "source": "Climat Québec · 7027660"
     },
     {
@@ -265,6 +329,8 @@
       "snow_flag": "",
       "rain_mm": 1.4,
       "depth_cm": null,
+      "tmax": 9.9,
+      "tmin": 6.3,
       "source": "Climat Québec · 7027660"
     },
     {
@@ -273,6 +339,8 @@
       "snow_flag": "",
       "rain_mm": 11.0,
       "depth_cm": null,
+      "tmax": 13.4,
+      "tmin": 8.4,
       "source": "Climat Québec · 7027660"
     },
     {
@@ -281,6 +349,8 @@
       "snow_flag": "",
       "rain_mm": 0.0,
       "depth_cm": null,
+      "tmax": 19.4,
+      "tmin": 10.5,
       "source": "Climat Québec · 7027660"
     },
     {
@@ -289,6 +359,8 @@
       "snow_flag": "",
       "rain_mm": 4.0,
       "depth_cm": null,
+      "tmax": 17.3,
+      "tmin": 4.7,
       "source": "Climat Québec · 7027660"
     },
     {
@@ -297,6 +369,8 @@
       "snow_flag": "",
       "rain_mm": 0.0,
       "depth_cm": null,
+      "tmax": 14.3,
+      "tmin": 9.7,
       "source": "Climat Québec · 7027660"
     },
     {
@@ -305,6 +379,8 @@
       "snow_flag": "",
       "rain_mm": 9.7,
       "depth_cm": null,
+      "tmax": 3.7,
+      "tmin": 2.6,
       "source": "Climat Québec · 7027660"
     },
     {
@@ -313,6 +389,8 @@
       "snow_flag": "",
       "rain_mm": 1.5,
       "depth_cm": null,
+      "tmax": 2.8,
+      "tmin": 1.3,
       "source": "Climat Québec · 7027660"
     },
     {
@@ -321,6 +399,8 @@
       "snow_flag": "",
       "rain_mm": 0.0,
       "depth_cm": null,
+      "tmax": 3.4,
+      "tmin": -0.4,
       "source": "Climat Québec · 7027660"
     },
     {
@@ -329,6 +409,8 @@
       "snow_flag": "I",
       "rain_mm": 3.0,
       "depth_cm": null,
+      "tmax": 2.9,
+      "tmin": 0.3,
       "source": "Climat Québec · 7027660"
     }
   ],
