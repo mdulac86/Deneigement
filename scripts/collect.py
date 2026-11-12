@@ -522,7 +522,14 @@ def forecast_plan(sources, days):
     ok = [x for x in models if x['status'] == 'ok']
     hours = planner.hourly_consensus(ok, TZ)
     cfg = planner.load_config()
-    plan = planner.build_plan(hours, cfg, NOW.astimezone(TZ)) if len(ok) >= 1 else []
+    # Petites chutes déjà au sol : relevés publiés + neige des modèles depuis le dernier relevé.
+    records = read(DATA / f'season-{season_year(TODAY)}.json', {}).get('records', [])
+    carry = planner.carry_from_records(records, cfg)
+    last = max((r['date'] for r in records if r.get('snow_cm') is not None), default=None)
+    since = dt.datetime.combine(dt.date.fromisoformat(last) + dt.timedelta(days=1), dt.time(0), TZ) if last else NOW.astimezone(TZ)
+    carry += sum(h['snow_cm'] for h in hours if since <= h['time'] < NOW.astimezone(TZ))
+    melt_days = [d['date'] for d in days if (d.get('high_mean') or 0) >= 4]
+    plan = planner.build_plan(hours, cfg, NOW.astimezone(TZ), round(carry, 1), melt_days) if len(ok) >= 1 else []
     # Totaux 00-24 h locaux par jour, seulement pour les heures couvertes par au moins 2 modèles.
     for d in days:
         hs = [h for h in hours if str(h['time'].date()) == d['date'] and h['n'] >= 2]
@@ -536,7 +543,7 @@ def forecast_plan(sources, days):
         t = p.get('seuil_atteint') or (p.get('seuil_fourchette') or [None])[0] or p.get('debut')
         p['ensemble'] = by_day.get(t[:10]) if t else None
     return {'ensemble': ensemble, 'precip_probability': pop, 'models': models, 'hourly_snow': serial_hours([{k: h[k] for k in ('time', 'snow_cm', 'lo', 'hi', 'n')} for h in hours]),
-            'plan': plan, 'plan_config': cfg}
+            'plan': plan, 'plan_config': cfg, 'neige_depuis_nettoyage_cm': round(carry, 1)}
 
 def main():
     DATA.mkdir(exist_ok=True)

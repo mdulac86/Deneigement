@@ -102,6 +102,29 @@ class PlanTests(unittest.TestCase):
         rates = [2, 2, 0, 0, 0, 0, 0, 2, 2]
         self.assertEqual(len(p.events(series(at(10, 22), rates), self.cfg)), 2)
 
+    def test_small_snowfalls_add_up(self):
+        # Trois chutes de 2 cm (mardi soir, mercredi soir, jeudi soir) : 5 cm atteints jeudi soir.
+        hours = series(at(10, 20), [1, 1]) + series(at(11, 20), [1, 1]) + series(at(12, 20), [1, 1])
+        out = self.plan(hours)
+        self.assertEqual([p['statut'] for p in out], ['sous_seuil', 'sous_seuil', 'sortie'])
+        self.assertEqual(out[1]['au_sol_apres_cm'], 4)
+        self.assertEqual(out[2]['deja_au_sol_cm'], 4)
+        self.assertEqual(out[2]['seuil_atteint'], at(12, 21).isoformat())
+        self.assertTrue(any('déjà accumulés' in n for n in out[2]['notes']))
+
+    def test_carry_from_previous_days_and_melt_reset(self):
+        q = p.build_plan(series(at(10, 22), [1.5, 1.5]), self.cfg, self.now, carry=2.5)[0]
+        self.assertEqual(q['statut'], 'sortie')  # 2,5 + 3 cm
+        hours = series(at(10, 20), [1, 1]) + series(at(12, 20), [1, 1, 1])
+        out = p.build_plan(hours, self.cfg, self.now, melt_days=['2026-11-11'])
+        self.assertEqual(out[-1]['statut'], 'sous_seuil')  # redoux mercredi : on repart de zéro
+
+    def test_carry_from_records(self):
+        r = lambda d, s, rain=0, tx=-5: {'date': f'2026-12-{d:02d}', 'snow_cm': s, 'rain_mm': rain, 'tmax': tx}
+        self.assertEqual(p.carry_from_records([r(1, 2), r(2, 0), r(3, 0), r(4, 0), r(5, 1.5)], self.cfg), 3.5)
+        self.assertEqual(p.carry_from_records([r(1, 2), r(2, 0, tx=6), r(3, 1)], self.cfg), 1)
+        self.assertEqual(p.carry_from_records([r(1, 3), r(2, 3), r(3, 1)], self.cfg), 1)
+
     def test_hourly_consensus_median_and_missing(self):
         s = [{'id': 'a', 'hours': [{'time': '2026-11-11T05:00:00Z', 'snow_cm': 1}]},
              {'id': 'b', 'hours': [{'time': '2026-11-11T05:00:00Z', 'snow_cm': 3}]},

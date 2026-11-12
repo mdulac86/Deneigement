@@ -50,7 +50,7 @@
     "tempetes_25cm": 2,
     "neige_cm": 228,
     "periode": "1964-2023, 53 hivers, station ST PROSPER 7027660",
-    "jours_deneigement": 20,
+    "jours_deneigement": 21,
     "sorties_fonte": 2.7,
     "jours_verglas": 2.6,
     "jours_pluie": 8.3
@@ -63,7 +63,7 @@
     "03": 2,
     "04": 1
   },
-  "regle_sorties": "Jour de déneigement : le matin où 5 cm de neige accumulée sont atteints, on sort vers 2-3 h, premier tour puis passe finale; s'il continue de neiger et qu'il retombe 5 cm et plus, on compte un autre jour le lendemain matin. Sortie d'abrasif / bord de rue : de la neige est tombée puis la pluie la fait fondre (5 mm de pluie et plus) : pas de déneigement, mais une sortie d'abrasif et de nettoyage de bord de rue. Le verglas sans neige n'est pas compté (pas de donnée fiable dans les relevés).",
+  "regle_sorties": "Jour de déneigement : le matin où 5 cm de neige accumulée sont atteints, on sort vers 2-3 h, premier tour puis passe finale. Les petites chutes s'additionnent d'un jour à l'autre (3 jours de 2 cm = une sortie le 3e matin) jusqu'à un redoux (maximum de 4 °C et plus) ou de la pluie. S'il continue de neiger et qu'il retombe 5 cm et plus, on compte un autre jour le lendemain matin. Sortie d'abrasif / bord de rue : de la neige est tombée puis la pluie la fait fondre (5 mm de pluie et plus) : pas de déneigement, mais une sortie d'abrasif et de nettoyage de bord de rue. ",
   "raisons": [
     "El Niño fort à très fort, probable jusqu'en mars (NOAA, 8 oct. 2026) : hiver plus doux, tempêtes plus au sud.",
     "À Saint-Prosper, les El Niño très forts (1982-83, 1997-98, 2015-16) ont donné 8 à 12 tempêtes, 14 à 20 jours de déneigement et 3 à 5 sorties d'abrasif après une fonte.",

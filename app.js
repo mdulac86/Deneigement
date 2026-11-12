@@ -80,10 +80,10 @@ function observedSeason(records){
  const eps=[];let cur=null,last=null;
  for(const r of rows){if(r.snow_cm<0.2)continue;const t=Date.parse(r.date);if(cur&&t-last>2*86400000){eps.push(cur);cur=null}cur=cur||{start:r.date,total:0};cur.total+=r.snow_cm;last=t}
  if(cur)eps.push(cur);
- let acc=0,dry=0,jours=0,fonte=0;const byMonth={};
+ let acc=0,jours=0,fonte=0;const byMonth={};
  for(const r of rows){const s=r.snow_cm,rain=r.rain_mm||0;
-  if(rain>=5&&acc+s>=2){fonte++;acc=0;dry=0;continue} // la pluie fait fondre : abrasif et bord de rue, pas de déneigement
-  if(s>=0.2){acc+=s;dry=0}else if(++dry>=3)acc=0;
+  if(rain>=5&&acc+s>=2){fonte++;acc=0;continue} // la pluie fait fondre : abrasif et bord de rue, pas de déneigement
+  if(s>=0.2){acc+=s}else if((r.tmax!=null&&r.tmax>=4)||rain>=2)acc=0; // les petites chutes s'additionnent jusqu'à un redoux
   if(acc>=5){jours++;acc=0}}
  for(const e of eps.filter(e=>e.total>=5)){const m=e.start.slice(5,7);byMonth[m]=(byMonth[m]||0)+1}
  let verglas=0,pluie=0;

@@ -133,18 +133,24 @@ def fr_time(t):
     return f'{t.hour} h {t.minute:02d}'
 
 
-def plan_event(ev, cfg, now):
+def plan_event(ev, cfg, now, carry=0.0):
+    """carry : neige déjà au sol depuis le dernier nettoyage (petites chutes qui s'additionnent)."""
     seuil = cfg['seuil_cm']
+    need = max(0.1, seuil - carry)  # ce qu'il reste à tomber pour atteindre 5 cm au sol
     total, lo, hi = (round(sum(h[k] for h in ev), 1) for k in ('snow_cm', 'lo', 'hi'))
     start, end = ev[0]['time'], last_snow(ev, cfg) or ev[-1]['time'] + HOUR
-    t5, t5_early, t5_late = reach(ev, seuil), reach(ev, seuil, 'hi'), reach(ev, seuil, 'lo')
+    t5, t5_early, t5_late = reach(ev, need), reach(ev, need, 'hi'), reach(ev, need, 'lo')
     level, n = confidence(ev, total, lo, hi, now)
     base = {'debut': iso(start), 'fin': iso(end), 'total_cm': total, 'fourchette_cm': [lo, hi],
             'seuil_atteint': iso(t5), 'seuil_fourchette': [iso(t5_early), iso(t5_late)],
-            'confiance': level, 'modeles': n, 'notes': []}
+            'confiance': level, 'modeles': n, 'notes': [], 'deja_au_sol_cm': round(carry, 1) if carry >= 0.5 else 0}
+    if carry >= 0.5:
+        base['notes'].append(f'≈ {carry:g} cm déjà accumulés depuis le dernier nettoyage : il suffit de {need:g} cm de plus pour atteindre {seuil} cm.')
     if t5 is None:
         if t5_early is None:
-            return {**base, 'statut': 'sous_seuil', 'resume': f'Environ {total:g} cm prévus : sous le seuil de {seuil} cm.'}
+            au_sol = round(carry + total, 1)
+            return {**base, 'statut': 'sous_seuil', 'au_sol_apres_cm': au_sol,
+                    'resume': f'Environ {total:g} cm prévus' + (f', ≈ {au_sol:g} cm accumulés au total' if carry >= 0.5 else '') + f' : sous le seuil de {seuil} cm.'}
         base['statut'] = 'possible'
         base['notes'].append(f'Le seuil de {seuil} cm n’est atteint que par le modèle le plus enneigé.')
         t5 = t5_early
@@ -157,7 +163,7 @@ def plan_event(ev, cfg, now):
     deadline = dt.datetime.combine(day, rules['echeance_t'], t5.tzinfo)
     night_start = dt.datetime.combine(day - dt.timedelta(days=1), hm(cfg['debut_nuit']), t5.tzinfo)
     if night_start <= t5 <= deadline:
-        snow_dl = cum_at(ev, deadline)
+        snow_dl = cum_at(ev, deadline) + carry
         dur = duration_h(snow_dl, cfg)
         ideal = floor30(deadline - dt.timedelta(hours=dur))
         dep = max(ideal, ceil30(t5))
@@ -184,16 +190,44 @@ def plan_event(ev, cfg, now):
     if rules.get('note'):
         base['notes'].append(rules['note'])
     return {**base, 'mode': mode, 'echeance': iso(deadline), 'depart': iso(dep), 'duree_h': dur,
-            'fin_tournee': iso(finish), 'neige_a_echeance_cm': round(cum_at(ev, deadline), 1) if deadline else None,
+            'fin_tournee': iso(finish), 'neige_a_echeance_cm': round(cum_at(ev, deadline) + carry, 1) if deadline else None,
             'final': final, 'fin_de_semaine': weekend(day if mode == 'matin' else dep.date())}
 
 
-def build_plan(hours, cfg, now):
+def build_plan(hours, cfg, now, carry=0.0, melt_days=()):
+    """carry : neige accumulée depuis le dernier nettoyage. Elle s'ajoute d'un épisode à l'autre
+    (3 jours de 2 cm finissent par faire 5 cm au sol) jusqu'à une sortie ou un jour de fonte."""
     for k in ('semaine', 'fin_de_semaine'):
         cfg[k]['echeance_t'] = hm(cfg[k]['echeance'])
     # Le plan de sortie se limite aux 108 prochaines heures (au-delà : tendance seulement).
     upcoming = [h for h in hours if h['time'] + HOUR > now and h['time'] < now + dt.timedelta(hours=108)]
-    plans = [plan_event(ev, cfg, now) for ev in events(upcoming, cfg)]
+    melt = set(str(d) for d in melt_days)
+    plans, prev_end = [], now
+    for ev in events(upcoming, cfg):
+        days_between = {str(prev_end.date() + dt.timedelta(days=i)) for i in range((ev[0]['time'].date() - prev_end.date()).days + 1)}
+        if carry and days_between & melt and ev[0]['time'].date() > prev_end.date():
+            carry = 0.0  # redoux entre les deux épisodes : la petite neige a fondu ou s'est tassée
+        p = plan_event(ev, cfg, now, carry)
+        plans.append(p)
+        carry = p['au_sol_apres_cm'] if p['statut'] == 'sous_seuil' else 0.0
+        prev_end = ev[-1]['time'] + HOUR
     for k in ('semaine', 'fin_de_semaine'):
         cfg[k].pop('echeance_t', None)
-    return [p for p in plans if p['statut'] != 'sous_seuil' or p['fourchette_cm'][1] >= 2]
+    return [p for p in plans if p['statut'] != 'sous_seuil' or p['fourchette_cm'][1] >= 2 or p.get('au_sol_apres_cm', 0) >= 2]
+
+
+def carry_from_records(records, cfg):
+    """Neige au sol depuis le dernier nettoyage, d'après les relevés quotidiens publiés : on additionne
+    les chutes; remise à zéro après une sortie (5 cm atteints), un redoux (max ≥ 4 °C) ou de la pluie."""
+    acc = 0.0
+    for r in sorted(records, key=lambda r: r['date']):
+        s, rain, tx = r.get('snow_cm'), r.get('rain_mm') or 0, r.get('tmax')
+        if s is None:
+            continue
+        if rain >= 2 and s < 0.2 or (tx is not None and tx >= 4 and s < 0.2):
+            acc = 0.0
+            continue
+        acc += s if s >= 0.2 else 0
+        if acc >= cfg['seuil_cm']:
+            acc = 0.0
+    return round(acc, 1)
