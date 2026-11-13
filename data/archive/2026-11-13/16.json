@@ -1,11 +1,11 @@
 {
-  "updated_at": "2026-11-13T16:45:43.540072+00:00",
+  "updated_at": "2026-11-13T16:56:54.089702+00:00",
   "sources": [
     {
       "id": "eccc",
       "status": "ok",
       "issued_at": "2026-11-13T16:30:00Z",
-      "fetched_at": "2026-11-13T16:45:43.540072+00:00",
+      "fetched_at": "2026-11-13T16:56:54.089702+00:00",
       "days": [
         {
           "date": "2026-11-13",
@@ -189,7 +189,7 @@
       "id": "met",
       "status": "ok",
       "issued_at": "2026-11-13T13:20:19Z",
-      "fetched_at": "2026-11-13T16:45:43.540072+00:00",
+      "fetched_at": "2026-11-13T16:56:54.089702+00:00",
       "days": [
         {
           "date": "2026-11-13",
@@ -379,7 +379,7 @@
       "id": "mb",
       "status": "ok",
       "issued_at": null,
-      "fetched_at": "2026-11-13T16:45:43.540072+00:00",
+      "fetched_at": "2026-11-13T16:56:54.089702+00:00",
       "days": [
         {
           "date": "2026-11-13",
@@ -408,8 +408,8 @@
           "snow_cm": null,
           "rain_mm": null,
           "ice_mm": null,
-          "condition": "Partiellement nuageux avec des pluies occasionnelles / Partiellement nuageux",
-          "risk": "Pluie"
+          "condition": "Partiellement nuageux",
+          "risk": "Sans risque hivernal identifié"
         },
         {
           "date": "2026-11-16",
@@ -1551,8 +1551,8 @@
           "snow_cm": null,
           "rain_mm": null,
           "ice_mm": null,
-          "condition": "Partiellement nuageux avec des pluies occasionnelles / Partiellement nuageux",
-          "risk": "Pluie"
+          "condition": "Partiellement nuageux",
+          "risk": "Sans risque hivernal identifié"
         },
         {
           "source": "mm",
@@ -1578,7 +1578,6 @@
         "count": 1
       },
       "risks": [
-        "Pluie",
         "Pluie / neige",
         "Sans risque hivernal identifié"
       ],
@@ -2421,7 +2420,7 @@
   ],
   "changes": [
     {
-      "text": "MET Norway · 2026-11-14 : Pluie / neige → Neige.",
+      "text": "meteoblue · 2026-11-15 : Pluie → Sans risque hivernal identifié.",
       "important": true
     }
   ],
