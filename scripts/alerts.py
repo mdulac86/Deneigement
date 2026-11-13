@@ -6,7 +6,8 @@ Déclencheurs choisis par Martin :
 - alerte officielle d'Environnement Canada pour le secteur;
 - sortie prévue par le plan, puis changement d'heure de départ d'une heure ou plus, ou annulation;
 - probabilité de 5 cm et plus (ensemble européen) de 50 % ou plus pour aujourd'hui ou demain;
-- risque de verglas, ou pluie sur la neige au sol (fonte) : prévoir l'abrasif.
+- risque de verglas, ou pluie sur la neige au sol (fonte) : prévoir l'abrasif;
+- poudrerie ou glace par grand vent (rafales de 50 km/h et plus avec de la neige au sol).
 """
 import datetime as dt
 import hashlib
@@ -115,6 +116,11 @@ def ice_melt(weather, today):
     msgs, ground = [], snow_on_ground(weather)
     for d in (weather.get('consensus') or [])[:2]:
         risks = d.get('risks', [])
+        if 'Poudrerie' in risks or 'Glace (vent)' in risks:
+            kind = 'Poudrerie probable' if 'Poudrerie' in risks else 'Grand vent : glace au sol'
+            msgs.append({'key': f'vent:{d["date"]}', 'title': f'{kind} {day_label(d["date"])}',
+                         'message': f'Rafales jusqu’à ≈ {d.get("rafales_kmh") or 50} km/h avec de la neige au sol : prévoir une sortie de déneigement des accumulations et de l’abrasif.',
+                         'priority': 4, 'tags': ['dash']})
         if 'Verglas / grésil' in risks:
             msgs.append({'key': f'verglas:{d["date"]}', 'title': f'Risque de verglas {day_label(d["date"])}',
                          'message': 'Verglas ou grésil dans les prévisions : prévoir une sortie d’abrasif.', 'priority': 4, 'tags': ['warning']})

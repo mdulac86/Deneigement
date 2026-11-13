@@ -50,7 +50,8 @@ def hourly(features):
             temp = p.get('air_temp')
             best[hour] = (gap, {'time': hour.strftime('%Y-%m-%dT%H:%M:%SZ'),
                                 'depth_cm': value(p, 'avg_snw_dpth_pst5mts', 'snw_dpth'),
-                                'temp': temp if isinstance(temp, (int, float)) else None})
+                                'temp': temp if isinstance(temp, (int, float)) else None,
+                                'gust': value(p, 'max_wnd_spd_10m_pst1hr', 'max_wnd_spd_10m_pst10mts')})
     return [best[h][1] for h in sorted(best)]
 
 
@@ -73,7 +74,8 @@ def station(fetch, clim_id, name, lat, lon, now):
         raise ValueError('Aucune observation récente')
     return {'id': clim_id, 'name': name, 'km': km(lat, lon), 'status': 'ok', 'series': series,
             'latest': pts[-1] if pts else None, 'change_24h': change(series),
-            'temp': next((s['temp'] for s in reversed(series) if s['temp'] is not None), None)}
+            'temp': next((s['temp'] for s in reversed(series) if s['temp'] is not None), None),
+            'gust_24h': max([x['gust'] for x in series[-24:] if x.get('gust') is not None], default=None)}
 
 
 def collect(fetch, now):
@@ -85,3 +87,14 @@ def collect(fetch, now):
             out.append({'id': clim_id, 'name': name, 'km': km(lat, lon), 'status': 'unavailable', 'series': [], 'error': str(e)[:150]})
     return {'stations': out, 'note': 'Capteurs automatiques d’Environnement Canada (mesure horaire de l’épaisseur de neige au sol). '
             'Une baisse sans pluie = tassement; une baisse avec redoux ou pluie = fonte.'}
+
+
+def daily_gusts(stations, tz, store):
+    """Vent maximal (km/h) par jour local, toutes stations confondues, gardé pour la saison."""
+    for st in stations:
+        for h in st.get('series', []):
+            if h.get('gust') is None:
+                continue
+            day = dt.datetime.fromisoformat(h['time'].replace('Z', '+00:00')).astimezone(tz).date().isoformat()
+            store[day] = max(store.get(day, 0), h['gust'])
+    return dict(sorted(store.items())[-260:])

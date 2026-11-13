@@ -436,6 +436,39 @@ def changes(old, new):
 def serial_hours(hours):
     return [{**h, 'time': h['time'].isoformat()} for h in hours]
 
+VENT_POUDRERIE = 50  # km/h : rafales qui soulèvent la neige au sol
+
+def ground_snow(result):
+    vals = [s['latest']['depth_cm'] for s in (result.get('snow_depth') or {}).get('stations', []) if s.get('latest') and s['latest'].get('depth_cm') is not None]
+    recs = [r for r in (result.get('climate') or {}).get('records', []) if r.get('depth_cm') is not None]
+    if recs:
+        vals.append(recs[-1]['depth_cm'])
+    return max(vals) if vals else 0
+
+def wind_risks(result):
+    """Rafales prévues par jour (ECCC horaire, MET Norway) et risques de poudrerie ou de glace par grand vent."""
+    src = {s['id']: s for s in result['sources'] if s['status'] == 'ok'}
+    by_day = {}
+    for h in src.get('eccc', {}).get('hourly', []):
+        g = h.get('gust') or (h.get('wind') or 0) * 1.5
+        day = dt.datetime.fromisoformat(h['time'].replace('Z', '+00:00')).astimezone(TZ).date().isoformat()
+        by_day[day] = max(by_day.get(day, 0), g)
+    for h in src.get('met', {}).get('hourly', []):
+        if h.get('wind') is None:
+            continue
+        day = dt.datetime.fromisoformat(h['time'].replace('Z', '+00:00')).astimezone(TZ).date().isoformat()
+        by_day[day] = max(by_day.get(day, 0), h['wind'] * 1.6)  # vent moyen -> rafales
+    ground = ground_snow(result) + (result.get('neige_depuis_nettoyage_cm') or 0)
+    for d in result['consensus']:
+        g = by_day.get(d['date'])
+        d['rafales_kmh'] = round(g) if g else None
+        if not g or g < VENT_POUDRERIE or ground + ((d.get('model_snow') or {}).get('median_cm') or 0) < 5:
+            continue
+        hi = d.get('high_mean')
+        risk = 'Poudrerie' if hi is not None and hi <= 0 else 'Glace (vent)' if hi is not None and hi <= 3 else None
+        if risk and risk not in d['risks']:
+            d['risks'] = [r for r in d['risks'] if r != 'Sans risque hivernal identifié'] + [risk]
+
 def pct(x):
     n = number(str(x or '').replace('%', ''))
     return None if n is None else round(n)
@@ -566,9 +599,19 @@ def main():
     except Exception as e:
         result['snow_depth']={'stations':[],'error':str(e)[:150]}
     try:
+        vent=snowdepth.daily_gusts(result['snow_depth'].get('stations',[]),TZ,read(DATA/'vent-saison.json',{}))
+        write(DATA/'vent-saison.json',vent)
+        result['vent_saison']=vent
+    except Exception as e:
+        print('vent :',e)
+    try:
         result.update(forecast_plan(sources, result['consensus']))
     except Exception as e:  # Le plan ne doit jamais bloquer la collecte principale.
         result.update({'models': [], 'hourly_snow': [], 'plan': [], 'plan_error': str(e)[:200]})
+    try:
+        wind_risks(result)
+    except Exception as e:
+        print('risques de vent :', e)
     write(DATA/'weather.json',result)
     try:
         sent=notifier.run(result,DATA/'alerts-state.json',today=TODAY)
