@@ -1,12 +1,12 @@
 {
   "saison": "2026-2027",
-  "mis_a_jour": "2026-11-11",
-  "prochaine_revision": "chaque mois après la mise à jour ENSO de la NOAA (2e jeudi : 12 nov., 10 déc., 14 janv., 11 févr., 11 mars, 8 avril), et le 1er décembre avec MétéoMédia et Environnement Canada",
+  "mis_a_jour": "2026-11-12",
+  "prochaine_revision": "1er décembre (MétéoMédia et Environnement Canada), puis après chaque mise à jour ENSO de la NOAA (2e jeudi : 10 déc., 14 janv., 11 févr., 11 mars, 8 avril)",
   "attendu_total": {
     "tempetes_5cm": {
       "central": 10,
       "min": 8,
-      "max": 13
+      "max": 12
     },
     "tempetes_15cm": {
       "central": 4,
@@ -19,14 +19,14 @@
       "max": 3
     },
     "neige_cm": {
-      "central": 190,
-      "min": 170,
+      "central": 185,
+      "min": 150,
       "max": 210
     },
     "jours_deneigement": {
-      "central": 17,
+      "central": 16,
       "min": 14,
-      "max": 21
+      "max": 20
     },
     "sorties_fonte": {
       "central": 3.5,
@@ -34,13 +34,13 @@
       "max": 6
     },
     "jours_verglas": {
-      "central": 4,
+      "central": 5,
       "min": 2,
       "max": 8
     },
     "jours_pluie": {
-      "central": 10,
-      "min": 7,
+      "central": 11,
+      "min": 8,
       "max": 14
     }
   },
@@ -65,8 +65,8 @@
   },
   "regle_sorties": "Jour de déneigement : le matin où 5 cm de neige accumulée sont atteints, on sort vers 2-3 h, premier tour puis passe finale. Les petites chutes s'additionnent d'un jour à l'autre (3 jours de 2 cm = une sortie le 3e matin) jusqu'à un redoux (maximum de 4 °C et plus) ou de la pluie. S'il continue de neiger et qu'il retombe 5 cm et plus, on compte un autre jour le lendemain matin. Sortie d'abrasif / bord de rue : de la neige est tombée puis la pluie la fait fondre (5 mm de pluie et plus) : pas de déneigement, mais une sortie d'abrasif et de nettoyage de bord de rue. ",
   "raisons": [
-    "El Niño fort à très fort, probable jusqu'en mars (NOAA, 8 oct. 2026) : hiver plus doux, tempêtes plus au sud.",
-    "À Saint-Prosper, les El Niño très forts (1982-83, 1997-98, 2015-16) ont donné 8 à 12 tempêtes, 14 à 20 jours de déneigement et 3 à 5 sorties d'abrasif après une fonte.",
+    "El Niño se renforce encore (NOAA, 12 nov. 2026) : Niño-3.4 à +2,5 °C, fort à très fort probable jusqu'en mars (plus de 79 %), environ 60 % de chances d'un épisode historique; affaiblissement attendu au début de 2027. Hiver plus doux, tempêtes plus au sud.",
+    "À Saint-Prosper, les El Niño très forts (1982-83, 1997-98, 2015-16) ont donné 8 à 12 tempêtes, 14 à 20 jours de déneigement, 3 à 5 sorties d'abrasif après une fonte et 6 à 8 jours de verglas probable : l'estimation se rapproche maintenant de ces hivers.",
     "Dix dernières années : un peu moins de neige au total et moins de très grosses tempêtes, nombre de tempêtes stable.",
     "Verglas et pluie : les El Niño forts ont donné en moyenne 3 jours de verglas probable (jusqu'à 8) et 10 à 11 jours de pluie de décembre à mars, contre 2,6 et 8 en temps normal.",
     "Plus de verglas et de redoux possibles : non comptés ici."
@@ -77,7 +77,7 @@
       "url": "https://api.weather.gc.ca/collections/climate-daily"
     },
     {
-      "nom": "NOAA CPC, discussion ENSO",
+      "nom": "NOAA CPC, discussion ENSO du 12 nov. 2026",
       "url": "https://www.cpc.ncep.noaa.gov/products/analysis_monitoring/enso_advisory/ensodisc.shtml"
     },
     {
