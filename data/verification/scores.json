@@ -1,5 +1,5 @@
 {
- "genere": "2026-11-14T20:05:42.236661+00:00",
+ "genere": "2026-11-15T06:03:28.736459+00:00",
  "seuil_cm": 5,
  "methode": "Prévision de la veille comparée à la neige mesurée par Climat Québec (station 7027660). Écart moyen = écart sur le total de chaque épisode de neige (une tempête qui chevauche minuit compte une seule fois). La neige de la station est calculée à partir des précipitations et de la température : les précipitations (mm d’eau) sont la mesure la plus sûre.",
  "historique": [
@@ -71,14 +71,14 @@
   {
    "id": "mm",
    "nom": "MétéoMédia",
-   "jours": 2,
+   "jours": 3,
    "episodes": 0,
    "ecart_moyen_cm": null,
    "biais_cm": null,
    "ecart_jour_cm": null,
    "ecart_precip_mm": null,
-   "total_prevu_cm": 0.0,
-   "total_mesure_cm": 0.0,
+   "total_prevu_cm": 0.5,
+   "total_mesure_cm": 0.8,
    "tempetes": {
     "detectees": 0,
     "manquees": 0,
@@ -86,20 +86,20 @@
    },
    "periode": [
     "2026-11-11",
-    "2026-11-12"
+    "2026-11-13"
    ]
   },
   {
    "id": "hrdps",
    "nom": "HRDPS (canadien 2,5 km)",
-   "jours": 2,
+   "jours": 3,
    "episodes": 0,
    "ecart_moyen_cm": null,
    "biais_cm": null,
    "ecart_jour_cm": null,
    "ecart_precip_mm": null,
    "total_prevu_cm": 0.0,
-   "total_mesure_cm": 0.0,
+   "total_mesure_cm": 0.8,
    "tempetes": {
     "detectees": 0,
     "manquees": 0,
@@ -107,20 +107,20 @@
    },
    "periode": [
     "2026-11-11",
-    "2026-11-12"
+    "2026-11-13"
    ]
   },
   {
    "id": "rdps",
    "nom": "RDPS (canadien 10 km)",
-   "jours": 2,
+   "jours": 3,
    "episodes": 0,
    "ecart_moyen_cm": null,
    "biais_cm": null,
    "ecart_jour_cm": null,
    "ecart_precip_mm": null,
-   "total_prevu_cm": 0.4,
-   "total_mesure_cm": 0.0,
+   "total_prevu_cm": 0.6,
+   "total_mesure_cm": 0.8,
    "tempetes": {
     "detectees": 0,
     "manquees": 0,
@@ -128,20 +128,20 @@
    },
    "periode": [
     "2026-11-11",
-    "2026-11-12"
+    "2026-11-13"
    ]
   },
   {
    "id": "gfs-live",
    "nom": "NOAA GFS (américain)",
-   "jours": 2,
+   "jours": 3,
    "episodes": 0,
    "ecart_moyen_cm": null,
    "biais_cm": null,
    "ecart_jour_cm": null,
    "ecart_precip_mm": null,
    "total_prevu_cm": 0.2,
-   "total_mesure_cm": 0.0,
+   "total_mesure_cm": 0.8,
    "tempetes": {
     "detectees": 0,
     "manquees": 0,
@@ -149,20 +149,20 @@
    },
    "periode": [
     "2026-11-11",
-    "2026-11-12"
+    "2026-11-13"
    ]
   },
   {
    "id": "met",
    "nom": "MET Norway",
-   "jours": 2,
+   "jours": 3,
    "episodes": 0,
    "ecart_moyen_cm": null,
    "biais_cm": null,
    "ecart_jour_cm": null,
    "ecart_precip_mm": null,
    "total_prevu_cm": 0.2,
-   "total_mesure_cm": 0.0,
+   "total_mesure_cm": 0.8,
    "tempetes": {
     "detectees": 0,
     "manquees": 0,
@@ -170,41 +170,41 @@
    },
    "periode": [
     "2026-11-11",
-    "2026-11-12"
+    "2026-11-13"
    ]
   },
   {
    "id": "consensus",
    "nom": "Consensus du plan (médiane)",
-   "jours": 2,
-   "episodes": 0,
-   "ecart_moyen_cm": null,
-   "biais_cm": null,
-   "ecart_jour_cm": null,
-   "ecart_precip_mm": null,
-   "total_prevu_cm": 0.0,
-   "total_mesure_cm": 0.0,
-   "tempetes": {
-    "detectees": 0,
-    "manquees": 0,
-    "fausses_alertes": 0
-   },
-   "periode": [
-    "2026-11-11",
-    "2026-11-12"
-   ]
-  },
-  {
-   "id": "ifs-live",
-   "nom": "ECMWF IFS (européen)",
-   "jours": 1,
+   "jours": 3,
    "episodes": 0,
    "ecart_moyen_cm": null,
    "biais_cm": null,
    "ecart_jour_cm": null,
    "ecart_precip_mm": null,
    "total_prevu_cm": 0.1,
-   "total_mesure_cm": 0.0,
+   "total_mesure_cm": 0.8,
+   "tempetes": {
+    "detectees": 0,
+    "manquees": 0,
+    "fausses_alertes": 0
+   },
+   "periode": [
+    "2026-11-11",
+    "2026-11-13"
+   ]
+  },
+  {
+   "id": "ifs-live",
+   "nom": "ECMWF IFS (européen)",
+   "jours": 2,
+   "episodes": 0,
+   "ecart_moyen_cm": null,
+   "biais_cm": null,
+   "ecart_jour_cm": null,
+   "ecart_precip_mm": null,
+   "total_prevu_cm": 0.2,
+   "total_mesure_cm": 0.8,
    "tempetes": {
     "detectees": 0,
     "manquees": 0,
@@ -212,28 +212,49 @@
    },
    "periode": [
     "2026-11-12",
-    "2026-11-12"
+    "2026-11-13"
    ]
   },
   {
    "id": "aifs-live",
    "nom": "ECMWF AIFS (européen, IA)",
+   "jours": 2,
+   "episodes": 0,
+   "ecart_moyen_cm": null,
+   "biais_cm": null,
+   "ecart_jour_cm": null,
+   "ecart_precip_mm": null,
+   "total_prevu_cm": 0.3,
+   "total_mesure_cm": 0.8,
+   "tempetes": {
+    "detectees": 0,
+    "manquees": 0,
+    "fausses_alertes": 0
+   },
+   "periode": [
+    "2026-11-12",
+    "2026-11-13"
+   ]
+  },
+  {
+   "id": "wu",
+   "nom": "Weather Underground",
    "jours": 1,
    "episodes": 0,
    "ecart_moyen_cm": null,
    "biais_cm": null,
    "ecart_jour_cm": null,
    "ecart_precip_mm": null,
-   "total_prevu_cm": 0.0,
-   "total_mesure_cm": 0.0,
+   "total_prevu_cm": 0.4,
+   "total_mesure_cm": 0.8,
    "tempetes": {
     "detectees": 0,
     "manquees": 0,
     "fausses_alertes": 0
    },
    "periode": [
-    "2026-11-12",
-    "2026-11-12"
+    "2026-11-13",
+    "2026-11-13"
    ]
   }
  ]
