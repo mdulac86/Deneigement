@@ -1,10 +1,10 @@
 {
-  "fetched_at": "2026-11-15T20:00:34.729536+00:00",
+  "fetched_at": "2026-11-15T23:22:26.795219+00:00",
   "host": "poste du bureau",
   "sources": {
     "mm": {
       "status": "ok",
-      "fetched_at": "2026-11-15T20:00:34.729536+00:00",
+      "fetched_at": "2026-11-15T23:22:26.795219+00:00",
       "result": {
         "issued_at": null,
         "days": [
@@ -2038,14 +2038,14 @@
     },
     "wu": {
       "status": "ok",
-      "fetched_at": "2026-11-15T20:00:34.729536+00:00",
+      "fetched_at": "2026-11-15T23:22:26.795219+00:00",
       "result": {
         "issued_at": null,
         "days": [
           {
             "date": "2026-11-16",
             "high": 3.0,
-            "low": -4.0,
+            "low": -3.0,
             "snow_cm": null,
             "rain_mm": 0.0,
             "ice_mm": null,
@@ -2054,7 +2054,7 @@
           },
           {
             "date": "2026-11-17",
-            "high": 6.0,
+            "high": 7.0,
             "low": 3.0,
             "snow_cm": null,
             "rain_mm": 0.0,
@@ -2064,8 +2064,8 @@
           },
           {
             "date": "2026-11-18",
-            "high": 9.0,
-            "low": null,
+            "high": 10.0,
+            "low": 1.0,
             "snow_cm": null,
             "rain_mm": 0.0,
             "ice_mm": null,
@@ -2084,8 +2084,8 @@
           },
           {
             "date": "2026-11-20",
-            "high": 11.0,
-            "low": -1.0,
+            "high": 12.0,
+            "low": null,
             "snow_cm": null,
             "rain_mm": 0.0,
             "ice_mm": null,
@@ -2094,7 +2094,7 @@
           },
           {
             "date": "2026-11-21",
-            "high": 9.0,
+            "high": 10.0,
             "low": 2.0,
             "snow_cm": null,
             "rain_mm": 0.0,
@@ -2104,10 +2104,10 @@
           },
           {
             "date": "2026-11-22",
-            "high": 12.0,
+            "high": 13.0,
             "low": null,
             "snow_cm": null,
-            "rain_mm": 1.32,
+            "rain_mm": 0.8,
             "ice_mm": null,
             "condition": "Partly Cloudy",
             "risk": "Sans risque hivernal identifié"
