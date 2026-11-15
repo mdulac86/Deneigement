@@ -1,35 +1,25 @@
 {
-  "fetched_at": "2026-11-14T20:00:42.504719+00:00",
+  "fetched_at": "2026-11-15T06:00:30.080496+00:00",
   "host": "poste du bureau",
   "sources": {
     "mm": {
       "status": "ok",
-      "fetched_at": "2026-11-14T20:00:42.504719+00:00",
+      "fetched_at": "2026-11-15T06:00:30.080496+00:00",
       "result": {
         "issued_at": null,
         "days": [
-          {
-            "date": "2026-11-14",
-            "high": -1.0,
-            "low": -1.0,
-            "snow_cm": null,
-            "rain_mm": null,
-            "ice_mm": null,
-            "condition": "Averses de neige isolées",
-            "risk": "Neige"
-          },
           {
             "date": "2026-11-15",
             "high": 3.0,
             "low": -2.0,
             "snow_cm": [
               0.0,
-              1.0
+              2.0
             ],
             "rain_mm": null,
             "ice_mm": null,
-            "condition": "Quelques flocons · Nuageux avec éclaircies · Plutôt nuageux · Ciel variable",
-            "risk": "Neige",
+            "condition": "Quelques flocons · Précipitations mixtes · Nuageux avec averses · Passages nuageux",
+            "risk": "Pluie / neige",
             "snow_period": "00-24-local"
           },
           {
@@ -42,7 +32,7 @@
             ],
             "rain_mm": null,
             "ice_mm": null,
-            "condition": "Généralement dégagé · Ciel variable · Ciel variable · Passages nuageux",
+            "condition": "Passages nuageux · Ciel variable · Ciel variable · Passages nuageux",
             "risk": "Sans risque hivernal identifié",
             "snow_period": "00-24-local"
           },
@@ -148,31 +138,18 @@
             "date": "2026-11-24",
             "high": 4.0,
             "low": -1.0,
-            "snow_cm": null,
+            "snow_cm": [
+              0.0,
+              2.0
+            ],
             "rain_mm": null,
             "ice_mm": null,
-            "condition": "Faible neige · Précipitations mixtes · Nuageux avec averses",
-            "risk": "Pluie / neige"
+            "condition": "Faible neige · Précipitations mixtes · Nuageux avec averses · Quelques flocons",
+            "risk": "Pluie / neige",
+            "snow_period": "00-24-local"
           }
         ],
         "periods": [
-          {
-            "date": "2026-11-14",
-            "label": "Soir",
-            "start_h": 18,
-            "text": "Averses de neige isolées",
-            "snow_cm": [
-              0.0,
-              1.0
-            ],
-            "rain_mm": [
-              0.0,
-              0.0
-            ],
-            "temp": -1.0,
-            "pop": "40%",
-            "risk": "Neige"
-          },
           {
             "date": "2026-11-15",
             "label": "Nuit",
@@ -194,41 +171,41 @@
             "date": "2026-11-15",
             "label": "Matin",
             "start_h": 6,
-            "text": "Nuageux avec éclaircies",
+            "text": "Précipitations mixtes",
             "snow_cm": [
               0.0,
-              0.0
+              1.0
             ],
             "rain_mm": [
               0.0,
-              0.0
+              1.0
             ],
             "temp": -1.0,
-            "pop": "30%",
-            "risk": "Sans risque hivernal identifié"
+            "pop": "40%",
+            "risk": "Pluie / neige"
           },
           {
             "date": "2026-11-15",
             "label": "Après-midi",
             "start_h": 12,
-            "text": "Plutôt nuageux",
+            "text": "Nuageux avec averses",
             "snow_cm": [
               0.0,
               0.0
             ],
             "rain_mm": [
               0.0,
-              0.0
+              1.0
             ],
             "temp": 3.0,
-            "pop": "30%",
-            "risk": "Sans risque hivernal identifié"
+            "pop": "40%",
+            "risk": "Pluie"
           },
           {
             "date": "2026-11-15",
             "label": "Soir",
             "start_h": 18,
-            "text": "Ciel variable",
+            "text": "Passages nuageux",
             "snow_cm": [
               0.0,
               0.0
@@ -238,14 +215,14 @@
               0.0
             ],
             "temp": 0.0,
-            "pop": "20%",
+            "pop": "30%",
             "risk": "Sans risque hivernal identifié"
           },
           {
             "date": "2026-11-16",
             "label": "Nuit",
             "start_h": 0,
-            "text": "Généralement dégagé",
+            "text": "Passages nuageux",
             "snow_cm": [
               0.0,
               0.0
@@ -255,7 +232,7 @@
               0.0
             ],
             "temp": -4.0,
-            "pop": "10%",
+            "pop": "20%",
             "risk": "Sans risque hivernal identifié"
           },
           {
@@ -832,39 +809,26 @@
             "temp": 4.0,
             "pop": "60%",
             "risk": "Pluie"
+          },
+          {
+            "date": "2026-11-24",
+            "label": "Soir",
+            "start_h": 18,
+            "text": "Quelques flocons",
+            "snow_cm": [
+              0.0,
+              1.0
+            ],
+            "rain_mm": [
+              0.0,
+              1.0
+            ],
+            "temp": 1.0,
+            "pop": "60%",
+            "risk": "Neige"
           }
         ],
         "hours": [
-          {
-            "time": "2026-11-14T23:00:00Z",
-            "snow_cm": 0.08,
-            "temp": -1.0
-          },
-          {
-            "time": "2026-11-15T00:00:00Z",
-            "snow_cm": 0.08,
-            "temp": -1.0
-          },
-          {
-            "time": "2026-11-15T01:00:00Z",
-            "snow_cm": 0.08,
-            "temp": -1.0
-          },
-          {
-            "time": "2026-11-15T02:00:00Z",
-            "snow_cm": 0.08,
-            "temp": -1.0
-          },
-          {
-            "time": "2026-11-15T03:00:00Z",
-            "snow_cm": 0.08,
-            "temp": -1.0
-          },
-          {
-            "time": "2026-11-15T04:00:00Z",
-            "snow_cm": 0.08,
-            "temp": -1.0
-          },
           {
             "time": "2026-11-15T05:00:00Z",
             "snow_cm": 0.08,
@@ -897,32 +861,32 @@
           },
           {
             "time": "2026-11-15T11:00:00Z",
-            "snow_cm": 0.0,
+            "snow_cm": 0.08,
             "temp": -1.0
           },
           {
             "time": "2026-11-15T12:00:00Z",
-            "snow_cm": 0.0,
+            "snow_cm": 0.08,
             "temp": -1.0
           },
           {
             "time": "2026-11-15T13:00:00Z",
-            "snow_cm": 0.0,
+            "snow_cm": 0.08,
             "temp": -1.0
           },
           {
             "time": "2026-11-15T14:00:00Z",
-            "snow_cm": 0.0,
+            "snow_cm": 0.08,
             "temp": -1.0
           },
           {
             "time": "2026-11-15T15:00:00Z",
-            "snow_cm": 0.0,
+            "snow_cm": 0.08,
             "temp": -1.0
           },
           {
             "time": "2026-11-15T16:00:00Z",
-            "snow_cm": 0.0,
+            "snow_cm": 0.08,
             "temp": -1.0
           },
           {
@@ -2034,6 +1998,36 @@
             "time": "2026-11-24T22:00:00Z",
             "snow_cm": 0.0,
             "temp": 4.0
+          },
+          {
+            "time": "2026-11-24T23:00:00Z",
+            "snow_cm": 0.08,
+            "temp": 1.0
+          },
+          {
+            "time": "2026-11-25T00:00:00Z",
+            "snow_cm": 0.08,
+            "temp": 1.0
+          },
+          {
+            "time": "2026-11-25T01:00:00Z",
+            "snow_cm": 0.08,
+            "temp": 1.0
+          },
+          {
+            "time": "2026-11-25T02:00:00Z",
+            "snow_cm": 0.08,
+            "temp": 1.0
+          },
+          {
+            "time": "2026-11-25T03:00:00Z",
+            "snow_cm": 0.08,
+            "temp": 1.0
+          },
+          {
+            "time": "2026-11-25T04:00:00Z",
+            "snow_cm": 0.08,
+            "temp": 1.0
           }
         ],
         "note": "Tableau de données structurées publié par MétéoMédia (périodes nuit, matin, après-midi, soir). Quantités en fourchette; heure d’émission non publiée. Découpage horaire des périodes supposé 0-6-12-18 h."
@@ -2041,20 +2035,10 @@
     },
     "wu": {
       "status": "ok",
-      "fetched_at": "2026-11-14T20:00:42.504719+00:00",
+      "fetched_at": "2026-11-15T06:00:30.080496+00:00",
       "result": {
         "issued_at": null,
         "days": [
-          {
-            "date": "2026-11-15",
-            "high": 3.0,
-            "low": -3.0,
-            "snow_cm": null,
-            "rain_mm": 0.0,
-            "ice_mm": null,
-            "condition": "Cloudy",
-            "risk": "Sans risque hivernal identifié"
-          },
           {
             "date": "2026-11-16",
             "high": 3.0,
@@ -2072,7 +2056,7 @@
             "snow_cm": null,
             "rain_mm": 0.0,
             "ice_mm": null,
-            "condition": "Mostly Cloudy",
+            "condition": "Cloudy",
             "risk": "Sans risque hivernal identifié"
           },
           {
@@ -2087,7 +2071,7 @@
           },
           {
             "date": "2026-11-19",
-            "high": 11.0,
+            "high": 10.0,
             "low": 4.0,
             "snow_cm": null,
             "rain_mm": 0.0,
@@ -2097,7 +2081,7 @@
           },
           {
             "date": "2026-11-20",
-            "high": 9.0,
+            "high": 10.0,
             "low": null,
             "snow_cm": null,
             "rain_mm": 0.0,
@@ -2107,12 +2091,22 @@
           },
           {
             "date": "2026-11-21",
-            "high": 9.0,
+            "high": 8.0,
             "low": 3.0,
             "snow_cm": null,
             "rain_mm": 0.0,
             "ice_mm": null,
             "condition": "Partly Cloudy",
+            "risk": "Sans risque hivernal identifié"
+          },
+          {
+            "date": "2026-11-22",
+            "high": 11.0,
+            "low": 2.0,
+            "snow_cm": null,
+            "rain_mm": 0.99,
+            "ice_mm": null,
+            "condition": "Mostly Cloudy",
             "risk": "Sans risque hivernal identifié"
           }
         ],
