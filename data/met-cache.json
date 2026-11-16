@@ -1,12 +1,12 @@
 {
-  "fetched_at": "2026-11-16T12:31:54.493958+00:00",
+  "fetched_at": "2026-11-16T16:45:34.537654+00:00",
   "result": {
-    "issued_at": "2026-11-16T11:23:02Z",
+    "issued_at": "2026-11-16T13:18:58Z",
     "days": [
       {
         "date": "2026-11-16",
-        "high": 2.8,
-        "low": -2.2,
+        "high": 3.1,
+        "low": -2.3,
         "snow_cm": null,
         "rain_mm": null,
         "ice_mm": null,
@@ -15,7 +15,7 @@
       },
       {
         "date": "2026-11-17",
-        "high": 5.0,
+        "high": 5.2,
         "low": -2.6,
         "snow_cm": null,
         "rain_mm": null,
@@ -25,8 +25,8 @@
       },
       {
         "date": "2026-11-18",
-        "high": 7.5,
-        "low": 2.7,
+        "high": 7.4,
+        "low": 2.4,
         "snow_cm": null,
         "rain_mm": null,
         "ice_mm": null,
@@ -106,127 +106,99 @@
     ],
     "hourly": [
       {
-        "time": "2026-11-16T12:00:00Z",
-        "temp": -1.1,
-        "condition": "cloudy",
-        "wind": 12,
-        "precip_mm": 0.0
-      },
-      {
-        "time": "2026-11-16T13:00:00Z",
-        "temp": 0.1,
-        "condition": "cloudy",
-        "wind": 13,
-        "precip_mm": 0.0
-      },
-      {
-        "time": "2026-11-16T14:00:00Z",
-        "temp": 0.9,
-        "condition": "cloudy",
-        "wind": 16,
-        "precip_mm": 0.0
-      },
-      {
-        "time": "2026-11-16T15:00:00Z",
-        "temp": 1.6,
-        "condition": "cloudy",
-        "wind": 15,
-        "precip_mm": 0.0
-      },
-      {
         "time": "2026-11-16T16:00:00Z",
-        "temp": 2.2,
+        "temp": 1.8,
         "condition": "cloudy",
         "wind": 15,
         "precip_mm": 0.0
       },
       {
         "time": "2026-11-16T17:00:00Z",
-        "temp": 2.5,
+        "temp": 2.6,
         "condition": "cloudy",
         "wind": 15,
         "precip_mm": 0.0
       },
       {
         "time": "2026-11-16T18:00:00Z",
-        "temp": 2.8,
-        "condition": "cloudy",
+        "temp": 2.9,
+        "condition": "partlycloudy_day",
         "wind": 16,
         "precip_mm": 0.0
       },
       {
         "time": "2026-11-16T19:00:00Z",
-        "temp": 2.6,
-        "condition": "cloudy",
+        "temp": 3.1,
+        "condition": "partlycloudy_day",
         "wind": 16,
         "precip_mm": 0.0
       },
       {
         "time": "2026-11-16T20:00:00Z",
-        "temp": 2.4,
-        "condition": "cloudy",
-        "wind": 16,
+        "temp": 2.5,
+        "condition": "partlycloudy_day",
+        "wind": 15,
         "precip_mm": 0.0
       },
       {
         "time": "2026-11-16T21:00:00Z",
-        "temp": 1.6,
-        "condition": "cloudy",
-        "wind": 14,
+        "temp": 0.9,
+        "condition": "partlycloudy_night",
+        "wind": 13,
         "precip_mm": 0.0
       },
       {
         "time": "2026-11-16T22:00:00Z",
-        "temp": 0.7,
-        "condition": "partlycloudy_night",
-        "wind": 14,
+        "temp": -0.6,
+        "condition": "fair_night",
+        "wind": 13,
         "precip_mm": 0.0
       },
       {
         "time": "2026-11-16T23:00:00Z",
-        "temp": -0.5,
+        "temp": -1.6,
         "condition": "fair_night",
-        "wind": 14,
+        "wind": 13,
         "precip_mm": 0.0
       },
       {
         "time": "2026-11-17T00:00:00Z",
-        "temp": -1.5,
-        "condition": "clearsky_night",
-        "wind": 13,
-        "precip_mm": 0.0
-      },
-      {
-        "time": "2026-11-17T01:00:00Z",
-        "temp": -1.7,
-        "condition": "clearsky_night",
-        "wind": 13,
-        "precip_mm": 0.0
-      },
-      {
-        "time": "2026-11-17T02:00:00Z",
-        "temp": -1.9,
+        "temp": -1.8,
         "condition": "clearsky_night",
         "wind": 14,
         "precip_mm": 0.0
       },
       {
-        "time": "2026-11-17T03:00:00Z",
+        "time": "2026-11-17T01:00:00Z",
         "temp": -2.1,
         "condition": "clearsky_night",
         "wind": 13,
         "precip_mm": 0.0
       },
       {
-        "time": "2026-11-17T04:00:00Z",
+        "time": "2026-11-17T02:00:00Z",
         "temp": -2.2,
         "condition": "clearsky_night",
-        "wind": 14,
+        "wind": 13,
+        "precip_mm": 0.0
+      },
+      {
+        "time": "2026-11-17T03:00:00Z",
+        "temp": -2.3,
+        "condition": "clearsky_night",
+        "wind": 13,
+        "precip_mm": 0.0
+      },
+      {
+        "time": "2026-11-17T04:00:00Z",
+        "temp": -2.3,
+        "condition": "clearsky_night",
+        "wind": 13,
         "precip_mm": 0.0
       },
       {
         "time": "2026-11-17T05:00:00Z",
-        "temp": -2.3,
+        "temp": -2.4,
         "condition": "clearsky_night",
         "wind": 13,
         "precip_mm": 0.0
@@ -268,140 +240,140 @@
       },
       {
         "time": "2026-11-17T11:00:00Z",
-        "temp": -2.3,
+        "temp": -2.2,
         "condition": "fair_night",
         "wind": 14,
         "precip_mm": 0.0
       },
       {
         "time": "2026-11-17T12:00:00Z",
-        "temp": -2.0,
+        "temp": -1.8,
         "condition": "partlycloudy_day",
         "wind": 15,
         "precip_mm": 0.0
       },
       {
         "time": "2026-11-17T13:00:00Z",
-        "temp": -0.5,
-        "condition": "cloudy",
+        "temp": -0.4,
+        "condition": "partlycloudy_day",
         "wind": 15,
         "precip_mm": 0.0
       },
       {
         "time": "2026-11-17T14:00:00Z",
-        "temp": 1.2,
+        "temp": 1.1,
         "condition": "cloudy",
         "wind": 18,
         "precip_mm": 0.0
       },
       {
         "time": "2026-11-17T15:00:00Z",
-        "temp": 2.1,
+        "temp": 2.3,
         "condition": "cloudy",
         "wind": 20,
         "precip_mm": 0.0
       },
       {
         "time": "2026-11-17T16:00:00Z",
-        "temp": 3.1,
+        "temp": 3.0,
         "condition": "cloudy",
         "wind": 21,
         "precip_mm": 0.0
       },
       {
         "time": "2026-11-17T17:00:00Z",
-        "temp": 4.4,
+        "temp": 4.1,
         "condition": "cloudy",
         "wind": 22,
         "precip_mm": 0.0
       },
       {
         "time": "2026-11-17T18:00:00Z",
-        "temp": 4.5,
+        "temp": 4.7,
         "condition": "cloudy",
-        "wind": 21,
+        "wind": 22,
         "precip_mm": 0.0
       },
       {
         "time": "2026-11-17T19:00:00Z",
-        "temp": 5.0,
+        "temp": 5.2,
         "condition": "cloudy",
         "wind": 22,
         "precip_mm": 0.0
       },
       {
         "time": "2026-11-17T20:00:00Z",
-        "temp": 5.0,
-        "condition": "partlycloudy_day",
+        "temp": 4.9,
+        "condition": "fair_day",
         "wind": 18,
         "precip_mm": 0.0
       },
       {
         "time": "2026-11-17T21:00:00Z",
-        "temp": 3.8,
-        "condition": "cloudy",
+        "temp": 3.5,
+        "condition": "fair_night",
         "wind": 17,
         "precip_mm": 0.0
       },
       {
         "time": "2026-11-17T22:00:00Z",
-        "temp": 4.0,
+        "temp": 2.6,
         "condition": "cloudy",
-        "wind": 17,
+        "wind": 16,
         "precip_mm": 0.0
       },
       {
         "time": "2026-11-17T23:00:00Z",
-        "temp": 3.9,
+        "temp": 3.0,
         "condition": "cloudy",
         "wind": 17,
         "precip_mm": 0.0
       },
       {
         "time": "2026-11-18T00:00:00Z",
-        "temp": 3.9,
-        "condition": "cloudy",
-        "wind": 18,
-        "precip_mm": 0.0
-      },
-      {
-        "time": "2026-11-18T01:00:00Z",
-        "temp": 3.9,
+        "temp": 3.6,
         "condition": "cloudy",
         "wind": 17,
         "precip_mm": 0.0
       },
       {
-        "time": "2026-11-18T02:00:00Z",
-        "temp": 4.1,
+        "time": "2026-11-18T01:00:00Z",
+        "temp": 3.6,
         "condition": "cloudy",
         "wind": 16,
         "precip_mm": 0.0
       },
       {
+        "time": "2026-11-18T02:00:00Z",
+        "temp": 3.7,
+        "condition": "cloudy",
+        "wind": 15,
+        "precip_mm": 0.0
+      },
+      {
         "time": "2026-11-18T03:00:00Z",
-        "temp": 4.1,
+        "temp": 3.8,
         "condition": "cloudy",
         "wind": 15,
         "precip_mm": 0.0
       },
       {
         "time": "2026-11-18T04:00:00Z",
-        "temp": 4.2,
+        "temp": 4.1,
         "condition": "cloudy",
         "wind": 15,
         "precip_mm": 0.0
       },
       {
         "time": "2026-11-18T05:00:00Z",
-        "temp": 4.1,
+        "temp": 4.2,
         "condition": "cloudy",
         "wind": 17,
         "precip_mm": 0.0
       },
       {
         "time": "2026-11-18T06:00:00Z",
-        "temp": 3.8,
+        "temp": 4.0,
         "condition": "cloudy",
         "wind": 17,
         "precip_mm": 0.0
@@ -416,83 +388,83 @@
       {
         "time": "2026-11-18T08:00:00Z",
         "temp": 2.8,
-        "condition": "cloudy",
-        "wind": 17,
+        "condition": "partlycloudy_night",
+        "wind": 18,
         "precip_mm": 0.0
       },
       {
         "time": "2026-11-18T09:00:00Z",
-        "temp": 2.7,
+        "temp": 2.4,
         "condition": "cloudy",
         "wind": 17,
         "precip_mm": 0.0
       },
       {
         "time": "2026-11-18T10:00:00Z",
-        "temp": 2.8,
+        "temp": 2.5,
         "condition": "cloudy",
         "wind": 17,
         "precip_mm": 0.0
       },
       {
         "time": "2026-11-18T11:00:00Z",
-        "temp": 3.3,
+        "temp": 3.0,
         "condition": "cloudy",
         "wind": 17,
         "precip_mm": 0.0
       },
       {
         "time": "2026-11-18T12:00:00Z",
-        "temp": 3.3,
+        "temp": 3.1,
         "condition": "cloudy",
         "wind": 16,
         "precip_mm": 0.0
       },
       {
         "time": "2026-11-18T13:00:00Z",
-        "temp": 3.7,
+        "temp": 3.5,
         "condition": "cloudy",
         "wind": 16,
         "precip_mm": 0.0
       },
       {
         "time": "2026-11-18T14:00:00Z",
-        "temp": 4.4,
+        "temp": 4.3,
         "condition": "cloudy",
         "wind": 16,
         "precip_mm": 0.0
       },
       {
         "time": "2026-11-18T15:00:00Z",
-        "temp": 5.3,
+        "temp": 5.0,
+        "condition": "cloudy",
+        "wind": 17,
+        "precip_mm": 0.0
+      },
+      {
+        "time": "2026-11-18T16:00:00Z",
+        "temp": 5.6,
+        "condition": "cloudy",
+        "wind": 18,
+        "precip_mm": 0.0
+      },
+      {
+        "time": "2026-11-18T17:00:00Z",
+        "temp": 6.0,
         "condition": "cloudy",
         "wind": 19,
         "precip_mm": 0.0
       },
       {
-        "time": "2026-11-18T16:00:00Z",
-        "temp": 6.0,
-        "condition": "cloudy",
-        "wind": 20,
-        "precip_mm": 0.0
-      },
-      {
-        "time": "2026-11-18T17:00:00Z",
-        "temp": 6.3,
-        "condition": "cloudy",
-        "wind": 20,
-        "precip_mm": 0.0
-      },
-      {
         "time": "2026-11-18T18:00:00Z",
-        "temp": 6.9,
+        "temp": 6.8,
         "condition": "cloudy",
-        "wind": 22,
+        "wind": 21,
         "precip_mm": 0.0
       },
       {
         "time": "2026-11-18T19:00:00Z",
-        "temp": 7.5,
+        "temp": 7.4,
         "condition": "cloudy",
         "wind": 21,
         "precip_mm": 0.0
@@ -506,7 +478,7 @@
       },
       {
         "time": "2026-11-18T21:00:00Z",
-        "temp": 6.8,
+        "temp": 6.7,
         "condition": "cloudy",
         "wind": 15,
         "precip_mm": 0.0
@@ -520,23 +492,58 @@
       },
       {
         "time": "2026-11-18T23:00:00Z",
-        "temp": 6.3,
+        "temp": 6.2,
+        "condition": "cloudy",
+        "wind": 15,
+        "precip_mm": 0.0
+      },
+      {
+        "time": "2026-11-19T00:00:00Z",
+        "temp": 6.1,
+        "condition": "cloudy",
+        "wind": 15,
+        "precip_mm": 0.0
+      },
+      {
+        "time": "2026-11-19T01:00:00Z",
+        "temp": 6.1,
         "condition": "cloudy",
         "wind": 14,
         "precip_mm": 0.0
       },
       {
-        "time": "2026-11-19T00:00:00Z",
-        "temp": 6.2,
+        "time": "2026-11-19T02:00:00Z",
+        "temp": 5.9,
         "condition": "cloudy",
-        "wind": 14,
-        "precip_mm": 0.1
+        "wind": 12,
+        "precip_mm": 0.0
+      },
+      {
+        "time": "2026-11-19T03:00:00Z",
+        "temp": 5.7,
+        "condition": "cloudy",
+        "wind": 12,
+        "precip_mm": 0.0
+      },
+      {
+        "time": "2026-11-19T04:00:00Z",
+        "temp": 5.4,
+        "condition": "cloudy",
+        "wind": 12,
+        "precip_mm": 0.0
+      },
+      {
+        "time": "2026-11-19T05:00:00Z",
+        "temp": 4.7,
+        "condition": "partlycloudy_night",
+        "wind": 13,
+        "precip_mm": 0.0
       },
       {
         "time": "2026-11-19T06:00:00Z",
-        "temp": 5.2,
+        "temp": 3.8,
         "condition": "cloudy",
-        "wind": 9,
+        "wind": 12,
         "precip_mm": 0.0
       },
       {
