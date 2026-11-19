@@ -1,18 +1,8 @@
 {
-  "fetched_at": "2026-11-19T02:01:04.121061+00:00",
+  "fetched_at": "2026-11-19T06:01:02.125876+00:00",
   "result": {
-    "issued_at": "2026-11-19T01:17:07Z",
+    "issued_at": "2026-11-19T05:20:59Z",
     "days": [
-      {
-        "date": "2026-11-18",
-        "high": 4.5,
-        "low": 3.7,
-        "snow_cm": null,
-        "rain_mm": null,
-        "ice_mm": null,
-        "condition": "Sans risque hivernal identifié",
-        "risk": "Sans risque hivernal identifié"
-      },
       {
         "date": "2026-11-19",
         "high": 9.5,
@@ -115,34 +105,6 @@
       }
     ],
     "hourly": [
-      {
-        "time": "2026-11-19T02:00:00Z",
-        "temp": 4.5,
-        "condition": "clearsky_night",
-        "wind": 16,
-        "precip_mm": 0.0
-      },
-      {
-        "time": "2026-11-19T03:00:00Z",
-        "temp": 4.1,
-        "condition": "partlycloudy_night",
-        "wind": 15,
-        "precip_mm": 0.0
-      },
-      {
-        "time": "2026-11-19T04:00:00Z",
-        "temp": 3.7,
-        "condition": "partlycloudy_night",
-        "wind": 14,
-        "precip_mm": 0.0
-      },
-      {
-        "time": "2026-11-19T05:00:00Z",
-        "temp": 3.2,
-        "condition": "fair_night",
-        "wind": 13,
-        "precip_mm": 0.0
-      },
       {
         "time": "2026-11-19T06:00:00Z",
         "temp": 2.5,

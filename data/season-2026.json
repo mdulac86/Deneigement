@@ -475,20 +475,30 @@
     },
     {
       "date": "2026-11-17",
+      "snow_cm": 0.0,
+      "snow_flag": "",
+      "rain_mm": 0.0,
+      "depth_cm": null,
+      "tmax": 5.4,
+      "tmin": -2.4,
+      "source": "Climat Québec · 7027660"
+    },
+    {
+      "date": "2026-11-18",
       "snow_cm": null,
       "snow_flag": "I",
       "rain_mm": 0.0,
       "depth_cm": null,
-      "tmax": 4.8,
-      "tmin": -2.4,
+      "tmax": 10.7,
+      "tmin": 3.6,
       "source": "Climat Québec · 7027660"
     }
   ],
   "total_cm": 0.8,
-  "last_date": "2026-11-16",
+  "last_date": "2026-11-17",
   "missing_days": 1,
-  "checked_on": "2026-11-18",
+  "checked_on": "2026-11-19",
   "errors": [],
-  "url": "https://www.environnement.gouv.qc.ca/climat/donnees/sommaire.asp?cle=7027660&date_selection=2026-11-18",
+  "url": "https://www.environnement.gouv.qc.ca/climat/donnees/sommaire.asp?cle=7027660&date_selection=2026-11-19",
   "note": "Station automatique 7027660. La source répartit les précipitations en pluie/neige à titre indicatif selon la température horaire. Cumul des valeurs publiées, avec délai; ce n’est pas une mesure de votre cour ni la neige restant au sol."
 }
