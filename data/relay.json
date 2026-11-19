@@ -1,17 +1,17 @@
 {
-  "fetched_at": "2026-11-19T02:00:33.908018+00:00",
+  "fetched_at": "2026-11-19T06:00:35.325885+00:00",
   "host": "poste du bureau",
   "sources": {
     "mm": {
       "status": "ok",
-      "fetched_at": "2026-11-19T02:00:33.908018+00:00",
+      "fetched_at": "2026-11-19T06:00:35.325885+00:00",
       "result": {
         "issued_at": null,
         "days": [
           {
             "date": "2026-11-19",
             "high": 10.0,
-            "low": 1.0,
+            "low": 2.0,
             "snow_cm": [
               0.0,
               0.0
@@ -163,7 +163,7 @@
               0.0,
               0.0
             ],
-            "temp": 1.0,
+            "temp": 2.0,
             "pop": "20%",
             "risk": "Sans risque hivernal identifié"
           },
@@ -820,32 +820,32 @@
           {
             "time": "2026-11-19T05:00:00Z",
             "snow_cm": 0.0,
-            "temp": 1.0
+            "temp": 2.0
           },
           {
             "time": "2026-11-19T06:00:00Z",
             "snow_cm": 0.0,
-            "temp": 1.0
+            "temp": 2.0
           },
           {
             "time": "2026-11-19T07:00:00Z",
             "snow_cm": 0.0,
-            "temp": 1.0
+            "temp": 2.0
           },
           {
             "time": "2026-11-19T08:00:00Z",
             "snow_cm": 0.0,
-            "temp": 1.0
+            "temp": 2.0
           },
           {
             "time": "2026-11-19T09:00:00Z",
             "snow_cm": 0.0,
-            "temp": 1.0
+            "temp": 2.0
           },
           {
             "time": "2026-11-19T10:00:00Z",
             "snow_cm": 0.0,
-            "temp": 1.0
+            "temp": 2.0
           },
           {
             "time": "2026-11-19T11:00:00Z",
@@ -2023,20 +2023,10 @@
     },
     "wu": {
       "status": "ok",
-      "fetched_at": "2026-11-19T02:00:33.908018+00:00",
+      "fetched_at": "2026-11-19T06:00:35.325885+00:00",
       "result": {
         "issued_at": null,
         "days": [
-          {
-            "date": "2026-11-19",
-            "high": 12.0,
-            "low": 4.0,
-            "snow_cm": null,
-            "rain_mm": 0.0,
-            "ice_mm": null,
-            "condition": "Partly Cloudy",
-            "risk": "Sans risque hivernal identifié"
-          },
           {
             "date": "2026-11-20",
             "high": 11.0,
@@ -2049,7 +2039,7 @@
           },
           {
             "date": "2026-11-21",
-            "high": 12.0,
+            "high": 11.0,
             "low": 1.0,
             "snow_cm": null,
             "rain_mm": 0.0,
@@ -2062,7 +2052,7 @@
             "high": 14.0,
             "low": 6.0,
             "snow_cm": null,
-            "rain_mm": 1.4,
+            "rain_mm": 1.0,
             "ice_mm": null,
             "condition": "Partly Cloudy",
             "risk": "Sans risque hivernal identifié"
@@ -2072,10 +2062,10 @@
             "high": 9.0,
             "low": -5.0,
             "snow_cm": null,
-            "rain_mm": 4.53,
+            "rain_mm": 7.2,
             "ice_mm": null,
-            "condition": "Showers",
-            "risk": "Sans risque hivernal identifié"
+            "condition": "Rain",
+            "risk": "Pluie"
           },
           {
             "date": "2026-11-24",
@@ -2089,13 +2079,27 @@
           },
           {
             "date": "2026-11-25",
-            "high": null,
-            "low": -8.0,
+            "high": -1.0,
+            "low": -9.0,
             "snow_cm": null,
             "rain_mm": 0.0,
             "ice_mm": null,
             "condition": "Mostly Sunny",
             "risk": "Sans risque hivernal identifié"
+          },
+          {
+            "date": "2026-11-26",
+            "high": -1.0,
+            "low": -5.0,
+            "snow_cm": [
+              1.8,
+              1.8
+            ],
+            "rain_mm": null,
+            "ice_mm": null,
+            "condition": "Partly Cloudy",
+            "risk": "Sans risque hivernal identifié",
+            "snow_period": "jour-nuit-wu"
           }
         ],
         "note": "Prévisions demandées à 46,21 N / 70,49 O. Heure d’émission non fournie. cm de neige affichés en unités métriques, sur la fenêtre jour-nuit du fournisseur (non comptés dans la moyenne 00-24 h)."
