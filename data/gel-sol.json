@@ -1,0 +1,159 @@
+{
+  "status": "ok",
+  "station": "Saint-Georges",
+  "km": 14,
+  "date": "2026-11-18",
+  "gel_m": 0.0,
+  "degel_m": 0.0,
+  "saison": [
+    {
+      "date": "2026-11-01",
+      "gel_m": 0.0,
+      "degel_m": 0.0
+    },
+    {
+      "date": "2026-11-02",
+      "gel_m": 0.0,
+      "degel_m": 0.0
+    },
+    {
+      "date": "2026-11-03",
+      "gel_m": 0.0,
+      "degel_m": 0.0
+    },
+    {
+      "date": "2026-11-04",
+      "gel_m": 0.0,
+      "degel_m": 0.0
+    },
+    {
+      "date": "2026-11-05",
+      "gel_m": 0.0,
+      "degel_m": 0.0
+    },
+    {
+      "date": "2026-11-06",
+      "gel_m": 0.0,
+      "degel_m": 0.0
+    },
+    {
+      "date": "2026-11-07",
+      "gel_m": 0.0,
+      "degel_m": 0.0
+    },
+    {
+      "date": "2026-11-08",
+      "gel_m": 0.0,
+      "degel_m": 0.0
+    },
+    {
+      "date": "2026-11-09",
+      "gel_m": 0.0,
+      "degel_m": 0.0
+    },
+    {
+      "date": "2026-11-10",
+      "gel_m": 0.0,
+      "degel_m": 0.0
+    },
+    {
+      "date": "2026-11-11",
+      "gel_m": 0.0,
+      "degel_m": 0.0
+    },
+    {
+      "date": "2026-11-12",
+      "gel_m": 0.0,
+      "degel_m": 0.0
+    },
+    {
+      "date": "2026-11-13",
+      "gel_m": 0.0,
+      "degel_m": 0.0
+    },
+    {
+      "date": "2026-11-14",
+      "gel_m": 0.0,
+      "degel_m": 0.0
+    },
+    {
+      "date": "2026-11-15",
+      "gel_m": 0.0,
+      "degel_m": 0.0
+    },
+    {
+      "date": "2026-11-16",
+      "gel_m": 0.0,
+      "degel_m": 0.0
+    },
+    {
+      "date": "2026-11-17",
+      "gel_m": 0.0,
+      "degel_m": 0.0
+    },
+    {
+      "date": "2026-11-18",
+      "gel_m": 0.0,
+      "degel_m": 0.0
+    }
+  ],
+  "hiver_passe_max_m": 1.82,
+  "normale_m": 0.0,
+  "max_moyen_m": 1.56,
+  "hivers": 11,
+  "projection": [
+    {
+      "date": "2026-11-20",
+      "gel_m": 0.0,
+      "degel_haut": false
+    },
+    {
+      "date": "2026-11-21",
+      "gel_m": 0.0,
+      "degel_haut": false
+    },
+    {
+      "date": "2026-11-22",
+      "gel_m": 0.0,
+      "degel_haut": false
+    },
+    {
+      "date": "2026-11-23",
+      "gel_m": 0.0,
+      "degel_haut": false
+    },
+    {
+      "date": "2026-11-24",
+      "gel_m": 0.11,
+      "degel_haut": false
+    },
+    {
+      "date": "2026-11-25",
+      "gel_m": 0.16,
+      "degel_haut": false
+    },
+    {
+      "date": "2026-11-26",
+      "gel_m": 0.18,
+      "degel_haut": false
+    },
+    {
+      "date": "2026-11-27",
+      "gel_m": 0.18,
+      "degel_haut": false
+    },
+    {
+      "date": "2026-11-28",
+      "gel_m": 0.2,
+      "degel_haut": false
+    },
+    {
+      "date": "2026-11-29",
+      "gel_m": 0.21,
+      "degel_haut": false
+    }
+  ],
+  "source": "https://www.donneesquebec.ca/recherche/fr/dataset/station-meteoroutiere",
+  "note": "Profondeur de gel sous la chaussée déneigée (sonde du MTQ, ≈ 2 jours de décalage). Sous un terrain enneigé, le gel est en général moins profond.",
+  "fetched": "2026-11-20"
+}
