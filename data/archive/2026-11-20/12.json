@@ -1,11 +1,11 @@
 {
-  "updated_at": "2026-11-20T12:16:59.967960+00:00",
+  "updated_at": "2026-11-20T12:26:11.116044+00:00",
   "sources": [
     {
       "id": "eccc",
       "status": "ok",
       "issued_at": "2026-11-20T10:00:00Z",
-      "fetched_at": "2026-11-20T12:16:59.967960+00:00",
+      "fetched_at": "2026-11-20T12:26:11.116044+00:00",
       "days": [
         {
           "date": "2026-11-20",
@@ -189,7 +189,7 @@
       "id": "met",
       "status": "ok",
       "issued_at": "2026-11-20T11:20:30Z",
-      "fetched_at": "2026-11-20T12:16:59.967960+00:00",
+      "fetched_at": "2026-11-20T12:26:11.116044+00:00",
       "days": [
         {
           "date": "2026-11-20",
@@ -383,7 +383,7 @@
       "id": "mb",
       "status": "ok",
       "issued_at": null,
-      "fetched_at": "2026-11-20T12:16:59.967960+00:00",
+      "fetched_at": "2026-11-20T12:26:11.116044+00:00",
       "days": [
         {
           "date": "2026-11-20",
@@ -2435,40 +2435,8 @@
   ],
   "changes": [
     {
-      "text": "Environnement Canada · 2026-11-22 : Sans risque hivernal identifié → Pluie.",
-      "important": true
-    },
-    {
-      "text": "Weather Underground · 2026-11-26 : Neige → Sans risque hivernal identifié.",
-      "important": true
-    },
-    {
-      "text": "Weather Underground · 2026-11-26 : neige [5.0, 5.0] → [3.6, 3.6] cm (prévision tombée).",
-      "important": true
-    },
-    {
-      "text": "Weather Underground · 2026-11-27 : Sans risque hivernal identifié → Neige.",
-      "important": true
-    },
-    {
-      "text": "MétéoMédia · 2026-11-27 : Sans risque hivernal identifié → Neige.",
-      "important": true
-    },
-    {
-      "text": "MétéoMédia · 2026-11-27 : neige [0.0, 0.0] → [4.0, 11.0] cm (prévision tombée).",
-      "important": true
-    },
-    {
-      "text": "MétéoMédia · 2026-11-28 : Neige → Sans risque hivernal identifié.",
-      "important": true
-    },
-    {
-      "text": "MétéoMédia · 2026-11-29 : Neige → Sans risque hivernal identifié.",
-      "important": true
-    },
-    {
-      "text": "MétéoMédia · 2026-11-29 : neige [0.0, 2.0] → [0.0, 0.0] cm (prévision tombée).",
-      "important": true
+      "text": "Aucun changement important dans les données comparables depuis la dernière collecte.",
+      "important": false
     }
   ],
   "plan": [],
