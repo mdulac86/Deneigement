@@ -605,6 +605,12 @@ def main():
     except Exception as e:
         print('vent :',e)
     try:
+        pluie=snowdepth.daily_precip(result['snow_depth'].get('stations',[]),TZ,read(DATA/'pluie-obs.json',{}))
+        write(DATA/'pluie-obs.json',pluie)
+        result['pluie_obs']=pluie
+    except Exception as e:
+        print('pluie observée :',e)
+    try:
         result.update(forecast_plan(sources, result['consensus']))
     except Exception as e:  # Le plan ne doit jamais bloquer la collecte principale.
         result.update({'models': [], 'hourly_snow': [], 'plan': [], 'plan_error': str(e)[:200]})

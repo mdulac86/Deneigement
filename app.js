@@ -43,7 +43,8 @@ function render(){
   const title=hasOfficial?'Une alerte officielle vise le secteur.':ice?'Verglas ou grésil à surveiller.':mixed?'Épisode de pluie et neige à surveiller.':threshold?'Le seuil de 5 cm est dans la fourchette.':snow?'De la neige figure aux prévisions.':'Pas de risque hivernal identifié dans les sources disponibles.';
   const label=hasOfficial?'ALERTE OFFICIELLE':ice||mixed||snow||threshold?'VIGILANCE · PROCHAINES 72 H':'ÉTAT DES PRÉVISIONS';
   $('status').className='signal '+(hasOfficial?'alert':ice||mixed||snow||threshold?'watch':'calm');$('status').innerHTML='<div><span class="tag '+(hasOfficial?'':ice||mixed||snow||threshold?'amber':'green')+'">'+label+'</span><h2>'+title+'</h2><p>Seuil opérationnel : 5 cm de nouvelle neige au sol. '+(threshold?'Les cm annoncés concernent la neige tombée; le seuil réel au sol reste à vérifier.':'Les quantités comparables ne permettent pas de confirmer l’atteinte des 5 cm au sol.')+'</p></div>';
-  try{const sm=summary72();$('status').insertAdjacentHTML('beforeend',sm.html);$('copy72').onclick=async e=>{try{await navigator.clipboard.writeText(sm.text);e.target.textContent='Copié ✓'}catch{if(navigator.share)navigator.share({text:sm.text})}}}catch(err){console.warn('résumé 72 h',err)}
+  let ch=null;try{ch=chantiers()}catch(err){console.warn('chantiers',err)}
+  try{const sm=summary72();if(ch)sm.text+='\nPaver : '+ch.pave+'\nExcavation : '+ch.exc+(ch.sap?'\nCoulée d’érable : '+ch.sap:'');$('status').insertAdjacentHTML('beforeend',sm.html);$('copy72').onclick=async e=>{try{await navigator.clipboard.writeText(sm.text);e.target.textContent='Copié ✓'}catch{if(navigator.share)navigator.share({text:sm.text})}}}catch(err){console.warn('résumé 72 h',err)}
   $('days').innerHTML=state.consensus.map((d,i)=>'<button class="day '+(selected===i?'active':'')+(d.tendance?' trend':'')+'" data-day="'+i+'" aria-pressed="'+(selected===i)+'"><span class="date">'+esc(dayLabel(d.date))+'</span><span class="symbol">'+symbol(d.risks)+'</span><strong>'+n(d.high_mean)+'° <span class="muted">/ '+n(d.low_mean)+'°</span></strong><small>'+(d.tendance?'Tendance · modèles':d.sources.length+' sources · '+esc(d.confidence))+'</small>'+(d.pop?'<small class="pop'+(d.pop.value>=60?' hi':'')+'" title="Probabilité de précipitations · '+esc(d.pop.sources.join(', '))+'">💧 '+d.pop.value+' %</small>':'')+'<small>Neige : '+(d.snow.mean_cm!=null?n(d.snow.mean_cm)+' cm':d.model_snow?'≈ '+n(d.model_snow.median_cm)+' cm':'non chiffrable')+'</small>'+(d.ensemble?'<small class="'+(d.ensemble.prob_5cm>=30?'ens-high':'')+'">5 cm+ : '+d.ensemble.prob_5cm+' % (ensemble)</small>':'')+((d.risks||[]).some(r=>/Poudrerie|Glace \(vent\)/.test(r))?'<small class="ens-high">💨 '+((d.risks||[]).includes('Poudrerie')?'Poudrerie':'Glace (vent)')+' · '+n(d.rafales_kmh)+' km/h</small>':d.rafales_kmh>=40?'<small>💨 Rafales '+n(d.rafales_kmh)+' km/h</small>':'')+'</button>').join('');
   document.querySelectorAll('[data-day]').forEach(b=>b.addEventListener('click',()=>{selected=Number(b.dataset.day);render()}));
   renderPlan();renderDepth();renderComparison();renderOfficial();renderWinter();renderSources();renderReliability();
@@ -101,6 +102,52 @@ function summary72(){
  const rows=days.map(d=>{const k=d.date,mm=med(dayRain[k]||[]);return '<li><span>'+esc(dayLabel(d.date))+'</span><span class="ico">'+symbol(d.risks)+'</span><b>'+n(Math.round(d.high_mean))+'° / '+n(Math.round(d.low_mean))+'°</b><span>'+(mm!=null?n(Math.round(mm*10)/10)+' mm':'—')+(d.pop?' @ '+d.pop.value+' %':'')+'</span></li>'}).join('');
  const text='Prochaines 72 h (Saint-Prosper)\n'+lines.map(([a,b])=>a.replace(/^\S+ /,'')+' : '+b).join('\n')+'\n'+days.map(d=>dayLabel(d.date)+' : '+n(d.high_mean)+'° / '+n(d.low_mean)+'°'+(d.pop?', '+d.pop.value+' %':'')).join('\n');
  return {html:'<div class="sum72"><div class="sum72-head"><b>Prochaines 72 h</b><button type="button" class="ghost" id="copy72">Copier</button></div><dl>'+lines.map(([a,b])=>'<div><dt>'+a+'</dt><dd>'+b+'</dd></div>').join('')+'</dl><ul>'+rows+'</ul><small class="muted">Médiane de '+runs.length+' modèles (fourchette entre parenthèses) · probabilité : la plus haute des sources.</small></div>',text};
+}
+function chantiers(){
+ // Planification des chantiers (excavation et pavage) : pluie prévue jour par jour (médiane des modèles),
+ // heures sèches de jour, et état du sol d'après la pluie des jours précédents (indice qui s'assèche de 15 % par jour).
+ const P=$('chantier-panel');if(!P)return;
+ const tz='America/Toronto',key=t=>new Intl.DateTimeFormat('en-CA',{timeZone:tz}).format(t),hourOf=t=>+new Intl.DateTimeFormat('en-CA',{timeZone:tz,hour:'numeric',hourCycle:'h23'}).format(t);
+ const today=key(Date.now()),ok=(state.models||[]).filter(m=>m.status==='ok'&&(m.hours||[]).some(h=>h.precip_mm!=null));
+ const dayModel={},hourVals={};
+ for(const m of ok){const per={};for(const h of m.hours){const t=Date.parse(h.time),k=key(t);if(k<today)continue;const e=per[k]=per[k]||{mm:0,n:0};e.mm+=h.precip_mm||0;e.n++;(hourVals[h.time]=hourVals[h.time]||[]).push(h.precip_mm||0)}
+  for(const k in per)if(per[k].n>=18||(k===today&&per[k].n>=3))(dayModel[k]=dayModel[k]||[]).push(per[k].mm)}
+ const dry={},seen={};for(const [t,v] of Object.entries(hourVals)){if(v.length<2)continue;const ts=Date.parse(t),hr=hourOf(ts);if(hr<7||hr>=18||ts<Date.now()-3600e3)continue;const k=key(ts);seen[k]=(seen[k]||0)+1;if(med(v)<0.1)dry[k]=(dry[k]||0)+1}
+ // Pluie observée : relevé Climat Québec de Saint-Prosper si publié, sinon pluviomètre automatique le plus proche.
+ const obs={};for(const [d,v] of Object.entries(state.pluie_obs||{}))if(v.h>=18)obs[d]=v.mm;
+ for(const r of state.climate?.records||[])if(r.rain_mm!=null)obs[r.date]=r.rain_mm+(r.snow_cm&&r.tmax!=null&&r.tmax>2?r.snow_cm:0);
+ let S=0;const start=new Date(Date.now()-14*86400e3);for(let i=0;i<14;i++){const k=key(start.getTime()+i*86400e3);S=S*0.85+(obs[k]||0)}
+ const days=(state.consensus||[]).slice(0,10),soilLbl=s=>s<10?['Sec','green']:s<25?['Humide','amber']:['Détrempé','red'];
+ const badge=([t,c])=>'<span class="tag '+c+'">'+t+'</span>';
+const rows=[],goodPave=[],goodExc=[],goodSap=[];
+ // Saison des sucres (15 févr. au 30 avril) : coulée quand il gèle la nuit (idéal -2 °C et moins) et dégèle le jour (idéal 3 à 10 °C).
+ const now=new Date(),md=(now.getMonth()+1)*100+now.getDate(),sugar=md>=215&&md<=430;
+ $('th-erable').hidden=!sugar;
+ // Gel du sol : indice de gel cumulé (degrés-jours sous 0 °C, qui se perd au dégel).
+ let FI=0;for(const r of (state.climate?.records||[]).slice(-21))if(r.tmax!=null&&r.tmin!=null)FI=Math.max(0,FI*0.9-(r.tmax+r.tmin)/2);
+ let prevLow=null;
+ for(const d of days){const mm=dayModel[d.date]?med(dayModel[d.date]):null,pop=d.pop?.value??null,hi=d.high_mean,soil=S;
+  if(hi!=null&&d.low_mean!=null)FI=Math.max(0,FI*0.9-(hi+d.low_mean)/2);
+  const rain=mm??0,dh=seen[d.date]?dry[d.date]||0:null,frozen=FI>=15;
+  let exc=rain>=10||soil>=40||(rain>=5&&(pop??0)>=70)?['À éviter','red']:rain<3&&(pop??0)<50&&soil<20?['Bon','green']:['Moyen','amber'];
+  if(frozen)exc=['Sol gelé','amber'];
+  const night=[prevLow,d.low_mean].filter(v=>v!=null),lo=night.length?Math.min(...night):null;prevLow=d.low_mean;
+  const sap=hi==null||lo==null?['—','']:lo<=-2&&hi>=3&&hi<=10?['Bonne','green']:lo<=0&&hi>0&&hi<=14?['Possible','amber']:hi<=0?['Gel (rien)','']:['Nuit douce','red'];
+  if(sap[1]==='green')goodSap.push(d);
+  let pave=rain>=2||(pop??0)>=60||hi==null||hi<5||soil>=40?['À éviter','red']:rain<0.5&&(pop??0)<40&&hi>=10&&soil<25&&(dh==null||dh>=8)?['Bon','green']:['Moyen','amber'];
+  if(exc[0]==='Bon')goodExc.push(d);if(pave[0]==='Bon')goodPave.push(d);
+  rows.push('<tr'+(d.tendance?' class="trend"':'')+'><td>'+esc(dayLabel(d.date).replace(/ \S+\.?$/,''))+'</td><td class="ico">'+symbol(d.risks)+'</td><td>'+badge(exc)+'</td><td>'+badge(pave)+'</td>'+(sugar?'<td>'+badge(sap)+'</td>':'')+'<td>'+n(hi==null?null:Math.round(hi))+'° / '+n(d.low_mean==null?null:Math.round(d.low_mean))+'°</td><td>'+(mm!=null?n(Math.round(mm*10)/10)+' mm':'—')+(pop!=null?' @ '+pop+' %':'')+'</td><td>'+(dh!=null?dh+' / '+seen[d.date]+' h':'—')+'</td><td>'+badge(soilLbl(soil))+'</td></tr>');
+  S=S*0.85+rain}
+ S=0;for(let i=0;i<14;i++){const k=key(start.getTime()+i*86400e3);S=S*0.85+(obs[k]||0)}
+ $('chantier-rows').innerHTML=rows.join('');
+ const sl=soilLbl(S);$('chantier-sol').className='tag '+sl[1];$('chantier-sol').textContent='Sol aujourd’hui : '+sl[0];
+ const list=a=>a.length?a.map(d=>dayLabel(d.date).replace(/ \S+\.?$/,'')).join(', '):'aucun';
+ $('chantier-best').innerHTML='<b>Bons jours pour paver :</b> '+esc(list(goodPave))+'<br><b>Bons jours pour l’excavation :</b> '+esc(list(goodExc))+(sugar?'<br><b>Bonnes coulées (érablière) :</b> '+esc(list(goodSap)):'');
+ $('chantier-note').textContent='Pluie : médiane des modèles @ probabilité la plus haute des sources. Heures sèches : heures de 7 h à 18 h sans pluie selon la médiane des modèles. Sol : pluie des 14 derniers jours (Climat Québec ou pluviomètre le plus proche) qui sèche d’environ 15 % par jour, plus la pluie prévue. Pavage « Bon » : moins de 0,5 mm, moins de 40 %, 10 °C et plus, 8 h sèches et sol pas détrempé. Excavation « Bon » : moins de 3 mm, moins de 50 % et sol sec. Sol gelé : froid cumulé des derniers jours (le gel en profondeur ralentit l’excavation). Érable (15 févr. au 30 avril) : « Bonne » coulée = nuit à -2 °C ou moins puis jour entre 3 et 10 °C; « Possible » = gel la nuit et dégel le jour hors de ces valeurs; « Nuit douce » = pas de gel, la coulée s’arrête. Les jours éloignés (en pâle) sont une tendance.';
+ const m=new Date().getMonth()+1,winter=m===12||m<=3;P.hidden=false;
+ const plan=document.querySelector('.plan-panel'),daysEl=$('days');
+ if(winter&&daysEl&&P.nextElementSibling!==null&&P.previousElementSibling!==daysEl)daysEl.after(P);else if(!winter&&plan&&P.nextElementSibling!==plan)plan.before(P);
+ return {pave:list(goodPave),exc:list(goodExc),sap:sugar?list(goodSap):null};
 }
 function observedSeason(records){
  // Mêmes règles que l'analyse historique : épisodes de 5 cm+ (pause d'un jour max) et sorties (5 cm accumulés).

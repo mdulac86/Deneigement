@@ -51,7 +51,8 @@ def hourly(features):
             best[hour] = (gap, {'time': hour.strftime('%Y-%m-%dT%H:%M:%SZ'),
                                 'depth_cm': value(p, 'avg_snw_dpth_pst5mts', 'snw_dpth'),
                                 'temp': temp if isinstance(temp, (int, float)) else None,
-                                'gust': value(p, 'max_wnd_spd_10m_pst1hr', 'max_wnd_spd_10m_pst10mts')})
+                                'gust': value(p, 'max_wnd_spd_10m_pst1hr', 'max_wnd_spd_10m_pst10mts'),
+                                'pcpn': value(p, 'pcpn_amt_pst1hr')})
     return [best[h][1] for h in sorted(best)]
 
 
@@ -98,3 +99,23 @@ def daily_gusts(stations, tz, store):
             day = dt.datetime.fromisoformat(h['time'].replace('Z', '+00:00')).astimezone(tz).date().isoformat()
             store[day] = max(store.get(day, 0), h['gust'])
     return dict(sorted(store.items())[-260:])
+
+
+def daily_precip(stations, tz, store):
+    """Pluie (précipitations, mm) par jour local à la station la plus proche qui la mesure.
+    Sert à l'état du sol (excavation, pavage). On garde la journée la plus complète."""
+    for st in sorted(stations, key=lambda s: s.get('km', 999)):
+        days = {}
+        for h in st.get('series', []):
+            if h.get('pcpn') is None:
+                continue
+            day = dt.datetime.fromisoformat(h['time'].replace('Z', '+00:00')).astimezone(tz).date().isoformat()
+            mm, n = days.get(day, (0.0, 0))
+            days[day] = (mm + h['pcpn'], n + 1)
+        for day, (mm, n) in days.items():
+            old = store.get(day)
+            if old is None or n > old['h'] or (n == old['h'] and old.get('st') != st['name'] and st.get('km', 999) < old.get('km', 999)):
+                store[day] = {'mm': round(mm, 1), 'h': n, 'st': st['name'], 'km': st.get('km')}
+        if days:
+            break  # la station la plus proche avec un pluviomètre suffit
+    return dict(sorted(store.items())[-60:])
