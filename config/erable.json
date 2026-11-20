@@ -1,0 +1,19 @@
+{
+ "mis_a_jour": "2026-11-20",
+ "avance_entaillage_jours": 14,
+ "onglet_visible": {"debut": "01-15", "fin": "04-30"},
+ "premiere_coulee": {
+  "estimation_2027": "02-18",
+  "plus_tot": "02-05",
+  "plus_tard": "03-15",
+  "normale_1964_2024": "03-10",
+  "recente_2017_2024": "02-20"
+ },
+ "jours_coulee_normale_mars_avril": 15,
+ "regle": "Bonne coulée : nuit à -2 °C ou moins puis journée entre 3 et 10 °C. Coulée possible : gel la nuit et dégel le jour hors de ces valeurs. Première coulée de la saison : 3 bonnes journées en 7 jours.",
+ "raisons": [
+  "À Saint-Prosper (1964-2024), la première série de coulées arrive vers le 10 mars en moyenne, mais vers le 20 février depuis 2017 (de début février à la mi-mars).",
+  "El Niño fort cet hiver : les hivers semblables (1983, 1998) ont eu leurs premières coulées le 28 et le 11 février. Estimation 2027 : vers le 18 février, à confirmer avec les prévisions.",
+  "On entaille environ 2 semaines avant la première coulée attendue; dès que les prévisions montrent des coulées, la date se recale sur elles."
+ ]
+}

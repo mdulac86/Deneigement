@@ -20,6 +20,7 @@ import models as nwp  # noqa: E402
 import plan as planner  # noqa: E402
 import ecmwf  # noqa: E402
 import snowdepth  # noqa: E402
+import frost  # noqa: E402
 import alerts as notifier  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -469,6 +470,41 @@ def wind_risks(result):
         if risk and risk not in d['risks']:
             d['risks'] = [r for r in d['risks'] if r != 'Sans risque hivernal identifié'] + [risk]
 
+FORTE_PLUIE_MM_H = 1.5   # mm/h (médiane des modèles) : le chantier se remplit d'eau
+FORTE_PLUIE_3H = 4.0     # ou 4 mm en 3 h
+
+def heavy_rain(result):
+    """Heure locale de début de forte pluie (ou d'orage selon Environnement Canada), jour par jour."""
+    per = {}
+    for m in result.get('models') or []:
+        if m.get('status') != 'ok':
+            continue
+        for h in m.get('hours', []):
+            if h.get('precip_mm') is None or (h.get('snow_cm') or 0) > 0:
+                continue
+            per.setdefault(h['time'], []).append(h['precip_mm'])
+    hours = sorted((dt.datetime.fromisoformat(t.replace('Z', '+00:00')).astimezone(TZ), statistics.median(v))
+                   for t, v in per.items() if len(v) >= 2)
+    storms = {}
+    eccc = next((s for s in result['sources'] if s['id'] == 'eccc' and s['status'] == 'ok'), None)
+    for h in (eccc or {}).get('hourly', []):
+        if re.search(r'orage', h.get('condition') or '', re.I):
+            t = dt.datetime.fromisoformat(h['time'].replace('Z', '+00:00')).astimezone(TZ)
+            storms.setdefault(t.date().isoformat(), t)
+    for d in result['consensus']:
+        start = None
+        for i, (t, mm) in enumerate(hours):
+            if t.date().isoformat() != d['date'] or t < NOW:
+                continue
+            three = sum(x for _, x in hours[i:i + 3])
+            if mm >= FORTE_PLUIE_MM_H or three >= FORTE_PLUIE_3H:
+                start = (t, round(three, 1))
+                break
+        storm = storms.get(d['date'])
+        if start or storm:
+            t = min(x for x in (start and start[0], storm) if x)
+            d['forte_pluie'] = {'heure': t.isoformat(), 'mm_3h': start[1] if start else None, 'orage': bool(storm)}
+
 def pct(x):
     n = number(str(x or '').replace('%', ''))
     return None if n is None else round(n)
@@ -594,6 +630,7 @@ def main():
     result={'updated_at':stamp(),'location':{'name':'Saint-Prosper · Beauce','lat':LAT,'lon':LON,'timezone':'America/Toronto'},'threshold_cm':5,'sources':sources,'official_alerts':alerts,'climate':climate,'consensus':consensus(sources),'previous_at':previous.get('updated_at')}
     result['changes']=changes(previous,result)
     result['saison_estimation']=read(ROOT/'config'/'saison.json',None)
+    result['erable']=read(ROOT/'config'/'erable.json',None)
     try:
         result['snow_depth']=snowdepth.collect(fetch,NOW)
     except Exception as e:
@@ -618,6 +655,20 @@ def main():
         wind_risks(result)
     except Exception as e:
         print('risques de vent :', e)
+    try:
+        heavy_rain(result)
+    except Exception as e:
+        print('forte pluie :', e)
+    try:
+        prev_gel=read(DATA/'gel-sol.json',None)
+        if prev_gel and prev_gel.get('fetched')==str(TODAY) and prev_gel.get('status')=='ok':
+            gel={**prev_gel,'projection':frost.project(prev_gel['gel_m'],[d for d in result['consensus'] if d['date']>prev_gel['date']][:10])}
+        else:
+            gel={**frost.collect(fetch,TODAY,result['consensus'],prev_gel),'fetched':str(TODAY)}
+        write(DATA/'gel-sol.json',gel)
+        result['gel_sol']=gel
+    except Exception as e:
+        print('gel au sol :', e)
     write(DATA/'weather.json',result)
     try:
         sent=notifier.run(result,DATA/'alerts-state.json',today=TODAY)

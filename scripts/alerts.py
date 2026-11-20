@@ -7,7 +7,8 @@ Déclencheurs choisis par Martin :
 - sortie prévue par le plan, puis changement d'heure de départ d'une heure ou plus, ou annulation;
 - probabilité de 5 cm et plus (ensemble européen) de 50 % ou plus pour aujourd'hui ou demain;
 - risque de verglas, ou pluie sur la neige au sol (fonte) : prévoir l'abrasif;
-- poudrerie ou glace par grand vent (rafales de 50 km/h et plus avec de la neige au sol).
+- poudrerie ou glace par grand vent (rafales de 50 km/h et plus avec de la neige au sol);
+- d'avril à novembre : forte pluie ou orage pendant la journée de chantier (heure de début).
 """
 import datetime as dt
 import hashlib
@@ -130,6 +131,26 @@ def ice_melt(weather, today):
     return msgs
 
 
+def heavy_rain(weather, today):
+    """Saison des chantiers : heure de début de forte pluie ou d'orage, aujourd'hui ou demain, de 6 h à 19 h."""
+    msgs = []
+    if not 4 <= today.month <= 11:
+        return msgs
+    for d in (weather.get('consensus') or [])[:2]:
+        f = d.get('forte_pluie')
+        if not f:
+            continue
+        t = dt.datetime.fromisoformat(f['heure'])
+        if not 6 <= t.hour < 19:
+            continue
+        what = 'Orage' if f.get('orage') else 'Forte pluie'
+        qty = f' (≈ {f["mm_3h"]:g} mm en 3 h)' if f.get('mm_3h') else ''
+        msgs.append({'key': f'pluie:{d["date"]}', 'title': f'{what} {day_label(d["date"])} vers {hhmm(f["heure"])}',
+                     'message': f'Début prévu vers {hhmm(f["heure"])}{qty} : prévoir fermer les trous et protéger le chantier.',
+                     'priority': 4, 'tags': ['cloud_with_rain']})
+    return msgs
+
+
 def run(weather, state_path, today=None, pusher=None):
     """Envoie les nouvelles alertes en notifications du site (Web Push).
     Sans téléphone abonné, rien n'est envoyé ni marqué comme envoyé."""
@@ -155,7 +176,7 @@ def run(weather, state_path, today=None, pusher=None):
             pusher.save()
         return []
     plan_msgs, seen = plans(weather, state, today)
-    msgs = official(weather) + plan_msgs + probability(weather, today) + ice_melt(weather, today)
+    msgs = official(weather) + plan_msgs + probability(weather, today) + ice_melt(weather, today) + heavy_rain(weather, today)
     sent_keys = set(state.get('sent', []))
     out = []
     for m in msgs:

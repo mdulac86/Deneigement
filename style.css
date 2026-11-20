@@ -280,3 +280,7 @@ table.chantier td{vertical-align:middle;white-space:nowrap}table.chantier td.ico
 table.chantier tr.trend{opacity:.6}
 .tag.red{background:#E3322B22;color:#ff8a83;border-color:#E3322B77}
 table.chantier th,table.chantier td{padding-left:6px;padding-right:6px}table.chantier .tag{font-size:10px;padding:3px 8px}
+.gel-card{display:block;margin-top:10px;padding:10px 12px;border:1px solid var(--line);border-radius:var(--r);background:#7CC4F014;font-size:14px;line-height:1.5}.gel-card strong{color:var(--blue)}
+table.chantier small.storm{color:var(--orange);font-weight:700}table.chantier small.hot{color:var(--orange)}
+.sap-why{margin:10px 0 0;padding-left:18px;color:var(--soft);font-size:14px;line-height:1.5}
+#status-chantier:empty{display:none}
