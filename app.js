@@ -43,6 +43,7 @@ function render(){
   const title=hasOfficial?'Une alerte officielle vise le secteur.':ice?'Verglas ou grésil à surveiller.':mixed?'Épisode de pluie et neige à surveiller.':threshold?'Le seuil de 5 cm est dans la fourchette.':snow?'De la neige figure aux prévisions.':'Pas de risque hivernal identifié dans les sources disponibles.';
   const label=hasOfficial?'ALERTE OFFICIELLE':ice||mixed||snow||threshold?'VIGILANCE · PROCHAINES 72 H':'ÉTAT DES PRÉVISIONS';
   $('status').className='signal '+(hasOfficial?'alert':ice||mixed||snow||threshold?'watch':'calm');$('status').innerHTML='<div><span class="tag '+(hasOfficial?'':ice||mixed||snow||threshold?'amber':'green')+'">'+label+'</span><h2>'+title+'</h2><p>Seuil opérationnel : 5 cm de nouvelle neige au sol. '+(threshold?'Les cm annoncés concernent la neige tombée; le seuil réel au sol reste à vérifier.':'Les quantités comparables ne permettent pas de confirmer l’atteinte des 5 cm au sol.')+'</p></div>';
+  try{const sm=summary72();$('status').insertAdjacentHTML('beforeend',sm.html);$('copy72').onclick=async e=>{try{await navigator.clipboard.writeText(sm.text);e.target.textContent='Copié ✓'}catch{if(navigator.share)navigator.share({text:sm.text})}}}catch(err){console.warn('résumé 72 h',err)}
   $('days').innerHTML=state.consensus.map((d,i)=>'<button class="day '+(selected===i?'active':'')+(d.tendance?' trend':'')+'" data-day="'+i+'" aria-pressed="'+(selected===i)+'"><span class="date">'+esc(dayLabel(d.date))+'</span><span class="symbol">'+symbol(d.risks)+'</span><strong>'+n(d.high_mean)+'° <span class="muted">/ '+n(d.low_mean)+'°</span></strong><small>'+(d.tendance?'Tendance · modèles':d.sources.length+' sources · '+esc(d.confidence))+'</small>'+(d.pop?'<small class="pop'+(d.pop.value>=60?' hi':'')+'" title="Probabilité de précipitations · '+esc(d.pop.sources.join(', '))+'">💧 '+d.pop.value+' %</small>':'')+'<small>Neige : '+(d.snow.mean_cm!=null?n(d.snow.mean_cm)+' cm':d.model_snow?'≈ '+n(d.model_snow.median_cm)+' cm':'non chiffrable')+'</small>'+(d.ensemble?'<small class="'+(d.ensemble.prob_5cm>=30?'ens-high':'')+'">5 cm+ : '+d.ensemble.prob_5cm+' % (ensemble)</small>':'')+((d.risks||[]).some(r=>/Poudrerie|Glace \(vent\)/.test(r))?'<small class="ens-high">💨 '+((d.risks||[]).includes('Poudrerie')?'Poudrerie':'Glace (vent)')+' · '+n(d.rafales_kmh)+' km/h</small>':d.rafales_kmh>=40?'<small>💨 Rafales '+n(d.rafales_kmh)+' km/h</small>':'')+'</button>').join('');
   document.querySelectorAll('[data-day]').forEach(b=>b.addEventListener('click',()=>{selected=Number(b.dataset.day);render()}));
   renderPlan();renderDepth();renderComparison();renderOfficial();renderWinter();renderSources();renderReliability();
@@ -73,6 +74,33 @@ function renderOfficial(){
 }
 function renderSources(){
  $('source-cards').innerHTML=state.sources.filter(working).map(s=>'<article class="panel"><div class="section-heading"><h2>'+esc(s.name)+'</h2><span class="tag '+(stale(s)?'amber':'green')+'">'+(stale(s)?s.status==='stale'?'Anciennes données':'Non disponible':'Données actuelles')+'</span></div><span class="meta">Consultée : '+local(s.fetched_at)+'</span><span class="meta">Émise : '+local(s.issued_at)+'</span><p>'+esc(s.error||s.note||'')+'</p><a href="'+esc(s.url)+'" target="_blank" rel="noopener">Voir la prévision originale ↗</a></article>').join('');
+}
+function med(a){if(!a.length)return null;const b=a.slice().sort((x,y)=>x-y),m=b.length>>1;return b.length%2?b[m]:(b[m-1]+b[m])/2}
+function summary72(){
+ // Résumé des 72 prochaines heures : médiane des modèles horaires qui couvrent toute la période.
+ const now=Date.now(),end=now+72*3600e3,ok=(state.models||[]).filter(m=>m.status==='ok'&&(m.hours||[]).some(h=>h.precip_mm!=null));
+ const runs=ok.map(m=>m.hours.filter(h=>{const t=Date.parse(h.time);return t>=now-3600e3&&t<end})).filter(h=>h.length&&Date.parse(h[h.length-1].time)>=end-6*3600e3);
+ const fmtDay=t=>new Intl.DateTimeFormat('fr-CA',{weekday:'short',day:'numeric',timeZone:'America/Toronto'}).format(t),key=t=>new Intl.DateTimeFormat('en-CA',{timeZone:'America/Toronto'}).format(t);
+ const rain=[],snow=[],perHour={},dayRain={};
+ for(const hs of runs){let r=0,s=0;const dr={};
+  for(const h of hs){const p=h.precip_mm||0,sn=h.snow_cm||0,liq=sn>0?0:p;r+=liq;s+=sn;(perHour[h.time]=perHour[h.time]||[]).push(p);const k=key(Date.parse(h.time));dr[k]=(dr[k]||0)+liq}
+  rain.push(r);snow.push(s);for(const k in dr)(dayRain[k]=dayRain[k]||[]).push(dr[k])}
+ const hours=Object.entries(perHour).sort().slice(-72),wet=hours.filter(([,v])=>med(v)>=0.2),first=wet[0]?Date.parse(wet[0][0]):null;
+ // Jours touchés par la fenêtre : un jour partiel (ex. lundi 0 h-7 h) compte s'il y tombe de la pluie dans la fenêtre.
+ const days=(state.consensus||[]).filter(d=>{const a=Date.parse(d.date+'T00:00:00-05:00'),b=a+86400e3,cover=(Math.min(b,end)-Math.max(a,now))/3600e3;return cover>=1&&(cover>=6||med(dayRain[d.date]||[])>=0.2)}).slice(0,4);
+ const pops=days.map(d=>d.pop?.value).filter(v=>v!=null),pop=pops.length?Math.max(...pops):null;
+ const hi=days.map(d=>d.high_mean).filter(v=>v!=null),lo=days.map(d=>d.low_mean).filter(v=>v!=null),gust=days.map(d=>d.rafales_kmh).filter(v=>v!=null);
+ const range=a=>a.length?(Math.round(Math.min(...a))===Math.round(Math.max(...a))?n(Math.round(a[0])):n(Math.round(Math.min(...a)))+' à '+n(Math.round(Math.max(...a))))+' °C':'—';
+ const r=med(rain),sn=med(snow),rr=rain.length?' ('+n(Math.min(...rain))+'–'+n(Math.max(...rain))+')':'';
+ const dry=hours.length-wet.length;
+ const lines=[['💧 Pluie',(r==null?'—':n(Math.round(r*10)/10)+' mm'+rr)+(pop!=null?' @ '+pop+' %':'')],
+  ...(sn>=0.5?[['❄ Neige','≈ '+n(Math.round(sn*10)/10)+' cm ('+n(Math.min(...snow))+'–'+n(Math.max(...snow))+')']]:[]),
+  ['☀ Jour',range(hi)],['☾ Nuit',range(lo)],
+  ['💨 Vent',gust.length?'rafales jusqu’à '+Math.round(Math.max(...gust))+' km/h':'—'],
+  ['⏱ Sec',hours.length?'≈ '+dry+' h sans pluie sur '+hours.length+(first?' · première pluie '+fmtDay(first)+' vers '+hhmm(new Date(first).toISOString()):''):'—']];
+ const rows=days.map(d=>{const k=d.date,mm=med(dayRain[k]||[]);return '<li><span>'+esc(dayLabel(d.date))+'</span><span class="ico">'+symbol(d.risks)+'</span><b>'+n(Math.round(d.high_mean))+'° / '+n(Math.round(d.low_mean))+'°</b><span>'+(mm!=null?n(Math.round(mm*10)/10)+' mm':'—')+(d.pop?' @ '+d.pop.value+' %':'')+'</span></li>'}).join('');
+ const text='Prochaines 72 h (Saint-Prosper)\n'+lines.map(([a,b])=>a.replace(/^\S+ /,'')+' : '+b).join('\n')+'\n'+days.map(d=>dayLabel(d.date)+' : '+n(d.high_mean)+'° / '+n(d.low_mean)+'°'+(d.pop?', '+d.pop.value+' %':'')).join('\n');
+ return {html:'<div class="sum72"><div class="sum72-head"><b>Prochaines 72 h</b><button type="button" class="ghost" id="copy72">Copier</button></div><dl>'+lines.map(([a,b])=>'<div><dt>'+a+'</dt><dd>'+b+'</dd></div>').join('')+'</dl><ul>'+rows+'</ul><small class="muted">Médiane de '+runs.length+' modèles (fourchette entre parenthèses) · probabilité : la plus haute des sources.</small></div>',text};
 }
 function observedSeason(records){
  // Mêmes règles que l'analyse historique : épisodes de 5 cm+ (pause d'un jour max) et sorties (5 cm accumulés).

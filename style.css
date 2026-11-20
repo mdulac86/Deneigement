@@ -264,3 +264,13 @@ footer .credits{color:#6b6b73}
 td.cond{display:flex;align-items:center;gap:8px}
 td.cond .ico svg{width:26px;height:26px;display:block}
 .season-next{display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center;background:var(--bg2);border:1px solid var(--line);border-radius:var(--r);padding:12px 14px;margin-top:16px;font-size:14px}.season-next b{width:100%}.season-next .ice{color:var(--orange);font-weight:700}
+
+.sum72{position:relative;margin-top:16px;padding:14px 16px;background:#0000002e;border:1px solid var(--line);border-radius:var(--r)}
+.sum72-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.sum72-head b{font-size:15px;letter-spacing:.02em}
+.sum72 .ghost{background:transparent;border:1px solid var(--line);color:var(--soft);border-radius:999px;padding:4px 12px;font:inherit;font-size:13px;cursor:pointer}
+.sum72 dl{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:6px 18px;margin:0 0 10px}
+.sum72 dl div{display:flex;gap:8px;align-items:baseline}.sum72 dt{color:var(--soft);font-size:13px;min-width:62px}.sum72 dd{margin:0;font-weight:700;font-size:15px}
+.sum72 ul{list-style:none;margin:0 0 8px;padding:0;display:grid;gap:4px}
+.sum72 li{display:grid;grid-template-columns:minmax(84px,1fr) 26px auto minmax(110px,1.3fr);gap:8px;align-items:center;font-size:14px;border-top:1px solid var(--line);padding-top:4px}
+.sum72 li span:last-child{text-align:right;white-space:nowrap}.sum72 li .ico svg{width:24px;height:24px}
