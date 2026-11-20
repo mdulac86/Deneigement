@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-20T12:26:11.116044+00:00",
+  "updated_at": "2026-11-20T12:34:07.982348+00:00",
   "location": {
     "name": "Saint-Prosper · Beauce",
     "lat": 46.214,
@@ -13,7 +13,7 @@
       "name": "Environnement Canada",
       "url": "https://meteo.gc.ca/fr/location/index.html?coords=46.214,-70.486",
       "status": "ok",
-      "fetched_at": "2026-11-20T12:26:11.116044+00:00",
+      "fetched_at": "2026-11-20T12:34:07.982348+00:00",
       "issued_at": "2026-11-20T10:00:00Z",
       "days": [
         {
@@ -566,7 +566,7 @@
       "name": "MET Norway",
       "url": "https://api.met.no/weatherapi/locationforecast/2.0/compact?lat=46.214&lon=-70.486",
       "status": "ok",
-      "fetched_at": "2026-11-20T12:26:11.116044+00:00",
+      "fetched_at": "2026-11-20T12:34:07.982348+00:00",
       "issued_at": "2026-11-20T11:20:30Z",
       "days": [
         {
@@ -1392,7 +1392,7 @@
       "name": "meteoblue",
       "url": "https://www.meteoblue.com/fr/meteo/semaine/saint-prosper_canada_8672691",
       "status": "ok",
-      "fetched_at": "2026-11-20T12:26:11.116044+00:00",
+      "fetched_at": "2026-11-20T12:34:07.982348+00:00",
       "issued_at": null,
       "days": [
         {
@@ -3514,7 +3514,7 @@
   ],
   "official_alerts": {
     "status": "ok",
-    "fetched_at": "2026-11-20T12:26:11.116044+00:00",
+    "fetched_at": "2026-11-20T12:34:07.982348+00:00",
     "items": []
   },
   "climate": {
@@ -5169,7 +5169,7 @@
       "rafales_kmh": null
     }
   ],
-  "previous_at": "2026-11-20T12:16:59.967960+00:00",
+  "previous_at": "2026-11-20T12:26:11.116044+00:00",
   "changes": [
     {
       "text": "Aucun changement important dans les données comparables depuis la dernière collecte.",
@@ -5297,446 +5297,520 @@
             "time": "2026-11-17T12:00:00Z",
             "depth_cm": 0.0,
             "temp": -3.2,
-            "gust": 18.9
+            "gust": 18.9,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-17T13:00:00Z",
             "depth_cm": 0.0,
             "temp": -2.0,
-            "gust": 21.0
+            "gust": 21.0,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-17T14:00:00Z",
             "depth_cm": 0.0,
             "temp": 0.1,
-            "gust": 22.2
+            "gust": 22.2,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-17T15:00:00Z",
             "depth_cm": 0.0,
             "temp": 2.4,
-            "gust": 29.2
+            "gust": 29.2,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-17T16:00:00Z",
             "depth_cm": 0.0,
             "temp": 3.1,
-            "gust": 35.2
+            "gust": 35.2,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-17T17:00:00Z",
             "depth_cm": 0.0,
             "temp": 2.7,
-            "gust": 42.7
+            "gust": 42.7,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-17T18:00:00Z",
             "depth_cm": 0.0,
             "temp": 2.6,
-            "gust": 38.2
+            "gust": 38.2,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-17T19:00:00Z",
             "depth_cm": 0.0,
             "temp": 2.9,
-            "gust": 39.2
+            "gust": 39.2,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-17T20:00:00Z",
             "depth_cm": 0.0,
             "temp": 3.1,
-            "gust": 29.6
+            "gust": 29.6,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-17T21:00:00Z",
             "depth_cm": 0.0,
             "temp": 3.5,
-            "gust": 31.7
+            "gust": 31.7,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-17T22:00:00Z",
             "depth_cm": 0.0,
             "temp": 3.8,
-            "gust": 32.3
+            "gust": 32.3,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-17T23:00:00Z",
             "depth_cm": 0.0,
             "temp": 4.0,
-            "gust": 32.6
+            "gust": 32.6,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-18T00:00:00Z",
             "depth_cm": 0.0,
             "temp": 4.5,
-            "gust": 35.6
+            "gust": 35.6,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-18T01:00:00Z",
             "depth_cm": 0.0,
             "temp": 4.9,
-            "gust": 26.7
+            "gust": 26.7,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-18T02:00:00Z",
             "depth_cm": 0.0,
             "temp": 5.1,
-            "gust": 31.0
+            "gust": 31.0,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-18T03:00:00Z",
             "depth_cm": 0.0,
             "temp": 5.3,
-            "gust": 34.9
+            "gust": 34.9,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-18T04:00:00Z",
             "depth_cm": 0.0,
             "temp": 5.3,
-            "gust": 31.5
+            "gust": 31.5,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-18T05:00:00Z",
             "depth_cm": 0.0,
             "temp": 3.5,
-            "gust": 19.5
+            "gust": 19.5,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-18T06:00:00Z",
             "depth_cm": 0.0,
             "temp": 4.4,
-            "gust": 16.3
+            "gust": 16.3,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-18T07:00:00Z",
             "depth_cm": 0.0,
             "temp": 4.9,
-            "gust": 20.0
+            "gust": 20.0,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-18T08:00:00Z",
             "depth_cm": 0.0,
             "temp": 4.5,
-            "gust": 17.8
+            "gust": 17.8,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-18T09:00:00Z",
             "depth_cm": 0.0,
             "temp": 4.5,
-            "gust": 16.9
+            "gust": 16.9,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-18T10:00:00Z",
             "depth_cm": 0.0,
             "temp": 4.6,
-            "gust": 19.6
+            "gust": 19.6,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-18T11:00:00Z",
             "depth_cm": 0.0,
             "temp": 4.6,
-            "gust": 23.4
+            "gust": 23.4,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-18T12:00:00Z",
             "depth_cm": 0.0,
             "temp": 3.4,
-            "gust": 23.4
+            "gust": 23.4,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-18T13:00:00Z",
             "depth_cm": 0.0,
             "temp": 3.5,
-            "gust": 14.7
+            "gust": 14.7,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-18T14:00:00Z",
             "depth_cm": 0.0,
             "temp": 4.5,
-            "gust": 17.6
+            "gust": 17.6,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-18T15:00:00Z",
             "depth_cm": 0.0,
             "temp": 6.6,
-            "gust": 34.0
+            "gust": 34.0,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-18T16:00:00Z",
             "depth_cm": 0.0,
             "temp": 9.1,
-            "gust": 31.1
+            "gust": 31.1,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-18T17:00:00Z",
             "depth_cm": 0.0,
             "temp": 8.7,
-            "gust": 37.5
+            "gust": 37.5,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-18T18:00:00Z",
             "depth_cm": 0.0,
             "temp": 9.6,
-            "gust": 41.6
+            "gust": 41.6,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-18T19:00:00Z",
             "depth_cm": 0.0,
             "temp": 9.8,
-            "gust": 45.9
+            "gust": 45.9,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-18T20:00:00Z",
             "depth_cm": 0.0,
             "temp": 9.3,
-            "gust": 35.2
+            "gust": 35.2,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-18T21:00:00Z",
             "depth_cm": 0.0,
             "temp": 8.6,
-            "gust": 31.5
+            "gust": 31.5,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-18T22:00:00Z",
             "depth_cm": 0.0,
             "temp": 7.8,
-            "gust": 27.5
+            "gust": 27.5,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-18T23:00:00Z",
             "depth_cm": 0.0,
             "temp": 6.9,
-            "gust": 24.3
+            "gust": 24.3,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-19T00:00:00Z",
             "depth_cm": 0.0,
             "temp": 6.5,
-            "gust": 26.0
+            "gust": 26.0,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-19T01:00:00Z",
             "depth_cm": 0.0,
             "temp": 7.0,
-            "gust": 26.2
+            "gust": 26.2,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-19T02:00:00Z",
             "depth_cm": 0.0,
             "temp": 7.4,
-            "gust": 23.1
+            "gust": 23.1,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-19T03:00:00Z",
             "depth_cm": 0.0,
             "temp": 7.7,
-            "gust": 23.0
+            "gust": 23.0,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-19T04:00:00Z",
             "depth_cm": 0.0,
             "temp": 8.0,
-            "gust": 25.8
+            "gust": 25.8,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-19T05:00:00Z",
             "depth_cm": 0.0,
             "temp": 7.9,
-            "gust": 28.4
+            "gust": 28.4,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-19T06:00:00Z",
             "depth_cm": 0.0,
             "temp": 7.7,
-            "gust": 22.8
+            "gust": 22.8,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-19T07:00:00Z",
             "depth_cm": 0.0,
             "temp": 6.8,
-            "gust": 28.4
+            "gust": 28.4,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-19T08:00:00Z",
             "depth_cm": 0.0,
             "temp": 6.1,
-            "gust": 25.6
+            "gust": 25.6,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-19T09:00:00Z",
             "depth_cm": 0.0,
             "temp": 4.0,
-            "gust": 27.0
+            "gust": 27.0,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-19T10:00:00Z",
             "depth_cm": 0.0,
             "temp": 3.8,
-            "gust": 16.1
+            "gust": 16.1,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-19T11:00:00Z",
             "depth_cm": 0.0,
             "temp": 1.6,
-            "gust": 15.7
+            "gust": 15.7,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-19T12:00:00Z",
             "depth_cm": 0.0,
             "temp": 1.5,
-            "gust": 13.4
+            "gust": 13.4,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-19T13:00:00Z",
             "depth_cm": 0.0,
             "temp": 2.2,
-            "gust": 13.3
+            "gust": 13.3,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-19T14:00:00Z",
             "depth_cm": 0.0,
             "temp": 4.1,
-            "gust": 16.5
+            "gust": 16.5,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-19T15:00:00Z",
             "depth_cm": 0.0,
             "temp": 7.0,
-            "gust": 23.8
+            "gust": 23.8,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-19T16:00:00Z",
             "depth_cm": 0.0,
             "temp": 7.7,
-            "gust": 26.5
+            "gust": 26.5,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-19T17:00:00Z",
             "depth_cm": 0.0,
             "temp": 8.6,
-            "gust": 29.5
+            "gust": 29.5,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-19T18:00:00Z",
             "depth_cm": 0.0,
             "temp": 9.5,
-            "gust": 34.9
+            "gust": 34.9,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-19T19:00:00Z",
             "depth_cm": 0.0,
             "temp": 10.0,
-            "gust": 30.2
+            "gust": 30.2,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-19T20:00:00Z",
             "depth_cm": 0.0,
             "temp": 10.1,
-            "gust": 33.3
+            "gust": 33.3,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-19T21:00:00Z",
             "depth_cm": 0.0,
             "temp": 8.8,
-            "gust": 29.8
+            "gust": 29.8,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-19T22:00:00Z",
             "depth_cm": 0.0,
             "temp": 7.9,
-            "gust": 20.3
+            "gust": 20.3,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-19T23:00:00Z",
             "depth_cm": 0.0,
             "temp": 7.4,
-            "gust": 22.2
+            "gust": 22.2,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-20T00:00:00Z",
             "depth_cm": 0.0,
             "temp": 6.1,
-            "gust": 18.2
+            "gust": 18.2,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-20T01:00:00Z",
             "depth_cm": 0.0,
             "temp": 5.0,
-            "gust": 16.9
+            "gust": 16.9,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-20T02:00:00Z",
             "depth_cm": 0.0,
             "temp": 4.3,
-            "gust": 15.8
+            "gust": 15.8,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-20T03:00:00Z",
             "depth_cm": 0.0,
             "temp": 3.8,
-            "gust": 15.5
+            "gust": 15.5,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-20T04:00:00Z",
             "depth_cm": 0.0,
             "temp": 4.2,
-            "gust": 17.6
+            "gust": 17.6,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-20T05:00:00Z",
             "depth_cm": 0.0,
             "temp": 3.5,
-            "gust": 20.6
+            "gust": 20.6,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-20T06:00:00Z",
             "depth_cm": 0.0,
             "temp": 3.8,
-            "gust": 17.3
+            "gust": 17.3,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-20T07:00:00Z",
             "depth_cm": 0.0,
             "temp": 4.0,
-            "gust": 20.9
+            "gust": 20.9,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-20T08:00:00Z",
             "depth_cm": 0.0,
             "temp": 4.2,
-            "gust": 20.5
+            "gust": 20.5,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-20T09:00:00Z",
             "depth_cm": 0.0,
             "temp": 4.5,
-            "gust": 19.8
+            "gust": 19.8,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-20T10:00:00Z",
             "depth_cm": 0.0,
             "temp": 4.2,
-            "gust": 21.5
+            "gust": 21.5,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-20T11:00:00Z",
             "depth_cm": 0.0,
             "temp": 4.3,
-            "gust": 14.3
+            "gust": 14.3,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-20T12:00:00Z",
             "depth_cm": 0.0,
             "temp": 3.2,
-            "gust": 13.8
+            "gust": 13.8,
+            "pcpn": 0.0
           }
         ],
         "latest": {
           "time": "2026-11-20T12:00:00Z",
           "depth_cm": 0.0,
           "temp": 3.2,
-          "gust": 13.8
+          "gust": 13.8,
+          "pcpn": 0.0
         },
         "change_24h": 0.0,
         "temp": 3.2,
@@ -5752,446 +5826,520 @@
             "time": "2026-11-17T12:00:00Z",
             "depth_cm": null,
             "temp": -3.5,
-            "gust": 11.6
+            "gust": 11.6,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-17T13:00:00Z",
             "depth_cm": null,
             "temp": -1.6,
-            "gust": 17.7
+            "gust": 17.7,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-17T14:00:00Z",
             "depth_cm": null,
             "temp": -0.4,
-            "gust": 19.0
+            "gust": 19.0,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-17T15:00:00Z",
             "depth_cm": null,
             "temp": 1.0,
-            "gust": 20.6
+            "gust": 20.6,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-17T16:00:00Z",
             "depth_cm": null,
             "temp": 0.8,
-            "gust": 35.6
+            "gust": 35.6,
+            "pcpn": 0.1
           },
           {
             "time": "2026-11-17T17:00:00Z",
             "depth_cm": null,
             "temp": 1.5,
-            "gust": 34.4
+            "gust": 34.4,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-17T18:00:00Z",
             "depth_cm": null,
             "temp": 2.8,
-            "gust": 27.2
+            "gust": 27.2,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-17T19:00:00Z",
             "depth_cm": null,
             "temp": 3.6,
-            "gust": 26.7
+            "gust": 26.7,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-17T20:00:00Z",
             "depth_cm": null,
             "temp": 3.7,
-            "gust": 31.6
+            "gust": 31.6,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-17T21:00:00Z",
             "depth_cm": null,
             "temp": 3.9,
-            "gust": 23.9
+            "gust": 23.9,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-17T22:00:00Z",
             "depth_cm": null,
             "temp": 3.8,
-            "gust": 19.8
+            "gust": 19.8,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-17T23:00:00Z",
             "depth_cm": null,
             "temp": 3.9,
-            "gust": 23.8
+            "gust": 23.9,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-18T00:00:00Z",
             "depth_cm": null,
             "temp": 4.3,
-            "gust": 26.2
+            "gust": 26.2,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-18T01:00:00Z",
             "depth_cm": null,
             "temp": 4.7,
-            "gust": 20.9
+            "gust": 20.9,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-18T02:00:00Z",
             "depth_cm": null,
             "temp": 4.8,
-            "gust": 31.8
+            "gust": 31.8,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-18T03:00:00Z",
             "depth_cm": null,
             "temp": 5.6,
-            "gust": 27.1
+            "gust": 27.1,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-18T04:00:00Z",
             "depth_cm": null,
             "temp": 5.8,
-            "gust": 28.3
+            "gust": 28.3,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-18T05:00:00Z",
             "depth_cm": null,
             "temp": 5.4,
-            "gust": 26.5
+            "gust": 26.5,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-18T06:00:00Z",
             "depth_cm": null,
             "temp": 5.0,
-            "gust": 23.9
+            "gust": 23.8,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-18T07:00:00Z",
             "depth_cm": null,
             "temp": 5.0,
-            "gust": 22.9
+            "gust": 22.9,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-18T08:00:00Z",
             "depth_cm": null,
             "temp": 4.4,
-            "gust": 21.2
+            "gust": 21.2,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-18T09:00:00Z",
             "depth_cm": null,
             "temp": 3.5,
-            "gust": 22.7
+            "gust": 22.7,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-18T10:00:00Z",
             "depth_cm": null,
             "temp": 3.1,
-            "gust": 19.7
+            "gust": 19.7,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-18T11:00:00Z",
             "depth_cm": null,
             "temp": 2.9,
-            "gust": 18.0
+            "gust": 18.0,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-18T12:00:00Z",
             "depth_cm": null,
             "temp": 2.4,
-            "gust": 16.9
+            "gust": 16.9,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-18T13:00:00Z",
             "depth_cm": null,
             "temp": 3.6,
-            "gust": 19.8
+            "gust": 19.8,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-18T14:00:00Z",
             "depth_cm": null,
             "temp": 5.2,
-            "gust": 21.8
+            "gust": 21.8,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-18T15:00:00Z",
             "depth_cm": null,
             "temp": 7.1,
-            "gust": 23.3
+            "gust": 23.3,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-18T16:00:00Z",
             "depth_cm": 0.0,
             "temp": 8.5,
-            "gust": 31.8
+            "gust": 31.8,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-18T17:00:00Z",
             "depth_cm": 0.0,
             "temp": 8.6,
-            "gust": 30.8
+            "gust": 30.8,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-18T18:00:00Z",
             "depth_cm": null,
             "temp": 9.1,
-            "gust": 34.9
+            "gust": 34.9,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-18T19:00:00Z",
             "depth_cm": 0.0,
             "temp": 10.2,
-            "gust": 35.1
+            "gust": 35.1,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-18T20:00:00Z",
             "depth_cm": null,
             "temp": 9.4,
-            "gust": 35.8
+            "gust": 35.8,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-18T21:00:00Z",
             "depth_cm": null,
             "temp": 8.2,
-            "gust": 31.2
+            "gust": 31.2,
+            "pcpn": null
           },
           {
             "time": "2026-11-18T22:00:00Z",
             "depth_cm": null,
             "temp": 7.8,
-            "gust": 25.8
+            "gust": 26.1,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-18T23:00:00Z",
             "depth_cm": null,
             "temp": 7.4,
-            "gust": 30.1
+            "gust": 30.1,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-19T00:00:00Z",
             "depth_cm": null,
             "temp": 7.7,
-            "gust": 29.5
+            "gust": 29.5,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-19T01:00:00Z",
             "depth_cm": null,
             "temp": 7.4,
-            "gust": 32.4
+            "gust": 32.4,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-19T02:00:00Z",
             "depth_cm": null,
             "temp": 7.3,
-            "gust": 34.2
+            "gust": 34.2,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-19T03:00:00Z",
             "depth_cm": null,
             "temp": 6.7,
-            "gust": 35.8
+            "gust": 35.8,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-19T04:00:00Z",
             "depth_cm": null,
             "temp": 6.5,
-            "gust": 41.6
+            "gust": 41.6,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-19T05:00:00Z",
             "depth_cm": null,
             "temp": 5.9,
-            "gust": 30.3
+            "gust": 30.3,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-19T06:00:00Z",
             "depth_cm": null,
             "temp": 5.1,
-            "gust": 23.0
+            "gust": 23.0,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-19T07:00:00Z",
             "depth_cm": null,
             "temp": 4.7,
-            "gust": 18.4
+            "gust": 18.4,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-19T08:00:00Z",
             "depth_cm": null,
             "temp": 4.4,
-            "gust": 18.7
+            "gust": 18.7,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-19T09:00:00Z",
             "depth_cm": null,
             "temp": 4.1,
-            "gust": 18.1
+            "gust": 18.1,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-19T10:00:00Z",
             "depth_cm": null,
             "temp": 3.6,
-            "gust": 15.9
+            "gust": 15.9,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-19T11:00:00Z",
             "depth_cm": null,
             "temp": 2.5,
-            "gust": 9.7
+            "gust": 9.7,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-19T12:00:00Z",
             "depth_cm": null,
             "temp": 2.0,
-            "gust": 14.1
+            "gust": 14.1,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-19T13:00:00Z",
             "depth_cm": null,
             "temp": 3.5,
-            "gust": 15.2
+            "gust": 15.2,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-19T14:00:00Z",
             "depth_cm": null,
             "temp": 4.8,
-            "gust": 24.8
+            "gust": 24.8,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-19T15:00:00Z",
-            "depth_cm": null,
+            "depth_cm": 0.0,
             "temp": 6.5,
-            "gust": 26.4
+            "gust": 26.4,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-19T16:00:00Z",
             "depth_cm": null,
             "temp": 7.5,
-            "gust": 28.6
+            "gust": 28.6,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-19T17:00:00Z",
             "depth_cm": null,
             "temp": 8.2,
-            "gust": 27.9
+            "gust": 27.9,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-19T18:00:00Z",
             "depth_cm": 0.0,
             "temp": 10.1,
-            "gust": 26.0
+            "gust": 26.0,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-19T19:00:00Z",
             "depth_cm": null,
             "temp": 11.4,
-            "gust": 28.4
+            "gust": 28.4,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-19T20:00:00Z",
             "depth_cm": null,
             "temp": 10.1,
-            "gust": 29.0
+            "gust": 29.0,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-19T21:00:00Z",
             "depth_cm": null,
             "temp": 9.4,
-            "gust": 26.3
+            "gust": 26.3,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-19T22:00:00Z",
             "depth_cm": null,
             "temp": 7.3,
-            "gust": 19.4
+            "gust": 19.4,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-19T23:00:00Z",
             "depth_cm": null,
             "temp": 6.0,
-            "gust": 12.1
+            "gust": 12.1,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-20T00:00:00Z",
             "depth_cm": null,
             "temp": 6.0,
-            "gust": 13.0
+            "gust": 13.0,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-20T01:00:00Z",
             "depth_cm": null,
             "temp": 7.9,
-            "gust": 27.4
+            "gust": 27.5,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-20T02:00:00Z",
             "depth_cm": null,
             "temp": 8.5,
-            "gust": 26.5
+            "gust": 26.5,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-20T03:00:00Z",
             "depth_cm": null,
             "temp": 6.8,
-            "gust": 26.7
+            "gust": 26.7,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-20T04:00:00Z",
             "depth_cm": null,
             "temp": 9.3,
-            "gust": 39.1
+            "gust": 39.1,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-20T05:00:00Z",
             "depth_cm": null,
             "temp": 8.2,
-            "gust": 25.7
+            "gust": 25.7,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-20T06:00:00Z",
             "depth_cm": null,
             "temp": 8.9,
-            "gust": 32.3
+            "gust": 32.3,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-20T07:00:00Z",
             "depth_cm": null,
             "temp": 8.8,
-            "gust": 36.9
+            "gust": 36.9,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-20T08:00:00Z",
             "depth_cm": null,
             "temp": 8.7,
-            "gust": 36.3
+            "gust": 36.3,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-20T09:00:00Z",
             "depth_cm": null,
             "temp": 8.4,
-            "gust": 29.8
+            "gust": 29.8,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-20T10:00:00Z",
             "depth_cm": null,
             "temp": 7.8,
-            "gust": 32.5
+            "gust": 32.5,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-20T11:00:00Z",
             "depth_cm": null,
             "temp": 7.1,
-            "gust": 25.6
+            "gust": 25.6,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-20T12:00:00Z",
             "depth_cm": null,
             "temp": 6.7,
-            "gust": 28.0
+            "gust": 28.0,
+            "pcpn": 0.0
           }
         ],
         "latest": {
           "time": "2026-11-19T18:00:00Z",
           "depth_cm": 0.0,
           "temp": 10.1,
-          "gust": 26.0
+          "gust": 26.0,
+          "pcpn": 0.0
         },
         "change_24h": 0.0,
         "temp": 6.7,
@@ -6207,446 +6355,520 @@
             "time": "2026-11-17T12:00:00Z",
             "depth_cm": 0.0,
             "temp": -0.3,
-            "gust": 28.5
+            "gust": 28.5,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-17T13:00:00Z",
             "depth_cm": 0.0,
             "temp": 0.8,
-            "gust": 33.2
+            "gust": 33.2,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-17T14:00:00Z",
             "depth_cm": 0.0,
             "temp": 1.6,
-            "gust": 31.3
+            "gust": 31.3,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-17T15:00:00Z",
             "depth_cm": 0.0,
             "temp": 2.1,
-            "gust": 36.3
+            "gust": 36.3,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-17T16:00:00Z",
             "depth_cm": 0.0,
             "temp": 2.5,
-            "gust": 32.8
+            "gust": 32.8,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-17T17:00:00Z",
             "depth_cm": 0.0,
             "temp": 2.3,
-            "gust": 38.1
+            "gust": 38.1,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-17T18:00:00Z",
             "depth_cm": 0.0,
             "temp": 2.9,
-            "gust": 34.1
+            "gust": 34.1,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-17T19:00:00Z",
             "depth_cm": 0.0,
             "temp": 3.6,
-            "gust": 29.4
+            "gust": 29.4,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-17T20:00:00Z",
             "depth_cm": 0.0,
             "temp": 4.0,
-            "gust": 22.9
+            "gust": 22.9,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-17T21:00:00Z",
             "depth_cm": 0.0,
             "temp": 3.4,
-            "gust": 18.0
+            "gust": 18.0,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-17T22:00:00Z",
             "depth_cm": 0.0,
             "temp": 3.2,
-            "gust": 8.5
+            "gust": 8.5,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-17T23:00:00Z",
             "depth_cm": 0.0,
             "temp": 3.2,
-            "gust": 20.4
+            "gust": 20.4,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-18T00:00:00Z",
             "depth_cm": 0.0,
             "temp": 3.6,
-            "gust": 24.4
+            "gust": 24.4,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-18T01:00:00Z",
             "depth_cm": 0.0,
             "temp": 3.5,
-            "gust": 23.9
+            "gust": 23.9,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-18T02:00:00Z",
             "depth_cm": 0.0,
             "temp": 3.9,
-            "gust": 31.0
+            "gust": 31.0,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-18T03:00:00Z",
             "depth_cm": 0.0,
             "temp": 3.3,
-            "gust": 34.7
+            "gust": 34.7,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-18T04:00:00Z",
             "depth_cm": 0.0,
             "temp": 3.6,
-            "gust": 29.4
+            "gust": 29.4,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-18T05:00:00Z",
             "depth_cm": 0.0,
             "temp": 3.6,
-            "gust": 25.3
+            "gust": 25.3,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-18T06:00:00Z",
             "depth_cm": 0.0,
             "temp": 4.3,
-            "gust": 33.0
+            "gust": 33.0,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-18T07:00:00Z",
             "depth_cm": 0.0,
             "temp": 4.8,
-            "gust": 28.6
+            "gust": 28.6,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-18T08:00:00Z",
             "depth_cm": 0.0,
             "temp": 4.8,
-            "gust": 31.8
+            "gust": 31.8,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-18T09:00:00Z",
             "depth_cm": 0.0,
             "temp": 4.5,
-            "gust": 30.8
+            "gust": 30.8,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-18T10:00:00Z",
             "depth_cm": 0.0,
             "temp": 4.2,
-            "gust": 37.0
+            "gust": 37.0,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-18T11:00:00Z",
             "depth_cm": 0.0,
             "temp": 4.3,
-            "gust": 39.3
+            "gust": 39.3,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-18T12:00:00Z",
             "depth_cm": 0.0,
             "temp": 3.9,
-            "gust": 42.5
+            "gust": 42.5,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-18T13:00:00Z",
             "depth_cm": 0.0,
             "temp": 4.5,
-            "gust": 31.8
+            "gust": 31.8,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-18T14:00:00Z",
             "depth_cm": 0.0,
             "temp": 5.0,
-            "gust": 28.2
+            "gust": 28.2,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-18T15:00:00Z",
             "depth_cm": 0.0,
             "temp": 6.8,
-            "gust": 29.4
+            "gust": 29.4,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-18T16:00:00Z",
             "depth_cm": 0.0,
             "temp": 7.0,
-            "gust": 30.4
+            "gust": 30.4,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-18T17:00:00Z",
             "depth_cm": 0.0,
             "temp": 8.4,
-            "gust": 38.4
+            "gust": 38.4,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-18T18:00:00Z",
             "depth_cm": 0.0,
             "temp": 9.3,
-            "gust": 42.3
+            "gust": 42.3,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-18T19:00:00Z",
             "depth_cm": 0.0,
             "temp": 9.7,
-            "gust": 36.5
+            "gust": 36.5,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-18T20:00:00Z",
             "depth_cm": 0.0,
             "temp": 10.2,
-            "gust": 35.8
+            "gust": 35.8,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-18T21:00:00Z",
             "depth_cm": 0.0,
             "temp": 8.8,
-            "gust": 29.7
+            "gust": 29.7,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-18T22:00:00Z",
             "depth_cm": 0.0,
             "temp": 8.4,
-            "gust": 21.7
+            "gust": 21.7,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-18T23:00:00Z",
             "depth_cm": 0.0,
             "temp": 7.5,
-            "gust": 19.8
+            "gust": 19.8,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-19T00:00:00Z",
             "depth_cm": 0.0,
             "temp": 7.0,
-            "gust": 25.8
+            "gust": 25.8,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-19T01:00:00Z",
             "depth_cm": 0.0,
             "temp": 7.1,
-            "gust": 31.0
+            "gust": 31.0,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-19T02:00:00Z",
             "depth_cm": 0.0,
             "temp": 6.5,
-            "gust": 29.7
+            "gust": 29.7,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-19T03:00:00Z",
             "depth_cm": 0.0,
             "temp": 5.9,
-            "gust": 24.3
+            "gust": 24.3,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-19T04:00:00Z",
             "depth_cm": 0.0,
             "temp": 5.9,
-            "gust": 30.6
+            "gust": 30.6,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-19T05:00:00Z",
             "depth_cm": 0.0,
             "temp": 5.6,
-            "gust": 31.6
+            "gust": 31.6,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-19T06:00:00Z",
             "depth_cm": 0.0,
             "temp": 5.3,
-            "gust": 30.1
+            "gust": 30.1,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-19T07:00:00Z",
             "depth_cm": 0.0,
             "temp": 5.0,
-            "gust": 30.1
+            "gust": 30.1,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-19T08:00:00Z",
             "depth_cm": 0.0,
             "temp": 4.4,
-            "gust": 28.4
+            "gust": 28.4,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-19T09:00:00Z",
             "depth_cm": 0.0,
             "temp": 4.5,
-            "gust": 28.3
+            "gust": 28.3,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-19T10:00:00Z",
             "depth_cm": 0.0,
             "temp": 4.4,
-            "gust": 29.4
+            "gust": 29.4,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-19T11:00:00Z",
             "depth_cm": 0.0,
             "temp": 4.6,
-            "gust": 27.8
+            "gust": 27.8,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-19T12:00:00Z",
             "depth_cm": 0.0,
             "temp": 5.0,
-            "gust": 30.0
+            "gust": 30.0,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-19T13:00:00Z",
             "depth_cm": 0.0,
             "temp": 6.2,
-            "gust": 27.5
+            "gust": 27.5,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-19T14:00:00Z",
             "depth_cm": 0.0,
             "temp": 7.8,
-            "gust": 33.8
+            "gust": 33.8,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-19T15:00:00Z",
             "depth_cm": 0.0,
             "temp": 8.8,
-            "gust": 34.1
+            "gust": 34.1,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-19T16:00:00Z",
             "depth_cm": 0.0,
             "temp": 9.0,
-            "gust": 32.5
+            "gust": 32.5,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-19T17:00:00Z",
             "depth_cm": 0.0,
             "temp": 11.3,
-            "gust": 37.3
+            "gust": 37.3,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-19T18:00:00Z",
             "depth_cm": 0.0,
             "temp": 12.0,
-            "gust": 33.3
+            "gust": 33.3,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-19T19:00:00Z",
             "depth_cm": 0.0,
             "temp": 12.0,
-            "gust": 27.9
+            "gust": 27.9,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-19T20:00:00Z",
             "depth_cm": 0.0,
             "temp": 11.6,
-            "gust": 29.8
+            "gust": 29.8,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-19T21:00:00Z",
             "depth_cm": 0.0,
             "temp": 9.6,
-            "gust": 29.1
+            "gust": 29.1,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-19T22:00:00Z",
             "depth_cm": 0.0,
             "temp": 8.1,
-            "gust": 18.7
+            "gust": 18.7,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-19T23:00:00Z",
             "depth_cm": null,
             "temp": 7.5,
-            "gust": 18.9
+            "gust": 18.9,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-20T00:00:00Z",
             "depth_cm": null,
             "temp": 6.4,
-            "gust": 15.7
+            "gust": 15.7,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-20T01:00:00Z",
             "depth_cm": 0.0,
             "temp": 9.4,
-            "gust": 26.2
+            "gust": 26.2,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-20T02:00:00Z",
             "depth_cm": 0.0,
             "temp": 10.0,
-            "gust": 26.8
+            "gust": 26.8,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-20T03:00:00Z",
             "depth_cm": 0.0,
             "temp": 10.4,
-            "gust": 39.8
+            "gust": 39.8,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-20T04:00:00Z",
             "depth_cm": 0.0,
             "temp": 9.8,
-            "gust": 39.7
+            "gust": 39.7,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-20T05:00:00Z",
             "depth_cm": 0.0,
             "temp": 9.1,
-            "gust": 35.8
+            "gust": 35.8,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-20T06:00:00Z",
             "depth_cm": 0.0,
             "temp": 9.5,
-            "gust": 34.7
+            "gust": 34.7,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-20T07:00:00Z",
             "depth_cm": 0.0,
             "temp": 8.9,
-            "gust": 31.9
+            "gust": 31.9,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-20T08:00:00Z",
             "depth_cm": 0.0,
             "temp": 8.3,
-            "gust": 31.5
+            "gust": 31.5,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-20T09:00:00Z",
             "depth_cm": 0.0,
             "temp": 8.1,
-            "gust": 30.9
+            "gust": 30.9,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-20T10:00:00Z",
             "depth_cm": 0.0,
             "temp": 7.5,
-            "gust": 27.7
+            "gust": 27.7,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-20T11:00:00Z",
             "depth_cm": 0.0,
             "temp": 7.5,
-            "gust": 32.7
+            "gust": 32.7,
+            "pcpn": 0.0
           },
           {
             "time": "2026-11-20T12:00:00Z",
             "depth_cm": 0.0,
             "temp": 7.1,
-            "gust": 31.5
+            "gust": 31.5,
+            "pcpn": 0.0
           }
         ],
         "latest": {
           "time": "2026-11-20T12:00:00Z",
           "depth_cm": 0.0,
           "temp": 7.1,
-          "gust": 31.5
+          "gust": 31.5,
+          "pcpn": 0.0
         },
         "change_24h": 0.0,
         "temp": 7.1,
@@ -6667,6 +6889,32 @@
     "2026-11-18": 45.9,
     "2026-11-19": 39.8,
     "2026-11-20": 36.9
+  },
+  "pluie_obs": {
+    "2026-11-17": {
+      "mm": 0.0,
+      "h": 17,
+      "st": "Saint-Camille-de-Lellis",
+      "km": 38
+    },
+    "2026-11-18": {
+      "mm": 0.0,
+      "h": 24,
+      "st": "Saint-Camille-de-Lellis",
+      "km": 38
+    },
+    "2026-11-19": {
+      "mm": 0.0,
+      "h": 24,
+      "st": "Saint-Camille-de-Lellis",
+      "km": 38
+    },
+    "2026-11-20": {
+      "mm": 0.0,
+      "h": 8,
+      "st": "Saint-Camille-de-Lellis",
+      "km": 38
+    }
   },
   "ensemble": {
     "status": "ok",
@@ -6795,7 +7043,7 @@
       "id": "hrdps",
       "name": "HRDPS 2,5 km · ECCC",
       "status": "ok",
-      "fetched_at": "2026-11-20T12:26:11Z",
+      "fetched_at": "2026-11-20T12:34:07Z",
       "note": "cm estimés à partir des mm d’eau et de la température (rapport 10:1 près de 0 °C, plus léger au froid). Pas de fonte ni de tassement.",
       "issued_at": "2026-11-20T06:00:00Z",
       "layers": [
@@ -7067,7 +7315,7 @@
       "id": "rdps",
       "name": "RDPS 10 km · ECCC",
       "status": "ok",
-      "fetched_at": "2026-11-20T12:26:11Z",
+      "fetched_at": "2026-11-20T12:34:07Z",
       "note": "cm estimés à partir des mm d’eau et de la température (rapport 10:1 près de 0 °C, plus léger au froid). Pas de fonte ni de tassement.",
       "issued_at": "2026-11-20T06:00:00Z",
       "layers": [
@@ -7519,7 +7767,7 @@
       "id": "gfs",
       "name": "GFS 0,25° · NOAA",
       "status": "ok",
-      "fetched_at": "2026-11-20T12:26:11Z",
+      "fetched_at": "2026-11-20T12:34:07Z",
       "note": "cm estimés à partir des mm d’eau et de la température (rapport 10:1 près de 0 °C, plus léger au froid). Pas de fonte ni de tassement.",
       "issued_at": null,
       "units": [
@@ -7965,7 +8213,7 @@
       "id": "met",
       "name": "MET Norway",
       "status": "ok",
-      "fetched_at": "2026-11-20T12:26:11Z",
+      "fetched_at": "2026-11-20T12:34:07Z",
       "note": "cm estimés à partir des mm d’eau et de la température (rapport 10:1 près de 0 °C, plus léger au froid). Pas de fonte ni de tassement.",
       "issued_at": "2026-11-20T11:20:30Z",
       "hours": [
@@ -8479,7 +8727,7 @@
       "id": "ifs",
       "name": "ECMWF IFS (européen)",
       "status": "ok",
-      "fetched_at": "2026-11-20T12:26:11.116044+00:00",
+      "fetched_at": "2026-11-20T12:34:07.982348+00:00",
       "issued_at": "2026-11-20T00:00:00Z",
       "run": "2026-11-20T00:00:00+00:00",
       "hours": [
@@ -10650,7 +10898,7 @@
       "id": "aifs",
       "name": "ECMWF AIFS (européen, IA)",
       "status": "ok",
-      "fetched_at": "2026-11-20T12:26:11.116044+00:00",
+      "fetched_at": "2026-11-20T12:34:07.982348+00:00",
       "issued_at": "2026-11-20T00:00:00Z",
       "run": "2026-11-20T00:00:00+00:00",
       "hours": [
