@@ -2,7 +2,7 @@
   "status": "ok",
   "station": "Saint-Georges",
   "km": 14,
-  "date": "2026-11-18",
+  "date": "2026-11-19",
   "gel_m": 0.0,
   "degel_m": 0.0,
   "saison": [
@@ -95,6 +95,11 @@
       "date": "2026-11-18",
       "gel_m": 0.0,
       "degel_m": 0.0
+    },
+    {
+      "date": "2026-11-19",
+      "gel_m": 0.0,
+      "degel_m": 0.0
     }
   ],
   "hiver_passe_max_m": 1.82,
@@ -102,11 +107,6 @@
   "max_moyen_m": 1.56,
   "hivers": 11,
   "projection": [
-    {
-      "date": "2026-11-21",
-      "gel_m": 0.0,
-      "degel_haut": false
-    },
     {
       "date": "2026-11-22",
       "gel_m": 0.0,
@@ -119,7 +119,7 @@
     },
     {
       "date": "2026-11-24",
-      "gel_m": 0.1,
+      "gel_m": 0.11,
       "degel_haut": false
     },
     {
@@ -135,7 +135,7 @@
     {
       "date": "2026-11-27",
       "gel_m": 0.16,
-      "degel_haut": false
+      "degel_haut": true
     },
     {
       "date": "2026-11-28",
@@ -144,16 +144,21 @@
     },
     {
       "date": "2026-11-29",
-      "gel_m": 0.17,
+      "gel_m": 0.16,
       "degel_haut": false
     },
     {
       "date": "2026-11-30",
       "gel_m": 0.19,
       "degel_haut": false
+    },
+    {
+      "date": "2026-12-01",
+      "gel_m": 0.2,
+      "degel_haut": false
     }
   ],
   "source": "https://www.donneesquebec.ca/recherche/fr/dataset/station-meteoroutiere",
   "note": "Profondeur de gel sous la chaussée déneigée (sonde du MTQ, ≈ 2 jours de décalage). Sous un terrain enneigé, le gel est en général moins profond.",
-  "fetched": "2026-11-21"
+  "fetched": "2026-11-22"
 }
