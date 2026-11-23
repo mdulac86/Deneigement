@@ -353,7 +353,7 @@ function renderReliability(){
  $('reliability-method').textContent=s.methode+' Biais : + = prévoit plus de neige que mesuré, − = moins.';
  const hist=s.historique||[],live=s.en_direct||[];
  const per=r=>r?.periode?' ('+dateOnly(r.periode[0])+' – '+dateOnly(r.periode[1])+')':'';
- $('reliability').innerHTML='<h3>Hiver dernier, prévision de la veille'+per(hist[0])+'</h3>'+relTable(hist)+'<p class="footnote">Seuls les modèles dont les prévisions passées sont archivées publiquement (européens et américain) peuvent être évalués sur l’hiver dernier.</p><h3>Cet hiver, toutes les sources suivies'+per(live[0])+'</h3>'+relTable(live)+'<p class="footnote">Se remplit chaque jour à partir des archives du robot : MétéoMédia, Weather Underground, modèles canadiens, européen, américain, MET Norway et le consensus du plan.</p>';
+ $('reliability').innerHTML='<h3>Hiver dernier, prévision de la veille'+per(hist[0])+'</h3>'+relTable(hist)+'<p class="footnote">Seuls les modèles dont les prévisions passées sont archivées publiquement (européens et américain) peuvent être évalués sur l’hiver dernier.</p><h3>Cet hiver, toutes les sources suivies'+per(live[0])+'</h3>'+relTable(live)+'<p class="footnote">Se remplit chaque jour à partir des archives du robot : MétéoMédia, Weather Underground (jusqu’au 23 novembre), modèles canadiens, européen, américain, MET Norway et le consensus du plan.</p>';
  if(hist[0])$('reliability-tag').textContent='Meilleur hiver dernier : '+hist[0].nom;
 }
 const hhmm=v=>v?new Intl.DateTimeFormat('fr-CA',{timeZone:'America/Toronto',hour:'numeric',minute:'2-digit'}).format(new Date(v)):'—';

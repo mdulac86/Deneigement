@@ -33,9 +33,6 @@ la restriction et sans compter une ancienne donnée dans le consensus.
   Saint-Georges incluant Saint-Prosper; bulletin 7 jours, horaire et quantités
   explicitement publiées par période. Alertes via `weather-alerts` et boîte
   géographique autour de Saint-Prosper.
-- Weather Underground : cartes publiques demandées aux coordonnées exactes,
-  dates et coordonnées des liens horaires vérifiées. Conditions et températures.
-  Les valeurs neige sans unité explicite ne sont pas interprétées.
 - meteoblue : cartes quotidiennes datées, conditions et températures.
 - MET Norway : API Locationforecast, licence CC BY 4.0; températures, conditions,
   vent et précipitations liquides par échéance. Pas de conversion arbitraire en neige.
@@ -43,12 +40,12 @@ la restriction et sans compter une ancienne donnée dans le consensus.
   page 7 jours : conditions, températures, pluie en mm et **neige en cm** par période
   (nuit, matin, après-midi, soir). Les 4 périodes donnent un total 00-24 h comparable;
   les cm entrent aussi dans le plan de sortie (répartis sur chaque heure de la période).
-- AccuWeather refuse toute lecture automatisée (serveurs de GitHub et PC du bureau) : retiré
-  des sources. Weather Underground (403) et MétéoMédia (page de vérification) refusent les
-  serveurs de GitHub : ils sont lus par le relais du bureau.
+- AccuWeather et Weather Underground refusent toute lecture automatisée (403, même depuis
+  le bureau) : retirés des sources. MétéoMédia (page de vérification) refuse les serveurs
+  de GitHub : il est lu par le relais du bureau.
 - L'interface n'affiche que les sources qui fonctionnent (à jour, ou lues dans les 24 h).
-- **Relais du bureau** (`scripts/pc_relay.py`) : une tâche planifiée Windows sur le
-  PC du bureau lit MétéoMédia et Weather Underground à 23 h 45, 5 h 45, 11 h 45 et
+- **Relais du bureau** (`scripts/pc_relay.py`) : le conteneur du NAS Synology (`relais/`)
+  ou une tâche planifiée Windows lit MétéoMédia à 23 h 45, 5 h 45, 11 h 45 et
   17 h 45, puis publie `data/relay.json`, ce qui relance le robot. Le robot utilise
   ces lectures pendant 7 h. PC éteint = pas de nouvelle lecture : l'appli affiche
   les données comme anciennes. Journal : `deneigement-relais.log` à côté du dossier.

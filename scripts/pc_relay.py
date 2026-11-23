@@ -1,4 +1,4 @@
-"""Relais du poste du bureau : lit MétéoMédia et Weather Underground avec la connexion
+"""Relais du poste du bureau : lit MétéoMédia avec la connexion
 du bureau, puis publie data/relay.json sur GitHub. Le robot GitHub l'utilise pendant 7 h.
 
 Lancé à 23 h 45, 5 h 45, 11 h 45 et 17 h 45 par le conteneur du NAS Synology (relais/)
@@ -42,7 +42,7 @@ def main():
     sys.path.insert(0, str(ROOT / 'scripts'))
     import collect
     out = {'fetched_at': collect.stamp(), 'host': 'poste du bureau', 'sources': {}}
-    for key, fn in (('mm', collect.mm), ('wu', collect.wu)):
+    for key, fn in (('mm', collect.mm),):
         try:
             out['sources'][key] = {'status': 'ok', 'fetched_at': collect.stamp(), 'result': fn()}
             log(f'{key} : ok')
@@ -55,7 +55,7 @@ def main():
         log('rien de nouveau')
         return
     git('-c', 'user.name=Relais bureau', '-c', 'user.email=actions@users.noreply.github.com',
-        'commit', '-q', '-m', 'Relais bureau : MétéoMédia et Weather Underground')
+        'commit', '-q', '-m', 'Relais bureau : MétéoMédia')
     for _ in range(3):
         if not git('push', '-q', 'origin', 'main', check=False).returncode:
             log('publié')

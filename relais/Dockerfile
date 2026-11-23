@@ -1,4 +1,4 @@
-# Relais météo du bureau (MétéoMédia + Weather Underground) pour un NAS Synology.
+# Relais météo du bureau (MétéoMédia) pour un NAS Synology.
 FROM python:3.12-slim
 RUN apt-get update && apt-get install -y --no-install-recommends git openssh-client ca-certificates tzdata \
     && rm -rf /var/lib/apt/lists/* \

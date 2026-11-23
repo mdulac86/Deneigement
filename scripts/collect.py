@@ -32,7 +32,6 @@ LAT, LON = 46.214, -70.486
 SOURCES = {
     'eccc': ('Environnement Canada', 'https://meteo.gc.ca/fr/location/index.html?coords=46.214,-70.486'),
     'mm': ('MétéoMédia', 'https://www.meteomedia.com/fr/ville/ca/quebec/saint-prosper/7-jours'),
-    'wu': ('Weather Underground', 'https://www.wunderground.com/forecast/ca/saint-prosper/46.214,-70.486'),
     'mb': ('meteoblue', 'https://www.meteoblue.com/fr/meteo/semaine/saint-prosper_canada_8672691'),
     'met': ('MET Norway', 'https://api.met.no/weatherapi/locationforecast/2.0/compact?lat=46.214&lon=-70.486'),
 }
@@ -176,39 +175,6 @@ def met():
 def dated(month, day):
     candidates = [dt.date(TODAY.year+y, month, day) for y in (-1, 0, 1)]
     return min(candidates, key=lambda d: abs((d-TODAY).days))
-
-def wu():
-    soup = BeautifulSoup(fetch(SOURCES['wu'][1]), 'html.parser')
-    days = []
-    for card in soup.select('a.day-link'):
-        href = card.get('href', '')
-        m = re.search(r'/([\d.]+),(-?[\d.]+)/date/(\d{4}-\d\d-\d\d)', href)
-        if not m or abs(float(m[1])-LAT) > .02 or abs(float(m[2])-LON) > .02:
-            continue
-        when = dt.date.fromisoformat(m[3])
-        if not TODAY <= when <= TODAY+dt.timedelta(days=7):
-            continue
-        d = entry(when)
-        for cls in ('high', 'low'):
-            el = card.select_one('.'+cls)
-            n = re.search(r'-?\d+', el.text) if el else None
-            d[cls] = float(n[0]) if n else None
-        el = card.select_one('.condition')
-        d['condition'] = el.get_text(' ', strip=True) if el else ''
-        d['risk'] = risk(d['condition'])
-        # Classe « m » = unités métriques (mm de pluie, cm de neige) comme pour la pluie.
-        el = card.select_one('.display-qpf.m')
-        if el:
-            d['rain_mm'] = number(el.get_text(strip=True))
-        el = card.select_one('.display-snow.m')
-        if el and number(el.get_text(strip=True)) is not None:
-            v = number(el.get_text(strip=True))
-            d['snow_cm'] = [v, v]
-            d['snow_period'] = 'jour-nuit-wu'  # fenêtre du fournisseur, non alignée sur 00-24 h
-        days.append(d)
-    if len(days) < 3:
-        raise ValueError('Coordonnées ou dates Weather Underground non vérifiables')
-    return {'issued_at': None, 'days': days, 'note': 'Prévisions demandées à 46,21 N / 70,49 O. Heure d’émission non fournie. cm de neige affichés en unités métriques, sur la fenêtre jour-nuit du fournisseur (non comptés dans la moyenne 00-24 h).'}
 
 def mb():
     soup = BeautifulSoup(fetch(SOURCES['mb'][1]), 'html.parser')
@@ -617,7 +583,7 @@ def forecast_plan(sources, days):
 def main():
     DATA.mkdir(exist_ok=True)
     previous = read(DATA/'weather.json',{})
-    fns = {'eccc':eccc, 'met':met, 'wu':wu, 'mb':mb, 'mm':mm}  # AccuWeather retiré : refuse toute lecture automatisée
+    fns = {'eccc':eccc, 'met':met, 'mb':mb, 'mm':mm}  # AccuWeather et Weather Underground retirés : refusent toute lecture automatisée
     with futures.ThreadPoolExecutor(max_workers=6) as pool:
         sources = list(pool.map(lambda kv:collect_source(*kv,previous),fns.items()))
     errors=[]

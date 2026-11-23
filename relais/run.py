@@ -50,7 +50,7 @@ def prepare():
 
 
 def run_once():
-    log('Relais : lecture de MétéoMédia et Weather Underground…')
+    log('Relais : lecture de MétéoMédia…')
     r = subprocess.run([sys.executable, str(REPO / 'scripts' / 'pc_relay.py')], capture_output=True, text=True)
     for line in (r.stdout + r.stderr).strip().splitlines()[-6:]:
         log('  ' + line.replace(os.environ.get('GITHUB_TOKEN', '') or '\0', '***'))
