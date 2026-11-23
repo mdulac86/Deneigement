@@ -6,6 +6,6 @@ services:
     restart: unless-stopped
     environment:
       - TZ=America/Toronto
-      - GITHUB_TOKEN=${GITHUB_TOKEN}   # à mettre dans le fichier .env à côté (jamais dans GitHub)
+      - GITHUB_TOKEN=${GITHUB_TOKEN:-}   # facultatif si la clé de déploiement data/ssh est en place
     volumes:
       - ./data:/data

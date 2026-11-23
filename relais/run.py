@@ -3,8 +3,10 @@
 Au démarrage : clone le dépôt dans /data/depot (volume du NAS), puis lance scripts/pc_relay.py
 à 23 h 45, 5 h 45, 11 h 45 et 17 h 45 (heure de Saint-Prosper), plus une fois au démarrage.
 
+Accès à GitHub (au choix) :
+  - clé de déploiement : /data/ssh/id_ed25519 (sa clé publique ajoutée au dépôt, « Allow write access »);
+  - ou GITHUB_TOKEN : jeton limité au dépôt (droit « Contents : Read and write »).
 Variables :
-  GITHUB_TOKEN  jeton GitHub limité au dépôt (droit « Contents : Read and write »). Obligatoire.
   DEPOT         dépôt GitHub (défaut : mdulac86/deneigement)
   HEURES        heures de lancement (défaut : 23:45,05:45,11:45,17:45)
 """
@@ -26,18 +28,24 @@ def log(msg):
 
 
 def prepare():
+    key = DATA / 'ssh' / 'id_ed25519'
     token = os.environ.get('GITHUB_TOKEN', '').strip()
-    if not token:
-        log('GITHUB_TOKEN manquant : ajoute-le dans les variables d’environnement du conteneur.')
+    if key.exists():
+        os.chmod(key, 0o600)
+        os.environ['GIT_SSH_COMMAND'] = f'ssh -i {key} -o IdentitiesOnly=yes -o StrictHostKeyChecking=accept-new -o UserKnownHostsFile={DATA / "ssh" / "known_hosts"}'
+        url = f'git@github.com:{DEPOT}.git'
+    elif token:
+        url = f'https://x-access-token:{token}@github.com/{DEPOT}.git'
+    else:
+        log('Aucun accès GitHub : ajoute la clé de déploiement (data/ssh) ou GITHUB_TOKEN.')
         sys.exit(1)
-    url = f'https://x-access-token:{token}@github.com/{DEPOT}.git'
     if not (REPO / '.git').exists():
         log(f'Clonage de {DEPOT}…')
         r = subprocess.run(['git', 'clone', '-q', '--depth', '50', url, str(REPO)], capture_output=True, text=True)
         if r.returncode:
-            log('Clonage refusé : ' + r.stderr.replace(token, '***').strip()[:300])
+            log('Clonage refusé : ' + (r.stderr.replace(token, '***') if token else r.stderr).strip()[:300])
             sys.exit(1)
-    else:  # le jeton peut avoir changé
+    else:  # l'accès peut avoir changé
         subprocess.run(['git', '-C', str(REPO), 'remote', 'set-url', 'origin', url], check=True)
 
 
