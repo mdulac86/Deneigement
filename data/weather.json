@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-23T22:41:37.831686+00:00",
+  "updated_at": "2026-11-23T22:45:39.065008+00:00",
   "location": {
     "name": "Saint-Prosper · Beauce",
     "lat": 46.214,
@@ -13,7 +13,7 @@
       "name": "Environnement Canada",
       "url": "https://meteo.gc.ca/fr/location/index.html?coords=46.214,-70.486",
       "status": "ok",
-      "fetched_at": "2026-11-23T22:41:37.831686+00:00",
+      "fetched_at": "2026-11-23T22:45:39.065008+00:00",
       "issued_at": "2026-11-23T20:45:00Z",
       "days": [
         {
@@ -558,7 +558,7 @@
       "name": "MET Norway",
       "url": "https://api.met.no/weatherapi/locationforecast/2.0/compact?lat=46.214&lon=-70.486",
       "status": "ok",
-      "fetched_at": "2026-11-23T22:41:37.831686+00:00",
+      "fetched_at": "2026-11-23T22:45:39.065008+00:00",
       "issued_at": "2026-11-23T19:19:07Z",
       "days": [
         {
@@ -1301,7 +1301,7 @@
       "name": "meteoblue",
       "url": "https://www.meteoblue.com/fr/meteo/semaine/saint-prosper_canada_8672691",
       "status": "ok",
-      "fetched_at": "2026-11-23T22:41:37.831686+00:00",
+      "fetched_at": "2026-11-23T22:45:39.065008+00:00",
       "issued_at": null,
       "days": [
         {
@@ -1392,7 +1392,7 @@
       "name": "MétéoMédia",
       "url": "https://www.meteomedia.com/fr/ville/ca/quebec/saint-prosper/7-jours",
       "status": "ok",
-      "fetched_at": "2026-11-23T22:33:35.229454+00:00",
+      "fetched_at": "2026-11-23T22:45:03.316482+00:00",
       "relay": true,
       "issued_at": null,
       "days": [
@@ -3408,7 +3408,7 @@
   ],
   "official_alerts": {
     "status": "ok",
-    "fetched_at": "2026-11-23T22:41:37.831686+00:00",
+    "fetched_at": "2026-11-23T22:45:39.065008+00:00",
     "items": []
   },
   "climate": {
@@ -5018,7 +5018,7 @@
       "rafales_kmh": null
     }
   ],
-  "previous_at": "2026-11-23T22:34:01.576180+00:00",
+  "previous_at": "2026-11-23T22:41:37.831686+00:00",
   "changes": [
     {
       "text": "Aucun changement important dans les données comparables depuis la dernière collecte.",
@@ -5644,7 +5644,7 @@
             "time": "2026-11-23T18:00:00Z",
             "depth_cm": 0.0,
             "temp": 9.3,
-            "gust": 23.9,
+            "gust": 23.8,
             "pcpn": 0.0
           },
           {
@@ -6003,7 +6003,7 @@
           },
           {
             "time": "2026-11-22T18:00:00Z",
-            "depth_cm": null,
+            "depth_cm": 0.0,
             "temp": 11.1,
             "gust": 16.1,
             "pcpn": 0.0
@@ -6574,7 +6574,7 @@
           },
           {
             "time": "2026-11-23T00:00:00Z",
-            "depth_cm": null,
+            "depth_cm": 0.0,
             "temp": 8.7,
             "gust": 14.0,
             "pcpn": 0.0
@@ -6941,7 +6941,7 @@
       "id": "hrdps",
       "name": "HRDPS 2,5 km · ECCC",
       "status": "ok",
-      "fetched_at": "2026-11-23T22:41:37Z",
+      "fetched_at": "2026-11-23T22:45:39Z",
       "note": "cm estimés à partir des mm d’eau et de la température (rapport 10:1 près de 0 °C, plus léger au froid). Pas de fonte ni de tassement.",
       "issued_at": "2026-11-23T18:00:00Z",
       "layers": [
@@ -7225,7 +7225,7 @@
       "id": "rdps",
       "name": "RDPS 10 km · ECCC",
       "status": "ok",
-      "fetched_at": "2026-11-23T22:41:37Z",
+      "fetched_at": "2026-11-23T22:45:39Z",
       "note": "cm estimés à partir des mm d’eau et de la température (rapport 10:1 près de 0 °C, plus léger au froid). Pas de fonte ni de tassement.",
       "issued_at": "2026-11-23T18:00:00Z",
       "layers": [
@@ -7677,7 +7677,7 @@
       "id": "gfs",
       "name": "GFS 0,25° · NOAA",
       "status": "ok",
-      "fetched_at": "2026-11-23T22:41:37Z",
+      "fetched_at": "2026-11-23T22:45:39Z",
       "note": "cm estimés à partir des mm d’eau et de la température (rapport 10:1 près de 0 °C, plus léger au froid). Pas de fonte ni de tassement.",
       "issued_at": null,
       "units": [
@@ -8141,7 +8141,7 @@
       "id": "met",
       "name": "MET Norway",
       "status": "ok",
-      "fetched_at": "2026-11-23T22:41:37Z",
+      "fetched_at": "2026-11-23T22:45:39Z",
       "note": "cm estimés à partir des mm d’eau et de la température (rapport 10:1 près de 0 °C, plus léger au froid). Pas de fonte ni de tassement.",
       "issued_at": "2026-11-23T19:19:07Z",
       "hours": [
@@ -8655,7 +8655,7 @@
       "id": "ifs",
       "name": "ECMWF IFS (européen)",
       "status": "ok",
-      "fetched_at": "2026-11-23T22:41:37.831686+00:00",
+      "fetched_at": "2026-11-23T22:45:39.065008+00:00",
       "issued_at": "2026-11-23T12:00:00Z",
       "run": "2026-11-23T12:00:00+00:00",
       "hours": [
@@ -10826,7 +10826,7 @@
       "id": "aifs",
       "name": "ECMWF AIFS (européen, IA)",
       "status": "ok",
-      "fetched_at": "2026-11-23T22:41:37.831686+00:00",
+      "fetched_at": "2026-11-23T22:45:39.065008+00:00",
       "issued_at": "2026-11-23T12:00:00Z",
       "run": "2026-11-23T12:00:00+00:00",
       "hours": [
@@ -12997,7 +12997,7 @@
       "id": "mm",
       "name": "MétéoMédia (cm publiés)",
       "status": "ok",
-      "fetched_at": "2026-11-23T22:33:35.229454+00:00",
+      "fetched_at": "2026-11-23T22:45:03.316482+00:00",
       "note": "cm publiés par MétéoMédia par période de 6 h, répartis également sur chaque heure.",
       "hours": [
         {
