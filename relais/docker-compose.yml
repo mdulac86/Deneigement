@@ -1,0 +1,11 @@
+# Container Manager (Synology) > Projet > Créer : choisir ce dossier, puis « Construire ».
+services:
+  relais-meteo:
+    build: .
+    container_name: deneigement-relais
+    restart: unless-stopped
+    environment:
+      - TZ=America/Toronto
+      - GITHUB_TOKEN=${GITHUB_TOKEN}   # à mettre dans le fichier .env à côté (jamais dans GitHub)
+    volumes:
+      - ./data:/data

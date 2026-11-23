@@ -1,7 +1,8 @@
 """Relais du poste du bureau : lit MétéoMédia et Weather Underground avec la connexion
 du bureau, puis publie data/relay.json sur GitHub. Le robot GitHub l'utilise pendant 7 h.
 
-Lancé par une tâche planifiée Windows (23 h 45, 5 h 45, 11 h 45, 17 h 45).
+Lancé à 23 h 45, 5 h 45, 11 h 45 et 17 h 45 par le conteneur du NAS Synology (relais/)
+ou par la tâche planifiée Windows.
 Si le PC est éteint, rien n'est publié : l'appli garde les dernières données, marquées anciennes.
 """
 import datetime as dt
