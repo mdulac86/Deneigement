@@ -1,11 +1,11 @@
 {
-  "updated_at": "2026-11-24T18:41:31.415584+00:00",
+  "updated_at": "2026-11-24T18:49:22.697008+00:00",
   "sources": [
     {
       "id": "eccc",
       "status": "ok",
       "issued_at": "2026-11-24T16:30:00Z",
-      "fetched_at": "2026-11-24T18:41:31.415584+00:00",
+      "fetched_at": "2026-11-24T18:49:22.697008+00:00",
       "days": [
         {
           "date": "2026-11-24",
@@ -189,7 +189,7 @@
       "id": "met",
       "status": "ok",
       "issued_at": "2026-11-24T17:18:56Z",
-      "fetched_at": "2026-11-24T18:41:31.415584+00:00",
+      "fetched_at": "2026-11-24T18:49:22.697008+00:00",
       "days": [
         {
           "date": "2026-11-24",
@@ -297,7 +297,7 @@
       "id": "mb",
       "status": "ok",
       "issued_at": null,
-      "fetched_at": "2026-11-24T18:41:31.415584+00:00",
+      "fetched_at": "2026-11-24T18:49:22.697008+00:00",
       "days": [
         {
           "date": "2026-11-24",
@@ -356,8 +356,8 @@
           "snow_cm": null,
           "rain_mm": null,
           "ice_mm": null,
-          "condition": "Nuageux avec de la neige occasionnelle / Partiellement nuageux",
-          "risk": "Neige"
+          "condition": "Ciel couvert / Partiellement nuageux",
+          "risk": "Sans risque hivernal identifié"
         },
         {
           "date": "2026-11-30",
@@ -1842,8 +1842,8 @@
           "snow_cm": null,
           "rain_mm": null,
           "ice_mm": null,
-          "condition": "Nuageux avec de la neige occasionnelle / Partiellement nuageux",
-          "risk": "Neige"
+          "condition": "Ciel couvert / Partiellement nuageux",
+          "risk": "Sans risque hivernal identifié"
         },
         {
           "source": "mm",
@@ -1870,7 +1870,6 @@
         "ecartes": {}
       },
       "risks": [
-        "Neige",
         "Pluie",
         "Pluie / neige",
         "Sans risque hivernal identifié"
@@ -1880,9 +1879,7 @@
           "eccc"
         ],
         "Sans risque hivernal identifié": [
-          "met"
-        ],
-        "Neige": [
+          "met",
           "mb"
         ],
         "Pluie": [
@@ -1922,20 +1919,13 @@
       "rafales_kmh": 16,
       "verglas_hrrr_h": null,
       "risques_confirmes": [
-        "Pluie / neige"
+        "Pluie / neige",
+        "Sans risque hivernal identifié"
       ],
       "risques_a_confirmer": [
         {
-          "risque": "Neige",
-          "source": "mb"
-        },
-        {
           "risque": "Pluie",
           "source": "mm"
-        },
-        {
-          "risque": "Sans risque hivernal identifié",
-          "source": "met"
         }
       ],
       "seve": {
@@ -2610,8 +2600,8 @@
   ],
   "changes": [
     {
-      "text": "Aucun changement important dans les données comparables depuis la dernière collecte.",
-      "important": false
+      "text": "meteoblue · 2026-11-29 : Neige → Sans risque hivernal identifié.",
+      "important": true
     }
   ],
   "plan": [
@@ -2631,21 +2621,13 @@
       "confiance": "Faible",
       "modeles": 3,
       "notes": [
-        "Le seuil de 5 cm n’est atteint que par le modèle le plus enneigé.",
-        "Moins de 10 cm pendant la journée : nettoyage le lendemain matin.",
-        "Commercial propre pour 7 h 45. Résidentiel et locatif : acte de présence pendant la tournée, nettoyage complet plus tard."
+        "Seul IFS prévoit ≈ 5.13 cm; les autres modèles restent loin sous 5 cm."
       ],
       "deja_au_sol_cm": 0,
       "isoles": {},
-      "statut": "possible",
-      "mode": "matin",
-      "echeance": "2026-11-29T07:45:00-05:00",
-      "depart": "2026-11-29T03:30:00-05:00",
-      "duree_h": 4,
-      "fin_tournee": "2026-11-29T07:30:00-05:00",
-      "neige_a_echeance_cm": 0.1,
-      "final": null,
-      "fin_de_semaine": true,
+      "statut": "sous_seuil",
+      "au_sol_apres_cm": 0.1,
+      "resume": "Environ 0.1 cm prévus : sous le seuil de 5 cm.",
       "ensemble": null,
       "fiables": [
         {

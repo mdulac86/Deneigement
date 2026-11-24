@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-24T18:41:31.415584+00:00",
+  "updated_at": "2026-11-24T18:49:22.697008+00:00",
   "location": {
     "name": "Saint-Prosper · Beauce",
     "lat": 46.214,
@@ -13,7 +13,7 @@
       "name": "Environnement Canada",
       "url": "https://meteo.gc.ca/fr/location/index.html?coords=46.214,-70.486",
       "status": "ok",
-      "fetched_at": "2026-11-24T18:41:31.415584+00:00",
+      "fetched_at": "2026-11-24T18:49:22.697008+00:00",
       "issued_at": "2026-11-24T16:30:00Z",
       "days": [
         {
@@ -566,7 +566,7 @@
       "name": "MET Norway",
       "url": "https://api.met.no/weatherapi/locationforecast/2.0/compact?lat=46.214&lon=-70.486",
       "status": "ok",
-      "fetched_at": "2026-11-24T18:41:31.415584+00:00",
+      "fetched_at": "2026-11-24T18:49:22.697008+00:00",
       "issued_at": "2026-11-24T17:18:56Z",
       "days": [
         {
@@ -1295,7 +1295,7 @@
       "name": "meteoblue",
       "url": "https://www.meteoblue.com/fr/meteo/semaine/saint-prosper_canada_8672691",
       "status": "ok",
-      "fetched_at": "2026-11-24T18:41:31.415584+00:00",
+      "fetched_at": "2026-11-24T18:49:22.697008+00:00",
       "issued_at": null,
       "days": [
         {
@@ -1355,8 +1355,8 @@
           "snow_cm": null,
           "rain_mm": null,
           "ice_mm": null,
-          "condition": "Nuageux avec de la neige occasionnelle / Partiellement nuageux",
-          "risk": "Neige"
+          "condition": "Ciel couvert / Partiellement nuageux",
+          "risk": "Sans risque hivernal identifié"
         },
         {
           "date": "2026-11-30",
@@ -3405,7 +3405,7 @@
   ],
   "official_alerts": {
     "status": "ok",
-    "fetched_at": "2026-11-24T18:41:31.415584+00:00",
+    "fetched_at": "2026-11-24T18:49:22.697008+00:00",
     "items": []
   },
   "climate": {
@@ -4607,8 +4607,8 @@
           "snow_cm": null,
           "rain_mm": null,
           "ice_mm": null,
-          "condition": "Nuageux avec de la neige occasionnelle / Partiellement nuageux",
-          "risk": "Neige"
+          "condition": "Ciel couvert / Partiellement nuageux",
+          "risk": "Sans risque hivernal identifié"
         },
         {
           "source": "mm",
@@ -4635,7 +4635,6 @@
         "ecartes": {}
       },
       "risks": [
-        "Neige",
         "Pluie",
         "Pluie / neige",
         "Sans risque hivernal identifié"
@@ -4645,9 +4644,7 @@
           "eccc"
         ],
         "Sans risque hivernal identifié": [
-          "met"
-        ],
-        "Neige": [
+          "met",
           "mb"
         ],
         "Pluie": [
@@ -4687,20 +4684,13 @@
       "rafales_kmh": 16,
       "verglas_hrrr_h": null,
       "risques_confirmes": [
-        "Pluie / neige"
+        "Pluie / neige",
+        "Sans risque hivernal identifié"
       ],
       "risques_a_confirmer": [
         {
-          "risque": "Neige",
-          "source": "mb"
-        },
-        {
           "risque": "Pluie",
           "source": "mm"
-        },
-        {
-          "risque": "Sans risque hivernal identifié",
-          "source": "met"
         }
       ],
       "seve": {
@@ -5373,16 +5363,11 @@
       }
     }
   ],
-  "previous_at": "2026-11-24T18:37:43.812397+00:00",
+  "previous_at": "2026-11-24T18:41:31.415584+00:00",
   "confiance_temperatures": {
-    "mm": {
-      "poids": 0.87,
-      "erreur_c": 1.9,
-      "jours": 13
-    },
-    "eccc": {
-      "poids": 0.88,
-      "erreur_c": 1.8,
+    "mb": {
+      "poids": 1.0,
+      "erreur_c": 1.7,
       "jours": 14
     },
     "met": {
@@ -5390,16 +5375,21 @@
       "erreur_c": 1.8,
       "jours": 14
     },
-    "mb": {
-      "poids": 1.0,
-      "erreur_c": 1.7,
+    "eccc": {
+      "poids": 0.88,
+      "erreur_c": 1.8,
       "jours": 14
+    },
+    "mm": {
+      "poids": 0.87,
+      "erreur_c": 1.9,
+      "jours": 13
     }
   },
   "changes": [
     {
-      "text": "Aucun changement important dans les données comparables depuis la dernière collecte.",
-      "important": false
+      "text": "meteoblue · 2026-11-29 : Neige → Sans risque hivernal identifié.",
+      "important": true
     }
   ],
   "saison_estimation": {
@@ -5572,7 +5562,7 @@
             "time": "2026-11-21T20:00:00Z",
             "depth_cm": 0.0,
             "temp": 11.0,
-            "gust": 34.2,
+            "gust": 34.1,
             "pcpn": 0.0
           },
           {
@@ -6092,7 +6082,7 @@
           },
           {
             "time": "2026-11-21T19:00:00Z",
-            "depth_cm": 0.0,
+            "depth_cm": null,
             "temp": 11.6,
             "gust": 29.5,
             "pcpn": 0.0
@@ -6824,7 +6814,7 @@
           },
           {
             "time": "2026-11-23T00:00:00Z",
-            "depth_cm": 0.0,
+            "depth_cm": null,
             "temp": 8.7,
             "gust": 14.0,
             "pcpn": 0.0
@@ -7214,14 +7204,6 @@
       "cet_hiver": 0,
       "statut": "mesurée"
     },
-    "gfs": {
-      "poids": 0.24,
-      "erreur_cm": 9.6,
-      "episodes": 22,
-      "historique": 22,
-      "cet_hiver": 0,
-      "statut": "mesurée"
-    },
     "aifs": {
       "poids": 0.94,
       "erreur_cm": 4.9,
@@ -7229,6 +7211,14 @@
       "historique": 22,
       "cet_hiver": 0,
       "statut": "mesurée"
+    },
+    "met": {
+      "poids": 0.45,
+      "erreur_cm": 7.0,
+      "episodes": 0,
+      "historique": 0,
+      "cet_hiver": 0,
+      "statut": "non mesurée"
     },
     "mm": {
       "poids": 0.45,
@@ -7238,15 +7228,7 @@
       "cet_hiver": 0,
       "statut": "non mesurée"
     },
-    "ifs": {
-      "poids": 0.72,
-      "erreur_cm": 5.6,
-      "episodes": 22,
-      "historique": 22,
-      "cet_hiver": 0,
-      "statut": "mesurée"
-    },
-    "rdps": {
+    "hrdps": {
       "poids": 0.45,
       "erreur_cm": 7.0,
       "episodes": 0,
@@ -7254,7 +7236,7 @@
       "cet_hiver": 0,
       "statut": "non mesurée"
     },
-    "met": {
+    "rdps": {
       "poids": 0.45,
       "erreur_cm": 7.0,
       "episodes": 0,
@@ -7270,13 +7252,21 @@
       "cet_hiver": 0,
       "statut": "mesurée"
     },
-    "hrdps": {
-      "poids": 0.45,
-      "erreur_cm": 7.0,
-      "episodes": 0,
-      "historique": 0,
+    "gfs": {
+      "poids": 0.24,
+      "erreur_cm": 9.6,
+      "episodes": 22,
+      "historique": 22,
       "cet_hiver": 0,
-      "statut": "non mesurée"
+      "statut": "mesurée"
+    },
+    "ifs": {
+      "poids": 0.72,
+      "erreur_cm": 5.6,
+      "episodes": 22,
+      "historique": 22,
+      "cet_hiver": 0,
+      "statut": "mesurée"
     }
   },
   "confiance_pluie": {
@@ -7288,37 +7278,13 @@
       "cet_hiver": 0,
       "statut": "mesurée"
     },
-    "aifs": {
-      "poids": 1.0,
-      "erreur_mm": 3.2,
-      "episodes": 107,
-      "historique": 105,
-      "cet_hiver": 2,
-      "statut": "mesurée"
-    },
-    "mm": {
-      "poids": 0.63,
-      "erreur_mm": 4.0,
-      "episodes": 0,
+    "hrdps": {
+      "poids": 0.7,
+      "erreur_mm": 3.8,
+      "episodes": 1,
       "historique": 0,
-      "cet_hiver": 0,
-      "statut": "non mesurée"
-    },
-    "ifs": {
-      "poids": 0.72,
-      "erreur_mm": 3.7,
-      "episodes": 97,
-      "historique": 97,
-      "cet_hiver": 0,
-      "statut": "mesurée"
-    },
-    "met": {
-      "poids": 0.63,
-      "erreur_mm": 4.0,
-      "episodes": 0,
-      "historique": 0,
-      "cet_hiver": 0,
-      "statut": "non mesurée"
+      "cet_hiver": 1,
+      "statut": "en rodage"
     },
     "hrrr": {
       "poids": 0.83,
@@ -7344,13 +7310,37 @@
       "cet_hiver": 2,
       "statut": "en rodage"
     },
-    "hrdps": {
-      "poids": 0.7,
-      "erreur_mm": 3.8,
-      "episodes": 1,
+    "ifs": {
+      "poids": 0.72,
+      "erreur_mm": 3.7,
+      "episodes": 97,
+      "historique": 97,
+      "cet_hiver": 0,
+      "statut": "mesurée"
+    },
+    "aifs": {
+      "poids": 1.0,
+      "erreur_mm": 3.2,
+      "episodes": 107,
+      "historique": 105,
+      "cet_hiver": 2,
+      "statut": "mesurée"
+    },
+    "met": {
+      "poids": 0.63,
+      "erreur_mm": 4.0,
+      "episodes": 0,
       "historique": 0,
-      "cet_hiver": 1,
-      "statut": "en rodage"
+      "cet_hiver": 0,
+      "statut": "non mesurée"
+    },
+    "mm": {
+      "poids": 0.63,
+      "erreur_mm": 4.0,
+      "episodes": 0,
+      "historique": 0,
+      "cet_hiver": 0,
+      "statut": "non mesurée"
     }
   },
   "ensemble": {
@@ -7480,7 +7470,7 @@
       "id": "hrdps",
       "name": "HRDPS 2,5 km · ECCC",
       "status": "ok",
-      "fetched_at": "2026-11-24T18:41:31Z",
+      "fetched_at": "2026-11-24T18:49:22Z",
       "note": "cm estimés à partir des mm d’eau et de la température (rapport 10:1 près de 0 °C, plus léger au froid). Pas de fonte ni de tassement.",
       "issued_at": "2026-11-24T12:00:00Z",
       "layers": [
@@ -7768,7 +7758,7 @@
       "id": "rdps",
       "name": "RDPS 10 km · ECCC",
       "status": "ok",
-      "fetched_at": "2026-11-24T18:41:31Z",
+      "fetched_at": "2026-11-24T18:49:22Z",
       "note": "cm estimés à partir des mm d’eau et de la température (rapport 10:1 près de 0 °C, plus léger au froid). Pas de fonte ni de tassement.",
       "issued_at": "2026-11-24T12:00:00Z",
       "layers": [
@@ -8236,7 +8226,7 @@
       "id": "gfs",
       "name": "GFS 0,25° · NOAA",
       "status": "ok",
-      "fetched_at": "2026-11-24T18:41:31Z",
+      "fetched_at": "2026-11-24T18:49:22Z",
       "note": "cm estimés à partir des mm d’eau et de la température (rapport 10:1 près de 0 °C, plus léger au froid). Pas de fonte ni de tassement.",
       "issued_at": null,
       "units": [
@@ -8698,7 +8688,7 @@
       "id": "met",
       "name": "MET Norway",
       "status": "ok",
-      "fetched_at": "2026-11-24T18:41:31Z",
+      "fetched_at": "2026-11-24T18:49:22Z",
       "note": "cm estimés à partir des mm d’eau et de la température (rapport 10:1 près de 0 °C, plus léger au froid). Pas de fonte ni de tassement.",
       "issued_at": "2026-11-24T17:18:56Z",
       "hours": [
@@ -9228,7 +9218,7 @@
       "id": "nbm",
       "name": "NBM 2,5 km · NOAA (synthèse)",
       "status": "ok",
-      "fetched_at": "2026-11-24T18:41:31.415584+00:00",
+      "fetched_at": "2026-11-24T18:49:22.697008+00:00",
       "issued_at": "2026-11-24T15:00:00Z",
       "run": "2026-11-24T15:00:00+00:00",
       "hours": [
@@ -9752,7 +9742,7 @@
       "id": "hrrr",
       "name": "HRRR 3 km · NOAA",
       "status": "ok",
-      "fetched_at": "2026-11-24T18:41:31.415584+00:00",
+      "fetched_at": "2026-11-24T18:49:22.697008+00:00",
       "issued_at": "2026-11-24T12:00:00Z",
       "run": "2026-11-24T12:00:00+00:00",
       "hours": [
@@ -10116,7 +10106,7 @@
       "id": "ifs",
       "name": "ECMWF IFS (européen)",
       "status": "ok",
-      "fetched_at": "2026-11-24T18:41:31.415584+00:00",
+      "fetched_at": "2026-11-24T18:49:22.697008+00:00",
       "issued_at": "2026-11-24T00:00:00Z",
       "run": "2026-11-24T00:00:00+00:00",
       "hours": [
@@ -12303,7 +12293,7 @@
       "id": "aifs",
       "name": "ECMWF AIFS (européen, IA)",
       "status": "ok",
-      "fetched_at": "2026-11-24T18:41:31.415584+00:00",
+      "fetched_at": "2026-11-24T18:49:22.697008+00:00",
       "issued_at": "2026-11-24T12:00:00Z",
       "run": "2026-11-24T12:00:00+00:00",
       "hours": [
@@ -18335,21 +18325,13 @@
       "confiance": "Faible",
       "modeles": 3,
       "notes": [
-        "Le seuil de 5 cm n’est atteint que par le modèle le plus enneigé.",
-        "Moins de 10 cm pendant la journée : nettoyage le lendemain matin.",
-        "Commercial propre pour 7 h 45. Résidentiel et locatif : acte de présence pendant la tournée, nettoyage complet plus tard."
+        "Seul IFS prévoit ≈ 5.13 cm; les autres modèles restent loin sous 5 cm."
       ],
       "deja_au_sol_cm": 0,
       "isoles": {},
-      "statut": "possible",
-      "mode": "matin",
-      "echeance": "2026-11-29T07:45:00-05:00",
-      "depart": "2026-11-29T03:30:00-05:00",
-      "duree_h": 4,
-      "fin_tournee": "2026-11-29T07:30:00-05:00",
-      "neige_a_echeance_cm": 0.1,
-      "final": null,
-      "fin_de_semaine": true,
+      "statut": "sous_seuil",
+      "au_sol_apres_cm": 0.1,
+      "resume": "Environ 0.1 cm prévus : sous le seuil de 5 cm.",
       "ensemble": null,
       "fiables": [
         {
@@ -18513,7 +18495,7 @@
     ]
   },
   "routes": {
-    "fetched_at": "2026-11-24T18:41:31.415584+00:00",
+    "fetched_at": "2026-11-24T18:49:22.697008+00:00",
     "rayon_km": 45,
     "source": "https://www.quebec511.info/fr/",
     "note": "Données ouvertes du MTQ (Québec 511, CC BY 4.0). État des routes noté par les patrouilleurs; vidéos des caméras servies par Québec 511.",
@@ -19066,7 +19048,7 @@
   "motoneige": {
     "status": "ok",
     "run_nbm": "2026-11-24T15:00:00+00:00",
-    "mis_a_jour": "2026-11-24T18:41:31.415584+00:00",
+    "mis_a_jour": "2026-11-24T18:49:22.697008+00:00",
     "endroits": [
       {
         "id": "st-zacharie",
