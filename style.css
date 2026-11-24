@@ -339,6 +339,13 @@ nav button svg circle{fill:currentColor;stroke:none}
 .q-ico svg{width:46px;height:46px}
 .q-day strong{font:800 20px var(--title)}
 .q-day small{color:var(--muted);font-size:12.5px}
+.q-half{display:flex;flex-direction:column;align-items:center;gap:1px;width:100%;padding:6px 0}
+.q-half+.q-half{border-top:1px dashed var(--line);background:#ffffff06;border-radius:6px}
+.q-half em{font-style:normal;font:700 10.5px var(--body);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.q-half .q-ico svg{width:36px;height:36px}
+.q-half strong{font:800 18px var(--title)}
+.q-qty{color:var(--soft)!important;font-weight:600}
+.q-half.past{opacity:.45}
 .sub-tabs{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:4px 0 18px}
 .sub-tabs>span{font:700 11px var(--body);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-right:4px}
 .sub-tabs button{border-radius:999px;background:var(--panel);border-color:var(--line2);color:var(--soft);padding:8px 14px}
