@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-24T19:06:58.885560+00:00",
+  "updated_at": "2026-11-24T19:21:38.918920+00:00",
   "location": {
     "name": "Saint-Prosper · Beauce",
     "lat": 46.214,
@@ -13,7 +13,7 @@
       "name": "Environnement Canada",
       "url": "https://meteo.gc.ca/fr/location/index.html?coords=46.214,-70.486",
       "status": "ok",
-      "fetched_at": "2026-11-24T19:06:58.885560+00:00",
+      "fetched_at": "2026-11-24T19:21:38.918920+00:00",
       "issued_at": "2026-11-24T16:30:00Z",
       "days": [
         {
@@ -566,7 +566,7 @@
       "name": "MET Norway",
       "url": "https://api.met.no/weatherapi/locationforecast/2.0/compact?lat=46.214&lon=-70.486",
       "status": "ok",
-      "fetched_at": "2026-11-24T19:06:58.885560+00:00",
+      "fetched_at": "2026-11-24T19:21:38.918920+00:00",
       "issued_at": "2026-11-24T17:18:56Z",
       "days": [
         {
@@ -1295,7 +1295,7 @@
       "name": "meteoblue",
       "url": "https://www.meteoblue.com/fr/meteo/semaine/saint-prosper_canada_8672691",
       "status": "ok",
-      "fetched_at": "2026-11-24T19:06:58.885560+00:00",
+      "fetched_at": "2026-11-24T19:21:38.918920+00:00",
       "issued_at": null,
       "days": [
         {
@@ -3405,7 +3405,7 @@
   ],
   "official_alerts": {
     "status": "ok",
-    "fetched_at": "2026-11-24T19:06:58.885560+00:00",
+    "fetched_at": "2026-11-24T19:21:38.918920+00:00",
     "items": []
   },
   "climate": {
@@ -5363,26 +5363,26 @@
       }
     }
   ],
-  "previous_at": "2026-11-24T19:01:23.986054+00:00",
+  "previous_at": "2026-11-24T19:06:58.885560+00:00",
   "confiance_temperatures": {
-    "met": {
-      "poids": 0.93,
-      "erreur_c": 1.8,
-      "jours": 14
+    "mm": {
+      "poids": 0.87,
+      "erreur_c": 1.9,
+      "jours": 13
     },
     "eccc": {
       "poids": 0.88,
       "erreur_c": 1.8,
       "jours": 14
     },
-    "mm": {
-      "poids": 0.87,
-      "erreur_c": 1.9,
-      "jours": 13
-    },
     "mb": {
       "poids": 1.0,
       "erreur_c": 1.7,
+      "jours": 14
+    },
+    "met": {
+      "poids": 0.93,
+      "erreur_c": 1.8,
       "jours": 14
     }
   },
@@ -5418,14 +5418,14 @@
         "max": 210
       },
       "jours_deneigement": {
-        "central": 16,
-        "min": 14,
-        "max": 20
+        "central": 24,
+        "min": 21,
+        "max": 30
       },
       "sorties_fonte": {
-        "central": 3.5,
-        "min": 2,
-        "max": 6
+        "central": 16,
+        "min": 12,
+        "max": 20
       },
       "jours_verglas": {
         "central": 5,
@@ -5448,9 +5448,14 @@
         "max": 6
       },
       "sorties_total": {
-        "central": 21,
-        "min": 16,
-        "max": 29
+        "central": 29,
+        "min": 23,
+        "max": 39
+      },
+      "heures": {
+        "central": 205,
+        "min": 175,
+        "max": 240
       }
     },
     "normale": {
@@ -5459,13 +5464,14 @@
       "tempetes_25cm": 2,
       "neige_cm": 210.1,
       "periode": "15 hivers récents aux relevés complets (2006-2007 à 2025-2026), station ST PROSPER 7027660 (scripts/normales.py); grosses tempêtes de 25 cm, poudrerie et glace par grand vent : normale 1964-2023",
-      "jours_deneigement": 18.7,
-      "sorties_fonte": 2.3,
+      "jours_deneigement": 31.2,
+      "sorties_fonte": 12.1,
       "jours_verglas": 2.0,
       "jours_pluie": 8.3,
       "sorties_poudrerie": 5,
       "jours_glace_vent": 3,
-      "sorties_total": 23.7
+      "sorties_total": 36.2,
+      "heures": 225
     },
     "par_mois": {
       "11": 1,
@@ -5475,14 +5481,15 @@
       "03": 2,
       "04": 1
     },
-    "regle_sorties": "Jour de déneigement : le matin où 5 cm de neige accumulée sont atteints, on sort vers 2-3 h, premier tour puis passe finale. Les petites chutes s'additionnent d'un jour à l'autre (3 jours de 2 cm = une sortie le 3e matin) jusqu'à un redoux (maximum de 4 °C et plus) ou de la pluie. S'il continue de neiger et qu'il retombe 5 cm et plus, on compte un autre jour le lendemain matin. Sortie d'abrasif / bord de rue : de la neige est tombée puis la pluie la fait fondre (5 mm de pluie et plus) : pas de déneigement, mais une sortie d'abrasif et de nettoyage de bord de rue. ",
+    "regle_sorties": "Jour de déneigement : 2 cm accumulés à la station de Saint-Prosper (≈ 5 cm dans les stationnements, la station mesure moins que ce qui s'accumule); environ 31 jours dans un hiver normal récent, comme le constate l'équipe. Les petites chutes s'additionnent jusqu'à un redoux (maximum de 4 °C et plus) ou de la pluie. Fonte à nettoyer : début d'un redoux (4 °C et plus ou 5 mm de pluie) avec 5 cm et plus de neige au sol : la neige devient de la slush qu'il faut retirer des stationnements. Heures-machine : 4 h par tournée jusqu'à 10 cm, +1,5 h par tranche de 10 cm, 4 h par fonte; un hiver normal fait environ 225 h. ",
     "raisons": [
       "El Niño se renforce encore (NOAA, 12 nov. 2026) : Niño-3.4 à +2,5 °C, fort à très fort probable jusqu'en mars (plus de 79 %), environ 60 % de chances d'un épisode historique; affaiblissement attendu au début de 2027. Hiver plus doux, tempêtes plus au sud.",
       "À Saint-Prosper, les El Niño très forts (1982-83, 1997-98, 2015-16) ont donné 8 à 12 tempêtes, 14 à 20 jours de déneigement, 3 à 5 sorties d'abrasif après une fonte et 6 à 8 jours de verglas probable : l'estimation se rapproche maintenant de ces hivers.",
       "Dix dernières années : un peu moins de neige au total et moins de très grosses tempêtes, nombre de tempêtes stable.",
       "Verglas et pluie : les El Niño forts ont donné en moyenne 3 jours de verglas probable (jusqu'à 8) et 10 à 11 jours de pluie de décembre à mars, contre 2,6 et 8 en temps normal.",
       "Plus de verglas et de redoux possibles : non comptés ici.",
-      "Vent : la poudrerie ajoute environ 5 sorties par hiver (2 à 9) aux jours de neige, et les grands vents autour du point de congélation environ 3 jours d'abrasif (1 à 6). Total attendu : ≈ 21 sorties de déneigement (16 jours de neige + 5 poudreries). Un hiver El Niño fort donne un peu moins de poudrerie (≈ 6 au lieu de 9 à Thetford) mais un peu plus de glace par vent (≈ 7 au lieu de 6)."
+      "Vent : la poudrerie ajoute environ 5 sorties par hiver (2 à 9) aux jours de neige, et les grands vents autour du point de congélation environ 3 jours d'abrasif (1 à 6). Total attendu : ≈ 21 sorties de déneigement (16 jours de neige + 5 poudreries). Un hiver El Niño fort donne un peu moins de poudrerie (≈ 6 au lieu de 9 à Thetford) mais un peu plus de glace par vent (≈ 7 au lieu de 6).",
+      "Recalibrage du 24 nov. 2026 : jours de déneigement comptés à 2 cm à la station (environ 31 jours par hiver normal, comme constaté sur le terrain), fontes sur la neige au sol (slush) et heures-machine (225 h dans un hiver normal). L'attendu de cet hiver garde les mêmes écarts El Niño qu'avant : environ 24 jours de déneigement, plus de fontes (16) et ≈ 205 h."
     ],
     "sources": [
       {
@@ -7196,6 +7203,14 @@
     }
   },
   "confiance": {
+    "mm": {
+      "poids": 0.45,
+      "erreur_cm": 7.0,
+      "episodes": 0,
+      "historique": 0,
+      "cet_hiver": 0,
+      "statut": "non mesurée"
+    },
     "ifs": {
       "poids": 0.72,
       "erreur_cm": 5.6,
@@ -7204,13 +7219,13 @@
       "cet_hiver": 0,
       "statut": "mesurée"
     },
-    "rdps": {
-      "poids": 0.45,
-      "erreur_cm": 7.0,
-      "episodes": 0,
-      "historique": 0,
+    "gfs": {
+      "poids": 0.24,
+      "erreur_cm": 9.6,
+      "episodes": 22,
+      "historique": 22,
       "cet_hiver": 0,
-      "statut": "non mesurée"
+      "statut": "mesurée"
     },
     "aifs": {
       "poids": 0.94,
@@ -7236,15 +7251,7 @@
       "cet_hiver": 0,
       "statut": "non mesurée"
     },
-    "met": {
-      "poids": 0.45,
-      "erreur_cm": 7.0,
-      "episodes": 0,
-      "historique": 0,
-      "cet_hiver": 0,
-      "statut": "non mesurée"
-    },
-    "mm": {
+    "rdps": {
       "poids": 0.45,
       "erreur_cm": 7.0,
       "episodes": 0,
@@ -7260,29 +7267,29 @@
       "cet_hiver": 0,
       "statut": "mesurée"
     },
-    "gfs": {
-      "poids": 0.24,
-      "erreur_cm": 9.6,
-      "episodes": 22,
-      "historique": 22,
+    "met": {
+      "poids": 0.45,
+      "erreur_cm": 7.0,
+      "episodes": 0,
+      "historique": 0,
       "cet_hiver": 0,
-      "statut": "mesurée"
+      "statut": "non mesurée"
     }
   },
   "confiance_pluie": {
-    "rdps": {
-      "poids": 0.81,
-      "erreur_mm": 3.5,
-      "episodes": 2,
-      "historique": 0,
-      "cet_hiver": 2,
-      "statut": "en rodage"
+    "ifs": {
+      "poids": 0.72,
+      "erreur_mm": 3.7,
+      "episodes": 97,
+      "historique": 97,
+      "cet_hiver": 0,
+      "statut": "mesurée"
     },
-    "aifs": {
-      "poids": 1.0,
-      "erreur_mm": 3.2,
-      "episodes": 107,
-      "historique": 105,
+    "gfs": {
+      "poids": 0.86,
+      "erreur_mm": 3.4,
+      "episodes": 110,
+      "historique": 108,
       "cet_hiver": 2,
       "statut": "mesurée"
     },
@@ -7292,6 +7299,38 @@
       "episodes": 90,
       "historique": 90,
       "cet_hiver": 0,
+      "statut": "mesurée"
+    },
+    "rdps": {
+      "poids": 0.81,
+      "erreur_mm": 3.5,
+      "episodes": 2,
+      "historique": 0,
+      "cet_hiver": 2,
+      "statut": "en rodage"
+    },
+    "hrrr": {
+      "poids": 0.83,
+      "erreur_mm": 3.5,
+      "episodes": 103,
+      "historique": 103,
+      "cet_hiver": 0,
+      "statut": "mesurée"
+    },
+    "mm": {
+      "poids": 0.63,
+      "erreur_mm": 4.0,
+      "episodes": 0,
+      "historique": 0,
+      "cet_hiver": 0,
+      "statut": "non mesurée"
+    },
+    "aifs": {
+      "poids": 1.0,
+      "erreur_mm": 3.2,
+      "episodes": 107,
+      "historique": 105,
+      "cet_hiver": 2,
       "statut": "mesurée"
     },
     "hrdps": {
@@ -7309,38 +7348,6 @@
       "historique": 0,
       "cet_hiver": 0,
       "statut": "non mesurée"
-    },
-    "mm": {
-      "poids": 0.63,
-      "erreur_mm": 4.0,
-      "episodes": 0,
-      "historique": 0,
-      "cet_hiver": 0,
-      "statut": "non mesurée"
-    },
-    "ifs": {
-      "poids": 0.72,
-      "erreur_mm": 3.7,
-      "episodes": 97,
-      "historique": 97,
-      "cet_hiver": 0,
-      "statut": "mesurée"
-    },
-    "hrrr": {
-      "poids": 0.83,
-      "erreur_mm": 3.5,
-      "episodes": 103,
-      "historique": 103,
-      "cet_hiver": 0,
-      "statut": "mesurée"
-    },
-    "gfs": {
-      "poids": 0.86,
-      "erreur_mm": 3.4,
-      "episodes": 110,
-      "historique": 108,
-      "cet_hiver": 2,
-      "statut": "mesurée"
     }
   },
   "ensemble": {
@@ -7470,7 +7477,7 @@
       "id": "hrdps",
       "name": "HRDPS 2,5 km · ECCC",
       "status": "ok",
-      "fetched_at": "2026-11-24T19:06:58Z",
+      "fetched_at": "2026-11-24T19:21:38Z",
       "note": "cm estimés à partir des mm d’eau et de la température (rapport 10:1 près de 0 °C, plus léger au froid). Pas de fonte ni de tassement.",
       "issued_at": "2026-11-24T12:00:00Z",
       "layers": [
@@ -7752,7 +7759,7 @@
       "id": "rdps",
       "name": "RDPS 10 km · ECCC",
       "status": "ok",
-      "fetched_at": "2026-11-24T19:06:58Z",
+      "fetched_at": "2026-11-24T19:21:38Z",
       "note": "cm estimés à partir des mm d’eau et de la température (rapport 10:1 près de 0 °C, plus léger au froid). Pas de fonte ni de tassement.",
       "issued_at": "2026-11-24T12:00:00Z",
       "layers": [
@@ -8220,7 +8227,7 @@
       "id": "gfs",
       "name": "GFS 0,25° · NOAA",
       "status": "ok",
-      "fetched_at": "2026-11-24T19:06:58Z",
+      "fetched_at": "2026-11-24T19:21:38Z",
       "note": "cm estimés à partir des mm d’eau et de la température (rapport 10:1 près de 0 °C, plus léger au froid). Pas de fonte ni de tassement.",
       "issued_at": null,
       "units": [
@@ -8682,7 +8689,7 @@
       "id": "met",
       "name": "MET Norway",
       "status": "ok",
-      "fetched_at": "2026-11-24T19:06:58Z",
+      "fetched_at": "2026-11-24T19:21:38Z",
       "note": "cm estimés à partir des mm d’eau et de la température (rapport 10:1 près de 0 °C, plus léger au froid). Pas de fonte ni de tassement.",
       "issued_at": "2026-11-24T17:18:56Z",
       "hours": [
@@ -9212,7 +9219,7 @@
       "id": "nbm",
       "name": "NBM 2,5 km · NOAA (synthèse)",
       "status": "ok",
-      "fetched_at": "2026-11-24T19:06:58.885560+00:00",
+      "fetched_at": "2026-11-24T19:21:38.918920+00:00",
       "issued_at": "2026-11-24T18:00:00Z",
       "run": "2026-11-24T18:00:00+00:00",
       "hours": [
@@ -9781,7 +9788,7 @@
       "id": "hrrr",
       "name": "HRRR 3 km · NOAA",
       "status": "ok",
-      "fetched_at": "2026-11-24T19:06:58.885560+00:00",
+      "fetched_at": "2026-11-24T19:21:38.918920+00:00",
       "issued_at": "2026-11-24T12:00:00Z",
       "run": "2026-11-24T12:00:00+00:00",
       "hours": [
@@ -10145,7 +10152,7 @@
       "id": "ifs",
       "name": "ECMWF IFS (européen)",
       "status": "ok",
-      "fetched_at": "2026-11-24T19:06:58.885560+00:00",
+      "fetched_at": "2026-11-24T19:21:38.918920+00:00",
       "issued_at": "2026-11-24T00:00:00Z",
       "run": "2026-11-24T00:00:00+00:00",
       "hours": [
@@ -12332,7 +12339,7 @@
       "id": "aifs",
       "name": "ECMWF AIFS (européen, IA)",
       "status": "ok",
-      "fetched_at": "2026-11-24T19:06:58.885560+00:00",
+      "fetched_at": "2026-11-24T19:21:38.918920+00:00",
       "issued_at": "2026-11-24T12:00:00Z",
       "run": "2026-11-24T12:00:00+00:00",
       "hours": [
@@ -18629,7 +18636,7 @@
     "note": "NBM (NOAA) : probabilité de 0,25 mm et plus en 12 h, 7 h -> 19 h et 19 h -> 7 h (heure normale)."
   },
   "routes": {
-    "fetched_at": "2026-11-24T19:06:58.885560+00:00",
+    "fetched_at": "2026-11-24T19:21:38.918920+00:00",
     "rayon_km": 45,
     "source": "https://www.quebec511.info/fr/",
     "note": "Données ouvertes du MTQ (Québec 511, CC BY 4.0). État des routes noté par les patrouilleurs; vidéos des caméras servies par Québec 511.",
@@ -19182,7 +19189,7 @@
   "motoneige": {
     "status": "ok",
     "run_nbm": "2026-11-24T18:00:00+00:00",
-    "mis_a_jour": "2026-11-24T19:06:58.885560+00:00",
+    "mis_a_jour": "2026-11-24T19:21:38.918920+00:00",
     "endroits": [
       {
         "id": "st-zacharie",
