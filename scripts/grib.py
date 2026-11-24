@@ -11,6 +11,7 @@ import urllib.error
 import urllib.request
 
 _LOCK = threading.Lock()  # eccodes n'est pas sûr entre fils d'exécution
+_NEAREST = {}  # (grille, points) -> indices des points de grille les plus proches
 threading.stack_size(16 * 1024 * 1024)  # l'analyseur d'eccodes est récursif : pile plus grande dans les fils
 
 
@@ -70,6 +71,35 @@ def point_value(data, lat, lon, units=False):
             return (v, eccodes.codes_get(gid, 'units')) if units else v
         finally:
             eccodes.codes_release(gid)
+
+
+def points_value(data, pts):
+    """Valeur au point de grille le plus proche pour plusieurs points, en un seul décodage."""
+    import eccodes
+    with _LOCK:
+        gid = eccodes.codes_new_from_message(data)
+        try:
+            # La recherche des points les plus proches est coûteuse : faite une fois par grille, puis réutilisée.
+            geo = tuple(eccodes.codes_get(gid, k) for k in ('gridType', 'Ni', 'Nj', 'latitudeOfFirstGridPointInDegrees',
+                                                                 'longitudeOfFirstGridPointInDegrees')) + (tuple(pts),)
+            idx = _NEAREST.get(geo)
+            if idx is None:
+                near = eccodes.codes_grib_find_nearest_multiple(gid, False, [p[0] for p in pts], [p[1] for p in pts])
+                idx = [n.index for n in near]
+                # Rangées alternées (NBM) : une rangée sur deux est stockée à l'envers dans le tableau des valeurs.
+                if eccodes.codes_get(gid, 'alternativeRowScanning') == 1:
+                    ni = eccodes.codes_get(gid, 'Ni')
+                    idx = [(i // ni) * ni + (ni - 1 - i % ni) if (i // ni) % 2 else i for i in idx]
+                _NEAREST[geo] = idx
+            vals = eccodes.codes_get_values(gid)
+            return [float(vals[i]) for i in idx]
+        finally:
+            eccodes.codes_release(gid)
+
+
+def field_points(url, entry, pts):
+    """Un seul téléchargement du champ, lu à plusieurs endroits (onglet motoneige)."""
+    return points_value(get(url, (entry['_offset'], entry['_offset'] + entry['_length'] - 1)), pts)
 
 
 def field(url, entry, lat, lon, units=False):

@@ -25,6 +25,7 @@ import noaa  # noqa: E402
 import routes  # noqa: E402
 import trust  # noqa: E402
 import erable  # noqa: E402
+import motoneige  # noqa: E402
 import alerts as notifier  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -865,6 +866,19 @@ def main():
         result['gel_sol']=gel
     except Exception as e:
         print('gel au sol :', e)
+    try:  # motoneige hors-piste : passages complets seulement, en saison (config/motoneige.json)
+        cfg_moto=read(ROOT/'config'/'motoneige.json',None)
+        if cfg_moto and motoneige.in_season(cfg_moto,TODAY):
+            if RAPIDE and previous.get('motoneige'):
+                result['motoneige']=previous['motoneige']
+            elif not RAPIDE:
+                moto,hist=motoneige.collect(cfg_moto,fetch,nwp,NOW,TZ,read(DATA/'motoneige.json',{}).get('historique',[]))
+                write(DATA/'motoneige.json',{'historique':hist})
+                result['motoneige']=moto
+    except Exception as e:
+        print('motoneige :',e)
+        if previous.get('motoneige'):
+            result['motoneige']={**previous['motoneige'],'status':'stale','error':str(e)[:150]}
     result['tempete']=tempete(result)
     result['passage']='rapide' if RAPIDE else 'complet'
     write(DATA/'weather.json',result)

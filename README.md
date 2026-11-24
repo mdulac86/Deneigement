@@ -153,6 +153,20 @@ que si deux passages de suite sont d'accord, sauf si le départ est dans moins d
   coulée recalculée chaque automne sur les 10 derniers printemps (`scripts/erable.py`,
   `data/erable-estimation.json`); `config/erable.json` → `manuelle` la remplace pour une seule saison.
 
+## Motoneige hors-piste (onglet Motoneige)
+
+`scripts/motoneige.py`, endroits dans `config/motoneige.json` (coordonnées OpenStreetMap, temps de
+route OSRM depuis Saint-Prosper, vitesses d'été). Du 15 novembre au 30 avril, à chaque passage complet :
+- neige au sol : HRDPS (GeoMet, SD) et HRRR (SNOD), moyenne; historique 14 jours dans
+  `data/motoneige.json` (variation sur 72 h);
+- 7 jours de NBM par tranche de 6 h (neige, précipitations, température, rafales), lus pour tous les
+  endroits d'un seul téléchargement par champ (`grib.field_points`; NBM range une rangée sur deux à
+  l'envers : corrigé);
+- projection de la base (neige fraîche tassée, fonte, pluie), surface du jour (poudreuse, neige fraîche,
+  bonne base, ventée, lourde, croûte), note de 0 à 10, et « vaut la route » = note − 1 point par heure
+  de route au-delà de la première. Moins de 15 cm de base : 2/10 au plus.
+Valeurs au point de grille de 2,5 km : pas sous le couvert forestier ni au sommet; à confirmer sur place.
+
 ## Fiabilité : qui voit juste ?
 
 `scripts/history.py` compare la prévision de la veille des modèles archivés

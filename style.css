@@ -284,6 +284,25 @@ table.chantier th,table.chantier td{padding-left:6px;padding-right:6px}table.cha
 table.chantier small.storm{color:var(--orange);font-weight:700}table.chantier small.hot{color:var(--orange)}
 .sap-why{margin:10px 0 0;padding-left:18px;color:var(--soft);font-size:14px;line-height:1.5}
 #status-chantier:empty{display:none}
+/* Motoneige */
+table.moto td small{display:block;color:var(--muted);font-size:11.5px}
+table.moto td small.gain{color:var(--blue)}table.moto td small.melt{color:var(--orange)}
+table.moto .tag{font-size:10px;padding:3px 8px}
+.moto-note{font:900 15px var(--title);color:var(--muted)}
+.moto-note.n4,.moto-note.n5{color:var(--yellow)}.moto-note.n6,.moto-note.n7,.moto-note.n8,.moto-note.n9,.moto-note.n10{color:var(--green)}
+.moto-days{margin-top:10px;border:1px solid var(--line);border-radius:var(--r);padding:8px 12px;background:var(--panel2)}
+.moto-days summary{cursor:pointer;font-weight:700;color:var(--soft)}
+@media(max-width:600px){
+  table.moto thead{display:none}
+  table.moto,table.moto tbody{display:block}
+  table.moto tr{display:grid;grid-template-columns:1fr 1fr;gap:6px 10px;padding:12px 0;border-bottom:1px solid var(--line)}
+  table.moto td{display:block;border:0;padding:0}
+  table.moto td:first-child{grid-column:1/-1}
+  #moto-rows td::before{display:block;color:var(--muted);font:700 10px var(--body);letter-spacing:.08em;text-transform:uppercase;margin-bottom:2px}
+  #moto-rows td:nth-child(2)::before{content:'Route'}#moto-rows td:nth-child(3)::before{content:'Neige au sol'}
+  #moto-rows td:nth-child(4)::before{content:'Samedi'}#moto-rows td:nth-child(5)::before{content:'Dimanche'}
+  #moto-rows td:nth-child(6)::before{content:'Vaut la route'}
+}
 /* Probabilités NBM */
 table.nbm td{white-space:nowrap}
 .pbar{display:inline-block;vertical-align:middle;width:70px;height:8px;border-radius:999px;background:var(--panel2);border:1px solid var(--line2);overflow:hidden;margin-right:8px}
