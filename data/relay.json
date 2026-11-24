@@ -1,10 +1,10 @@
 {
-  "fetched_at": "2026-11-24T04:45:08.712417+00:00",
+  "fetched_at": "2026-11-24T06:38:24.422444+00:00",
   "host": "poste du bureau",
   "sources": {
     "mm": {
       "status": "ok",
-      "fetched_at": "2026-11-24T04:45:08.712417+00:00",
+      "fetched_at": "2026-11-24T06:38:24.422444+00:00",
       "result": {
         "issued_at": null,
         "days": [
