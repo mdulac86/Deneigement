@@ -442,3 +442,11 @@ table.routes .tag{font-size:10px;padding:3px 8px;margin:2px 0}
 .ep-what{display:flex;flex-direction:column;gap:2px;font-size:14px}
 .ep-what span{color:var(--soft)}
 .ep-rule{font-size:12.5px;margin:10px 0 0}
+
+/* Mon hiver : à pareille date */
+.season-compare{margin-bottom:18px}
+.season-compare h3{margin:0;font-size:16px}
+table.cmp{width:100%}
+table.cmp th{text-align:right}table.cmp th:first-child{text-align:left}
+table.cmp td{text-align:right;white-space:nowrap}table.cmp td:first-child{text-align:left;white-space:normal}
+table.cmp td.up b{color:var(--orange)}table.cmp td.down b{color:var(--green)}

@@ -17,6 +17,9 @@ async function load(){
     const r=await fetch('data/weather.json',{cache:'no-store'});if(!r.ok)throw new Error('Données indisponibles');
     const j=await r.json();if(!Array.isArray(j.sources)||!j.climate)throw new Error('Format de données non reconnu');state=j;
     try{const s=await fetch('data/verification/scores.json',{cache:'no-store'});if(s.ok)j.scores=await s.json()}catch{}
+    // Onglet Mon hiver : hiver dernier (relevés Climat Québec) et normale à pareille date (15 hivers récents).
+    const yPrev=+(j.climate.start||'').slice(0,4)-1,get=u=>fetch(u,{cache:'no-store'}).then(x=>x.ok?x.json():null).catch(()=>null);
+    [j.precedent,j.normale_date]=await Promise.all([yPrev?get('data/season-'+yPrev+'.json'):null,get('data/normale-par-date.json')]);
     localStorage.setItem('deneigement-last-data',JSON.stringify(j));render();
   }catch(e){
     if(!state){try{state=JSON.parse(localStorage.getItem('deneigement-last-data'))}catch{}}
@@ -222,6 +225,14 @@ function seasonBar(label,done,exp,norm,unit=''){
 function renderSeason(){
  const e=state.saison_estimation;if(!e){$('season-panel').hidden=true;return}$('season-panel').hidden=false;
  const o=observedSeason(state.climate.records),a=e.attendu_total,no=e.normale;
+ // À pareille date : cet hiver, hiver dernier (mêmes règles) et normale des 15 hivers récents.
+ const cut=state.climate.last_date;
+ if(cut){const md=cut.slice(5),prevCut=(+cut.slice(0,4)-1)+cut.slice(4),P=state.precedent?.records?.filter(r=>r.date<=prevCut),N=state.normale_date?.par_date?.[md];
+  const sum=rs=>rs.reduce((t,r)=>t+(r.snow_cm||0),0),cur=state.climate.records.filter(r=>r.date<=cut),p=P?.length?observedSeason(P):null;
+  const lines=[['Neige tombée',sum(cur),P?.length?sum(P):null,N?.neige_cm,' cm'],['Tempêtes de 5 cm et plus',o.t5,p?.t5,N?.tempetes_5cm,''],['Grosses tempêtes (15 cm et plus)',o.t15,p?.t15,N?.tempetes_15cm,''],['Jours de déneigement',o.jours,p?.jours,N?.jours_deneigement,''],['Sorties d’abrasif après une fonte',o.fonte,p?.fonte,N?.sorties_fonte,''],['Jours de verglas probable',o.verglas,p?.verglas,N?.jours_verglas,''],['Jours de pluie en hiver (déc. à mars)',o.pluie,p?.pluie,N?.jours_pluie,'']];
+  const f=(v,u)=>v==null?'—':n(Math.round(v*10)/10)+u,cls=(v,nv)=>v==null||nv==null?'':v>nv*1.15+0.4?'up':v<nv*0.85-0.4?'down':'';
+  $('season-compare').innerHTML='<div class="section-heading"><h3>À pareille date · '+esc(new Intl.DateTimeFormat('fr-CA',{day:'numeric',month:'long',timeZone:'UTC'}).format(new Date(cut+'T12:00:00Z')))+'</h3></div><div class="table-scroll"><table class="cmp"><thead><tr><th></th><th>Cet hiver</th><th>Hiver dernier</th><th>Normale</th></tr></thead><tbody>'+lines.map(([l,a,b,c,u])=>'<tr><td>'+l+'</td><td class="'+cls(a,c)+'"><b>'+f(a,u)+'</b></td><td>'+f(b,u)+'</td><td class="muted">'+f(c,u)+'</td></tr>').join('')+'</tbody></table></div><p class="footnote">Cumuls du 1er octobre au '+esc(dateOnly(cut))+' (dernier relevé publié), mêmes règles pour les trois colonnes. Hiver dernier : '+esc(state.precedent?.season||'—')+(P?.length&&P[0].date>prevCut.slice(0,4)+'-10-15'?' (octobre manquant)':'')+'. Normale : moyenne des '+esc(state.normale_date?.periode||'15 hivers récents')+'. En vert : sous la normale; en orange : au-dessus.</p>';
+ }
  $('season-updated').textContent='Estimation du '+dateOnly(e.mis_a_jour);
  $('season-progress').innerHTML='<p class="muted">Ce qui est tombé depuis le 1er octobre (relevés publiés) comparé à ce qu’on attend pour tout l’hiver '+esc(e.saison)+'. Le trait blanc marque la normale.</p>'+seasonBar('Tempêtes de 5 cm et plus',o.t5,a.tempetes_5cm,no.tempetes_5cm)+seasonBar('Grosses tempêtes (15 cm et plus)',o.t15,a.tempetes_15cm,no.tempetes_15cm)+seasonBar('Sorties de déneigement au total (neige + poudrerie)',o.jours+o.poudrerie,a.sorties_total,no.sorties_total)+seasonBar('Jours de déneigement (neige)',o.jours,a.jours_deneigement,no.jours_deneigement)+seasonBar('Sorties de poudrerie (vent, sans tempête)',o.poudrerie,a.sorties_poudrerie,no.sorties_poudrerie)+seasonBar('Sorties d’abrasif après une fonte',o.fonte,a.sorties_fonte,no.sorties_fonte)+seasonBar('Glace au sol par grand vent (abrasif)',o.glaceVent,a.jours_glace_vent,no.jours_glace_vent)+seasonBar('Jours de verglas probable (pluie qui gèle)',o.verglas,a.jours_verglas,no.jours_verglas)+seasonBar('Jours de pluie en hiver (déc. à mars)',o.pluie,a.jours_pluie,no.jours_pluie)+seasonBar('Neige totale',state.climate.total_cm||0,a.neige_cm,no.neige_cm,' cm');
  const nx=state.consensus||[],cnt=k=>nx.filter(d=>(d.risks||[]).includes(k)).length;

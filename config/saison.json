@@ -60,18 +60,18 @@
   }
  },
  "normale": {
-  "tempetes_5cm": 12,
-  "tempetes_15cm": 5,
+  "tempetes_5cm": 11.8,
+  "tempetes_15cm": 4.8,
   "tempetes_25cm": 2,
-  "neige_cm": 228,
-  "periode": "1964-2023, 53 hivers, station ST PROSPER 7027660",
-  "jours_deneigement": 21,
-  "sorties_fonte": 2.7,
-  "jours_verglas": 2.6,
+  "neige_cm": 210.1,
+  "periode": "15 hivers récents aux relevés complets (2006-2007 à 2025-2026), station ST PROSPER 7027660 (scripts/normales.py); grosses tempêtes de 25 cm, poudrerie et glace par grand vent : normale 1964-2023",
+  "jours_deneigement": 18.7,
+  "sorties_fonte": 2.3,
+  "jours_verglas": 2.0,
   "jours_pluie": 8.3,
   "sorties_poudrerie": 5,
   "jours_glace_vent": 3,
-  "sorties_total": 26
+  "sorties_total": 23.7
  },
  "par_mois": {
   "11": 1,

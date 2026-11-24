@@ -3,7 +3,8 @@
 Règles (config/epandage.json) :
 - verglas ou grésil confirmé (Environnement Canada, 2 sources ou source mesurée fiable) : épandage au
   début de l'épisode, ou prêt pour 7 h 45 s'il arrive la nuit;
-- pluie (1 mm et plus) ou fonte (4 h à +1 °C et plus avec de la neige au sol), puis retour sous 0 °C :
+- stationnements, moins exigeants qu'une route : pluie (2 mm et plus) ou fonte (6 h à +2 °C et plus avec
+  de la neige au sol), puis regel à -1 °C et moins :
   épandage au regel, ou prêt pour 7 h 45 si le regel arrive la nuit;
 - produit : sel + calcium jusqu'à -18 °C, abrasif plus froid; abrasif en plus après beaucoup d'eau.
 
