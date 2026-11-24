@@ -111,6 +111,30 @@ Utilisation :
   HRRR suit la même règle.
 - Onglet Sources : tableau « Poids accordé à chaque source en ce moment ».
 
+## Modèle ou source isolé
+
+Si une seule source prévoit beaucoup plus que les autres (plus du double de la médiane des autres,
+au moins 8 cm de plus, et aucune autre source à moins de 30 % d'elle), elle est **mise de côté** :
+elle ne compte ni dans la fourchette, ni dans « sortie possible », ni dans les alertes, et le plan
+la nomme (« HRRR prévoit ≈ 30 cm, très au-dessus des autres modèles : mis de côté »). Deux sources
+d'accord sur un gros total ne sont jamais mises de côté. Heure par heure, la fourchette est le
+20 % – 80 % pondéré des modèles (dès 3 modèles) au lieu du minimum – maximum.
+
+## Fréquence du robot (adaptative)
+
+Le workflow est lancé toutes les heures et décide :
+- **passage complet** à 0 h, 6 h, 12 h et 18 h (heure du Québec), et à chaque publication du relais;
+- **passage rapide** les autres heures **seulement si une tempête est en vue** : une sortie prévue ou
+  possible qui commence dans les 36 h (ou en cours), ou une alerte d'Environnement Canada
+  (`tempete` dans `data/weather.json`). Le passage rapide relit Environnement Canada, MET Norway,
+  meteoblue, NBM, le dernier run horaire HRRR (18 h, complété par le dernier run de 48 h), les
+  routes et la neige au sol; HRDPS, RDPS et GFS sont repris du dernier passage complet; ECMWF est
+  déjà mis en cache. Pas d'archive ni de recalcul de fiabilité en passage rapide;
+- **rien** par temps calme.
+
+Anti-va-et-vient : un changement d'heure de départ (1 h et plus) ou une annulation n'est annoncé
+que si deux passages de suite sont d'accord, sauf si le départ est dans moins de 3 h.
+
 ## Fiabilité : qui voit juste ?
 
 `scripts/history.py` compare la prévision de la veille des modèles archivés

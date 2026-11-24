@@ -61,8 +61,26 @@ class TrustTests(unittest.TestCase):
         w = plan.hourly_consensus(series, TZ, {'aifs': 1.0, 'ifs': 0.8, 'gfs': 0.15, 'met': 0.3})[0]
         self.assertEqual(plain['snow_cm'], 2.35)
         self.assertEqual(w['snow_cm'], 1.2)
-        self.assertEqual((w['lo'], w['hi']), (1.0, 1.2))  # fourchette : modèles de poids ≥ 0,4 seulement
         self.assertEqual(w['n'], 4)
+
+    def test_one_model_at_30_does_not_stretch_the_range_or_trigger(self):
+        """Exemple de Martin : tout le monde prévoit 5 à 10 cm, un seul en prévoit 30."""
+        start = dt.datetime(2026, 12, 9, 22, tzinfo=TZ)
+        rates = {'aifs': 0.8, 'ifs': 1.0, 'nbm': 0.9, 'hrdps': 0.7, 'met': 1.2, 'hrrr': 3.75}  # cm/h sur 8 h
+        series = [{'id': k, 'hours': [{'time': (start + dt.timedelta(hours=i)).isoformat(), 'snow_cm': r} for i in range(8)]}
+                  for k, r in rates.items()]
+        hours = plan.hourly_consensus(series, TZ, {k: 0.5 for k in rates})
+        self.assertTrue(all(h['hi'] <= 1.2 for h in hours))  # 30 cm de HRRR hors de la fourchette
+        self.assertEqual(plan.isolated({k: r * 8 for k, r in rates.items()}), {'hrrr': 30.0})
+        cfg = plan.load_config()
+        p = plan.build_plan(hours, cfg, dt.datetime(2026, 12, 9, 12, tzinfo=TZ))[0]
+        self.assertLessEqual(p['fourchette_cm'][1], 10)
+        self.assertEqual(p['isoles'], {'hrrr': 30.0})
+        self.assertTrue(any('HRRR prévoit ≈ 30 cm' in x for x in p['notes']))
+
+    def test_two_models_agreeing_high_are_not_isolated(self):
+        self.assertEqual(plan.isolated({'a': 6, 'b': 7, 'c': 8, 'd': 25, 'e': 27}), {})  # deux modèles d'accord : signal réel
+        self.assertEqual(plan.isolated({'a': 0.5, 'b': 1, 'c': 1.5, 'd': 6}), {})  # écart < 8 cm : pas isolé
 
 
 if __name__ == '__main__':

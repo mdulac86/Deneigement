@@ -26,7 +26,7 @@ class AlertTests(unittest.TestCase):
         self.path = Path(tempfile.mkdtemp()) / 'state.json'
         self.sent = []
 
-    def run_once(self, w):
+    def run_once(self, w, now=dt.datetime(2026, 12, 9, 12, tzinfo=dt.timezone.utc)):
         test = self
 
         class Fake:
@@ -41,7 +41,7 @@ class AlertTests(unittest.TestCase):
 
             def save(self):
                 pass
-        return alerts.run(w, self.path, pusher=Fake(), today=TODAY)
+        return alerts.run(w, self.path, pusher=Fake(), today=TODAY, now=now)
 
     def titles(self):
         return [m['title'] for m in self.sent]
@@ -60,10 +60,28 @@ class AlertTests(unittest.TestCase):
         self.run_once(weather('2026-12-10T04:00:00-05:00'))
         self.assertEqual(len(self.sent), n)  # 30 min : pas d'alerte
         self.run_once(weather('2026-12-10T05:00:00-05:00'))
+        self.assertEqual(len(self.sent), n)  # changement vu une seule fois : on attend le passage suivant
+        self.run_once(weather('2026-12-10T05:00:00-05:00'))
         self.assertTrue(self.titles()[-1].startswith('Changement : départ jeudi 10 déc. à 5 h 00'))
         self.assertIn('Avant : 3 h 30', self.sent[-1]['message'])
+        n = len(self.sent)
+        self.run_once(weather(None))
+        self.assertEqual(len(self.sent), n)  # annulation à confirmer
         self.run_once(weather(None))
         self.assertTrue(self.titles()[-1].startswith('Sortie annulée'))
+
+    def test_back_and_forth_sends_nothing(self):
+        self.run_once(weather())
+        n = len(self.sent)
+        for dep in ('2026-12-10T05:00:00-05:00', '2026-12-10T03:30:00-05:00', '2026-12-10T05:30:00-05:00', None, '2026-12-10T03:30:00-05:00'):
+            self.run_once(weather(dep))  # le plan hésite d'une heure à l'autre
+        self.assertEqual(len(self.sent), n)
+
+    def test_imminent_change_is_sent_at_once(self):
+        self.run_once(weather())
+        soon = dt.datetime(2026, 12, 10, 7, 30, tzinfo=dt.timezone.utc)  # 2 h 30 heure locale
+        self.run_once(weather('2026-12-10T04:30:00-05:00'), now=soon)
+        self.assertTrue(self.titles()[-1].startswith('Changement : départ jeudi 10 déc. à 4 h 30'))
 
     def test_official_probability_ice_and_melt(self):
         alert = {'id': 'abc', 'alert_name_fr': 'avertissement de neige', 'alert_text_fr': '15 à 25 cm attendus.'}

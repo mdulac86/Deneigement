@@ -31,6 +31,8 @@ class CollectorTests(unittest.TestCase):
         self.assertEqual(q['min_cm'],3)
         self.assertEqual(q['max_cm'],12)
         self.assertIsNone(m.consensus([s('a',[5,5])])[0]['snow']['mean_cm'])
+        q=m.consensus([s('a',[5,8]),s('b',[6,10]),s('c',[5,9]),s('z',[28,32])])[0]['snow']  # une source à 30 cm
+        self.assertEqual((q['max_cm'],q['count'],q['ecartes']),(10,3,{'z':30.0}))
 
     def test_risk_alerts_need_official_two_sources_or_trusted(self):
         day=str(m.TODAY)
@@ -50,6 +52,23 @@ class CollectorTests(unittest.TestCase):
         sure={'mm':{'poids':0.9,'statut':'mesurée'}}
         self.assertEqual(confirmed([s('mm','Neige')],sure)['risques_confirmes'],['Neige'])
         self.assertEqual(confirmed([s('mb','Neige')],extra=['Poudrerie'])['risques_confirmes'],['Poudrerie'])  # issu des modèles
+
+    def test_storm_flag_switches_to_hourly(self):
+        now=dt.datetime(2026,12,9,17,tzinfo=dt.timezone.utc)
+        p=lambda statut,debut,fin:{'statut':statut,'debut':debut,'fin':fin,'depart':debut}
+        self.assertTrue(m.tempete({'plan':[p('sortie','2026-12-10T22:00:00-05:00','2026-12-11T06:00:00-05:00')]},now)['active'])  # dans 34 h
+        self.assertFalse(m.tempete({'plan':[p('sortie','2026-12-11T08:00:00-05:00','2026-12-11T12:00:00-05:00')]},now)['active'])  # dans 44 h
+        self.assertFalse(m.tempete({'plan':[p('sous_seuil','2026-12-09T22:00:00-05:00','2026-12-10T02:00:00-05:00')]},now)['active'])
+        self.assertTrue(m.tempete({'plan':[p('possible','2026-12-09T08:00:00-05:00','2026-12-09T11:00:00-05:00')]},now)['active'])  # en cours (+2 h)
+        self.assertTrue(m.tempete({'plan':[],'official_alerts':{'items':[{'id':'x'}]}},now)['active'])
+        self.assertFalse(m.tempete({'plan':[]},now)['active'])
+
+    def test_quick_hrrr_keeps_the_48h_tail(self):
+        new={'hours':[{'time':'2026-12-09T%02d:00:00Z'%h,'snow_cm':1} for h in range(12,18)],'note':'HRRR.'}
+        old={'status':'ok','hours':[{'time':'2026-12-09T%02d:00:00Z'%h,'snow_cm':0} for h in range(6,24)]}
+        out=m.merge_tail(new,old)
+        self.assertEqual([h['snow_cm'] for h in out['hours']],[1]*6+[0]*6)
+        self.assertEqual(out['hours'][-1]['time'],'2026-12-09T23:00:00Z')
 
     def test_climate_columns_and_incomplete(self):
         def row(day,snow,flag=''):

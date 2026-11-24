@@ -5,6 +5,8 @@ Chaque alerte n'est envoyée qu'une fois (mémoire : data/alerts-state.json).
 Déclencheurs choisis par Martin :
 - alerte officielle d'Environnement Canada pour le secteur;
 - sortie prévue par le plan, puis changement d'heure de départ d'une heure ou plus, ou annulation;
+  un changement ou une annulation n'est annoncé que si deux passages de suite sont d'accord
+  (le robot passe toutes les heures pendant une tempête), sauf départ dans moins de 3 h;
 - probabilité de 5 cm et plus (ensemble européen) de 50 % ou plus pour aujourd'hui ou demain;
 - risque de verglas, ou pluie sur la neige au sol (fonte) : prévoir l'abrasif;
   seulement si le risque est confirmé (Environnement Canada, 2 sources, ou une source mesurée
@@ -63,8 +65,27 @@ def official(weather):
     return msgs
 
 
-def plans(weather, state, today):
+CONFIRME_MIN = 30   # deux passages « d'accord » : nouvelle heure à 30 min près
+URGENT_H = 3        # départ dans moins de 3 h : pas d'attente de confirmation
+
+
+def confirmed(state, key, value, now, depart=None):
+    """Anti-va-et-vient : un changement n'est annoncé que si le passage précédent voyait déjà la même chose
+    (pendant une tempête, le robot passe toutes les heures). Départ imminent : annoncé tout de suite."""
+    if depart is not None and now is not None and dt.datetime.fromisoformat(depart) - now <= dt.timedelta(hours=URGENT_H):
+        return True
+    prev = state.get('candidats', {}).get(key)
+    if prev is None:
+        return False
+    if value is None or prev is None:
+        return prev == value
+    return abs((dt.datetime.fromisoformat(value) - dt.datetime.fromisoformat(prev)).total_seconds()) <= CONFIRME_MIN * 60
+
+
+def plans(weather, state, today, now=None, pending=None):
+    """pending : candidats de ce passage (changements vus une première fois), à confirmer au suivant."""
     msgs, seen = [], {}
+    pending = {} if pending is None else pending
     for p in weather.get('plan') or []:
         if p.get('statut') not in ('sortie', 'possible') or not p.get('depart'):
             continue
@@ -87,15 +108,21 @@ def plans(weather, state, today):
                          'message': '\n'.join(lines), 'priority': 4, 'tags': ['snowflake']})
         else:
             moved = abs((dt.datetime.fromisoformat(p['depart']) - dt.datetime.fromisoformat(prev)).total_seconds()) / 60
-            if moved >= MOVE_MIN:
+            if moved >= MOVE_MIN and confirmed(state, f'plan:{day}', p['depart'], now, p['depart']):
                 msgs.append({'key': f'plan:{day}:{p["depart"]}', 'title': f'Changement : départ {day_label(p["depart"])} à {hhmm(p["depart"])}',
                              'message': f'Avant : {hhmm(prev)}.\n' + '\n'.join(lines), 'priority': 4, 'tags': ['snowflake', 'arrows_counterclockwise']})
             else:
-                seen[day] = prev  # petit changement : on garde l'heure annoncée comme référence
+                if moved >= MOVE_MIN:
+                    pending[f'plan:{day}'] = p['depart']  # vu une première fois : à confirmer au prochain passage
+                seen[day] = prev  # on garde l'heure annoncée comme référence
     for day, dep in state.get('plans', {}).items():
         if day not in seen and day >= str(today):
-            msgs.append({'key': f'annule:{day}:{dep}', 'title': f'Sortie annulée {day_label(dep)}',
-                         'message': f'Le plan ne prévoit plus 5 cm (départ annoncé : {hhmm(dep)}). Vérifier le site.', 'priority': 3, 'tags': ['white_check_mark']})
+            if state.get('candidats', {}).get(f'annule:{day}') == dep:  # déjà absente au passage précédent
+                msgs.append({'key': f'annule:{day}:{dep}', 'title': f'Sortie annulée {day_label(dep)}',
+                             'message': f'Le plan ne prévoit plus 5 cm (départ annoncé : {hhmm(dep)}). Vérifier le site.', 'priority': 3, 'tags': ['white_check_mark']})
+            else:
+                pending[f'annule:{day}'] = dep  # plus de sortie : à confirmer au prochain passage
+                seen[day] = dep  # la sortie annoncée reste la référence en attendant
     return msgs, seen
 
 
@@ -157,7 +184,7 @@ def heavy_rain(weather, today):
     return msgs
 
 
-def run(weather, state_path, today=None, pusher=None):
+def run(weather, state_path, today=None, pusher=None, now=None):
     """Envoie les nouvelles alertes en notifications du site (Web Push).
     Sans téléphone abonné, rien n'est envoyé ni marqué comme envoyé."""
     vapid = os.environ.get('VAPID_PRIVATE_KEY')
@@ -181,7 +208,9 @@ def run(weather, state_path, today=None, pusher=None):
         if pusher:
             pusher.save()
         return []
-    plan_msgs, seen = plans(weather, state, today)
+    now = now or dt.datetime.now(dt.timezone.utc)
+    pending = {}
+    plan_msgs, seen = plans(weather, state, today, now, pending)
     msgs = official(weather) + plan_msgs + probability(weather, today) + ice_melt(weather, today) + heavy_rain(weather, today)
     sent_keys = set(state.get('sent', []))
     out = []
@@ -191,7 +220,7 @@ def run(weather, state_path, today=None, pusher=None):
         if pusher.broadcast(m):  # une alerte ratée sera retentée à la prochaine collecte
             out.append(m['title'])
             sent_keys.add(m['key'])
-    state = {'plans': seen, 'sent': sorted(sent_keys)[-300:], 'updated': dt.datetime.now(dt.timezone.utc).isoformat(), 'active': True}
+    state = {'plans': seen, 'candidats': pending, 'sent': sorted(sent_keys)[-300:], 'updated': dt.datetime.now(dt.timezone.utc).isoformat(), 'active': True}
     state_path.write_text(json.dumps(state, ensure_ascii=False, indent=1) + '\n', encoding='utf-8')
     pusher.save()
     return out

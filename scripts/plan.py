@@ -51,17 +51,37 @@ def day_rules(day, cfg):
     return cfg['fin_de_semaine'] if weekend(day) else cfg['semaine']
 
 
-FOURCHETTE_POIDS = 0.4  # la fourchette (min / max) ne retient que les modèles assez fiables
+FOURCHETTE = (0.2, 0.8)  # fourchette pondérée : un modèle isolé ne l'étire pas à lui seul
+ISOLE_FACTEUR, ISOLE_CM = 2.0, 8.0  # modèle isolé : plus du double de la médiane des autres ET 8 cm de plus
+
+
+def weighted_quantile(pairs, q):
+    """pairs : [(valeur, poids)] -> quantile pondéré (q = 0,5 : médiane pondérée)."""
+    pairs = sorted((v, w) for v, w in pairs if w > 0)
+    target, cum = sum(w for _, w in pairs) * q, 0.0
+    for v, w in pairs:
+        cum += w
+        if cum >= target - 1e-9:
+            return v
+    return pairs[-1][0]
 
 
 def weighted_median(pairs):
-    pairs = sorted((v, w) for v, w in pairs if w > 0)
-    half, cum = sum(w for _, w in pairs) / 2, 0.0
-    for v, w in pairs:
-        cum += w
-        if cum >= half - 1e-9:
-            return v
-    return pairs[-1][0]
+    return weighted_quantile(pairs, 0.5)
+
+
+def isolated(totals):
+    """totals : {modèle: cm sur l'épisode} -> modèles très au-dessus des autres (fausse alerte probable)."""
+    out = {}
+    for k, v in totals.items():
+        others = [x for j, x in totals.items() if j != k]
+        if len(others) < 2:
+            continue
+        med = statistics.median(others)
+        alone = not any(x >= 0.7 * v for x in others)  # aucun autre modèle ne le rejoint
+        if alone and v >= ISOLE_FACTEUR * med and v - med >= ISOLE_CM:
+            out[k] = round(v, 1)
+    return out
 
 
 def hourly_consensus(series, tz, weights=None):
@@ -69,7 +89,7 @@ def hourly_consensus(series, tz, weights=None):
 
     Chaque heure couvre [time, time + 1 h). Une valeur absente n'est pas un zéro.
     weights : {id: poids} tiré du tableau de fiabilité (trust.py). Sans poids, médiane simple.
-    Avec poids : médiane pondérée, et fourchette limitée aux modèles de poids ≥ 0,4 (s'il y en a 2).
+    Fourchette : 15 % – 85 % pondérés dès 3 modèles (un modèle isolé ne l'étire pas), min – max sinon.
     """
     by_hour = {}
     for s in series:
@@ -81,14 +101,14 @@ def hourly_consensus(series, tz, weights=None):
     out = []
     for t in sorted(by_hour):
         vals = by_hour[t]
-        if weights:
-            w = {k: weights.get(k, 1.0) for k in vals}
-            med = weighted_median([(v, w[k]) for k, v in vals.items()])
-            sure = [v for k, v in vals.items() if w[k] >= FOURCHETTE_POIDS]
-            rng = sure if len(sure) >= 2 else list(vals.values())
+        w = {k: (weights or {}).get(k, 1.0) for k in vals}
+        pairs = [(v, w[k]) for k, v in vals.items()]
+        med = weighted_median(pairs) if weights else statistics.median(vals.values())
+        if len(vals) >= 3:
+            lo, hi = (weighted_quantile(pairs, q) for q in FOURCHETTE)
         else:
-            med, rng = statistics.median(vals.values()), list(vals.values())
-        out.append({'time': t, 'snow_cm': round(med, 2), 'lo': min(rng), 'hi': max(rng),
+            lo, hi = min(vals.values()), max(vals.values())
+        out.append({'time': t, 'snow_cm': round(med, 2), 'lo': min(lo, med), 'hi': max(hi, med),
                     'n': len(vals), 'models': vals})
     return out
 
@@ -159,13 +179,24 @@ def plan_event(ev, cfg, now, carry=0.0):
     """carry : neige déjà au sol depuis le dernier nettoyage (petites chutes qui s'additionnent)."""
     seuil = cfg['seuil_cm']
     need = max(0.1, seuil - carry)  # ce qu'il reste à tomber pour atteindre 5 cm au sol
+    totals = {}
+    for h in ev:
+        for k, v in (h.get('models') or {}).items():
+            totals[k] = totals.get(k, 0) + v
+    iso_models = isolated(totals)
+    if iso_models:  # le modèle isolé ne compte pas dans le haut de la fourchette (ni dans « sortie possible »)
+        ev = [{**h, 'hi': max(h['snow_cm'], min(h['hi'], max([v for k, v in h['models'].items() if k not in iso_models] or [h['hi']])))}
+              if h.get('models') else h for h in ev]
     total, lo, hi = (round(sum(h[k] for h in ev), 1) for k in ('snow_cm', 'lo', 'hi'))
     start, end = ev[0]['time'], last_snow(ev, cfg) or ev[-1]['time'] + HOUR
     t5, t5_early, t5_late = reach(ev, need), reach(ev, need, 'hi'), reach(ev, need, 'lo')
     level, n = confidence(ev, total, lo, hi, now)
     base = {'debut': iso(start), 'fin': iso(end), 'total_cm': total, 'fourchette_cm': [lo, hi],
             'seuil_atteint': iso(t5), 'seuil_fourchette': [iso(t5_early), iso(t5_late)],
-            'confiance': level, 'modeles': n, 'notes': [], 'deja_au_sol_cm': round(carry, 1) if carry >= 0.5 else 0}
+            'confiance': level, 'modeles': n, 'notes': [], 'deja_au_sol_cm': round(carry, 1) if carry >= 0.5 else 0,
+            'isoles': iso_models}
+    for k, v in iso_models.items():
+        base['notes'].append(f'{k.upper()} prévoit ≈ {v:g} cm, très au-dessus des autres modèles : mis de côté (ni fourchette, ni alerte).')
     if carry >= 0.5:
         base['notes'].append(f'≈ {carry:g} cm déjà accumulés depuis le dernier nettoyage : il suffit de {need:g} cm de plus pour atteindre {seuil} cm.')
     if t5 is None:

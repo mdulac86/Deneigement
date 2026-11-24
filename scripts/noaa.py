@@ -131,21 +131,27 @@ def hrrr_url(run, f):
     return f'{HRRR}/hrrr.{run:%Y%m%d}/conus/hrrr.t{run:%H}z.wrfsfcf{f:02d}.grib2'
 
 
-def hrrr_run(now):
-    """Dernier run HRRR de 48 h (00, 06, 12 ou 18 UTC) entièrement publié."""
-    for run in cycles(now, step=6, back=4):
+HRRR_RAPIDE = 18  # runs horaires : 18 h d'échéance
+
+
+def hrrr_run(now, horizon=HRRR_HORIZON):
+    """Dernier run HRRR entièrement publié : de 48 h (00, 06, 12 ou 18 UTC) ou, en mode rapide,
+    le plus récent run horaire de 18 h."""
+    step, back = (6, 4) if horizon > HRRR_RAPIDE else (1, 5)
+    for run in cycles(now, step=step, back=back):
         try:
-            grib.get(hrrr_url(run, HRRR_HORIZON) + '.idx', tries=2)
+            grib.get(hrrr_url(run, horizon) + '.idx', tries=2)
             return run
         except Exception:
             continue
-    raise ValueError('Aucun run HRRR de 48 h disponible')
+    raise ValueError(f'Aucun run HRRR de {horizon} h disponible')
 
 
-def hrrr(lat, lon, now):
+def hrrr(lat, lon, now, horizon=HRRR_HORIZON):
     """Neige, précipitations, température et pluie verglaçante heure par heure (HRRR)."""
     grib.warmup()
-    run = hrrr_run(now)
+    run = hrrr_run(now, horizon)
+    steps_used = [s for s in HRRR_STEPS if s <= horizon]
 
     def read(f):
         url = hrrr_url(run, f)
@@ -163,9 +169,9 @@ def hrrr(lat, lon, now):
         return out
 
     with futures.ThreadPoolExecutor(max_workers=6) as pool:
-        vals = {v['f']: v for v in pool.map(read, HRRR_STEPS)}
+        vals = {v['f']: v for v in pool.map(read, steps_used)}
     vals[0] = {'f': 0, 'snow': 0.0, 'precip': 0.0}
-    steps = [0] + HRRR_STEPS
+    steps = [0] + steps_used
     hours = []
     for a, b in zip(steps, steps[1:]):
         va, vb = vals[a], vals[b]
@@ -177,8 +183,8 @@ def hrrr(lat, lon, now):
         for k in range(span):
             hours.append({'time': zulu(run + dt.timedelta(hours=a + k)), 'snow_cm': round(cm, 2), 'precip_mm': round(mm, 2),
                           'temp': vb['temp'], 'verglas': bool(vb.get('verglas'))})
-    if len(hours) < 12:
+    if len(hours) < min(12, horizon):
         raise ValueError('Série HRRR trop courte')
-    return {'issued_at': zulu(run), 'run': run.isoformat(), 'hours': hours,
+    return {'issued_at': zulu(run), 'run': run.isoformat(), 'hours': hours, 'horizon_h': horizon,
             'note': 'HRRR (NOAA, 3 km) : neige tombée fournie par le modèle, heure par heure jusqu’à 24 h puis par 3 h '
                     'jusqu’à 48 h. Signale aussi la pluie verglaçante prévue.'}

@@ -372,8 +372,11 @@ def consensus(sources):
         # Les quantités ECCC sont par période (jour/nuit), pas des totaux 00–24h.
         # On les exclut de la moyenne quotidienne tant qu'elles ne sont pas alignées.
         comparable = [d for d in compared if d.get('snow_cm') is not None and d.get('snow_period') == '00-24-local']
+        # Une source isolée (plus du double des autres, 8 cm de plus, personne pour la rejoindre) est mise de côté.
+        iso = planner.isolated({d['source']: sum(d['snow_cm'])/2 for d in comparable})
+        comparable = [d for d in comparable if d['source'] not in iso]
         mids = [sum(d['snow_cm'])/2 for d in comparable]
-        quantities = {'mean_cm': round(statistics.mean(mids),1) if len(mids)>=2 else None, 'median_cm': round(statistics.median(mids),1) if len(mids)>=2 else None, 'min_cm': min(d['snow_cm'][0] for d in comparable) if mids else None, 'max_cm': max(d['snow_cm'][1] for d in comparable) if mids else None, 'count': len(mids)}
+        quantities = {'mean_cm': round(statistics.mean(mids),1) if len(mids)>=2 else None, 'median_cm': round(statistics.median(mids),1) if len(mids)>=2 else None, 'min_cm': min(d['snow_cm'][0] for d in comparable) if mids else None, 'max_cm': max(d['snow_cm'][1] for d in comparable) if mids else None, 'count': len(mids), 'ecartes': iso}
         types = sorted({d['risk'] for d in compared if d.get('risk')})
         support = {}
         for d in compared:
@@ -599,15 +602,61 @@ def freezing_rain(result):
         if sure and not confirmed:
             d['risks'] = [r for r in d['risks'] if r != 'Sans risque hivernal identifié'] + ['Verglas / grésil']
 
-def forecast_plan(sources, days):
+RAPIDE = os.environ.get('RAPIDE') == '1'  # passage horaire pendant une tempête (voir tempete())
+LENTS = ('hrdps', 'rdps', 'gfs')  # modèles relancés aux 6 h : réutilisés pendant un passage rapide
+
+TEMPETE_H = 36  # passages horaires si une sortie peut commencer dans les 36 h
+
+def tempete(result, now=None):
+    """Faut-il passer toutes les heures ? Oui si une sortie (prévue ou possible) est en cours ou
+    commence dans les 36 h, ou si Environnement Canada a une alerte en vigueur pour le secteur."""
+    now = now or NOW
+    for p in result.get('plan') or []:
+        if p.get('statut') not in ('sortie', 'possible'):
+            continue
+        a = dt.datetime.fromisoformat(p.get('debut') or p['depart'])
+        b = dt.datetime.fromisoformat(p.get('fin') or p.get('fin_tournee') or p['depart'])
+        if a <= now + dt.timedelta(hours=TEMPETE_H) and b + dt.timedelta(hours=2) >= now:
+            return {'active': True, 'raison': ('Sortie prévue' if p['statut'] == 'sortie' else 'Sortie possible') + ' : ' + p['depart'],
+                    'jusqu_a': (b + dt.timedelta(hours=2)).isoformat()}
+    if (result.get('official_alerts') or {}).get('items'):
+        return {'active': True, 'raison': 'Alerte officielle d’Environnement Canada', 'jusqu_a': None}
+    return {'active': False}
+
+def merge_tail(new, old):
+    """HRRR rapide (18 h) complété par la fin du dernier run de 48 h."""
+    if not old or old.get('status') != 'ok':
+        return new
+    last = max(h['time'] for h in new['hours'])
+    return {**new, 'hours': new['hours'] + [h for h in old.get('hours', []) if h['time'] > last],
+            'note': new['note'] + ' Passage rapide : 18 premières heures du run horaire le plus récent, suite du dernier run de 48 h.'}
+
+def slow_models(met_src, previous):
+    """Passage complet : tous les modèles. Passage rapide : HRDPS, RDPS et GFS repris du dernier passage."""
+    prev = {m['id']: m for m in (previous or {}).get('models', []) if m.get('status') == 'ok'}
+    if not RAPIDE or not all(k in prev for k in LENTS):
+        return nwp.collect_models(fetch, met_src, LAT, LON, NOW)
+    out = [{**prev[k], 'reutilise': True} for k in LENTS]
+    try:
+        out.append({'id': 'met', 'name': 'MET Norway', 'status': 'ok', 'fetched_at': stamp(), 'note': nwp.NOTE, **nwp.met_model(met_src)})
+    except Exception as e:
+        out.append({'id': 'met', 'name': 'MET Norway', 'status': 'unavailable', 'fetched_at': stamp(), 'hours': [], 'error': str(e)[:200]})
+    return out
+
+def forecast_plan(sources, days, previous=None):
     """Modèles horaires -> neige heure par heure (médiane) -> plan de sortie."""
     met_src = next((s for s in sources if s['id'] == 'met' and s['status'] == 'ok'), {})
+    prev_hrrr = next((m for m in (previous or {}).get('models', []) if m['id'] == 'hrrr'), None)
+    hrrr_h = noaa.HRRR_RAPIDE if RAPIDE else noaa.HRRR_HORIZON
     with futures.ThreadPoolExecutor(max_workers=2) as pool:  # NBM et HRRR : ~1 min chacun, en parallèle
-        us = {k: pool.submit(fn, LAT, LON, NOW) for k, fn in (('nbm', noaa.nbm), ('hrrr', noaa.hrrr))}
-        models = nwp.collect_models(fetch, met_src, LAT, LON, NOW)
+        us = {'nbm': pool.submit(noaa.nbm, LAT, LON, NOW), 'hrrr': pool.submit(noaa.hrrr, LAT, LON, NOW, hrrr_h)}
+        models = slow_models(met_src, previous)
         for k, name in (('nbm', 'NBM 2,5 km · NOAA (synthèse)'), ('hrrr', 'HRRR 3 km · NOAA')):
             try:
-                models.append({'id': k, 'name': name, 'status': 'ok', 'fetched_at': stamp(), **us[k].result()})
+                r = us[k].result()
+                if k == 'hrrr' and RAPIDE:
+                    r = merge_tail(r, prev_hrrr)
+                models.append({'id': k, 'name': name, 'status': 'ok', 'fetched_at': stamp(), **r})
             except Exception as e:
                 models.append({'id': k, 'name': name, 'status': 'unavailable', 'fetched_at': stamp(), 'hours': [], 'error': str(e)[:200]})
     cache = read(DATA / 'ecmwf-cache.json', {})
@@ -701,7 +750,7 @@ def main():
     except Exception as e:
         print('pluie observée :',e)
     try:
-        result.update(forecast_plan(sources, result['consensus']))
+        result.update(forecast_plan(sources, result['consensus'], previous))
     except Exception as e:  # Le plan ne doit jamais bloquer la collecte principale.
         result.update({'models': [], 'hourly_snow': [], 'plan': [], 'plan_error': str(e)[:200]})
     try:
@@ -739,6 +788,8 @@ def main():
         result['gel_sol']=gel
     except Exception as e:
         print('gel au sol :', e)
+    result['tempete']=tempete(result)
+    result['passage']='rapide' if RAPIDE else 'complet'
     write(DATA/'weather.json',result)
     try:
         sent=notifier.run(result,DATA/'alerts-state.json',today=TODAY)
@@ -746,6 +797,9 @@ def main():
     except Exception as e:
         print('alertes :',e)
     # Archives horaires durables : pas d'accumulation de prévisions présentée en relevé.
+    if RAPIDE:  # les archives (tableau de fiabilité) ne gardent que les passages complets
+        print(json.dumps({'passage':'rapide','tempete':result['tempete'],'updated_at':stamp()},ensure_ascii=False))
+        return
     snapshot={'updated_at':stamp(),'sources':[{k:s[k] for k in ('id','status','issued_at','fetched_at','days','periods') if k in s} for s in sources], 'consensus':result['consensus'],'changes':result['changes'],'plan':result.get('plan'),'hourly_snow':result.get('hourly_snow'),'models':[{k:x[k] for k in ('id','status','issued_at','hours') if k in x} for x in result.get('models',[])]}
     write(DATA/'archive'/NOW.strftime('%Y-%m-%d')/NOW.strftime('%H.json'),snapshot)
     print(json.dumps({'sources':{s['id']:s['status'] for s in sources},'climate_last':climate['last_date'],'updated_at':stamp()},ensure_ascii=False))
