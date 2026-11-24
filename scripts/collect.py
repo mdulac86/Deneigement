@@ -794,7 +794,7 @@ def main():
     climate=collect_climate()
     # Températures pondérées par la fiabilité mesurée de chaque site (max/min prévus la veille vs mesurés).
     temp_table=trust.temp_weights(read(DATA/'verification'/'scores.json',{}),[s['id'] for s in sources])
-    result={'updated_at':stamp(),'location':{'name':'Saint-Prosper · Beauce','lat':LAT,'lon':LON,'timezone':'America/Toronto'},'threshold_cm':5,'sources':sources,'official_alerts':alerts,'climate':climate,'consensus':consensus(sources,{k:v['poids'] for k,v in temp_table.items()}),'previous_at':previous.get('updated_at'),'confiance_temperatures':temp_table}
+    result={'updated_at':stamp(),'location':{'name':'Saint-Prosper · Beauce','lat':LAT,'lon':LON,'timezone':'America/Toronto'},'threshold_cm':planner.load_config()['seuil_cm'],'sources':sources,'official_alerts':alerts,'climate':climate,'consensus':consensus(sources,{k:v['poids'] for k,v in temp_table.items()}),'previous_at':previous.get('updated_at'),'confiance_temperatures':temp_table}
     result['changes']=changes(previous,result)
     result['saison_estimation']=read(ROOT/'config'/'saison.json',None)
     try:  # première coulée : estimation automatique refaite chaque automne (+ estimation manuelle éventuelle)

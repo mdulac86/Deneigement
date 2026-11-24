@@ -120,7 +120,7 @@ def plans(weather, state, today, now=None, pending=None):
         if day not in seen and day >= str(today):
             if state.get('candidats', {}).get(f'annule:{day}') == dep:  # déjà absente au passage précédent
                 msgs.append({'key': f'annule:{day}:{dep}', 'title': f'Sortie annulée {day_label(dep)}',
-                             'message': f'Le plan ne prévoit plus 5 cm (départ annoncé : {hhmm(dep)}). Vérifier le site.', 'priority': 3, 'tags': ['white_check_mark']})
+                             'message': f'Le plan ne prévoit plus {(weather.get("plan_config") or {}).get("seuil_cm", 2)} cm (départ annoncé : {hhmm(dep)}). Vérifier le site.', 'priority': 3, 'tags': ['white_check_mark']})
             else:
                 pending[f'annule:{day}'] = dep  # plus de sortie : à confirmer au prochain passage
                 seen[day] = dep  # la sortie annoncée reste la référence en attendant
@@ -130,8 +130,9 @@ def plans(weather, state, today, now=None, pending=None):
 def probability(weather, today):
     msgs = []
     for d in (weather.get('ensemble') or {}).get('jours', []):
-        if d['date'] in (str(today), str(today + dt.timedelta(days=1))) and d.get('prob_5cm', 0) >= PROB:
-            msgs.append({'key': f'prob:{d["date"]}', 'title': f'{d["prob_5cm"]} % de chances de 5 cm+ {day_label(d["date"])}',
+        pr, lim = (d['prob_2cm'], 2) if d.get('prob_2cm') is not None else (d.get('prob_5cm', 0), 5)
+        if d['date'] in (str(today), str(today + dt.timedelta(days=1))) and pr >= PROB:
+            msgs.append({'key': f'prob:{d["date"]}', 'title': f'{pr} % de chances de {lim} cm+ {day_label(d["date"])}',
                          'message': f'Ensemble européen (51 versions) : médiane {d["p50_cm"]:g} cm, de {d["p10_cm"]:g} à {d["p90_cm"]:g} cm. Surveiller le plan de sortie.',
                          'priority': 3, 'tags': ['snowflake']})
     return msgs

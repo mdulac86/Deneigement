@@ -1,7 +1,7 @@
 """Plan de sortie : à partir de la neige prévue heure par heure (médiane des modèles).
 
 Règles de l'équipe (config/plan.json) :
-- seuil de sortie : 5 cm de nouvelle neige;
+- seuil de sortie : 2 cm de nouvelle neige prévue (config/plan.json, calibré sur le journal 2025-2026);
 - 4 h par machine jusqu'à 10 cm, +1,5 h par tranche de 10 cm de plus;
 - semaine et fin de semaine : commercial propre pour 7 h 45, résidentiel/locatif en acte
   de présence; nettoyage final à 9 h 00 ou à la fin de la tempête;

@@ -88,6 +88,7 @@ class TrustTests(unittest.TestCase):
         self.assertTrue(all(h['hi'] <= 1.2 for h in hours))  # 30 cm de HRRR hors de la fourchette
         self.assertEqual(plan.isolated({k: r * 8 for k, r in rates.items()}), {'hrrr': 30.0})
         cfg = plan.load_config()
+        cfg['seuil_cm'] = 5
         p = plan.build_plan(hours, cfg, dt.datetime(2026, 12, 9, 12, tzinfo=TZ))[0]
         self.assertLessEqual(p['fourchette_cm'][1], 10)
         self.assertEqual(p['isoles'], {'hrrr': 30.0})

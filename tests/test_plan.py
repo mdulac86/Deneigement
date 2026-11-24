@@ -22,10 +22,21 @@ def at(day, h, m=0):
 class PlanTests(unittest.TestCase):
     def setUp(self):
         self.cfg = p.load_config()
+        self.cfg['seuil_cm'] = 5  # les tests de logique gardent 5 cm; le seuil réel (2 cm) est testé à part
         self.now = at(10, 12)  # mardi midi
 
     def plan(self, hours):
         return p.build_plan(hours, self.cfg, self.now)
+
+    def test_real_threshold_is_2cm_like_the_school_log(self):
+        # 29 nov. 2025 : 2,6 cm prévus la nuit -> l'équipe est sortie à 3 h. Avec le vrai réglage (2 cm), sortie.
+        cfg = p.load_config()
+        self.assertEqual(cfg['seuil_cm'], 2)
+        q = p.build_plan(series(at(10, 22), [0.5, 0.6, 0.6, 0.5, 0.4]), cfg, self.now)[0]
+        self.assertEqual(q['statut'], 'sortie')
+        self.assertEqual(q['echeance'], at(11, 7, 45).isoformat())
+        q = p.build_plan(series(at(10, 22), [0.3, 0.3, 0.3]), cfg, self.now)
+        self.assertTrue(not q or q[0]['statut'] == 'sous_seuil')
 
     def test_duration_rule(self):
         self.assertEqual(p.duration_h(6, self.cfg), 4)

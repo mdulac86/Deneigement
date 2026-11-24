@@ -130,6 +130,7 @@ def ensemble(lat, lon, now, tz):
             continue
         q = statistics.quantiles(snow, n=10)
         result.append({'date': str(day), 'membres': len(snow), 'prob_5cm': round(100 * sum(s >= SEUIL for s in snow) / len(snow)),
+                       'prob_2cm': round(100 * sum(s >= 2 for s in snow) / len(snow)),
                        'p10_cm': round(q[0], 1), 'p50_cm': round(statistics.median(snow), 1), 'p90_cm': round(q[-1], 1)})
     if not result:
         raise ValueError('Ensemble ECMWF illisible')

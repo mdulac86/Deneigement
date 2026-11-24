@@ -1,5 +1,5 @@
 {
-  "seuil_cm": 5,
+  "seuil_cm": 2,
   "duree": {
     "base_h": 4,
     "base_max_cm": 10,
@@ -27,5 +27,6 @@
     "seuil_soir_cm": 10,
     "soir": "16:30",
     "note": "Neige de jour : moins de 10 cm, nettoyage le lendemain matin; 10 cm et plus en fin de journée, passage rapide le soir puis reprise le lendemain matin."
-  }
+  },
+  "seuil_note": "2 cm prévus (tolérance zéro, ex. l'école) : selon le journal 2025-2026, 2 cm prévus la veille retrouvent 21 des 25 sorties réelles, 5 cm seulement 10."
 }
