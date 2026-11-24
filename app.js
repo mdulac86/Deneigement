@@ -500,7 +500,9 @@ function halves(){const tz='America/Toronto',key=t=>new Intl.DateTimeFormat('en-
   if(p.start_h!=null){const t=Date.parse(p.date+'T'+String(p.start_h).padStart(2,'0')+':00:00-05:00');k=slot(t+3600e3)}
   else k=p.date+'|'+(/soir|nuit/i.test(p.label)?'nuit':'jour');
   const x=acc[k]=acc[k]||{hi:[],lo:[],sn:[],rn:[],pop:[],txt:[]};if(v!=null&&!isNaN(v))x.pop.push(v);if(p.text)x.txt[s.id==='eccc'?'unshift':'push'](p.text)}
- const out={};for(const k in acc){const x=acc[k];out[k]={hi:wmed(x.hi),lo:wmed(x.lo),sn:wmed(x.sn),rn:wmed(x.rn),pop:x.pop.length?Math.round(Math.max(...x.pop)):null,txt:x.txt[0]||''}}
+ // Probabilité précise (au pour cent) : NBM sur 12 h, 7 h-19 h et 19 h-7 h; sinon MétéoMédia / Environnement Canada (par 10 %).
+ const nbmPop={};for(const w of state.pop12?.fenetres||[])nbmPop[slot(Date.parse(w.debut)+3600e3)]=w.pop;
+ const out={};for(const k in acc){const x=acc[k];out[k]={hi:wmed(x.hi),lo:wmed(x.lo),sn:wmed(x.sn),rn:wmed(x.rn),pop:nbmPop[k]??(x.pop.length?Math.round(Math.max(...x.pop)):null),txt:x.txt[0]||''}}
  return out}
 const MOON='<svg viewBox="0 0 48 48" aria-hidden="true"><path d="M30 8a16 16 0 1 0 12 26A14 14 0 0 1 30 8z" fill="#FFD166"/></svg>';
 const finalLbl=f=>f.type==='reprise_matin'?'Reprise le matin':f.type==='deuxieme_tournee'?'2e tournée':'Nettoyage final';

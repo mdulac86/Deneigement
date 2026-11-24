@@ -155,6 +155,40 @@ def nbm_for(run, lat, lon):
                     'répartie également sur chaque heure. Probabilités de 2,5 cm et 5 cm par tranche de 6 h jusqu’à 48 h.'}
 
 
+POP12_MAX = 167  # 7 jours
+
+
+def nbm_pop12(lat, lon, now):
+    """Probabilité de précipitation (0,25 mm et plus) par fenêtre de 12 h finissant à 00 et 12 UTC :
+    7 h -> 19 h (jour) et 19 h -> 7 h (nuit), heure normale. Publiée par les cycles de 01, 07, 13 et 19 UTC."""
+    grib.warmup()
+    for run in cycles(now, step=1, back=14):
+        if run.hour % 6 != 1:
+            continue
+        try:
+            grib.get(nbm_url(run, POP12_MAX) + '.idx', tries=2)
+        except Exception:
+            continue
+        first = (12 - run.hour % 12) % 12
+        first += 12 * ((12 - first + 11) // 12) if first < 12 else 0
+        steps = list(range(first, POP12_MAX + 1, 12))
+
+        def read(f):
+            url = nbm_url(run, f)
+            e = pick(index(url), f'APCP:surface:{f - 12}-{f} hour acc fcst:prob >0.254:prob fcst 255/255')
+            if not e:
+                return None
+            start = run + dt.timedelta(hours=f - 12)
+            return {'debut': zulu(start), 'fin': zulu(start + dt.timedelta(hours=12)), 'pop': round(value(url, e, lat, lon)[0])}
+
+        with futures.ThreadPoolExecutor(max_workers=6) as pool:
+            out = [x for x in pool.map(read, steps) if x]
+        if len(out) >= 4:
+            return {'run': run.isoformat(), 'fenetres': out,
+                    'note': 'NBM (NOAA) : probabilité de 0,25 mm et plus en 12 h, 7 h -> 19 h et 19 h -> 7 h (heure normale).'}
+    raise ValueError('Probabilités NBM sur 12 h introuvables')
+
+
 def hrrr_url(run, f):
     return f'{HRRR}/hrrr.{run:%Y%m%d}/conus/hrrr.t{run:%H}z.wrfsfcf{f:02d}.grib2'
 

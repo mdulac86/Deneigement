@@ -860,6 +860,11 @@ def main():
         result['nbm_proba'] = {'run': nbm['run'], 'tranches': nbm['tranches']} if nbm else None
     except Exception as e:
         print('NBM :', e)
+    try:  # probabilité de précipitation jour (7 h-19 h) et nuit (19 h-7 h), au pour cent près
+        result['pop12'] = previous.get('pop12') if RAPIDE and previous.get('pop12') else noaa.nbm_pop12(LAT, LON, NOW)
+    except Exception as e:
+        print('NBM 12 h :', e)
+        result['pop12'] = previous.get('pop12')
     try:
         result['routes'] = routes.collect(lambda u: fetch(u, True), LAT, LON, stamp(), previous.get('routes'))
     except Exception as e:
