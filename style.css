@@ -431,3 +431,14 @@ table.routes .tag{font-size:10px;padding:3px 8px;margin:2px 0}
 .cam figcaption{padding:8px 10px;font-size:13px;color:var(--soft)}
 .cam figcaption small{display:block;color:var(--muted);font-size:11.5px;margin-top:2px}
 .cam figcaption a{color:var(--yellow)}
+
+/* Épandage */
+.q-epand{grid-column:1/-1}
+.ep-list{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.ep-list li{display:flex;gap:14px;align-items:center;padding:10px 12px;border:1px solid var(--line);border-radius:var(--r);background:#FFB81C0F}
+.ep-when{display:flex;flex-direction:column;min-width:78px}
+.ep-when strong{font:800 22px var(--title);color:var(--yellow)}
+.ep-when span{color:var(--muted);font-size:12.5px;text-transform:capitalize}
+.ep-what{display:flex;flex-direction:column;gap:2px;font-size:14px}
+.ep-what span{color:var(--soft)}
+.ep-rule{font-size:12.5px;margin:10px 0 0}

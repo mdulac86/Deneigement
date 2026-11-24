@@ -207,7 +207,7 @@ def plan_event(ev, cfg, now, carry=0.0):
         over = sorted(k for k, v in totals.items() if v >= need and k not in iso_models)
         if t5_early is not None and len(over) < 2 and total < need / 2:
             if over:
-                base['notes'].append(f'Seul {over[0].upper()} prévoit ≈ {totals[over[0]]:g} cm; les autres modèles restent loin sous {seuil} cm.')
+                base['notes'].append(f'Seul {over[0].upper()} prévoit ≈ {round(totals[over[0]], 1):g} cm; les autres modèles restent loin sous {seuil} cm.')
             t5_early = None
         if t5_early is None:
             au_sol = round(carry + total, 1)

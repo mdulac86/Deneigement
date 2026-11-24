@@ -156,12 +156,25 @@ def ice_melt(weather, today):
             msgs.append({'key': f'vent:{d["date"]}', 'title': f'{kind} {day_label(d["date"])}',
                          'message': f'Rafales jusqu’à ≈ {d.get("rafales_kmh") or 50} km/h avec de la neige au sol : prévoir une sortie de déneigement des accumulations et de l’abrasif.',
                          'priority': 4, 'tags': ['dash']})
+        if weather.get('epandage') is not None:
+            continue  # le plan d'épandage (heure et produit) remplace les alertes génériques de verglas et de fonte
         if 'Verglas / grésil' in risks:
             msgs.append({'key': f'verglas:{d["date"]}', 'title': f'Risque de verglas {day_label(d["date"])}',
                          'message': 'Verglas ou grésil dans les prévisions : prévoir une sortie d’abrasif.', 'priority': 4, 'tags': ['warning']})
         elif ground >= 2 and ('Pluie' in risks or 'Pluie / neige' in risks) and (d.get('high_mean') or 0) > 1:
             msgs.append({'key': f'fonte:{d["date"]}', 'title': f'Pluie sur la neige {day_label(d["date"])}',
                          'message': f'Neige au sol (≈ {ground:g} cm) et pluie avec redoux : fonte probable, prévoir abrasif et bord de rue.', 'priority': 3, 'tags': ['droplet']})
+    return msgs
+
+
+def spreading(weather):
+    """Plan d'épandage (scripts/epandage.py) : heure de départ, produit et raison, une alerte par sortie."""
+    msgs = []
+    for it in weather.get('epandage') or []:
+        dep = it['depart']
+        title = f"Épandage {day_label(dep[:10])} {hhmm(dep)}"
+        msg = f"{it['produit']} · {it['raison']}" + (f" · prêt pour {hhmm(it['echeance'])}" if it.get('echeance') else '') +               (' · avec la tournée de déneigement' if it.get('avec_deneigement') else '')
+        msgs.append({'key': f"epandage:{it['glace'][:10]}:{it['type']}", 'title': title, 'message': msg, 'priority': 4, 'tags': ['warning']})
     return msgs
 
 
@@ -232,7 +245,7 @@ def run(weather, state_path, today=None, pusher=None, now=None):
     now = now or dt.datetime.now(dt.timezone.utc)
     pending = {}
     plan_msgs, seen = plans(weather, state, today, now, pending)
-    msgs = official(weather) + plan_msgs + probability(weather, today) + ice_melt(weather, today) + heavy_rain(weather, today) + thaw(weather, today)
+    msgs = official(weather) + plan_msgs + probability(weather, today) + ice_melt(weather, today) + spreading(weather) + heavy_rain(weather, today) + thaw(weather, today)
     sent_keys = set(state.get('sent', []))
     out = []
     for m in msgs:

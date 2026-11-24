@@ -1,0 +1,14 @@
+{
+  "produit": "Sel mélangé au calcium",
+  "limite_sel_calcium_c": -18,
+  "echeance": "07:45",
+  "debut_nuit": "20:00",
+  "duree_h": 2,
+  "pluie_min_mm": 1,
+  "fonte_min_h": 4,
+  "fonte_temp_c": 1,
+  "regel_temp_c": -0.5,
+  "beaucoup_eau_mm": 10,
+  "horizon_h": 72,
+  "note": "Sel + calcium efficace jusqu'à environ -18 °C; plus froid : abrasif. Départ calculé pour être prêt à 7 h 45 quand le regel ou le verglas arrive la nuit. Réglable ici; le robot relit ce fichier à chaque passage."
+}

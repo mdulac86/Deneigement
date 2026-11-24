@@ -114,6 +114,23 @@ class AlertTests(unittest.TestCase):
         self.run_once(w)
         self.assertIn('Risque de verglas jeudi 10 déc.', self.titles())
 
+    def test_spreading_plan_replaces_generic_ice_alerts(self):
+        w = weather(depart=None, risks=['Verglas / grésil'])
+        w['epandage'] = [{'type': 'regel', 'glace': '2026-12-10T02:00:00-05:00', 'depart': '2026-12-10T05:30:00-05:00',
+                          'echeance': '2026-12-10T07:45:00-05:00', 'produit': 'Sel mélangé au calcium',
+                          'raison': '≈ 9 mm de pluie, puis regel sous 0 °C', 'avec_deneigement': False}]
+        self.run_once(w)
+        t = self.titles()
+        self.assertIn('Épandage jeudi 10 déc. 5 h 30', t)
+        self.assertNotIn('Risque de verglas jeudi 10 déc.', t)
+        msg = next(m['message'] for m in self.sent if m['title'].startswith('Épandage'))
+        self.assertIn('Sel mélangé au calcium', msg)
+        self.assertIn('prêt pour 7 h 45', msg)
+        n = len(self.sent)
+        w['epandage'][0]['depart'] = '2026-12-10T05:00:00-05:00'
+        self.run_once(w)
+        self.assertEqual(len(self.sent), n)  # même glace, heure ajustée : pas de nouvelle alerte
+
     def test_plan_names_the_most_reliable_models(self):
         w = weather()
         w['plan'][0]['fiables'] = [{'nom': 'ECMWF AIFS (européen, IA)', 'cm': 7.2, 'statut': 'mesurée'},

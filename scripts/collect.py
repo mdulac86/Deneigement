@@ -20,6 +20,7 @@ import models as nwp  # noqa: E402
 import plan as planner  # noqa: E402
 import ecmwf  # noqa: E402
 import snowdepth  # noqa: E402
+import epandage  # noqa: E402
 import frost  # noqa: E402
 import noaa  # noqa: E402
 import routes  # noqa: E402
@@ -843,6 +844,13 @@ def main():
         confirm_risks(result)
     except Exception as e:
         print('risques confirmés :', e)
+    try:  # épandage sel + calcium / abrasif : verglas confirmé, ou pluie / fonte puis regel (config/epandage.json)
+        cfg_ep = epandage.load_config()
+        result['epandage'] = epandage.plan(result.get('models') or [], result['consensus'], ground_snow(result),
+                                           NOW.astimezone(TZ), TZ, cfg_ep, result.get('plan') or [])
+        result['epandage_config'] = cfg_ep
+    except Exception as e:
+        print('épandage :', e)
     try:
         sap_hours(result)
     except Exception as e:

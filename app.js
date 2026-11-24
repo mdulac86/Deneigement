@@ -518,6 +518,10 @@ function renderQuick(){
   const q=sn>=0.5?'❄ '+n(Math.round(sn*2)/2)+' cm':rn>=0.5?n(Math.round(rn))+' mm':'';
   return '<div class="q-half"><em>'+(h==='jour'?'Jour':'Nuit')+'</em><span class="q-ico">'+ico+'</span><strong>'+n(r0(t))+'°</strong><small class="pop">💧 '+(x.pop!=null?x.pop+' %':'—')+'</small><small class="q-qty">'+(q||'&nbsp;')+'</small></div>'};
  $('q-days').innerHTML=(state.consensus||[]).slice(0,5).map(d=>'<div class="q-day"><b>'+esc(new Intl.DateTimeFormat('fr-CA',{timeZone:'America/Toronto',weekday:'short',day:'numeric'}).format(new Date(d.date+'T12:00:00-05:00')))+'</b>'+hcell(d,'jour')+hcell(d,'nuit')+'</div>').join('');
+ // Épandage : verglas confirmé, ou pluie / fonte puis regel (scripts/epandage.py)
+ const ep=state.epandage,epBox=$('q-epand'),mo=new Date().getMonth()+1,hiver=mo>=11||mo<=4;
+ epBox.hidden=!(ep?.length||(hiver&&ep));
+ if(!epBox.hidden)epBox.innerHTML='<div class="section-heading"><h2>Épandage</h2><span class="tag '+(ep.length?'amber':'green')+'">'+(ep.length?ep.length+' sortie'+(ep.length>1?'s':'')+' prévue'+(ep.length>1?'s':''):'Rien de prévu')+'</span></div>'+(ep.length?'<ul class="ep-list">'+ep.map(it=>'<li><div class="ep-when"><strong>'+hhmm(it.depart)+'</strong><span>'+esc(dayOf(it.depart))+'</span></div><div class="ep-what"><b>'+esc(it.produit)+'</b><span>'+esc(it.raison)+(it.echeance?' · prêt pour '+hhmm(it.echeance):'')+(it.temp_min_c!=null?' · min. ≈ '+n(r0(it.temp_min_c))+' °C':'')+(it.avec_deneigement?' · avec la tournée de déneigement':'')+'</span></div></li>').join('')+'</ul>':'<p class="muted">Pas de verglas confirmé ni de regel après pluie ou fonte dans les 72 prochaines heures.</p>')+'<p class="ep-rule muted">'+esc(state.epandage_config?.produit||'Sel + calcium')+' jusqu’à '+n(state.epandage_config?.limite_sel_calcium_c??-18)+' °C, abrasif plus froid.</p>';
  bindOpeners();initMini();
 }
 let mini=null,miniLayer=null;
