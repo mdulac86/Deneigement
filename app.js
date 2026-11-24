@@ -42,6 +42,11 @@ function render(){
   const threshold=next.some(d=>d.snow.max_cm>=5);
   const title=hasOfficial?'Une alerte officielle vise le secteur.':ice?'Verglas ou grésil à surveiller.':mixed?'Épisode de pluie et neige à surveiller.':threshold?'Le seuil de 5 cm est dans la fourchette.':snow?'De la neige figure aux prévisions.':'Pas de risque hivernal identifié dans les sources disponibles.';
   const label=hasOfficial?'ALERTE OFFICIELLE':ice||mixed||snow||threshold?'VIGILANCE · PROCHAINES 72 H':'ÉTAT DES PRÉVISIONS';
+  const watch=ice||mixed||snow||threshold;
+  $('status-line').className='status-line '+(hasOfficial?'alert':watch?'watch':'calm');
+  $('status-line').innerHTML='<span class="tag '+(hasOfficial?'red':watch?'amber':'green')+'">'+(hasOfficial?'Alerte':watch?'À surveiller':'Calme')+'</span><span>'+esc(title)+'</span>';
+  $('updated-at').textContent='Mis à jour à '+hhmm(state.updated_at);
+  try{renderQuick()}catch(err){console.warn('aperçu',err)}
   $('status').className='signal '+(hasOfficial?'alert':ice||mixed||snow||threshold?'watch':'calm');$('status').innerHTML='<div><span class="tag '+(hasOfficial?'':ice||mixed||snow||threshold?'amber':'green')+'">'+label+'</span><h2>'+title+'</h2><p>Seuil opérationnel : 5 cm de nouvelle neige au sol. '+(threshold?'Les cm annoncés concernent la neige tombée; le seuil réel au sol reste à vérifier.':'Les quantités comparables ne permettent pas de confirmer l’atteinte des 5 cm au sol.')+'</p></div>';
   let ch=null;try{ch=chantiers()}catch(err){console.warn('chantiers',err)}
   try{const sm=summary72();if(ch)sm.text+='\nPaver : '+ch.pave+'\nExcavation : '+ch.exc;
@@ -232,7 +237,7 @@ function renderWinter(){renderSeason();
 }
 function renderWinterRows(){if(!state)return;const month=$('month-filter').value;const rows=state.climate.records.filter(r=>month==='all'||r.date.startsWith(month)).slice().reverse();$('winter-rows').innerHTML=rows.map(r=>'<tr><td>'+esc(r.date)+'</td><td>'+n(r.snow_cm)+(r.snow_cm!=null?' cm':'')+'</td><td>'+n(r.rain_mm)+(r.rain_mm!=null?' mm':'')+'</td><td>'+n(r.depth_cm)+(r.depth_cm!=null?' cm':'')+'</td><td>'+esc(r.snow_cm==null?'Non disponible':r.snow_flag||'Valeur publiée')+'</td></tr>').join('')||'<tr><td colspan="5">Aucun relevé disponible.</td></tr>'}
 function csv(){if(!state)return;const lines=['Date;Neige_cm;Pluie_mm;Neige_au_sol_cm;Indicateur;Source',...state.climate.records.map(r=>[r.date,r.snow_cm??'',r.rain_mm??'',r.depth_cm??'',r.snow_flag,r.source].map(x=>'"'+String(x).replaceAll('"','""')+'"').join(';'))];const blob=new Blob(['\ufeff'+lines.join('\r\n')],{type:'text/csv;charset=utf-8'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='Saint-Prosper-hiver-'+state.climate.season+'.csv';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)}
-function tab(name){document.querySelectorAll('.view').forEach(e=>e.hidden=e.id!==name);document.querySelectorAll('[data-tab]').forEach(e=>{e.classList.toggle('active',e.dataset.tab===name);e.setAttribute('aria-current',e.dataset.tab===name?'page':'false')});if(name==='radar'){initRadar();setTimeout(()=>map?.invalidateSize(),100)}}
+function tab(name){document.querySelectorAll('.view').forEach(e=>e.hidden=e.id!==name);document.querySelectorAll('[data-tab]').forEach(e=>{e.classList.toggle('active',e.dataset.tab===name);e.setAttribute('aria-current',e.dataset.tab===name?'page':'false')});if(name==='radar'){initRadar();setTimeout(()=>map?.invalidateSize(),100)}if(name==='operations'&&state){initMini()}}
 const GEOMET='https://geo.weather.gc.ca/geomet',IEM='https://mesonet.agron.iastate.edu';
 const RADAR_SETS={
  RADAR_1KM_RRAI:{obs:'RADAR_1KM_RRAI',extrap:'Radar_1km_RainPrecipRate-Extrapolation',cover:'RADAR_COVERAGE_RRAI.INV',model:'HRDPS.CONTINENTAL_RT'},
@@ -443,5 +448,51 @@ function renderTransport(){
  const per=t=>t.debut?esc(dateOnly(t.debut.slice(0,10)))+' → '+esc(dateOnly(t.fin.slice(0,10))):'—';
  $('travaux-rows').innerHTML=tw.map(t=>'<tr><td><b>'+esc(t.travaux||'Travaux')+'</b><small>'+(t.route?'Route '+esc(t.route)+' · ':'')+n(t.km)+' km</small></td><td>'+esc(t.lieu||'')+'</td><td>'+(t.charge?'<span class="tag amber">'+esc(t.charge)+'</span> ':'')+esc(t.entrave||'')+'</td><td>'+per(t)+'</td></tr>').join('')||'<tr><td colspan="4" class="muted">Aucun chantier routier publié dans le secteur.</td></tr>';
 }
+// Aperçu rapide (haut de l'onglet Déneigement) : conditions actuelles, plan, radar, neige heure par heure, routes, 5 jours.
+function renderQuick(){
+ const e=state.sources.find(s=>s.id==='eccc'&&s.status==='ok'),cur=e?.current||{},h0=(e?.hourly||[])[0];
+ const v=x=>x?.value?.fr??x?.value?.en??x?.value??null,temp=v(cur.temperature),chill=v(cur.windChill),wind=v(cur.wind?.speed),cond=h0?.condition||'';
+ $('now-temp').textContent=temp==null?'—':(Math.round(temp)+0)+' °C';$('now-cond').textContent=cond||'—';
+ $('now-extra').textContent=[chill!=null&&chill<temp-1?'ressenti '+Math.round(chill)+' °C':'',wind!=null?'vent '+Math.round(wind)+' km/h':''].filter(Boolean).join(' · ');
+ $('now-icon').innerHTML=cond?symbol([riskOf(cond)]):'';
+ // Plan de sortie
+ const p=(state.plan||[]).find(x=>x.statut==='sortie'||x.statut==='possible');
+ if(p){const go=p.statut==='sortie';
+  $('q-plan').innerHTML='<div class="section-heading"><h2>Plan de sortie</h2><span class="tag '+(go?'amber':'')+'">'+(go?'Sortie prévue':'Sortie possible')+'</span></div><div class="q-big">'+hhmm(p.depart)+'</div><div class="q-big-sub">Départ estimé · '+esc(dayOf(p.depart))+'</div><div class="q-figs"><div><strong>'+n(p.fourchette_cm[0])+'–'+n(p.fourchette_cm[1])+' cm</strong><span>Neige prévue</span></div><div><strong>'+n(state.plan_config?.seuil_cm||5)+' cm</strong><span>Seuil au sol</span></div><div><strong>'+(p.echeance?hhmm(p.echeance):'≈ '+hhmm(p.fin_tournee))+'</strong><span>'+(p.echeance?'Commercial prêt':'Fin de tournée')+'</span></div></div><button class="linkish" data-open="plan">Plan détaillé ↗</button>';
+ }else $('q-plan').innerHTML='<div class="section-heading"><h2>Plan de sortie</h2><span class="tag green">Aucune sortie</span></div><div class="q-big q-calm">—</div><div class="q-big-sub">Aucune sortie prévue dans les 72 prochaines heures</div><button class="linkish" data-open="plan">Plan détaillé ↗</button>';
+ // Neige heure par heure, 12 prochaines heures
+ const hs=(state.hourly_snow||[]).filter(h=>Date.parse(h.time)+3600000>Date.now()).slice(0,12),max=Math.max(0.5,...hs.map(h=>h.snow_cm));
+ $('q-hourly').innerHTML=!hs.length?'<p class="muted">Aucune série horaire disponible.</p>':hs.every(h=>h.snow_cm<0.05)?'<p class="q-none">Pas de neige prévue dans les 12 prochaines heures.</p>':'<div class="q-bars-row">'+hs.map(h=>'<div class="q-bar" title="'+esc(hhmm(h.time)+' · '+n(h.snow_cm)+' cm/h')+'"><em>'+(h.snow_cm>=0.05?n(h.snow_cm):'')+'</em><i style="height:'+Math.round(h.snow_cm/max*100)+'%"></i><small>'+new Intl.DateTimeFormat('fr-CA',{timeZone:'America/Toronto',hour:'numeric',hourCycle:'h23'}).format(new Date(h.time))+' h</small></div>').join('')+'</div>';
+ // Routes
+ const r=state.routes,g=r?.resume?.gravite??null;
+ $('q-roads-tag').textContent=g==null?'—':GRAV[g][0];$('q-roads-tag').className='tag '+(g==null?'':GRAV[g][1]);
+ $('q-roads').textContent=r?(r.resume?.texte||'État non publié')+' · '+(r.evenements?.length||0)+' avertissement'+((r.evenements?.length||0)>1?'s':'')+' · '+(r.cameras?.length||0)+' caméras à proximité':'Données routières non disponibles.';
+ // Prévisions 5 jours
+ const r0=x=>x==null?null:Math.round(x)+0; // +0 : pas de « -0 »
+ $('q-days').innerHTML=(state.consensus||[]).slice(0,5).map(d=>{const sn=d.snow?.mean_cm??d.model_snow?.median_cm;return '<div class="q-day"><b>'+esc(new Intl.DateTimeFormat('fr-CA',{timeZone:'America/Toronto',weekday:'short',day:'numeric'}).format(new Date(d.date+'T12:00:00-05:00')))+'</b><span class="q-ico">'+symbol(d.risks)+'</span><strong>'+n(r0(d.high_mean))+'°</strong><small>'+n(r0(d.low_mean))+'°'+(sn>=0.5?' · ❄ '+n(sn)+' cm':'')+'</small></div>'}).join('');
+ bindOpeners();initMini();
+}
+let mini=null,miniLayer=null;
+function initMini(){
+ if(typeof L==='undefined'||$('operations').hidden)return;
+ const m=new Date().getMonth()+1,layer=m>=11||m<=4?'RADAR_1KM_RSNO':'RADAR_1KM_RRAI';
+ if(!mini){mini=L.map('mini-map',{zoomControl:false,attributionControl:false,dragging:false,scrollWheelZoom:false,doubleClickZoom:false,touchZoom:false,boxZoom:false,keyboard:false}).setView([46.214,-70.486],8);
+  L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}',{maxZoom:12}).addTo(mini);
+  L.circleMarker([46.214,-70.486],{radius:6,color:'#fff',weight:2,fillColor:'#FFB81C',fillOpacity:1}).addTo(mini);
+  mini.on('click',()=>tab('radar'))}
+ if(miniLayer)mini.removeLayer(miniLayer);
+ miniLayer=L.tileLayer.wms(GEOMET,{layers:layer,format:'image/png',transparent:true,version:'1.3.0',opacity:.8,t:Date.now()}).addTo(mini);
+ setTimeout(()=>mini.invalidateSize(),50);
+}
+function openGroup(name,toggle=true){
+ const groups=[...document.querySelectorAll('[data-group]')],cur=groups.find(g=>!g.hidden)?.dataset.group,show=toggle&&cur===name?null:name;
+ groups.forEach(g=>g.hidden=g.dataset.group!==show);
+ document.querySelectorAll('.sub-tabs [data-open]').forEach(b=>{b.classList.toggle('active',b.dataset.open===show);b.setAttribute('aria-selected',b.dataset.open===show)});
+ if(show){const el=document.querySelector('[data-group="'+show+'"]');setTimeout(()=>el.scrollIntoView({behavior:'smooth',block:'start'}),30)}
+}
+function bindOpeners(){document.querySelectorAll('[data-open]').forEach(b=>{if(!b.dataset.bound){b.dataset.bound=1;b.addEventListener('click',()=>{if($('operations').hidden)tab('operations');openGroup(b.dataset.open,b.closest('.sub-tabs')!=null)})}})}
+$('nav-more').addEventListener('click',()=>{const o=!$('nav').classList.contains('open');$('nav').classList.toggle('open',o);$('nav-more').setAttribute('aria-expanded',o)});
+document.querySelectorAll('#nav [data-tab]').forEach(b=>b.addEventListener('click',()=>{$('nav').classList.remove('open');$('nav-more').setAttribute('aria-expanded','false')}));
+bindOpeners();
 tab(homeTab());
 load();
