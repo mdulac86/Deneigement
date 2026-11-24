@@ -135,6 +135,24 @@ Le workflow est lancé toutes les heures et décide :
 Anti-va-et-vient : un changement d'heure de départ (1 h et plus) ou une annulation n'est annoncé
 que si deux passages de suite sont d'accord, sauf si le départ est dans moins de 3 h.
 
+## Été et saison des sucres
+
+- **Orages** : d'avril à novembre, une forte pluie, un orage ou une menace de foudre (champ LTNG de
+  HRRR, lu d'avril à octobre) prévus de jour dans les 36 h font passer le robot toutes les heures.
+  La foudre HRRR seule est affichée (« Foudre possible ») sans alerte.
+- **Pluie** : poids « pluie » par modèle (`confiance_pluie`, écart quotidien en mm d'eau vs Climat
+  Québec), utilisés pour la pluie des chantiers et la détection de forte pluie. Climat Québec est
+  maintenant lu d'octobre à **septembre** (la neige reste comptée d'octobre à mai).
+- **Heures sèches et forte pluie** : NBM et MétéoMédia (tranches de 6 h réparties sur chaque heure)
+  ne comptent pas heure par heure.
+- **Dégel et travaux (MTQ)** : période de dégel de la zone de Saint-Prosper (alerte 3 jours avant, au
+  début et à la fin) et chantiers routiers à 45 km, ceux qui limitent la charge en premier (onglet Chantier).
+- **Températures** : max et min des sites pondérés par leur fiabilité mesurée (`confiance_temperatures`;
+  le minimum d'Environnement Canada, celui de la nuit qui suit, est comparé au minimum du lendemain).
+- **Érablière** : heures de dégel (8 h – 20 h) et écart entre modèles, heure par heure; date de première
+  coulée recalculée chaque automne sur les 10 derniers printemps (`scripts/erable.py`,
+  `data/erable-estimation.json`); `config/erable.json` → `manuelle` la remplace pour une seule saison.
+
 ## Fiabilité : qui voit juste ?
 
 `scripts/history.py` compare la prévision de la veille des modèles archivés

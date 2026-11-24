@@ -25,16 +25,24 @@ FLOOR = 0.15
 FIABLE = 0.6  # poids à partir duquel une source suffit seule à confirmer un risque
 
 
-def pooled(scores):
+# Pluie (saison des chantiers) : erreur quotidienne en mm d'eau, sur les jours de précipitations.
+KINDS = {
+    'neige': {'n': 'episodes', 'err': 'ecart_moyen_cm', 'prior': PRIOR_CM, 'pseudo': PRIOR_EPISODES, 'mesuree': 5},
+    'pluie': {'n': 'jours_precip', 'err': 'ecart_precip_mm', 'prior': 4.0, 'pseudo': 15, 'mesuree': 15},
+}
+
+
+def pooled(scores, kind='neige'):
     """{id: {'n': épisodes pondérés, 'err': somme des erreurs, 'episodes': réels, 'hist': n, 'live': n}}"""
+    K = KINDS[kind]
     out = {}
     for part, factor in (('historique', 1.0), ('en_direct', LIVE_FACTOR)):
         for r in (scores or {}).get(part) or []:
             k = ALIASES.get(r.get('id'), r.get('id'))
-            n, e = r.get('episodes') or 0, r.get('ecart_moyen_cm')
+            n, e = r.get(K['n']) or 0, r.get(K['err'])
             if k in IGNORE or not n or e is None:
                 continue
-            t = r.get('tempetes') or {}
+            t = (r.get('tempetes') or {}) if kind == 'neige' else {}  # pénalité de tempête : neige seulement
             err = e + PENALTY_CM * ((t.get('manquees') or 0) + (t.get('fausses_alertes') or 0)) / n
             p = out.setdefault(k, {'n': 0.0, 'err': 0.0, 'episodes': 0, 'hist': 0, 'live': 0, 'nom': r.get('nom')})
             p['n'] += n * factor
@@ -44,25 +52,41 @@ def pooled(scores):
     return out
 
 
-def effective(p):
+def effective(p, kind='neige'):
+    K = KINDS[kind]
     n, err = (p['n'], p['err']) if p else (0.0, 0.0)
-    return (err + PRIOR_EPISODES * PRIOR_CM) / (n + PRIOR_EPISODES)
+    return (err + K['pseudo'] * K['prior']) / (n + K['pseudo'])
 
 
-def weights(scores, ids=()):
-    """Poids de chaque source mesurée, et des `ids` demandés (non mesurés : poids par défaut)."""
-    pool = pooled(scores)
-    eff = {k: effective(p) for k, p in pool.items()}
-    best = min(list(eff.values()) + [PRIOR_CM])
+def weights(scores, ids=(), kind='neige'):
+    """Poids de chaque source mesurée, et des `ids` demandés (non mesurés : poids par défaut).
+    kind='neige' : écart par épisode de neige (cm); kind='pluie' : écart quotidien de précipitations (mm d'eau)."""
+    K = KINDS[kind]
+    pool = pooled(scores, kind)
+    eff = {k: effective(p, kind) for k, p in pool.items()}
+    best = min(list(eff.values()) + [K['prior']])
     out = {}
     for k in set(eff) | set(ids):
-        e = eff.get(k, PRIOR_CM)
+        e = eff.get(k, K['prior'])
         p = pool.get(k)
-        out[k] = {'poids': round(max(FLOOR, min(1.0, (best / e) ** 2)), 2), 'erreur_cm': round(e, 1),
+        out[k] = {'poids': round(max(FLOOR, min(1.0, (best / e) ** 2)), 2), ('erreur_cm' if kind == 'neige' else 'erreur_mm'): round(e, 1),
                   'episodes': p['episodes'] if p else 0, 'historique': p['hist'] if p else 0,
                   'cet_hiver': p['live'] if p else 0,
-                  'statut': 'mesurée' if p and p['episodes'] >= 5 else 'en rodage' if p else 'non mesurée'}
+                  'statut': 'mesurée' if p and p['episodes'] >= K['mesuree'] else 'en rodage' if p else 'non mesurée'}
     return out
+
+
+TEMP_PRIOR_C, TEMP_PSEUDO = 2.0, 10
+
+
+def temp_weights(scores, ids=()):
+    """Poids des sites pour les températures (max/min du jour) : écart moyen en °C, mesuré chaque jour."""
+    rows = {r['id']: r for r in (scores or {}).get('temperatures') or []}
+    eff = {k: (r['ecart_c'] * r['jours'] + TEMP_PSEUDO * TEMP_PRIOR_C) / (r['jours'] + TEMP_PSEUDO) for k, r in rows.items()}
+    best = min(list(eff.values()) + [TEMP_PRIOR_C])
+    return {k: {'poids': round(max(FLOOR, min(1.0, (best / eff.get(k, TEMP_PRIOR_C)) ** 2)), 2),
+                'erreur_c': round(eff.get(k, TEMP_PRIOR_C), 1), 'jours': (rows.get(k) or {}).get('jours', 0)}
+            for k in set(eff) | set(ids)}
 
 
 def reliable(table, key):

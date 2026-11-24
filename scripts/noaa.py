@@ -132,6 +132,7 @@ def hrrr_url(run, f):
 
 
 HRRR_RAPIDE = 18  # runs horaires : 18 h d'échéance
+FOUDRE = 0.1  # LTNG ≥ 0,1 éclair/km²/5 min : foudre possible au point
 
 
 def hrrr_run(now, horizon=HRRR_HORIZON):
@@ -166,6 +167,9 @@ def hrrr(lat, lon, now, horizon=HRRR_HORIZON):
         out['temp'] = round(value(url, e, lat, lon)[0] - 273.15, 1) if e else None
         e = pick(rows, f'CFRZR:surface:{f} hour fcst')
         out['verglas'] = (value(url, e, lat, lon)[0] >= 0.5) if e else None
+        if 4 <= now.astimezone(dt.timezone.utc).month <= 10:  # saison des orages : menace de foudre (éclairs/km²/5 min)
+            e = pick(rows, f'LTNG:entire atmosphere:{f} hour fcst')
+            out['foudre'] = (value(url, e, lat, lon)[0] >= FOUDRE) if e else None
         return out
 
     with futures.ThreadPoolExecutor(max_workers=6) as pool:
@@ -182,7 +186,7 @@ def hrrr(lat, lon, now, horizon=HRRR_HORIZON):
         mm = max(0.0, vb['precip'] - va['precip']) / span
         for k in range(span):
             hours.append({'time': zulu(run + dt.timedelta(hours=a + k)), 'snow_cm': round(cm, 2), 'precip_mm': round(mm, 2),
-                          'temp': vb['temp'], 'verglas': bool(vb.get('verglas'))})
+                          'temp': vb['temp'], 'verglas': bool(vb.get('verglas')), **({'foudre': bool(vb['foudre'])} if 'foudre' in vb else {})})
     if len(hours) < min(12, horizon):
         raise ValueError('Série HRRR trop courte')
     return {'issued_at': zulu(run), 'run': run.isoformat(), 'hours': hours, 'horizon_h': horizon,

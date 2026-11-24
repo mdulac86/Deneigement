@@ -37,11 +37,15 @@ def load(path, default):
         return default
 
 
-def observations():
+def observations(key='snow_cm'):
+    """Neige mesurée (cm) ou, avec key='eau', précipitations totales en mm d'eau (pluie + neige à 10:1)."""
     obs = {}
     for p in sorted(DATA.glob('season-*.json')):
         for r in load(p, {}).get('records', []):
-            obs[r['date']] = r.get('snow_cm')
+            if key == 'eau':
+                obs[r['date']] = None if r.get('rain_mm') is None or r.get('snow_cm') is None else r['rain_mm'] + r['snow_cm']
+            else:
+                obs[r['date']] = r.get(key)
     return obs
 
 
@@ -86,6 +90,18 @@ def day_hours_sum(hours, day, key='snow_cm'):
     return round(sum(vals), 1) if len(vals) >= 20 else None
 
 
+def live_precip(day):
+    """Précipitations prévues la veille par chaque modèle (mm d'eau, 00-24 h local)."""
+    snap = snapshot_for(day)
+    out = {}
+    for m in (snap or {}).get('models', []):
+        if m.get('status') == 'ok' and m['id'] != 'mm':
+            v = day_hours_sum(m.get('hours'), day, 'precip_mm')
+            if v is not None:
+                out[{'gfs': 'gfs-live', 'ifs': 'ifs-live', 'aifs': 'aifs-live'}.get(m['id'], m['id'])] = v
+    return out
+
+
 def live_forecasts(day):
     snap = snapshot_for(day)
     if not snap:
@@ -108,12 +124,45 @@ def live_forecasts(day):
     return out
 
 
-def live_pairs(obs):
+TEMP_NAMES = {'eccc': 'Environnement Canada', 'met': 'MET Norway', 'mb': 'meteoblue', 'mm': 'MétéoMédia'}
+MIN_LENDEMAIN = {'eccc'}  # le « minimum » d'ECCC est celui de la nuit qui suit : comparé au minimum mesuré le lendemain
+
+
+def temperatures():
+    """Max et min prévus la veille par chaque site vs max et min mesurés (Climat Québec) -> écart moyen en °C."""
+    obs = {}
+    for p in sorted(DATA.glob('season-*.json')):
+        for r in load(p, {}).get('records', []):
+            if r.get('tmax') is not None and r.get('tmin') is not None:
+                obs[r['date']] = (r['tmax'], r['tmin'])
+    errs = {}
+    for day_s, (tx, tn) in obs.items():
+        snap = snapshot_for(dt.date.fromisoformat(day_s))
+        nxt = obs.get(str(dt.date.fromisoformat(day_s) + dt.timedelta(days=1)))
+        for s in (snap or {}).get('sources', []):
+            if s.get('status') != 'ok' or s['id'] not in TEMP_NAMES:
+                continue
+            d = next((x for x in s.get('days', []) if x['date'] == day_s), None)
+            if d and d.get('high') is not None and d.get('low') is not None:
+                e = errs.setdefault(s['id'], {'max': [], 'min': []})
+                e['max'].append(abs(d['high'] - tx))
+                if s['id'] in MIN_LENDEMAIN:
+                    if nxt is not None:
+                        e['min'].append(abs(d['low'] - nxt[1]))
+                else:
+                    e['min'].append(abs(d['low'] - tn))
+    rows = [{'id': k, 'nom': TEMP_NAMES.get(k, k), 'jours': len(v['max']), 'ecart_max_c': round(statistics.mean(v['max']), 1),
+             'ecart_min_c': round(statistics.mean(v['min']), 1), 'ecart_c': round(statistics.mean(v['max'] + v['min']), 2)}
+            for k, v in errs.items() if v['max']]
+    return sorted(rows, key=lambda r: r['ecart_c'])
+
+
+def live_pairs(obs, fn=None):
     pairs = {}
     for day_s, o in obs.items():
         if o is None:
             continue
-        for k, v in live_forecasts(dt.date.fromisoformat(day_s)).items():
+        for k, v in (fn or live_forecasts)(dt.date.fromisoformat(day_s)).items():
             pairs.setdefault(k, {})[day_s] = (v, o)
     return pairs
 
@@ -157,6 +206,7 @@ def score(pairs, precip=None):
         'biais_cm': round(statistics.mean(f - o for _, f, o in eps), 1) if eps else None,
         'ecart_jour_cm': round(statistics.mean(abs(f - o) for f, o in daily), 1) if daily else None,
         'ecart_precip_mm': round(statistics.mean(abs(f - o) for f, o in p), 1) if p else None,
+        'jours_precip': len(p),
         'total_prevu_cm': round(sum(f for f, _ in pairs.values()), 1), 'total_mesure_cm': round(sum(o for _, o in pairs.values()), 1),
         'tempetes': {'detectees': hits, 'manquees': len(big) - hits, 'fausses_alertes': false},
         'periode': [min(pairs), max(pairs)] if pairs else None,
@@ -172,12 +222,14 @@ def main():
     hist, hist_precip, names = history_pairs()
     obs = observations()
     live = live_pairs(obs)
+    live_water = live_pairs(observations('eau'), live_precip)
     result = {
         'genere': dt.datetime.now(dt.timezone.utc).isoformat(),
         'seuil_cm': SEUIL,
         'methode': 'Prévision de la veille comparée à la neige mesurée par Climat Québec (station 7027660). Écart moyen = écart sur le total de chaque épisode de neige (une tempête qui chevauche minuit compte une seule fois). La neige de la station est calculée à partir des précipitations et de la température : les précipitations (mm d’eau) sont la mesure la plus sûre.',
         'historique': ranked(hist, names, hist_precip),
-        'en_direct': ranked(live, LIVE_NAMES),
+        'en_direct': ranked(live, LIVE_NAMES, live_water),
+        'temperatures': temperatures(),
     }
     (DATA / 'verification').mkdir(parents=True, exist_ok=True)
     (DATA / 'verification' / 'scores.json').write_text(json.dumps(result, ensure_ascii=False, indent=1) + '\n', encoding='utf-8')

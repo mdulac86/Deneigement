@@ -63,6 +63,26 @@ class CollectorTests(unittest.TestCase):
         self.assertTrue(m.tempete({'plan':[],'official_alerts':{'items':[{'id':'x'}]}},now)['active'])
         self.assertFalse(m.tempete({'plan':[]},now)['active'])
 
+    def test_storm_flag_for_summer_thunderstorms(self):
+        now=dt.datetime(2027,7,9,13,tzinfo=dt.timezone.utc)  # 9 h, heure locale
+        day=lambda **k:{'date':'2027-07-09',**k}
+        self.assertTrue(m.tempete({'plan':[],'consensus':[day(forte_pluie={'heure':'2027-07-09T15:00:00-04:00'})]},now)['active'])
+        self.assertTrue(m.tempete({'plan':[],'consensus':[day(foudre_hrrr='2027-07-09T16:00:00-04:00')]},now)['active'])
+        self.assertFalse(m.tempete({'plan':[],'consensus':[day(forte_pluie={'heure':'2027-07-09T22:00:00-04:00'})]},now)['active'])  # la nuit
+        jan=dt.datetime(2027,1,9,13,tzinfo=dt.timezone.utc)
+        self.assertFalse(m.tempete({'plan':[],'consensus':[{'date':'2027-01-09','forte_pluie':{'heure':'2027-01-09T12:00:00-05:00'}}]},jan)['active'])
+
+    def test_sap_hours_from_hourly_models(self):
+        day=str(m.TODAY)
+        start=dt.datetime.combine(m.TODAY,dt.time(0),m.TZ)
+        temps=[-6 if h<9 else 3 if 10<=h<16 else -1 for h in range(24)]
+        mk=lambda k,off:{'id':k,'status':'ok','hours':[{'time':(start+dt.timedelta(hours=h)).astimezone(dt.timezone.utc).isoformat(),'temp':t+off} for h,t in enumerate(temps)]}
+        r={'consensus':[{'date':day}],'models':[mk('hrrr',0),mk('ifs',1),mk('nbm',20)]}  # NBM (tranches de 6 h) ignoré
+        m.sap_hours(r)
+        s=r['consensus'][0]['seve']
+        self.assertEqual((s['nuit_min'],s['heures_degel']),(-5.5,6))
+        self.assertEqual(s['ecart_modeles_c'],1.0)
+
     def test_quick_hrrr_keeps_the_48h_tail(self):
         new={'hours':[{'time':'2026-12-09T%02d:00:00Z'%h,'snow_cm':1} for h in range(12,18)],'note':'HRRR.'}
         old={'status':'ok','hours':[{'time':'2026-12-09T%02d:00:00Z'%h,'snow_cm':0} for h in range(6,24)]}

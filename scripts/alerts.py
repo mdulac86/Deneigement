@@ -12,7 +12,8 @@ Déclencheurs choisis par Martin :
   seulement si le risque est confirmé (Environnement Canada, 2 sources, ou une source mesurée
   fiable : voir trust.py et confirm_risks dans collect.py);
 - poudrerie ou glace par grand vent (rafales de 50 km/h et plus avec de la neige au sol);
-- d'avril à novembre : forte pluie ou orage pendant la journée de chantier (heure de début).
+- d'avril à novembre : forte pluie ou orage pendant la journée de chantier (heure de début);
+- période de dégel du MTQ (charges réduites) : 3 jours avant, au début et à la fin.
 """
 import datetime as dt
 import hashlib
@@ -184,6 +185,26 @@ def heavy_rain(weather, today):
     return msgs
 
 
+def thaw(weather, today):
+    """Période de dégel du MTQ (restrictions de charge) : 3 jours avant, au début et à la fin."""
+    g = (weather.get('routes') or {}).get('degel') or {}
+    if not g.get('debut') or not g.get('fin'):
+        return []
+    a, b = dt.date.fromisoformat(g['debut']), dt.date.fromisoformat(g['fin'])
+    zone = g.get('zone') or 'zone de Saint-Prosper'
+    if a - dt.timedelta(days=3) <= today < a:
+        return [{'key': f'degel:bientot:{a}', 'title': f'Dégel : charges réduites dès le {day_label(str(a))}',
+                 'message': f'Période de dégel du MTQ ({zone}) du {day_label(str(a))} au {day_label(str(b))} : charges réduites pour les camions. Planifier le transport de la machinerie.',
+                 'priority': 4, 'tags': ['truck']}]
+    if a <= today <= b:
+        return [{'key': f'degel:debut:{a}', 'title': f'Période de dégel en cours jusqu’au {day_label(str(b))}',
+                 'message': f'MTQ, {zone} : charges réduites pour les camions jusqu’au {day_label(str(b))}.', 'priority': 4, 'tags': ['truck']}]
+    if b < today <= b + dt.timedelta(days=2):
+        return [{'key': f'degel:fin:{b}', 'title': 'Fin de la période de dégel',
+                 'message': f'MTQ, {zone} : la période de dégel s’est terminée le {day_label(str(b))}. Charges normales.', 'priority': 3, 'tags': ['truck']}]
+    return []
+
+
 def run(weather, state_path, today=None, pusher=None, now=None):
     """Envoie les nouvelles alertes en notifications du site (Web Push).
     Sans téléphone abonné, rien n'est envoyé ni marqué comme envoyé."""
@@ -211,7 +232,7 @@ def run(weather, state_path, today=None, pusher=None, now=None):
     now = now or dt.datetime.now(dt.timezone.utc)
     pending = {}
     plan_msgs, seen = plans(weather, state, today, now, pending)
-    msgs = official(weather) + plan_msgs + probability(weather, today) + ice_melt(weather, today) + heavy_rain(weather, today)
+    msgs = official(weather) + plan_msgs + probability(weather, today) + ice_melt(weather, today) + heavy_rain(weather, today) + thaw(weather, today)
     sent_keys = set(state.get('sent', []))
     out = []
     for m in msgs:

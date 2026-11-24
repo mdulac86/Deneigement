@@ -50,7 +50,7 @@ function render(){
   try{erabliere()}catch(err){console.warn('érablière',err)}
   $('days').innerHTML=state.consensus.map((d,i)=>'<button class="day '+(selected===i?'active':'')+(d.tendance?' trend':'')+'" data-day="'+i+'" aria-pressed="'+(selected===i)+'"><span class="date">'+esc(dayLabel(d.date))+'</span><span class="symbol">'+symbol(d.risks)+'</span><strong>'+n(d.high_mean)+'° <span class="muted">/ '+n(d.low_mean)+'°</span></strong><small>'+(d.tendance?'Tendance · modèles':d.sources.length+' sources · '+esc(d.confidence))+'</small>'+(d.pop?'<small class="pop'+(d.pop.value>=60?' hi':'')+'" title="Probabilité de précipitations · '+esc(d.pop.sources.join(', '))+'">💧 '+d.pop.value+' %</small>':'')+'<small>Neige : '+(d.snow.mean_cm!=null?n(d.snow.mean_cm)+' cm':d.model_snow?'≈ '+n(d.model_snow.median_cm)+' cm':'non chiffrable')+'</small>'+(d.ensemble?'<small class="'+(d.ensemble.prob_5cm>=30?'ens-high':'')+'">5 cm+ : '+d.ensemble.prob_5cm+' % (ensemble)</small>':'')+(d.nbm&&d.nbm.p_2_5cm>0?'<small class="'+(d.nbm.p_5cm>=30?'ens-high':'')+'" title="Plus forte probabilité sur une tranche de 6 h · NOAA NBM">5 cm+ en 6 h : '+d.nbm.p_5cm+' % (NBM)</small>':'')+(d.verglas_hrrr_h?'<small class="'+(d.verglas_hrrr_confirme?'ens-high':'')+'" title="Heures de pluie verglaçante prévues par le modèle HRRR">🧊 Verglas : '+d.verglas_hrrr_h+' h (HRRR'+(d.verglas_hrrr_confirme?'':', à confirmer')+')</small>':'')+(d.risques_a_confirmer?.length?'<small class="muted" title="Annoncé par une seule source pas encore assez fiable : affiché, sans alerte">À confirmer : '+esc(d.risques_a_confirmer.map(x=>x.risque).join(', '))+'</small>':'')+((d.risks||[]).some(r=>/Poudrerie|Glace \(vent\)/.test(r))?'<small class="ens-high">💨 '+((d.risks||[]).includes('Poudrerie')?'Poudrerie':'Glace (vent)')+' · '+n(d.rafales_kmh)+' km/h</small>':d.rafales_kmh>=40?'<small>💨 Rafales '+n(d.rafales_kmh)+' km/h</small>':'')+'</button>').join('');
   document.querySelectorAll('[data-day]').forEach(b=>b.addEventListener('click',()=>{selected=Number(b.dataset.day);render()}));
-  renderPlan();try{renderNbm()}catch(err){console.warn('NBM',err)}try{renderRoutes()}catch(err){console.warn('routes',err)}renderDepth();renderComparison();renderOfficial();renderWinter();renderSources();renderReliability();
+  renderPlan();try{renderNbm()}catch(err){console.warn('NBM',err)}try{renderRoutes()}catch(err){console.warn('routes',err)}try{renderTransport()}catch(err){console.warn('transport',err)}renderDepth();renderComparison();renderOfficial();renderWinter();renderSources();renderReliability();
   $('previous').textContent=state.previous_at?'Depuis '+local(state.previous_at):'État de référence';$('changes').innerHTML=state.changes.map(c=>'<li>'+esc(c.text)+'</li>').join('');
 }
 function renderComparison(){
@@ -113,10 +113,12 @@ function chantiers(){
  const P=$('chantier-panel');if(!P)return;
  const tz='America/Toronto',key=t=>new Intl.DateTimeFormat('en-CA',{timeZone:tz}).format(t),hourOf=t=>+new Intl.DateTimeFormat('en-CA',{timeZone:tz,hour:'numeric',hourCycle:'h23'}).format(t);
  const today=key(Date.now()),ok=(state.models||[]).filter(m=>m.status==='ok'&&(m.hours||[]).some(h=>h.precip_mm!=null));
- const dayModel={},hourVals={};
- for(const m of ok){const per={};for(const h of m.hours){const t=Date.parse(h.time),k=key(t);if(k<today)continue;const e=per[k]=per[k]||{mm:0,n:0};e.mm+=h.precip_mm||0;e.n++;(hourVals[h.time]=hourVals[h.time]||[]).push(h.precip_mm||0)}
-  for(const k in per)if(per[k].n>=18||(k===today&&per[k].n>=3))(dayModel[k]=dayModel[k]||[]).push(per[k].mm)}
- const dry={},seen={};for(const [t,v] of Object.entries(hourVals)){if(v.length<2)continue;const ts=Date.parse(t),hr=hourOf(ts);if(hr<7||hr>=18||ts<Date.now()-3600e3)continue;const k=key(ts);seen[k]=(seen[k]||0)+1;if(med(v)<0.1)dry[k]=(dry[k]||0)+1}
+ // Pluie pondérée par la fiabilité mesurée de chaque modèle pour la pluie (confiance_pluie, recalculée par le robot).
+ // Heures sèches : sans NBM ni MétéoMédia, dont les tranches de 6 h réparties sur chaque heure transformeraient une averse en 6 h de pluie.
+ const dayModel={},hourVals={},PAR_TRANCHES=['nbm','mm'],wq=(pairs,q=.5)=>{const s=pairs.filter(p=>p[1]>0).sort((a,b)=>a[0]-b[0]);if(!s.length)return null;const tot=s.reduce((a,p)=>a+p[1],0);let c=0;for(const [v,w] of s){c+=w;if(c>=tot*q-1e-9)return v}return s.at(-1)[0]};
+ for(const m of ok){const w=m.confiance_pluie?.poids??1,per={};for(const h of m.hours){const t=Date.parse(h.time),k=key(t);if(k<today)continue;const e=per[k]=per[k]||{mm:0,n:0};e.mm+=h.precip_mm||0;e.n++;if(!PAR_TRANCHES.includes(m.id))(hourVals[h.time]=hourVals[h.time]||[]).push([h.precip_mm||0,w])}
+  for(const k in per)if(per[k].n>=18||(k===today&&per[k].n>=3))(dayModel[k]=dayModel[k]||[]).push([per[k].mm,w])}
+ const dry={},seen={};for(const [t,v] of Object.entries(hourVals)){if(v.length<2)continue;const ts=Date.parse(t),hr=hourOf(ts);if(hr<7||hr>=18||ts<Date.now()-3600e3)continue;const k=key(ts);seen[k]=(seen[k]||0)+1;if(wq(v)<0.1)dry[k]=(dry[k]||0)+1}
  // Pluie observée : relevé Climat Québec de Saint-Prosper si publié, sinon pluviomètre automatique le plus proche.
  const obs={};for(const [d,v] of Object.entries(state.pluie_obs||{}))if(v.h>=18)obs[d]=v.mm;
  for(const r of state.climate?.records||[])if(r.rain_mm!=null)obs[r.date]=r.rain_mm+(r.snow_cm&&r.tmax!=null&&r.tmax>2?r.snow_cm:0);
@@ -131,7 +133,7 @@ const G=state.gel_sol&&state.gel_sol.gel_m!=null?state.gel_sol:null,proj=Object.
  // Gel du sol : indice de gel cumulé (degrés-jours sous 0 °C, qui se perd au dégel).
  let FI=0;for(const r of (state.climate?.records||[]).slice(-21))if(r.tmax!=null&&r.tmin!=null)FI=Math.max(0,FI*0.9-(r.tmax+r.tmin)/2);
  let prevLow=null;
- for(const d of days){const mm=dayModel[d.date]?med(dayModel[d.date]):null,pop=d.pop?.value??null,hi=d.high_mean,soil=S;
+ for(const d of days){const mm=dayModel[d.date]?wq(dayModel[d.date]):null,pop=d.pop?.value??null,hi=d.high_mean,soil=S;
   if(hi!=null&&d.low_mean!=null)FI=Math.max(0,FI*0.9-(hi+d.low_mean)/2);
   const gp=gelDay(d.date),rain=mm??0,dh=seen[d.date]?dry[d.date]||0:null,frozen=gp!=null?gp>=0.3:FI>=15;
   let exc=rain>=10||soil>=40||(rain>=5&&(pop??0)>=70)?['À éviter','red']:rain<3&&(pop??0)<50&&soil<20?['Bon','green']:['Moyen','amber'];
@@ -141,22 +143,24 @@ const G=state.gel_sol&&state.gel_sol.gel_m!=null?state.gel_sol:null,proj=Object.
   if(sap[1]==='green')goodSap.push(d);
   let pave=rain>=2||(pop??0)>=60||hi==null||hi<5||soil>=40?['À éviter','red']:rain<0.5&&(pop??0)<40&&hi>=10&&soil<25&&(dh==null||dh>=8)?['Bon','green']:['Moyen','amber'];
   if(exc[0]==='Bon')goodExc.push(d);if(pave[0]==='Bon')goodPave.push(d);
-  rows.push('<tr'+(d.tendance?' class="trend"':'')+'><td>'+esc(dayLabel(d.date).replace(/ \S+\.?$/,''))+'</td><td class="ico">'+symbol(d.risks)+'</td><td>'+badge(exc)+'</td><td>'+badge(pave)+'</td>'+(sugar?'<td>'+badge(sap)+'</td>':'')+'<td>'+n(hi==null?null:Math.round(hi))+'° / '+n(d.low_mean==null?null:Math.round(d.low_mean))+'°'+(hi>=30?'<br><small class="hot">🥵 Chaleur : apporter de l’eau</small>':'')+'</td><td>'+(mm!=null?n(Math.round(mm*10)/10)+' mm':'—')+(pop!=null?' @ '+pop+' %':'')+(d.forte_pluie?'<br><small class="storm">'+(d.forte_pluie.orage?'⛈ Orage':'🌧 Forte pluie')+' vers '+hhmm(d.forte_pluie.heure)+'</small>':'')+'</td><td>'+(dh!=null?dh+' / '+seen[d.date]+' h':'—')+'</td><td>'+badge(soilLbl(soil))+(gp>=0.05?'<br><small>Gel ≈ '+cm(gp)+'</small>':'')+'</td></tr>');
+  rows.push('<tr'+(d.tendance?' class="trend"':'')+'><td>'+esc(dayLabel(d.date).replace(/ \S+\.?$/,''))+'</td><td class="ico">'+symbol(d.risks)+'</td><td>'+badge(exc)+'</td><td>'+badge(pave)+'</td>'+(sugar?'<td>'+badge(sap)+'</td>':'')+'<td>'+n(hi==null?null:Math.round(hi))+'° / '+n(d.low_mean==null?null:Math.round(d.low_mean))+'°'+(hi>=30?'<br><small class="hot">🥵 Chaleur : apporter de l’eau</small>':'')+'</td><td>'+(mm!=null?n(Math.round(mm*10)/10)+' mm':'—')+(pop!=null?' @ '+pop+' %':'')+(d.forte_pluie?'<br><small class="storm">'+(d.forte_pluie.orage?'⛈ Orage':'🌧 Forte pluie')+' vers '+hhmm(d.forte_pluie.heure)+'</small>':'')+(d.foudre_hrrr&&!d.forte_pluie?.orage?'<br><small class="storm" title="Menace d’éclairs prévue par le modèle HRRR, non confirmée par Environnement Canada">⚡ Foudre possible vers '+hhmm(d.foudre_hrrr)+'</small>':'')+'</td><td>'+(dh!=null?dh+' / '+seen[d.date]+' h':'—')+'</td><td>'+badge(soilLbl(soil))+(gp>=0.05?'<br><small>Gel ≈ '+cm(gp)+'</small>':'')+'</td></tr>');
   S=S*0.85+rain}
  S=0;for(let i=0;i<14;i++){const k=key(start.getTime()+i*86400e3);S=S*0.85+(obs[k]||0)}
  $('chantier-rows').innerHTML=rows.join('');
  const sl=soilLbl(S);$('chantier-sol').className='tag '+sl[1];$('chantier-sol').textContent='Sol aujourd’hui : '+sl[0];
  const list=a=>a.length?a.map(d=>dayLabel(d.date).replace(/ \S+\.?$/,'')).join(', '):'aucun';
  $('chantier-best').innerHTML='<b>Bons jours pour paver :</b> '+esc(list(goodPave))+'<br><b>Bons jours pour l’excavation :</b> '+esc(list(goodExc))+(sugar?'<br><b>Bonnes coulées (érablière) :</b> '+esc(list(goodSap)):'')+(G?'<span class="gel-card"><b>Gel dans le sol</b> (MTQ '+esc(G.station)+', '+esc(dateOnly(G.date))+') : <strong>'+(G.gel_m>0?cm(G.gel_m):'aucun')+'</strong>'+(G.degel_m>0?' · dégelé sur '+cm(G.degel_m)+' en surface':'')+(G.normale_m!=null?' · normale à cette date '+cm(G.normale_m):'')+((G.projection||[]).length?' · dans '+G.projection.length+' jours ≈ '+cm(G.projection[G.projection.length-1].gel_m):'')+(G.hiver_passe_max_m!=null?' · hiver passé : '+n(G.hiver_passe_max_m)+' m au plus creux':'')+(G.max_moyen_m!=null?' (moyenne '+n(G.max_moyen_m)+' m)':'')+(G.status==='stale'?' · données non mises à jour':'')+'</span>':'');
- $('chantier-note').textContent='Pluie : médiane des modèles @ probabilité la plus haute des sources. Heures sèches : heures de 7 h à 18 h sans pluie selon la médiane des modèles. Sol : pluie des 14 derniers jours (Climat Québec ou pluviomètre le plus proche) qui sèche d’environ 15 % par jour, plus la pluie prévue. Pavage « Bon » : moins de 0,5 mm, moins de 40 %, 10 °C et plus, 8 h sèches et sol pas détrempé. Excavation « Bon » : moins de 3 mm, moins de 50 % et sol sec. Gel dans le sol : sonde du MTQ sous la chaussée déneigée de Saint-Georges (≈ 2 jours de décalage), prolongée avec les températures prévues; sous un terrain enneigé, le gel est moins creux. « Sol gelé » à 30 cm et plus. Forte pluie : début de 1,5 mm/h ou 4 mm en 3 h (médiane des modèles) ou orage annoncé par Environnement Canada. Érable (15 févr. au 30 avril) : « Bonne » coulée = nuit à -2 °C ou moins puis jour entre 3 et 10 °C; « Possible » = gel la nuit et dégel le jour hors de ces valeurs; « Nuit douce » = pas de gel, la coulée s’arrête. Les jours éloignés (en pâle) sont une tendance.';
+ $('chantier-note').textContent='Pluie : médiane des modèles pondérée par leur fiabilité mesurée pour la pluie @ probabilité la plus haute des sources. Heures sèches : heures de 7 h à 18 h sans pluie selon la médiane pondérée des modèles heure par heure (NBM et MétéoMédia, donnés par tranches de 6 h, n’y comptent pas). Foudre : menace d’éclairs prévue par le modèle HRRR (à confirmer par Environnement Canada). Sol : pluie des 14 derniers jours (Climat Québec ou pluviomètre le plus proche) qui sèche d’environ 15 % par jour, plus la pluie prévue. Pavage « Bon » : moins de 0,5 mm, moins de 40 %, 10 °C et plus, 8 h sèches et sol pas détrempé. Excavation « Bon » : moins de 3 mm, moins de 50 % et sol sec. Gel dans le sol : sonde du MTQ sous la chaussée déneigée de Saint-Georges (≈ 2 jours de décalage), prolongée avec les températures prévues; sous un terrain enneigé, le gel est moins creux. « Sol gelé » à 30 cm et plus. Forte pluie : début de 1,5 mm/h ou 4 mm en 3 h (médiane des modèles) ou orage annoncé par Environnement Canada. Érable (15 févr. au 30 avril) : « Bonne » coulée = nuit à -2 °C ou moins puis jour entre 3 et 10 °C; « Possible » = gel la nuit et dégel le jour hors de ces valeurs; « Nuit douce » = pas de gel, la coulée s’arrête. Les jours éloignés (en pâle) sont une tendance.';
  return {pave:list(goodPave),exc:list(goodExc),sap:sugar?list(goodSap):null};
 }
 function sapDays(){
  // Coulée d'érable : nuit à -2 °C ou moins (la nuit d'avant, ou celle du jour) puis journée entre 3 et 10 °C.
+ // Heure par heure (d.seve, modèles horaires) : une « bonne » journée sans au moins 4 h de dégel n'est que « possible ».
  const out=[];let prev=null;
  for(const d of (state.consensus||[])){const hi=d.high_mean,night=[prev,d.low_mean].filter(v=>v!=null),lo=night.length?Math.min(...night):null;prev=d.low_mean;
-  const v=hi==null||lo==null?['—','']:lo<=-2&&hi>=3&&hi<=10?['Bonne','green']:lo<=0&&hi>0&&hi<=14?['Possible','amber']:hi<=0?['Gel (rien)','']:['Nuit douce','red'];
-  out.push({d,lo,hi,v})}
+  let v=hi==null||lo==null?['—','']:lo<=-2&&hi>=3&&hi<=10?['Bonne','green']:lo<=0&&hi>0&&hi<=14?['Possible','amber']:hi<=0?['Gel (rien)','']:['Nuit douce','red'];
+  const s=d.seve;if(s&&v[1]==='green'&&s.heures_degel<4)v=['Possible','amber'];
+  out.push({d,lo,hi,v,s})}
  return out;
 }
 function mmdd(date){return (date.getMonth()+1)*100+date.getDate()}
@@ -168,7 +172,7 @@ function erabliere(){
  const visible=md>=a&&md<=b;
  $('tab-erabliere').hidden=!visible;if(!visible)return;
  const yr=now.getMonth()>=8?now.getFullYear()+1:now.getFullYear(),at=s=>new Date(yr+'-'+s+'T12:00:00-05:00');
- const est=at(E.premiere_coulee.estimation_2027),lead=E.avance_entaillage_jours*86400e3,fmt=t=>new Intl.DateTimeFormat('fr-CA',{weekday:'long',day:'numeric',month:'long',timeZone:'America/Toronto'}).format(t);
+ const pc=E.premiere_coulee||{},est=at(pc.estimation||pc.estimation_2027||pc.normale_1964_2024||'03-10'),lead=E.avance_entaillage_jours*86400e3,fmt=t=>new Intl.DateTimeFormat('fr-CA',{weekday:'long',day:'numeric',month:'long',timeZone:'America/Toronto'}).format(t);
  let start=est,how='estimation de saison (de '+fmt(at(E.premiere_coulee.plus_tot)).replace(/^\S+ /,'')+' au '+fmt(at(E.premiere_coulee.plus_tard)).replace(/^\S+ /,'')+')';
  if(first>=0){start=new Date(days[first].d.date+'T12:00:00-05:00');how='prévisions météo'}
  const tap=new Date(start-lead),left=Math.round((tap-now)/86400e3),startPast=start<now;
@@ -177,8 +181,8 @@ function erabliere(){
  $('sap-status').className='signal '+(left<=0||first>=0?'watch':'calm');
  $('sap-status').innerHTML='<div><span class="tag '+(left<=0||first>=0?'amber':'green')+'">ENTAILLAGE · 1000 ENTAILLES</span><h2>'+esc(title)+'</h2><p>Première coulée attendue : <b>'+esc(fmt(start))+'</b> ('+esc(how)+'). On entaille environ '+E.avance_entaillage_jours+' jours avant'+(left>0?' : dans '+left+' jour'+(left>1?'s':'')+'.':'.')+'</p><ul class="sap-why">'+E.raisons.map(r=>'<li>'+esc(r)+'</li>').join('')+'</ul></div>';
  $('sap-count').textContent=good+' bonnes · '+poss+' possibles';$('sap-count').className='tag '+(good?'green':'');
- $('sap-rows').innerHTML=days.map(x=>'<tr'+(x.d.tendance?' class="trend"':'')+'><td>'+esc(dayLabel(x.d.date).replace(/ \S+\.?$/,''))+'</td><td class="ico">'+symbol(x.d.risks)+'</td><td><span class="tag '+x.v[1]+'">'+x.v[0]+'</span></td><td>'+n(x.lo==null?null:Math.round(x.lo))+'°</td><td>'+n(x.hi==null?null:Math.round(x.hi))+'°</td><td>'+(x.d.pop?x.d.pop.value+' %':'—')+'</td></tr>').join('');
- $('sap-note').textContent=E.regle+' Normale : environ '+E.jours_coulee_normale_mars_avril+' bonnes journées en mars et avril. Les jours éloignés (en pâle) sont une tendance.';
+ $('sap-rows').innerHTML=days.map(x=>'<tr'+(x.d.tendance?' class="trend"':'')+'><td>'+esc(dayLabel(x.d.date).replace(/ \S+\.?$/,''))+'</td><td class="ico">'+symbol(x.d.risks)+'</td><td><span class="tag '+x.v[1]+'">'+x.v[0]+'</span></td><td>'+n(x.lo==null?null:Math.round(x.lo))+'°</td><td>'+n(x.hi==null?null:Math.round(x.hi))+'°</td><td>'+(x.s?x.s.heures_degel+' h'+(x.s.ecart_modeles_c!=null?' <small class="'+(x.s.ecart_modeles_c>4?'hot':'muted')+'" title="Écart moyen entre les modèles l’après-midi">'+(x.s.ecart_modeles_c>4?'incertain':'± '+n(x.s.ecart_modeles_c)+'°')+'</small>':''):'—')+'</td><td>'+(x.d.pop?x.d.pop.value+' %':'—')+'</td></tr>').join('');
+ $('sap-note').textContent=E.regle+' Dégel : heures au-dessus de 0 °C entre 8 h et 20 h selon la médiane des modèles heure par heure; une « bonne » journée avec moins de 4 h de dégel devient « possible ». « Incertain » : les modèles diffèrent de plus de 4 °C l’après-midi. Les max et min viennent des sites, pondérés par leur fiabilité mesurée. Normale : environ '+E.jours_coulee_normale_mars_avril+' bonnes journées en mars et avril. Les jours éloignés (en pâle) sont une tendance.';
 }
 function homeTab(){const md=mmdd(new Date());return md>=1101||md<=415?'operations':'chantier'}
 function observedSeason(records){
@@ -409,6 +413,18 @@ function renderRoutes(){
  $('cameras').innerHTML=cams.map(c=>'<figure class="cam" data-video="'+esc(c.video)+'"><button class="cam-play" aria-label="Voir la caméra '+esc(c.nom)+'">▶ Voir</button><figcaption>'+esc(c.nom)+'<small>'+n(c.km)+' km'+(c.page?' · <a href="'+esc(c.page)+'" target="_blank" rel="noopener">Québec 511 ↗</a>':'')+'</small></figcaption></figure>').join('')||'<p class="muted">Aucune caméra dans le secteur.</p>';
  document.querySelectorAll('.cam-play').forEach(b=>b.onclick=()=>{const f=b.closest('.cam');b.outerHTML='<video src="'+esc(f.dataset.video)+'" autoplay muted loop playsinline controls></video>'});
  $('routes-note').textContent='État des routes noté par les patrouilleurs du ministère des Transports (Québec 511, données ouvertes), lu à '+hhmm(r.fetched_at)+'. « Lames de neige » : bandes de neige soufflée sur la chaussée. Les vidéos sont chargées en direct depuis Québec 511.';
+}
+function renderTransport(){
+ const r=state.routes||{},g=r.degel,tw=r.travaux||[];
+ $('transport-panel').hidden=!g&&!tw.length;if($('transport-panel').hidden)return;
+ const today=new Intl.DateTimeFormat('en-CA',{timeZone:'America/Toronto'}).format(new Date());
+ if(g?.debut&&g?.fin){
+  const on=today>=g.debut&&today<=g.fin,soon=today<g.debut,dd=v=>dateOnly(v);
+  $('degel-tag').textContent=on?'Dégel en cours':soon?'Dégel à venir':'Hors période de dégel';$('degel-tag').className='tag '+(on?'red':soon?'amber':'green');
+  $('degel').innerHTML=(on?'<b>Charges réduites pour les camions</b> jusqu’au '+esc(dd(g.fin)):soon?'Prochaine période de dégel : du <b>'+esc(dd(g.debut))+'</b> au <b>'+esc(dd(g.fin))+'</b>':'Dernière période de dégel : du '+esc(dd(g.debut))+' au '+esc(dd(g.fin))+'. Le MTQ publie la prochaine au début de mars')+' ('+esc(g.zone||'')+(g.partie?', '+esc(g.partie):'')+'). <a href="'+esc(g.source)+'" target="_blank" rel="noopener">Détails MTQ ↗</a>';
+ }else{$('degel-tag').textContent='Dégel';$('degel').textContent='Période de dégel non publiée.'}
+ const per=t=>t.debut?esc(dateOnly(t.debut.slice(0,10)))+' → '+esc(dateOnly(t.fin.slice(0,10))):'—';
+ $('travaux-rows').innerHTML=tw.map(t=>'<tr><td><b>'+esc(t.travaux||'Travaux')+'</b><small>'+(t.route?'Route '+esc(t.route)+' · ':'')+n(t.km)+' km</small></td><td>'+esc(t.lieu||'')+'</td><td>'+(t.charge?'<span class="tag amber">'+esc(t.charge)+'</span> ':'')+esc(t.entrave||'')+'</td><td>'+per(t)+'</td></tr>').join('')||'<tr><td colspan="4" class="muted">Aucun chantier routier publié dans le secteur.</td></tr>';
 }
 tab(homeTab());
 load();

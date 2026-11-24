@@ -4,6 +4,8 @@
   patrouilleurs du MTQ, segment par segment.
 - Avertissements routiers en cours (fermetures, entraves).
 - Caméras de circulation : courte vidéo récente servie par Québec 511.
+- Période de dégel de la zone (restrictions de charge des camions au printemps) et chantiers
+  routiers, en premier ceux qui limitent la charge ou les dimensions (transport de machinerie).
 
 Service WFS du MTQ, licence CC BY 4.0 (Données Québec). Fonctions pures sauf get_json();
 testées dans tests/test_routes.py.
@@ -117,6 +119,28 @@ def cameras(rows, limit=8):
     return out
 
 
+def degel(get_json, lat, lon):
+    """Période de dégel (restrictions de charge des camions) de la zone du MTQ qui contient Saint-Prosper."""
+    feats = get_json(query('zone_degel', lat, lon, rayon=1)).get('features', [])
+    if not feats:
+        return None
+    p = feats[0].get('properties') or {}
+    day = lambda s: str(s or '').strip()[:10] or None
+    return {'zone': p.get('zone'), 'partie': p.get('nom_partie_zone'), 'debut': day(p.get('dat_debut_zone')),
+            'fin': day(p.get('dat_fin_zone')), 'source': 'https://www.transports.gouv.qc.ca/fr/camionnage/periode-degel/'}
+
+
+def travaux(rows, limit=10):
+    """Chantiers routiers en cours ou prochains, en premier ceux qui limitent la charge ou les dimensions."""
+    out = []
+    for d, p in rows:
+        out.append({'km': d, 'route': p.get('routeAutoroute') or None, 'travaux': p.get('identificationDesTravaux'),
+                    'lieu': p.get('localisation'), 'entrave': p.get('entrave'),
+                    'charge': (p.get('entravesLieesAuxChargesEtDimensions') or '').strip() or None,
+                    'debut': str(p.get('debut') or '').replace('/', '-')[:16], 'fin': str(p.get('fin') or '').replace('/', '-')[:16]})
+    return sorted(out, key=lambda t: (t['charge'] is None, t['km']))[:limit]
+
+
 def resume(segs):
     """Pire état parmi les segments les plus proches (≤ 25 km)."""
     proches = [s for s in segs if s['km'] <= 25] or segs[:4]
@@ -131,14 +155,19 @@ def collect(get_json, lat, lon, now_iso, previous=None):
                        'note': 'Données ouvertes du MTQ (Québec 511, CC BY 4.0). État des routes noté par les patrouilleurs; '
                                'vidéos des caméras servies par Québec 511.'}
     for key, layer, fn in (('segments', 'conditions_routieres', segments), ('evenements', 'evenements', evenements),
-                           ('cameras', 'infos_cameras', cameras)):
+                           ('cameras', 'infos_cameras', cameras), ('travaux', 'chantiers_mtmdet', travaux)):
         try:
             out[key] = fn(features(get_json, layer, lat, lon))
         except Exception as e:
             errors.append(f'{layer} : {str(e)[:80]}')
             out[key] = (previous or {}).get(key, [])
+    try:
+        out['degel'] = degel(get_json, lat, lon)
+    except Exception as e:
+        errors.append(f'zone_degel : {str(e)[:80]}')
+        out['degel'] = (previous or {}).get('degel')
     out['resume'] = resume(out['segments'])
-    out['status'] = 'ok' if not errors else 'partial' if len(errors) < 3 else 'unavailable'
+    out['status'] = 'ok' if not errors else 'partial' if len(errors) < 5 else 'unavailable'
     if errors:
         out['errors'] = errors
     return out

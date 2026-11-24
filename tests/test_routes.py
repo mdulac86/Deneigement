@@ -38,6 +38,12 @@ class RoutesTests(unittest.TestCase):
             'infos_cameras': [feature(-70.66, 46.12, IDEcamera='3563', DescriptionLocalisationFr='Aut. 73'),
                               feature(-72.5, 46.8, IDEcamera='9999', DescriptionLocalisationFr='Trop loin'),
                               feature(-70.5, 46.2, IDEcamera='abc', DescriptionLocalisationFr='Identifiant invalide')],
+            'chantiers_mtmdet': [feature(-70.60, 46.20, identificationDesTravaux='Pont', entravesLieesAuxChargesEtDimensions='',
+                                         debut='2026/07/13 00:00:00', fin='2026/12/01 23:59:00'),
+                                 feature(-70.70, 46.25, identificationDesTravaux='Pont', entravesLieesAuxChargesEtDimensions='Charge limitée à 20 t',
+                                         debut='2026/07/13 00:00:00', fin='2026/12/01 23:59:00')],
+            'zone_degel': [{'type': 'Feature', 'geometry': None,
+                            'properties': {'zone': 'Zone 1', 'dat_debut_zone': '2027-03-15  00h01', 'dat_fin_zone': '2027-05-14  23h59'}}],
         }
         get = lambda url: {'features': layers[next(k for k in layers if 'ms%3A' + k in url)]}
         out = r.collect(get, LAT, LON, '2026-12-01T10:00:00Z')
@@ -48,6 +54,9 @@ class RoutesTests(unittest.TestCase):
         self.assertEqual([c['id'] for c in out['cameras']], ['3563'])
         self.assertIn('camera.ashx?id=3563', out['cameras'][0]['video'])
         self.assertEqual(out['evenements'][0]['entrave'], 'Fermeture')
+        self.assertEqual(out['travaux'][0]['charge'], 'Charge limitée à 20 t')  # restriction de charge en premier
+        self.assertEqual(out['travaux'][0]['debut'], '2026-07-13 00:00')
+        self.assertEqual((out['degel']['debut'], out['degel']['fin']), ('2027-03-15', '2027-05-14'))
 
     def test_failure_keeps_previous_lists(self):
         def boom(url):

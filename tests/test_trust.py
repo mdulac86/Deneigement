@@ -63,6 +63,21 @@ class TrustTests(unittest.TestCase):
         self.assertEqual(w['snow_cm'], 1.2)
         self.assertEqual(w['n'], 4)
 
+    def test_rain_weights_use_precip_error_without_storm_penalty(self):
+        sc = {'historique': [{**row('nbm', 4.0, 22, 0, 9), 'ecart_precip_mm': 2.0, 'jours_precip': 60},
+                             {**row('gfs', 9.8, 22, 0, 6), 'ecart_precip_mm': 5.0, 'jours_precip': 60}]}
+        w = trust.weights(sc, ['hrrr'], 'pluie')
+        self.assertEqual(w['nbm']['poids'], 1.0)
+        self.assertLess(w['gfs']['poids'], w['hrrr']['poids'])  # mesuré mauvais < non mesuré
+        self.assertEqual(w['nbm']['statut'], 'mesurée')
+        self.assertIn('erreur_mm', w['nbm'])
+
+    def test_temperature_weights(self):
+        sc = {'temperatures': [{'id': 'mb', 'jours': 14, 'ecart_c': 1.5}, {'id': 'eccc', 'jours': 14, 'ecart_c': 3.0}]}
+        w = trust.temp_weights(sc, ['met'])
+        self.assertEqual(w['mb']['poids'], 1.0)
+        self.assertLess(w['eccc']['poids'], w['met']['poids'])
+
     def test_one_model_at_30_does_not_stretch_the_range_or_trigger(self):
         """Exemple de Martin : tout le monde prévoit 5 à 10 cm, un seul en prévoit 30."""
         start = dt.datetime(2026, 12, 9, 22, tzinfo=TZ)

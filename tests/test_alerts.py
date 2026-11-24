@@ -96,6 +96,15 @@ class AlertTests(unittest.TestCase):
         self.assertIn('Pluie sur la neige jeudi 10 déc.', self.titles())
         self.assertEqual(self.sent[-1]['priority'], 3)
 
+    def test_thaw_period_before_start_and_end(self):
+        g = {'zone': 'Zone 1', 'debut': '2027-03-15', 'fin': '2027-05-14'}
+        w = {'routes': {'degel': g}}
+        self.assertEqual(alerts.thaw(w, dt.date(2027, 3, 1)), [])
+        self.assertTrue(alerts.thaw(w, dt.date(2027, 3, 12))[0]['title'].startswith('Dégel : charges réduites dès le lundi 15 mars'))
+        self.assertTrue(alerts.thaw(w, dt.date(2027, 3, 20))[0]['title'].startswith('Période de dégel en cours'))
+        self.assertEqual(alerts.thaw(w, dt.date(2027, 5, 15))[0]['title'], 'Fin de la période de dégel')
+        self.assertEqual(alerts.thaw(w, dt.date(2027, 6, 1)), [])
+
     def test_unconfirmed_risk_sends_no_alert(self):
         w = weather(depart=None, risks=['Verglas / grésil'])
         w['consensus'][0]['risques_confirmes'] = []  # annoncé par une seule source non mesurée

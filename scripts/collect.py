@@ -24,6 +24,7 @@ import frost  # noqa: E402
 import noaa  # noqa: E402
 import routes  # noqa: E402
 import trust  # noqa: E402
+import erable  # noqa: E402
 import alerts as notifier  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -336,7 +337,8 @@ def collect_climate():
     path = DATA / f'season-{y}.json'
     old = read(path, {'records': []})
     records = {r['date']: r for r in old['records']}
-    months = [(y, m) for m in (10, 11, 12)] + [(y+1, m) for m in range(1, 6)]
+    # Octobre à septembre : la neige compte d'octobre à mai; juin à septembre sert à la pluie (chantiers, fiabilité).
+    months = [(y, m) for m in (10, 11, 12)] + [(y+1, m) for m in range(1, 10)]
     months = [(a,b) for a,b in months if dt.date(a,b,1) <= TODAY]
     errors = []
     # Relecture quotidienne de tous les mois : récupère les corrections tardives.
@@ -351,14 +353,20 @@ def collect_climate():
                     errors.append(str(e)[:150])
         old['checked_on'] = str(TODAY) if not errors else old.get('checked_on')
     rows = sorted(records.values(), key=lambda r:r['date'])
-    valid = [r for r in rows if r['snow_cm'] is not None]
+    valid = [r for r in rows if r['snow_cm'] is not None and r['date'] <= f'{y+1}-05-31']  # saison de neige
     end = min(TODAY-dt.timedelta(days=1), dt.date(y+1,5,31))
     expected = max(0, (end-dt.date(y,10,1)).days+1)
     result = {'season': f'{y}–{y+1}', 'start': f'{y}-10-01', 'end': f'{y+1}-05-31', 'records': rows, 'total_cm': round(sum(r['snow_cm'] for r in valid),1) if valid else None, 'last_date': valid[-1]['date'] if valid else None, 'missing_days': max(0, expected-len(valid)), 'checked_on': old.get('checked_on'), 'errors': errors, 'url': QC+str(TODAY), 'note': 'Station automatique 7027660. La source répartit les précipitations en pluie/neige à titre indicatif selon la température horaire. Cumul des valeurs publiées, avec délai; ce n’est pas une mesure de votre cour ni la neige restant au sol.'}
     write(path, result)
     return result
 
-def consensus(sources):
+def wmean(pairs):
+    tot = sum(w for _, w in pairs)
+    return sum(v * w for v, w in pairs) / tot if tot else None
+
+def consensus(sources, temp_w=None):
+    """temp_w : {source: poids} pour les températures (fiabilité mesurée des max/min, trust.temp_weights)."""
+    temp_w = temp_w or {}
     result = []
     for offset in range(14):
         day = str(TODAY+dt.timedelta(days=offset))
@@ -384,7 +392,9 @@ def consensus(sources):
                 support.setdefault(d['risk'], []).append(d['source'])
         highs = [d['high'] for d in compared if d.get('high') is not None]
         lows = [d['low'] for d in compared if d.get('low') is not None]
-        result.append({'date':day, 'sources':compared, 'snow':quantities, 'risks':types, 'risk_sources':support, 'high_mean':round(statistics.mean(highs),1) if highs else None,'low_mean':round(statistics.mean(lows),1) if lows else None, 'high_range':[min(highs),max(highs)] if highs else None, 'low_range':[min(lows),max(lows)] if lows else None, 'confidence':'Faible' if offset>=3 or len(types)>1 or len(compared)<3 else 'Moyenne', 'confidence_reason':'Accord qualitatif et couverture des sources; précision non encore validée. Fiabilité des cm au sol indéterminée.'})
+        hw = [(d['high'], temp_w.get(d['source'], 1.0)) for d in compared if d.get('high') is not None]
+        lw = [(d['low'], temp_w.get(d['source'], 1.0)) for d in compared if d.get('low') is not None]
+        result.append({'date':day, 'sources':compared, 'snow':quantities, 'risks':types, 'risk_sources':support, 'high_mean':round(wmean(hw),1) if hw else None,'low_mean':round(wmean(lw),1) if lw else None, 'high_range':[min(highs),max(highs)] if highs else None, 'low_range':[min(lows),max(lows)] if lows else None, 'confidence':'Faible' if offset>=3 or len(types)>1 or len(compared)<3 else 'Moyenne', 'confidence_reason':'Accord qualitatif et couverture des sources; précision non encore validée. Fiabilité des cm au sol indéterminée.'})
     return result
 
 def changes(old, new):
@@ -446,20 +456,23 @@ def wind_risks(result):
         if risk and risk not in d['risks']:
             d['risks'] = [r for r in d['risks'] if r != 'Sans risque hivernal identifié'] + [risk]
 
+PAR_TRANCHES = ('nbm', 'mm')  # quantités par 6 h réparties sur chaque heure : exclues des calculs heure par heure
 FORTE_PLUIE_MM_H = 1.5   # mm/h (médiane des modèles) : le chantier se remplit d'eau
 FORTE_PLUIE_3H = 4.0     # ou 4 mm en 3 h
 
 def heavy_rain(result):
     """Heure locale de début de forte pluie (ou d'orage selon Environnement Canada), jour par jour."""
     per = {}
+    wp = {k: v['poids'] for k, v in (result.get('confiance_pluie') or {}).items()}
     for m in result.get('models') or []:
-        if m.get('status') != 'ok':
+        # Modèles donnés par tranches de 6 h (NBM, MétéoMédia) : répartis également, ils lissent les averses.
+        if m.get('status') != 'ok' or m['id'] in PAR_TRANCHES:
             continue
         for h in m.get('hours', []):
             if h.get('precip_mm') is None or (h.get('snow_cm') or 0) > 0:
                 continue
-            per.setdefault(h['time'], []).append(h['precip_mm'])
-    hours = sorted((dt.datetime.fromisoformat(t.replace('Z', '+00:00')).astimezone(TZ), statistics.median(v))
+            per.setdefault(h['time'], []).append((h['precip_mm'], wp.get(m['id'], 1.0)))
+    hours = sorted((dt.datetime.fromisoformat(t.replace('Z', '+00:00')).astimezone(TZ), planner.weighted_median(v))
                    for t, v in per.items() if len(v) >= 2)
     storms = {}
     eccc = next((s for s in result['sources'] if s['id'] == 'eccc' and s['status'] == 'ok'), None)
@@ -467,6 +480,12 @@ def heavy_rain(result):
         if re.search(r'orage', h.get('condition') or '', re.I):
             t = dt.datetime.fromisoformat(h['time'].replace('Z', '+00:00')).astimezone(TZ)
             storms.setdefault(t.date().isoformat(), t)
+    lightning = {}
+    hrrr = next((m for m in result.get('models') or [] if m['id'] == 'hrrr' and m['status'] == 'ok'), {})
+    for h in hrrr.get('hours', []):
+        t = dt.datetime.fromisoformat(h['time'].replace('Z', '+00:00')).astimezone(TZ)
+        if h.get('foudre') and t >= NOW and 6 <= t.hour < 19:
+            lightning.setdefault(t.date().isoformat(), t)
     for d in result['consensus']:
         start = None
         for i, (t, mm) in enumerate(hours):
@@ -480,6 +499,36 @@ def heavy_rain(result):
         if start or storm:
             t = min(x for x in (start and start[0], storm) if x)
             d['forte_pluie'] = {'heure': t.isoformat(), 'mm_3h': start[1] if start else None, 'orage': bool(storm)}
+        bolt = lightning.get(d['date'])
+        if bolt:  # HRRR seul : affiché et passage horaire, alerte seulement si Environnement Canada annonce aussi un orage
+            d['foudre_hrrr'] = bolt.isoformat()
+
+def sap_hours(result):
+    """Gel et dégel heure par heure pour l'érablière (médiane des modèles horaires, sans NBM ni MétéoMédia) :
+    minimum de la nuit (0 h – 9 h), heures de dégel (> 0 °C) de 8 h à 20 h, et écart entre modèles l'après-midi."""
+    per = {}
+    for m in result.get('models') or []:
+        if m.get('status') != 'ok' or m['id'] in PAR_TRANCHES:
+            continue
+        for h in m.get('hours', []):
+            if h.get('temp') is not None:
+                per.setdefault(h['time'], []).append(h['temp'])
+    days = {}
+    for t, v in per.items():
+        if len(v) < 2:
+            continue
+        lt = dt.datetime.fromisoformat(t.replace('Z', '+00:00')).astimezone(TZ)
+        days.setdefault(lt.date().isoformat(), []).append((lt.hour, statistics.median(v), max(v) - min(v)))
+    for d in result['consensus']:
+        hs = days.get(d['date'], [])
+        if len({h for h, _, _ in hs}) < 18:
+            continue
+        night = [t for h, t, _ in hs if h < 9]
+        day = [(t, s) for h, t, s in hs if 8 <= h < 20]
+        aft = [s for h, _, s in hs if 12 <= h < 17]
+        d['seve'] = {'nuit_min': round(min(night), 1) if night else None, 'heures_degel': sum(1 for t, _ in day if t > 0),
+                     'max_horaire': round(max(t for t, _ in day), 1) if day else None,
+                     'ecart_modeles_c': round(statistics.mean(aft), 1) if aft else None}
 
 def pct(x):
     n = number(str(x or '').replace('%', ''))
@@ -621,6 +670,15 @@ def tempete(result, now=None):
                     'jusqu_a': (b + dt.timedelta(hours=2)).isoformat()}
     if (result.get('official_alerts') or {}).get('items'):
         return {'active': True, 'raison': 'Alerte officielle d’Environnement Canada', 'jusqu_a': None}
+    if 4 <= now.astimezone(TZ).month <= 11:  # saison des chantiers : forte pluie, orage ou foudre de jour
+        for d in result.get('consensus') or []:
+            for what, iso in (('Forte pluie ou orage', (d.get('forte_pluie') or {}).get('heure')), ('Foudre possible (HRRR)', d.get('foudre_hrrr'))):
+                if not iso:
+                    continue
+                t = dt.datetime.fromisoformat(iso)
+                if now - dt.timedelta(hours=3) <= t <= now + dt.timedelta(hours=TEMPETE_H) and 6 <= t.astimezone(TZ).hour < 19:
+                    return {'active': True, 'raison': f'{what} vers {t.astimezone(TZ):%H h %M} le {t.astimezone(TZ):%d/%m}',
+                            'jusqu_a': (t + dt.timedelta(hours=6)).isoformat()}
     return {'active': False}
 
 def merge_tail(new, old):
@@ -686,9 +744,12 @@ def forecast_plan(sources, days, previous=None):
                        'note': 'cm publiés par MétéoMédia par période de 6 h, répartis également sur chaque heure.', 'hours': mm_src['hours']})
     ok = [x for x in models if x['status'] == 'ok']
     # Poids de confiance recalculés à chaque passage à partir du tableau de fiabilité (prévu vs mesuré).
-    table = trust.weights(read(DATA / 'verification' / 'scores.json', {}), [m['id'] for m in models])
+    scores = read(DATA / 'verification' / 'scores.json', {})
+    table = trust.weights(scores, [m['id'] for m in models])
+    table_pluie = trust.weights(scores, [m['id'] for m in models], 'pluie')
     for m in models:
         m['confiance'] = table.get(m['id'])
+        m['confiance_pluie'] = table_pluie.get(m['id'])
     hours = planner.hourly_consensus(ok, TZ, {k: v['poids'] for k, v in table.items()})
     cfg = planner.load_config()
     # Petites chutes déjà au sol : relevés publiés + neige des modèles depuis le dernier relevé.
@@ -713,7 +774,7 @@ def forecast_plan(sources, days, previous=None):
         t = p.get('seuil_atteint') or (p.get('seuil_fourchette') or [None])[0] or p.get('debut')
         p['ensemble'] = by_day.get(t[:10]) if t else None
         p['fiables'] = trusted_view(p, hours, models, table)
-    return {'confiance': table, 'ensemble': ensemble, 'precip_probability': pop, 'models': models, 'hourly_snow': serial_hours([{k: h[k] for k in ('time', 'snow_cm', 'lo', 'hi', 'n')} for h in hours]),
+    return {'confiance': table, 'confiance_pluie': table_pluie, 'ensemble': ensemble, 'precip_probability': pop, 'models': models, 'hourly_snow': serial_hours([{k: h[k] for k in ('time', 'snow_cm', 'lo', 'hi', 'n')} for h in hours]),
             'plan': plan, 'plan_config': cfg, 'neige_depuis_nettoyage_cm': round(carry, 1)}
 
 def main():
@@ -729,10 +790,22 @@ def main():
     except Exception as e:
         alerts={**previous.get('official_alerts',{}),'status':'unavailable','error':str(e)[:120]}
     climate=collect_climate()
-    result={'updated_at':stamp(),'location':{'name':'Saint-Prosper · Beauce','lat':LAT,'lon':LON,'timezone':'America/Toronto'},'threshold_cm':5,'sources':sources,'official_alerts':alerts,'climate':climate,'consensus':consensus(sources),'previous_at':previous.get('updated_at')}
+    # Températures pondérées par la fiabilité mesurée de chaque site (max/min prévus la veille vs mesurés).
+    temp_table=trust.temp_weights(read(DATA/'verification'/'scores.json',{}),[s['id'] for s in sources])
+    result={'updated_at':stamp(),'location':{'name':'Saint-Prosper · Beauce','lat':LAT,'lon':LON,'timezone':'America/Toronto'},'threshold_cm':5,'sources':sources,'official_alerts':alerts,'climate':climate,'consensus':consensus(sources,{k:v['poids'] for k,v in temp_table.items()}),'previous_at':previous.get('updated_at'),'confiance_temperatures':temp_table}
     result['changes']=changes(previous,result)
     result['saison_estimation']=read(ROOT/'config'/'saison.json',None)
-    result['erable']=read(ROOT/'config'/'erable.json',None)
+    try:  # première coulée : estimation automatique refaite chaque automne (+ estimation manuelle éventuelle)
+        est=read(DATA/'erable-estimation.json',None)
+        if not RAPIDE:
+            gj=lambda u: fetch(u, True)
+            est,changed=erable.auto(est,gj,climat_month,TODAY)
+            if changed:
+                write(DATA/'erable-estimation.json',est)
+        result['erable']=erable.merge(read(ROOT/'config'/'erable.json',{}),est,TODAY)
+    except Exception as e:
+        print('érable :',e)
+        result['erable']=read(ROOT/'config'/'erable.json',None)
     try:
         result['snow_depth']=snowdepth.collect(fetch,NOW)
     except Exception as e:
@@ -769,6 +842,10 @@ def main():
         confirm_risks(result)
     except Exception as e:
         print('risques confirmés :', e)
+    try:
+        sap_hours(result)
+    except Exception as e:
+        print('érable (heures) :', e)
     try:
         nbm = next((m for m in result.get('models') or [] if m['id'] == 'nbm' and m['status'] == 'ok'), None)
         result['nbm_proba'] = {'run': nbm['run'], 'tranches': nbm['tranches']} if nbm else None
