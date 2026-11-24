@@ -5,8 +5,9 @@ puis relevés Climat Québec (data/season-AAAA.json, mêmes chiffres de la même
 
 Mêmes règles que l'onglet (observedSeason dans app.js) :
 - tempêtes : épisodes de neige (pause d'un jour au plus) de 5 cm et plus, de 15 cm et plus;
-- jours de déneigement : 5 cm accumulés (les petites chutes s'additionnent jusqu'à un redoux de 4 °C ou 2 mm de pluie);
-- sorties d'abrasif après une fonte : 5 mm de pluie et plus sur 2 cm de neige et plus;
+- jours de déneigement : 2 cm accumulés à la station (≈ 5 cm dans les stationnements; environ 30 jours par hiver,
+  comme le constate l'équipe); les petites chutes s'additionnent jusqu'à un redoux de 4 °C ou 2 mm de pluie;
+- fontes sur la neige au sol (slush) : début d'un redoux (4 °C et plus ou 5 mm de pluie) avec 5 cm et plus au sol;
 - verglas probable : 1 mm de pluie et plus, min -1 °C et moins, max 2 °C et moins;
 - pluie d'hiver : 2 mm et plus, de décembre à mars.
 
@@ -23,12 +24,21 @@ URL = 'https://api.weather.gc.ca/collections/climate-daily/items'
 STATION = '7027660'
 PREMIER, DERNIER = 1995, 2025  # on remonte depuis 2025-2026 jusqu'à trouver NB hivers complets
 NB = 15
+SEUIL_STATION_CM = 2  # jours de déneigement (voir cumuls)
+RATIO_STATIONNEMENT = 2.5  # 2 cm à la station ≈ 5 cm dans les stationnements
+HEURES_SLUSH = 4  # une tournée de nettoyage de slush
+HEURES_NORMALES = 225  # heures-machine d'un hiver normal (constat de l'équipe) : calibre les heures estimées
+
+
+def duree_h(cm):
+    """Règle de config/plan.json : 4 h jusqu'à 10 cm, +1,5 h par tranche de 10 cm de plus."""
+    return 4 if cm <= 10 else 4 + 1.5 * -(-(cm - 10) // 10)
 COUVERTURE = 0.85  # un hiver compte s'il a au moins 85 % des jours de neige renseignés de novembre à avril
 
 
 def fetch_all():
     rows, offset = [], 0
-    props = 'LOCAL_DATE,TOTAL_SNOW,TOTAL_RAIN,MAX_TEMPERATURE,MIN_TEMPERATURE'
+    props = 'LOCAL_DATE,TOTAL_SNOW,TOTAL_RAIN,MAX_TEMPERATURE,MIN_TEMPERATURE,SNOW_ON_GROUND'
     while True:
         q = (f'{URL}?f=json&CLIMATE_IDENTIFIER={STATION}&datetime={PREMIER}-10-01/{DERNIER + 1}-05-31'
              f'&properties={props}&sortby=LOCAL_DATE&limit=10000&offset={offset}')
@@ -37,7 +47,7 @@ def fetch_all():
         for f in feats:
             p = f['properties']
             rows.append({'date': p['LOCAL_DATE'][:10], 'snow_cm': p['TOTAL_SNOW'], 'rain_mm': p['TOTAL_RAIN'],
-                         'tmax': p['MAX_TEMPERATURE'], 'tmin': p['MIN_TEMPERATURE']})
+                         'tmax': p['MAX_TEMPERATURE'], 'tmin': p['MIN_TEMPERATURE'], 'depth_cm': p['SNOW_ON_GROUND']})
         if len(feats) < 10000:
             return rows
         offset += 10000
@@ -59,20 +69,35 @@ def cumuls(records):
         last = t
     if cur:
         eps.append(cur)
-    acc, jours, fonte = 0.0, 0, 0
+    # Jours de déneigement : 2 cm accumulés à la station (calibré sur la réalité de l'équipe : environ 30 jours
+    # par hiver; la station mesure moins que ce qui s'accumule dans les stationnements).
+    acc, jours, heures = 0.0, 0, 0.0
     for r in rows:
         s, rain = r['snow_cm'], r['rain_mm'] or 0
-        if rain >= 5 and acc + s >= 2:
-            fonte += 1
+        if rain >= 5:
             acc = 0
             continue
         if s >= 0.2:
             acc += s
         elif (r['tmax'] is not None and r['tmax'] >= 4) or rain >= 2:
             acc = 0
-        if acc >= 5:
+        if acc >= SEUIL_STATION_CM:
             jours += 1
+            heures += duree_h(acc * RATIO_STATIONNEMENT)
             acc = 0
+    # Fontes sur la neige au sol (slush à nettoyer) : début d'un redoux (max 4 °C et plus ou 5 mm de pluie)
+    # avec 5 cm et plus de neige au sol (mesurée, sinon estimée).
+    fonte, ground, warm_prev = 0, 0.0, False
+    for r in sorted(records, key=lambda r: r['date']):
+        tx, rain, d = r['tmax'], r['rain_mm'] or 0, r.get('depth_cm')
+        ground = d if d is not None else ground + (r['snow_cm'] or 0)
+        warm = (tx is not None and tx >= 4) or rain >= 5
+        if warm and ground >= 5 and not warm_prev:
+            fonte += 1
+            heures += HEURES_SLUSH
+        warm_prev = warm
+        if d is None and tx is not None and tx > 0:
+            ground = max(0.0, ground - tx * 0.5 - rain * 0.5)
     verglas = pluie = 0
     for r in records:
         rain = r['rain_mm']
@@ -84,7 +109,7 @@ def cumuls(records):
             pluie += 1
     return {'neige_cm': sum(r['snow_cm'] for r in rows), 'tempetes_5cm': sum(e['total'] >= 5 for e in eps),
             'tempetes_15cm': sum(e['total'] >= 15 for e in eps), 'jours_deneigement': jours,
-            'sorties_fonte': fonte, 'jours_verglas': verglas, 'jours_pluie': pluie}
+            'sorties_fonte': fonte, 'jours_verglas': verglas, 'jours_pluie': pluie, 'heures_brutes': heures}
 
 
 def season_days(y):
@@ -123,11 +148,18 @@ def main():
             for k, v in c.items():
                 e[k] = e.get(k, 0) + v
     n = len(used)
-    par_date = {k: {kk: round(vv / n, 1) for kk, vv in v.items()} for k, v in sums.items()}
+    k_h = HEURES_NORMALES / (sums['05-31']['heures_brutes'] / n)  # facteur : la normale au 31 mai = 225 h
+    par_date = {}
+    for d, v in sums.items():
+        e = {kk: round(vv / n, 1) for kk, vv in v.items() if kk != 'heures_brutes'}
+        e['heures'] = round(v['heures_brutes'] / n * k_h)
+        par_date[d] = e
     used.sort()
     out = {'periode': f'{n} hivers récents ({used[0]}-{used[0] + 1} à {used[-1]}-{used[-1] + 1}, relevés complets), station ST PROSPER 7027660',
            'source': 'Environnement Canada, données climatiques quotidiennes', 'hivers': n,
            'regle': 'Moyenne des cumuls depuis le 1er octobre à chaque date; mêmes règles que l’onglet.',
+           'heures': {'facteur': round(k_h, 3), 'ratio_stationnement': RATIO_STATIONNEMENT, 'heures_slush': HEURES_SLUSH,
+                      'regle': f'Heures-machine estimées : règle du plan par jour de déneigement (cm de la station × {RATIO_STATIONNEMENT}), {HEURES_SLUSH} h par fonte, × {k_h:.2f} pour qu’un hiver normal fasse {HEURES_NORMALES} h.'},
            'par_date': par_date}
     (ROOT / 'data' / 'normale-par-date.json').write_text(json.dumps(out, ensure_ascii=False, separators=(',', ':')), encoding='utf-8')
     print(out['periode'], '| hivers :', used, '| 31 mai :', par_date['05-31'], '| 24 nov. :', par_date['11-24'])

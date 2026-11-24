@@ -202,11 +202,20 @@ function observedSeason(records){
  const eps=[];let cur=null,last=null;
  for(const r of rows){if(r.snow_cm<0.2)continue;const t=Date.parse(r.date);if(cur&&t-last>2*86400000){eps.push(cur);cur=null}cur=cur||{start:r.date,total:0};cur.total+=r.snow_cm;last=t}
  if(cur)eps.push(cur);
- let acc=0,jours=0,fonte=0;const byMonth={};
+ // Mêmes règles que scripts/normales.py. Jours de déneigement : 2 cm accumulés à la station (≈ 5 cm dans les stationnements,
+ // environ 30 jours par hiver comme le constate l'équipe). Heures-machine : règle du plan, calibrée à 225 h pour un hiver normal.
+ const H=state.normale_date?.heures||{facteur:1,ratio_stationnement:2.5,heures_slush:4},dur=cm=>cm<=10?4:4+1.5*Math.ceil((cm-10)/10);
+ let acc=0,jours=0,fonte=0,heures=0;const byMonth={};
  for(const r of rows){const s=r.snow_cm,rain=r.rain_mm||0;
-  if(rain>=5&&acc+s>=2){fonte++;acc=0;continue} // la pluie fait fondre : abrasif et bord de rue, pas de déneigement
+  if(rain>=5){acc=0;continue} // la pluie fait fondre
   if(s>=0.2){acc+=s}else if((r.tmax!=null&&r.tmax>=4)||rain>=2)acc=0; // les petites chutes s'additionnent jusqu'à un redoux
-  if(acc>=5){jours++;acc=0}}
+  if(acc>=2){jours++;heures+=dur(acc*H.ratio_stationnement);acc=0}}
+ // Fontes sur la neige au sol (slush à nettoyer) : début d'un redoux (4 °C et plus ou 5 mm de pluie) avec 5 cm et plus au sol.
+ {let ground=0,warmPrev=false;for(const r of records.slice().sort((a,b)=>a.date.localeCompare(b.date))){const tx=r.tmax,rain=r.rain_mm||0,d=r.depth_cm;
+  ground=d!=null?d:ground+(r.snow_cm||0);const warm=(tx!=null&&tx>=4)||rain>=5;
+  if(warm&&ground>=5&&!warmPrev){fonte++;heures+=H.heures_slush}warmPrev=warm;
+  if(d==null&&tx!=null&&tx>0)ground=Math.max(0,ground-tx*0.5-rain*0.5)}}
+ heures=Math.round(heures*H.facteur);
  // Vent : poudrerie (froid) ou glace (près de 0 °C) les jours sans tempête, avec 5 cm et plus au sol.
  let poudrerie=0,glaceVent=0;const vent=state.vent_saison||{},byDate=Object.fromEntries(rows.map(r=>[r.date,r]));
  for(const [day,g] of Object.entries(vent)){const r=byDate[day];if(!r||g<50||(r.depth_cm??0)<5||(r.snow_cm??0)>=5||r.tmax==null)continue;
@@ -215,7 +224,7 @@ function observedSeason(records){
  let verglas=0,pluie=0;
  for(const r of records){const rain=r.rain_mm;if(rain==null||r.tmax==null||r.tmin==null)continue;
   if(rain>=1&&r.tmin<=-1&&r.tmax<=2)verglas++;else if(rain>=2&&['12','01','02','03'].includes(r.date.slice(5,7)))pluie++}
- return {poudrerie,glaceVent,t5:eps.filter(e=>e.total>=5).length,t15:eps.filter(e=>e.total>=15).length,t25:eps.filter(e=>e.total>=25).length,jours,fonte,verglas,pluie,byMonth};
+ return {heures,poudrerie,glaceVent,t5:eps.filter(e=>e.total>=5).length,t15:eps.filter(e=>e.total>=15).length,t25:eps.filter(e=>e.total>=25).length,jours,fonte,verglas,pluie,byMonth};
 }
 function seasonBar(label,done,exp,norm,unit=''){
  if(!exp)return '';
@@ -229,12 +238,12 @@ function renderSeason(){
  const cut=state.climate.last_date;
  if(cut){const md=cut.slice(5),prevCut=(+cut.slice(0,4)-1)+cut.slice(4),P=state.precedent?.records?.filter(r=>r.date<=prevCut),N=state.normale_date?.par_date?.[md];
   const sum=rs=>rs.reduce((t,r)=>t+(r.snow_cm||0),0),cur=state.climate.records.filter(r=>r.date<=cut),p=P?.length?observedSeason(P):null;
-  const lines=[['Neige tombée',sum(cur),P?.length?sum(P):null,N?.neige_cm,' cm'],['Tempêtes de 5 cm et plus',o.t5,p?.t5,N?.tempetes_5cm,''],['Grosses tempêtes (15 cm et plus)',o.t15,p?.t15,N?.tempetes_15cm,''],['Jours de déneigement',o.jours,p?.jours,N?.jours_deneigement,''],['Sorties d’abrasif après une fonte',o.fonte,p?.fonte,N?.sorties_fonte,''],['Jours de verglas probable',o.verglas,p?.verglas,N?.jours_verglas,''],['Jours de pluie en hiver (déc. à mars)',o.pluie,p?.pluie,N?.jours_pluie,'']];
+  const lines=[['Neige tombée',sum(cur),P?.length?sum(P):null,N?.neige_cm,' cm'],['Tempêtes de 5 cm et plus',o.t5,p?.t5,N?.tempetes_5cm,''],['Grosses tempêtes (15 cm et plus)',o.t15,p?.t15,N?.tempetes_15cm,''],['Heures de déneigement (machine)',o.heures,p?.heures,N?.heures,' h'],['Jours de déneigement',o.jours,p?.jours,N?.jours_deneigement,''],['Fontes à nettoyer (slush, pluie sur la neige)',o.fonte,p?.fonte,N?.sorties_fonte,''],['Jours de verglas probable',o.verglas,p?.verglas,N?.jours_verglas,''],['Jours de pluie en hiver (déc. à mars)',o.pluie,p?.pluie,N?.jours_pluie,'']];
   const f=(v,u)=>v==null?'—':n(Math.round(v*10)/10)+u,cls=(v,nv)=>v==null||nv==null?'':v>nv*1.15+0.4?'up':v<nv*0.85-0.4?'down':'';
   $('season-compare').innerHTML='<div class="section-heading"><h3>À pareille date · '+esc(new Intl.DateTimeFormat('fr-CA',{day:'numeric',month:'long',timeZone:'UTC'}).format(new Date(cut+'T12:00:00Z')))+'</h3></div><div class="table-scroll"><table class="cmp"><thead><tr><th></th><th>Cet hiver</th><th>Hiver dernier</th><th>Normale</th></tr></thead><tbody>'+lines.map(([l,a,b,c,u])=>'<tr><td>'+l+'</td><td class="'+cls(a,c)+'"><b>'+f(a,u)+'</b></td><td>'+f(b,u)+'</td><td class="muted">'+f(c,u)+'</td></tr>').join('')+'</tbody></table></div><p class="footnote">Cumuls du 1er octobre au '+esc(dateOnly(cut))+' (dernier relevé publié), mêmes règles pour les trois colonnes. Hiver dernier : '+esc(state.precedent?.season||'—')+(P?.length&&P[0].date>prevCut.slice(0,4)+'-10-15'?' (octobre manquant)':'')+'. Normale : moyenne des '+esc(state.normale_date?.periode||'15 hivers récents')+'. En vert : sous la normale; en orange : au-dessus.</p>';
  }
  $('season-updated').textContent='Estimation du '+dateOnly(e.mis_a_jour);
- $('season-progress').innerHTML='<p class="muted">Ce qui est tombé depuis le 1er octobre (relevés publiés) comparé à ce qu’on attend pour tout l’hiver '+esc(e.saison)+'. Le trait blanc marque la normale.</p>'+seasonBar('Tempêtes de 5 cm et plus',o.t5,a.tempetes_5cm,no.tempetes_5cm)+seasonBar('Grosses tempêtes (15 cm et plus)',o.t15,a.tempetes_15cm,no.tempetes_15cm)+seasonBar('Sorties de déneigement au total (neige + poudrerie)',o.jours+o.poudrerie,a.sorties_total,no.sorties_total)+seasonBar('Jours de déneigement (neige)',o.jours,a.jours_deneigement,no.jours_deneigement)+seasonBar('Sorties de poudrerie (vent, sans tempête)',o.poudrerie,a.sorties_poudrerie,no.sorties_poudrerie)+seasonBar('Sorties d’abrasif après une fonte',o.fonte,a.sorties_fonte,no.sorties_fonte)+seasonBar('Glace au sol par grand vent (abrasif)',o.glaceVent,a.jours_glace_vent,no.jours_glace_vent)+seasonBar('Jours de verglas probable (pluie qui gèle)',o.verglas,a.jours_verglas,no.jours_verglas)+seasonBar('Jours de pluie en hiver (déc. à mars)',o.pluie,a.jours_pluie,no.jours_pluie)+seasonBar('Neige totale',state.climate.total_cm||0,a.neige_cm,no.neige_cm,' cm');
+ $('season-progress').innerHTML='<p class="muted">Ce qui est tombé depuis le 1er octobre (relevés publiés) comparé à ce qu’on attend pour tout l’hiver '+esc(e.saison)+'. Le trait blanc marque la normale.</p>'+(a.heures?seasonBar('Heures de déneigement (machine)',o.heures,a.heures,no.heures,' h'):'')+seasonBar('Tempêtes de 5 cm et plus',o.t5,a.tempetes_5cm,no.tempetes_5cm)+seasonBar('Grosses tempêtes (15 cm et plus)',o.t15,a.tempetes_15cm,no.tempetes_15cm)+seasonBar('Sorties de déneigement au total (neige + poudrerie)',o.jours+o.poudrerie,a.sorties_total,no.sorties_total)+seasonBar('Jours de déneigement (neige)',o.jours,a.jours_deneigement,no.jours_deneigement)+seasonBar('Sorties de poudrerie (vent, sans tempête)',o.poudrerie,a.sorties_poudrerie,no.sorties_poudrerie)+seasonBar('Fontes à nettoyer (slush, pluie sur la neige)',o.fonte,a.sorties_fonte,no.sorties_fonte)+seasonBar('Glace au sol par grand vent (abrasif)',o.glaceVent,a.jours_glace_vent,no.jours_glace_vent)+seasonBar('Jours de verglas probable (pluie qui gèle)',o.verglas,a.jours_verglas,no.jours_verglas)+seasonBar('Jours de pluie en hiver (déc. à mars)',o.pluie,a.jours_pluie,no.jours_pluie)+seasonBar('Neige totale',state.climate.total_cm||0,a.neige_cm,no.neige_cm,' cm');
  const nx=state.consensus||[],cnt=k=>nx.filter(d=>(d.risks||[]).includes(k)).length;
  $('season-progress').innerHTML+='<div class="season-next"><b>Dans les 14 prochains jours</b><span>❄ '+cnt('Neige')+' jour(s) de neige</span><span>🌧 '+(cnt('Pluie')+cnt('Pluie / neige'))+' jour(s) de pluie ou pluie et neige</span><span class="'+(cnt('Verglas / grésil')?'ice':'')+'">⚠ '+cnt('Verglas / grésil')+' jour(s) de verglas ou grésil</span><span class="'+(cnt('Poudrerie')+cnt('Glace (vent)')?'ice':'')+'">💨 '+cnt('Poudrerie')+' jour(s) de poudrerie · '+cnt('Glace (vent)')+' de glace par grand vent</span></div>';
  const names={'11':'nov.','12':'déc.','01':'janv.','02':'févr.','03':'mars','04':'avr.'};
@@ -452,7 +461,7 @@ function initMotoMap(){
  }
  if(motoMarkers)motoMap.removeLayer(motoMarkers);
  const col=n=>n>=6?'#5FCB8E':n>=4?'#FFB81C':'#8394B0',drive=m=>Math.floor(m/60)+' h '+String(m%60).padStart(2,'0');
- motoMarkers=L.layerGroup(spots.map(s=>L.circleMarker([s.lat,s.lon],{radius:9,color:'#0B1322',weight:2,fillColor:col(noteOf(s)),fillOpacity:1}).bindPopup('<b>'+esc(s.nom)+'</b><br>'+esc(s.terre||'')+'<br>Route : '+drive(s.route_min)+' · '+s.km+' km<br>Fin de semaine : '+noteOf(s)+'/10'+(s.note?'<br><small>'+esc(s.note)+'</small>':'')+(s.lien?'<br><a href="'+esc(s.lien)+'" target="_blank" rel="noopener">Carte ITS : accès, stationnements ↗</a>':'')))).addTo(motoMap);
+ motoMarkers=L.layerGroup(spots.map(s=>L.circleMarker([s.lat,s.lon],{radius:9,color:'#0B1322',weight:2,fillColor:col(noteOf(s)),fillOpacity:1}).bindPopup('<b>'+esc(s.nom)+'</b><br>'+esc(s.terre||'')+'<br>Route : '+drive(s.route_min)+' · '+s.km+' km<br>Fin de semaine : '+noteOf(s)+'/10'+(s.note?'<br><small>'+esc(s.note)+'</small>':'')+('<br><a href="carte.html#'+encodeURIComponent(s.id)+'">🗺 Carte plein écran du secteur ↗</a>'+s.lien?'<br><a href="'+esc(s.lien)+'" target="_blank" rel="noopener">Carte ITS : accès, stationnements ↗</a>':'')))).addTo(motoMap);
  motoMap.fitBounds(L.latLngBounds(spots.map(s=>[s.lat,s.lon]).concat([[46.214,-70.486]])),{padding:[24,24]});
  setTimeout(()=>motoMap.invalidateSize(),60);
 }
@@ -468,7 +477,7 @@ function renderMoto(){
  $('moto-tag').textContent=M.status==='stale'?'Données anciennes':'NBM · HRDPS · HRRR';$('moto-tag').className='tag '+(M.status==='stale'?'amber':'');
  const order=ranked.length?ranked:spots;
  $('moto-rows').innerHTML=order.map(s=>{const sat=s.fin_de_semaine[0],sun=s.fin_de_semaine[1],sol=s.neige_sol?.cm,v=s.variation_72h_cm;
-  return '<tr><td><b>'+esc(s.nom)+'</b>'+(s.terre?'<small>'+esc(s.terre)+'</small>':'')+(s.note?'<small>'+esc(s.note)+'</small>':'')+(s.lien?'<small><a href="'+esc(s.lien)+'" target="_blank" rel="noopener">Carte ITS : accès, stationnements ↗</a></small>':'')+'</td><td>'+drive(s.route_min)+'<small>'+s.km+' km</small></td><td>'+(sol==null?'—':n(sol)+' cm')+(v!=null?'<small class="'+(v>=2?'gain':v<=-2?'melt':'')+'">'+(v>0?'+':'')+n(v)+' cm en 72 h</small>':'')+'</td><td>'+cell(sat)+'</td><td>'+cell(sun)+'</td><td><b>'+(s.vaut_la_route==null?'—':n(s.vaut_la_route))+'</b></td></tr>'}).join('');
+  return '<tr><td><b>'+esc(s.nom)+'</b>'+(s.terre?'<small>'+esc(s.terre)+'</small>':'')+(s.note?'<small>'+esc(s.note)+'</small>':'')+('<small><a href="carte.html#'+encodeURIComponent(s.id)+'">🗺 Carte du secteur (ma position, stationnements) ↗</a></small>'+s.lien?'<small><a href="'+esc(s.lien)+'" target="_blank" rel="noopener">Carte ITS : accès, stationnements ↗</a></small>':'')+'</td><td>'+drive(s.route_min)+'<small>'+s.km+' km</small></td><td>'+(sol==null?'—':n(sol)+' cm')+(v!=null?'<small class="'+(v>=2?'gain':v<=-2?'melt':'')+'">'+(v>0?'+':'')+n(v)+' cm en 72 h</small>':'')+'</td><td>'+cell(sat)+'</td><td>'+cell(sun)+'</td><td><b>'+(s.vaut_la_route==null?'—':n(s.vaut_la_route))+'</b></td></tr>'}).join('');
  $('moto-details').innerHTML=order.map(s=>'<details class="moto-days"><summary>'+esc(s.nom)+' · 7 jours</summary><div class="table-scroll"><table class="moto"><tbody>'+s.jours.map(d=>'<tr><td>'+esc(dayLabel(d.date).replace(/ \S+\.?$/,''))+'</td><td>'+cell(d)+'</td><td>'+n(d.tmax)+'°'+(d.rafales_kmh>=40?'<small>💨 '+d.rafales_kmh+' km/h</small>':'')+'</td></tr>').join('')+'</tbody></table></div></details>').join('');
  $('moto-note').textContent='Note de 0 à 10 : base de neige (0 à 5 points : 15, 25, 35, 50, 70 cm) + surface (poudreuse +4, neige fraîche +2, bonne base +1, ventée 0, lourde −1, croûte −2) − pluie. Moins de 15 cm de base : 2/10 au plus (roches et souches). « Vaut la route » : la meilleure note de la fin de semaine moins 1 point par heure de route au-delà de la première. Croûte : dégel ou pluie dans les 72 h puis regel, sans 5 cm de neige fraîche par-dessus. '+(M.note||'')+' Temps de route : vitesses d’été, depuis Saint-Prosper.';
 }

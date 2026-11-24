@@ -72,7 +72,7 @@ jobs:
       - name: Préparer le site
         run: |
           mkdir -p dist/data
-          cp index.html app.js style.css manifest.webmanifest icon.svg logo-dulac.png sw.js terres-maine.geojson dist/
+          cp index.html app.js style.css manifest.webmanifest icon.svg logo-dulac.png sw.js terres-maine.geojson carte.html dist/
           cp data/weather.json dist/data/
           cp data/season-*.json dist/data/
           cp data/normale-par-date.json dist/data/

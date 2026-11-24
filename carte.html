@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="fr-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0B1322">
+<title>Carte motoneige</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<style>
+:root{--bg:#0B1322;--panel:#111D33;--line:#24324D;--text:#E8EEF8;--muted:#8394B0;--yellow:#FFB81C;--green:#5FCB8E;--blue:#7CC4F0;--red:#E3322B}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:var(--bg);color:var(--text);font:15px/1.4 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+#map{position:fixed;inset:0;top:calc(52px + env(safe-area-inset-top))}
+.bar{position:fixed;top:0;left:0;right:0;height:calc(52px + env(safe-area-inset-top));padding:env(safe-area-inset-top) 10px 0;display:flex;align-items:center;gap:8px;background:var(--panel);border-bottom:1px solid var(--line);z-index:1000}
+.bar a.back{color:var(--blue);text-decoration:none;font-weight:600;white-space:nowrap}
+.bar select{flex:1;min-width:0;background:var(--bg);color:var(--text);border:1px solid var(--line);border-radius:8px;padding:8px;font:inherit}
+.tools{position:fixed;right:10px;bottom:calc(18px + env(safe-area-inset-bottom));display:flex;flex-direction:column;gap:8px;z-index:1000}
+.tools button{background:var(--panel);color:var(--text);border:1px solid var(--line);border-radius:12px;padding:11px 14px;font:600 14px system-ui,sans-serif;box-shadow:0 4px 14px #0008;cursor:pointer}
+.tools button.on{background:var(--blue);color:var(--bg);border-color:var(--blue)}
+.info{position:fixed;left:10px;right:110px;bottom:calc(18px + env(safe-area-inset-bottom));background:#111D33EE;border:1px solid var(--line);border-radius:12px;padding:10px 12px;font-size:13.5px;z-index:1000;max-height:40vh;overflow:auto}
+.info b{color:var(--yellow)}
+.info.mini .more{display:none}.info .first{cursor:pointer}.info:not(.mini) .first::after{content:' ▾';color:var(--muted)}.info.mini .first::after{content:' ▸';color:var(--muted)}
+.info .muted{color:var(--muted)}
+.legend span{display:inline-flex;align-items:center;gap:5px;margin-right:10px;white-space:nowrap}
+.legend i{width:12px;height:12px;border-radius:3px;display:inline-block}
+.leaflet-popup-content{font-size:14px}
+.leaflet-popup-content button{margin:6px 6px 0 0;padding:6px 10px;border-radius:8px;border:1px solid #ccc;background:#f5f5f5;font:600 13px system-ui,sans-serif;cursor:pointer}
+.me{width:16px;height:16px;border-radius:50%;background:#1E88FF;border:3px solid #fff;box-shadow:0 0 0 2px #1E88FF66}
+.pin{font-size:26px;line-height:26px;text-align:center;filter:drop-shadow(0 2px 2px #0009)}
+</style>
+</head>
+<body>
+<div class="bar"><a class="back" href="./#motoneige">← App</a><select id="spot" aria-label="Endroit"></select></div>
+<div id="map"></div>
+<div class="info" id="info"><span class="muted">Chargement…</span></div>
+<div class="tools"><button id="locate" type="button">📍 Ma position</button><button id="clear" type="button" title="Effacer mes points">🗑 Points</button></div>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+// Carte plein écran d'un endroit de motoneige hors-piste : terres publiques, parcs interdits, stationnements,
+// ma position (GPS du téléphone) et points de planification (remorque, destination) gardés sur le téléphone.
+const $=id=>document.getElementById(id),esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const km=(a,b)=>L.latLng(a).distanceTo(b)/1000,fmtKm=d=>d<1?Math.round(d*1000)+' m':d.toFixed(d<10?1:0).replace('.',',')+' km';
+const map=L.map('map',{zoomControl:false}).setView([46.6,-70.6],8);
+L.control.zoom({position:'topleft'}).addTo(map);
+const topo=L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}',{maxZoom:17,maxNativeZoom:16,attribution:'Fond © Esri'}).addTo(map);
+const osm=L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'© OpenStreetMap'});
+const sat=L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',{maxZoom:18,attribution:'Imagerie © Esri'});
+// Terres publiques du Québec (PATP, MRNF) : le WMS ne dessine pas les zones, on passe par l'export ArcGIS tuile par tuile.
+const Export=L.TileLayer.extend({getTileUrl(c){const s=this.getTileSize(),nw=L.CRS.EPSG3857.project(this._map.unproject([c.x*s.x,c.y*s.y],c.z)),se=L.CRS.EPSG3857.project(this._map.unproject([(c.x+1)*s.x,(c.y+1)*s.y],c.z));
+ return 'https://servicescarto.mrnf.gouv.qc.ca/pes/rest/services/Territoire/PATP_prov_WMS/MapServer/export?'+new URLSearchParams({bbox:[nw.x,se.y,se.x,nw.y].join(','),bboxSR:3857,imageSR:3857,size:s.x+','+s.y,layers:'show:1',format:'png32',transparent:'true',f:'image'})}});
+const patp=new Export('',{opacity:.42,maxZoom:18,attribution:'Terres publiques © MRNF Québec'}).addTo(map);
+const parcs=L.tileLayer.wms('https://geo.environnement.gouv.qc.ca/donnees/services/Biodiversite/Aires_protegees/MapServer/WMSServer',{layers:'AP_-_Parcs_nationaux_du_Québec_-_MELCCFP_Parcs5969',format:'image/png',transparent:true,version:'1.3.0',opacity:.6,maxZoom:18,attribution:'Parcs nationaux © MELCCFP'}).addTo(map);
+const maine=L.layerGroup().addTo(map);
+fetch('terres-maine.geojson').then(r=>r.ok?r.json():null).then(g=>{if(g)L.geoJSON(g,{style:{color:'#5FCB8E',weight:1,fillColor:'#5FCB8E',fillOpacity:.35},onEachFeature:(f,l)=>l.bindPopup('<b>'+esc(f.properties.nom)+'</b><br>Terre publique de l’État du Maine · '+f.properties.ha+' ha')}).addTo(maine)}).catch(()=>{});
+// Stationnements (OpenStreetMap, Overpass) : chargés pour la zone affichée à partir du zoom 11.
+const parkings=L.layerGroup().addTo(map),seenP=new Set();let pTimer=null;
+function loadParkings(){if(map.getZoom()<11||!map.hasLayer(parkings))return;const b=map.getBounds().pad(.2),key=[b.getSouth(),b.getWest(),b.getNorth(),b.getEast()].map(v=>v.toFixed(2)).join(',');if(seenP.has(key))return;seenP.add(key);
+ const q='[out:json][timeout:25];(nwr["amenity"="parking"]('+key+');nwr["highway"="trailhead"]('+key+'););out center 300;';
+ const OVERPASS=['https://overpass-api.de/api/interpreter','https://overpass.private.coffee/api/interpreter','https://maps.mail.ru/osm/tools/overpass/api/interpreter'];
+ const ask=i=>fetch(OVERPASS[i],{method:'POST',body:'data='+encodeURIComponent(q)}).then(r=>{if(!r.ok)throw new Error(r.status);return r.json()}).catch(e=>{if(i+1<OVERPASS.length)return ask(i+1);throw e});
+ ask(0).then(j=>{for(const e of j?.elements||[]){const ll=e.center?[e.center.lat,e.center.lon]:[e.lat,e.lon];if(!ll[0])continue;const id=e.type+e.id;if(seenP.has(id))continue;seenP.add(id);
+  const t=e.tags||{},th=t.highway==='trailhead';L.circleMarker(ll,{radius:6,color:'#fff',weight:2,fillColor:th?'#E3322B':'#2F6FDE',fillOpacity:1}).addTo(parkings).bindPopup('<b>'+(th?'Départ de sentier':'Stationnement')+'</b>'+(t.name?'<br>'+esc(t.name):'')+(t.access&&t.access!=='yes'?'<br>Accès : '+esc(t.access):'')+(t.surface?'<br>Surface : '+esc(t.surface):'')+'<br><small>OpenStreetMap · vérifier sur place (déneigé l’hiver?)</small><br><button data-pin="remorque" data-ll="'+ll+'">🚚 Remorque ici</button>')}}).catch(()=>seenP.delete(key))}
+map.on('moveend',()=>{clearTimeout(pTimer);pTimer=setTimeout(loadParkings,600)});
+L.control.layers({'Topographique':topo,'Routes et stationnements (P)':osm,'Satellite':sat},{'Terres publiques (Québec)':patp,'Parcs nationaux (interdits)':parcs,'Terres de l’État (Maine)':maine,'Stationnements (OSM)':parkings},{position:'topright',collapsed:true}).addTo(map);
+L.control.scale({imperial:false,position:'topleft'}).addTo(map);
+L.circleMarker([46.214,-70.486],{radius:6,color:'#fff',weight:2,fillColor:'#FFB81C',fillOpacity:1}).addTo(map).bindPopup('Saint-Prosper (départ)');
+
+// Points de planification gardés sur ce téléphone : 🚚 remorque, 🏁 destination, 📌 point.
+const KEY='moto-points',ICON={remorque:'🚚',destination:'🏁',point:'📌'},NOM={remorque:'Remorque',destination:'Destination',point:'Point'};
+let pts=[];try{pts=JSON.parse(localStorage.getItem(KEY)||'[]')}catch{}
+const ptLayer=L.layerGroup().addTo(map);let link=null;
+function save(){try{localStorage.setItem(KEY,JSON.stringify(pts))}catch{}}
+function drawPts(){ptLayer.clearLayers();for(const p of pts){const m=L.marker([p.lat,p.lon],{icon:L.divIcon({className:'pin',html:ICON[p.t],iconSize:[28,28],iconAnchor:[14,26]}),draggable:true}).addTo(ptLayer);
+  m.on('dragend',e=>{const ll=e.target.getLatLng();p.lat=ll.lat;p.lon=ll.lng;save();drawPts()});
+  m.bindPopup('<b>'+ICON[p.t]+' '+NOM[p.t]+'</b><br>'+p.lat.toFixed(5)+', '+p.lon.toFixed(5)+(p.t==='remorque'?'<br><a target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&destination='+p.lat+','+p.lon+'">Route en auto jusqu’ici ↗</a>':'')+'<br><button data-del="'+p.id+'">Retirer</button>')}
+ if(link)map.removeLayer(link);link=null;const r=pts.find(p=>p.t==='remorque'),d=pts.find(p=>p.t==='destination');
+ if(r&&d){link=L.polyline([[r.lat,r.lon],[d.lat,d.lon]],{color:'#FFB81C',weight:3,dashArray:'6 6'}).addTo(map).bindTooltip('À vol d’oiseau : '+fmtKm(km([r.lat,r.lon],[d.lat,d.lon])),{permanent:true,direction:'center'})}
+ info()}
+function addPt(t,ll){if(t!=='point')pts=pts.filter(p=>p.t!==t);pts.push({id:Date.now(),t,lat:ll[0],lon:ll[1]});save();drawPts()}
+map.on('contextmenu',e=>{const ll=[e.latlng.lat,e.latlng.lng];L.popup().setLatLng(e.latlng).setContent('<b>Ajouter un point</b><br><button data-pin="remorque" data-ll="'+ll+'">🚚 Remorque</button><button data-pin="destination" data-ll="'+ll+'">🏁 Destination</button><button data-pin="point" data-ll="'+ll+'">📌 Point</button>').openOn(map)});
+document.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;
+ if(b.dataset.pin){addPt(b.dataset.pin,b.dataset.ll.split(',').map(Number));map.closePopup()}
+ if(b.dataset.del){pts=pts.filter(p=>String(p.id)!==b.dataset.del);save();drawPts();map.closePopup()}});
+$('clear').onclick=()=>{if(pts.length&&confirm('Effacer mes points (remorque, destination…) sur ce téléphone?')){pts=[];save();drawPts()}};
+
+// Ma position : GPS du téléphone (fonctionne sans réseau cellulaire; les fonds de carte, eux, demandent du réseau).
+let me=null,acc=null,watch=null,follow=true,mePos=null;
+function stopLoc(){if(watch!=null)navigator.geolocation.clearWatch(watch);watch=null;$('locate').classList.remove('on');if(me){map.removeLayer(me);map.removeLayer(acc);me=acc=null}mePos=null;info()}
+$('locate').onclick=()=>{if(watch!=null)return stopLoc();if(!navigator.geolocation){alert('Ce téléphone ne donne pas sa position.');return}
+ follow=true;$('locate').classList.add('on');
+ watch=navigator.geolocation.watchPosition(p=>{const ll=[p.coords.latitude,p.coords.longitude];mePos=ll;
+  if(!me){me=L.marker(ll,{icon:L.divIcon({className:'',html:'<div class="me"></div>',iconSize:[22,22],iconAnchor:[11,11]}),zIndexOffset:1000}).addTo(map).bindPopup('Vous êtes ici');acc=L.circle(ll,{radius:p.coords.accuracy,color:'#1E88FF',weight:1,fillOpacity:.12}).addTo(map)}
+  else{me.setLatLng(ll);acc.setLatLng(ll).setRadius(p.coords.accuracy)}
+  if(follow){map.setView(ll,Math.max(map.getZoom(),13));follow=false}info()},
+  err=>{stopLoc();alert(err.code===1?'Position refusée : autorise la localisation pour ce site dans le navigateur.':'Position introuvable pour le moment.')},{enableHighAccuracy:true,maximumAge:10000,timeout:30000})};
+
+// Endroits : données du robot (onglet Motoneige).
+let spots=[],cur=null;
+function info(){const s=cur,r=pts.find(p=>p.t==='remorque'),bits=[];
+ if(s){const best=Math.max(0,...(s.fin_de_semaine||[]).map(d=>d.note));bits.push('<b>'+esc(s.nom)+'</b> · '+esc(s.terre||'')+(s.route_min?' · '+Math.floor(s.route_min/60)+' h '+String(s.route_min%60).padStart(2,'0')+' de route':'')+(s.fin_de_semaine?' · fin de semaine '+best+'/10':''))}
+ if(mePos){if(s)bits.push('📍 À '+fmtKm(km(mePos,[s.lat,s.lon]))+' du centre du secteur');if(r)bits.push('🚚 Remorque à '+fmtKm(km(mePos,[r.lat,r.lon])))}
+ bits.push('<span class="legend"><span><i style="background:#9C6ADE88"></i>Terre publique (Qc)</span><span><i style="background:#E3322B99"></i>Parc national : interdit</span><span><i style="background:#5FCB8E88"></i>Terre de l’État (Maine)</span><span><i style="background:#2F6FDE"></i>Stationnement</span></span>');
+ bits.push('<span class="muted">Stationnements : fond « Routes et stationnements (P) » (bouton des couches, en haut à droite). Appui long sur la carte : placer la remorque ou la destination. Couleurs des terres publiques : zones du plan d’affectation (toute la zone colorée est publique).</span>');
+ $('info').innerHTML='<div class="first">'+bits[0]+'</div><div class="more">'+bits.slice(1).join('<br>')+'</div>'}
+$('info').onclick=e=>{if(!e.target.closest('a'))$('info').classList.toggle('mini')};
+function pick(id){cur=spots.find(s=>s.id===id)||null;if(!cur)return info();$('spot').value=cur.id;history.replaceState(null,'','#'+cur.id);map.setView([cur.lat,cur.lon],12);info()}
+fetch('data/weather.json',{cache:'no-store'}).then(r=>r.json()).then(j=>{spots=j.motoneige?.endroits||[];
+ $('spot').innerHTML='<option value="">Tous les endroits</option>'+spots.map(s=>'<option value="'+esc(s.id)+'">'+esc(s.nom)+'</option>').join('');
+ for(const s of spots){const best=Math.max(0,...(s.fin_de_semaine||[]).map(d=>d.note));
+  L.circleMarker([s.lat,s.lon],{radius:9,color:'#0B1322',weight:2,fillColor:best>=6?'#5FCB8E':best>=4?'#FFB81C':'#8394B0',fillOpacity:1}).addTo(map).bindPopup('<b>'+esc(s.nom)+'</b><br>'+esc(s.terre||'')+(s.note?'<br><small>'+esc(s.note)+'</small>':'')+(s.lien?'<br><a href="'+esc(s.lien)+'" target="_blank" rel="noopener">Carte ITS : accès, stationnements ↗</a>':'')).on('click',()=>{cur=s;$('spot').value=s.id;history.replaceState(null,'','#'+s.id);info()})}
+ const h=decodeURIComponent(location.hash.slice(1));if(h)pick(h);else{map.fitBounds(L.latLngBounds(spots.map(s=>[s.lat,s.lon])).pad(.15));info()}
+}).catch(()=>{$('info').textContent='Endroits indisponibles (réseau). La carte et la position fonctionnent quand même.'});
+$('spot').onchange=e=>e.target.value?pick(e.target.value):(cur=null,history.replaceState(null,'','#'),info());
+drawPts();
+</script>
+</body>
+</html>
