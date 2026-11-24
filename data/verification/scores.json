@@ -1,5 +1,5 @@
 {
- "genere": "2026-11-24T13:28:41.548306+00:00",
+ "genere": "2026-11-24T13:47:27.820315+00:00",
  "seuil_cm": 5,
  "methode": "Prévision de la veille comparée à la neige mesurée par Climat Québec (station 7027660). Écart moyen = écart sur le total de chaque épisode de neige (une tempête qui chevauche minuit compte une seule fois). La neige de la station est calculée à partir des précipitations et de la température : les précipitations (mm d’eau) sont la mesure la plus sûre.",
  "historique": [
@@ -12,6 +12,7 @@
    "biais_cm": 2.6,
    "ecart_jour_cm": 2.6,
    "ecart_precip_mm": 3.1,
+   "jours_precip": 90,
    "total_prevu_cm": 238.1,
    "total_mesure_cm": 148.0,
    "tempetes": {
@@ -33,6 +34,7 @@
    "biais_cm": 2.6,
    "ecart_jour_cm": 2.4,
    "ecart_precip_mm": 3.1,
+   "jours_precip": 105,
    "total_prevu_cm": 244.6,
    "total_mesure_cm": 148.0,
    "tempetes": {
@@ -54,6 +56,7 @@
    "biais_cm": 2.8,
    "ecart_jour_cm": 3.0,
    "ecart_precip_mm": 3.7,
+   "jours_precip": 97,
    "total_prevu_cm": 250.1,
    "total_mesure_cm": 148.0,
    "tempetes": {
@@ -75,6 +78,7 @@
    "biais_cm": 3.9,
    "ecart_jour_cm": 2.8,
    "ecart_precip_mm": 3.4,
+   "jours_precip": 103,
    "total_prevu_cm": 291.9,
    "total_mesure_cm": 148.0,
    "tempetes": {
@@ -96,6 +100,7 @@
    "biais_cm": 9.7,
    "ecart_jour_cm": 3.5,
    "ecart_precip_mm": 3.4,
+   "jours_precip": 108,
    "total_prevu_cm": 446.1,
    "total_mesure_cm": 148.0,
    "tempetes": {
@@ -119,6 +124,7 @@
    "biais_cm": null,
    "ecart_jour_cm": 1.5,
    "ecart_precip_mm": null,
+   "jours_precip": 0,
    "total_prevu_cm": 2.5,
    "total_mesure_cm": 0.8,
    "tempetes": {
@@ -139,7 +145,8 @@
    "ecart_moyen_cm": null,
    "biais_cm": null,
    "ecart_jour_cm": 1.4,
-   "ecart_precip_mm": null,
+   "ecart_precip_mm": 1.5,
+   "jours_precip": 1,
    "total_prevu_cm": 1.5,
    "total_mesure_cm": 0.8,
    "tempetes": {
@@ -160,7 +167,8 @@
    "ecart_moyen_cm": null,
    "biais_cm": null,
    "ecart_jour_cm": 1.6,
-   "ecart_precip_mm": null,
+   "ecart_precip_mm": 1.1,
+   "jours_precip": 2,
    "total_prevu_cm": 2.6,
    "total_mesure_cm": 0.8,
    "tempetes": {
@@ -181,7 +189,8 @@
    "ecart_moyen_cm": null,
    "biais_cm": null,
    "ecart_jour_cm": 1.8,
-   "ecart_precip_mm": null,
+   "ecart_precip_mm": 1.2,
+   "jours_precip": 2,
    "total_prevu_cm": 2.6,
    "total_mesure_cm": 0.8,
    "tempetes": {
@@ -203,6 +212,7 @@
    "biais_cm": null,
    "ecart_jour_cm": null,
    "ecart_precip_mm": null,
+   "jours_precip": 0,
    "total_prevu_cm": 0.3,
    "total_mesure_cm": 0.8,
    "tempetes": {
@@ -224,6 +234,7 @@
    "biais_cm": null,
    "ecart_jour_cm": 1.1,
    "ecart_precip_mm": null,
+   "jours_precip": 0,
    "total_prevu_cm": 1.4,
    "total_mesure_cm": 0.8,
    "tempetes": {
@@ -245,6 +256,7 @@
    "biais_cm": null,
    "ecart_jour_cm": null,
    "ecart_precip_mm": null,
+   "jours_precip": 0,
    "total_prevu_cm": 1.4,
    "total_mesure_cm": 0.8,
    "tempetes": {
@@ -265,7 +277,8 @@
    "ecart_moyen_cm": null,
    "biais_cm": null,
    "ecart_jour_cm": 2.2,
-   "ecart_precip_mm": null,
+   "ecart_precip_mm": 1.2,
+   "jours_precip": 2,
    "total_prevu_cm": 3.2,
    "total_mesure_cm": 0.8,
    "tempetes": {
@@ -287,6 +300,7 @@
    "biais_cm": null,
    "ecart_jour_cm": 1.1,
    "ecart_precip_mm": null,
+   "jours_precip": 0,
    "total_prevu_cm": 1.5,
    "total_mesure_cm": 0.8,
    "tempetes": {
@@ -298,6 +312,40 @@
     "2026-11-13",
     "2026-11-14"
    ]
+  }
+ ],
+ "temperatures": [
+  {
+   "id": "mb",
+   "nom": "meteoblue",
+   "jours": 14,
+   "ecart_max_c": 1.5,
+   "ecart_min_c": 1.6,
+   "ecart_c": 1.54
+  },
+  {
+   "id": "met",
+   "nom": "MET Norway",
+   "jours": 14,
+   "ecart_max_c": 1.5,
+   "ecart_min_c": 1.8,
+   "ecart_c": 1.65
+  },
+  {
+   "id": "eccc",
+   "nom": "Environnement Canada",
+   "jours": 14,
+   "ecart_max_c": 1.1,
+   "ecart_min_c": 2.4,
+   "ecart_c": 1.74
+  },
+  {
+   "id": "mm",
+   "nom": "MétéoMédia",
+   "jours": 13,
+   "ecart_max_c": 1.5,
+   "ecart_min_c": 2.0,
+   "ecart_c": 1.75
   }
  ]
 }

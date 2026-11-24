@@ -1,11 +1,11 @@
 {
-  "updated_at": "2026-11-24T13:25:58.595487+00:00",
+  "updated_at": "2026-11-24T13:42:50.337260+00:00",
   "sources": [
     {
       "id": "eccc",
       "status": "ok",
       "issued_at": "2026-11-24T10:00:00Z",
-      "fetched_at": "2026-11-24T13:25:58.595487+00:00",
+      "fetched_at": "2026-11-24T13:42:50.337260+00:00",
       "days": [
         {
           "date": "2026-11-24",
@@ -189,7 +189,7 @@
       "id": "met",
       "status": "ok",
       "issued_at": "2026-11-24T09:17:56Z",
-      "fetched_at": "2026-11-24T13:25:58.595487+00:00",
+      "fetched_at": "2026-11-24T13:42:50.337260+00:00",
       "days": [
         {
           "date": "2026-11-24",
@@ -297,7 +297,7 @@
       "id": "mb",
       "status": "ok",
       "issued_at": null,
-      "fetched_at": "2026-11-24T13:25:58.595487+00:00",
+      "fetched_at": "2026-11-24T13:42:50.337260+00:00",
       "days": [
         {
           "date": "2026-11-24",
@@ -1310,7 +1310,13 @@
       "risques_confirmes": [
         "Sans risque hivernal identifié"
       ],
-      "risques_a_confirmer": []
+      "risques_a_confirmer": [],
+      "seve": {
+        "nuit_min": -5.0,
+        "heures_degel": 0,
+        "max_horaire": -2.2,
+        "ecart_modeles_c": 3.3
+      }
     },
     {
       "date": "2026-11-25",
@@ -1428,7 +1434,13 @@
       "risques_confirmes": [
         "Sans risque hivernal identifié"
       ],
-      "risques_a_confirmer": []
+      "risques_a_confirmer": [],
+      "seve": {
+        "nuit_min": -9.2,
+        "heures_degel": 0,
+        "max_horaire": -1.5,
+        "ecart_modeles_c": 5.6
+      }
     },
     {
       "date": "2026-11-26",
@@ -1519,7 +1531,7 @@
       "model_snow": {
         "median_cm": 0.0,
         "min_cm": 0.0,
-        "max_cm": 0.0,
+        "max_cm": 0.1,
         "hours": 24,
         "estimated": true
       },
@@ -1550,7 +1562,13 @@
         "Neige",
         "Sans risque hivernal identifié"
       ],
-      "risques_a_confirmer": []
+      "risques_a_confirmer": [],
+      "seve": {
+        "nuit_min": -7.7,
+        "heures_degel": 6,
+        "max_horaire": 3.8,
+        "ecart_modeles_c": 5.7
+      }
     },
     {
       "date": "2026-11-27",
@@ -1641,7 +1659,7 @@
       "model_snow": {
         "median_cm": 0.0,
         "min_cm": 0.0,
-        "max_cm": 0.8,
+        "max_cm": 1.2,
         "hours": 24,
         "estimated": true
       },
@@ -1661,7 +1679,13 @@
         "Pluie",
         "Pluie / neige"
       ],
-      "risques_a_confirmer": []
+      "risques_a_confirmer": [],
+      "seve": {
+        "nuit_min": -1.3,
+        "heures_degel": 12,
+        "max_horaire": 1.7,
+        "ecart_modeles_c": 0.8
+      }
     },
     {
       "date": "2026-11-28",
@@ -1772,7 +1796,13 @@
         "Pluie",
         "Pluie / neige"
       ],
-      "risques_a_confirmer": []
+      "risques_a_confirmer": [],
+      "seve": {
+        "nuit_min": 0.7,
+        "heures_degel": 12,
+        "max_horaire": 1.4,
+        "ecart_modeles_c": 1.1
+      }
     },
     {
       "date": "2026-11-29",
@@ -1892,7 +1922,13 @@
           "risque": "Pluie",
           "source": "mm"
         }
-      ]
+      ],
+      "seve": {
+        "nuit_min": 0.8,
+        "heures_degel": 12,
+        "max_horaire": 3.2,
+        "ecart_modeles_c": 1.4
+      }
     },
     {
       "date": "2026-11-30",
@@ -2000,7 +2036,13 @@
       "risques_confirmes": [
         "Pluie"
       ],
-      "risques_a_confirmer": []
+      "risques_a_confirmer": [],
+      "seve": {
+        "nuit_min": 2.2,
+        "heures_degel": 12,
+        "max_horaire": 4.1,
+        "ecart_modeles_c": 1.4
+      }
     },
     {
       "date": "2026-12-01",
@@ -2112,7 +2154,13 @@
           "risque": "Sans risque hivernal identifié",
           "source": "met"
         }
-      ]
+      ],
+      "seve": {
+        "nuit_min": -1.9,
+        "heures_degel": 0,
+        "max_horaire": -0.8,
+        "ecart_modeles_c": 3.1
+      }
     },
     {
       "date": "2026-12-02",
@@ -2195,7 +2243,13 @@
       "risques_confirmes": [
         "Sans risque hivernal identifié"
       ],
-      "risques_a_confirmer": []
+      "risques_a_confirmer": [],
+      "seve": {
+        "nuit_min": -5.7,
+        "heures_degel": 0,
+        "max_horaire": -0.5,
+        "ecart_modeles_c": 2.1
+      }
     },
     {
       "date": "2026-12-03",
@@ -2288,7 +2342,13 @@
           "risque": "Sans risque hivernal identifié",
           "source": "met"
         }
-      ]
+      ],
+      "seve": {
+        "nuit_min": -1.9,
+        "heures_degel": 12,
+        "max_horaire": 4.3,
+        "ecart_modeles_c": 2.9
+      }
     },
     {
       "date": "2026-12-04",
@@ -2358,7 +2418,13 @@
           "risque": "Neige",
           "source": "mm"
         }
-      ]
+      ],
+      "seve": {
+        "nuit_min": 2.5,
+        "heures_degel": 11,
+        "max_horaire": 2.9,
+        "ecart_modeles_c": 5.3
+      }
     },
     {
       "date": "2026-12-05",
@@ -2403,7 +2469,13 @@
       "risques_confirmes": [
         "Neige"
       ],
-      "risques_a_confirmer": []
+      "risques_a_confirmer": [],
+      "seve": {
+        "nuit_min": -3.5,
+        "heures_degel": 0,
+        "max_horaire": -2.2,
+        "ecart_modeles_c": 0.7
+      }
     },
     {
       "date": "2026-12-06",
@@ -2448,7 +2520,13 @@
       "risques_confirmes": [
         "Neige"
       ],
-      "risques_a_confirmer": []
+      "risques_a_confirmer": [],
+      "seve": {
+        "nuit_min": -4.0,
+        "heures_degel": 0,
+        "max_horaire": -3.8,
+        "ecart_modeles_c": 1.1
+      }
     },
     {
       "date": "2026-12-07",
@@ -2493,7 +2571,13 @@
       "risques_confirmes": [
         "Sans risque hivernal identifié"
       ],
-      "risques_a_confirmer": []
+      "risques_a_confirmer": [],
+      "seve": {
+        "nuit_min": -8.8,
+        "heures_degel": 0,
+        "max_horaire": -5.6,
+        "ecart_modeles_c": 3.4
+      }
     }
   ],
   "changes": [
@@ -2539,21 +2623,21 @@
           "id": "aifs",
           "nom": "ECMWF AIFS (européen, IA)",
           "cm": 0.1,
-          "poids": 1.0,
+          "poids": 0.94,
           "statut": "mesurée"
         },
         {
           "id": "ifs",
           "nom": "ECMWF IFS (européen)",
           "cm": 5.1,
-          "poids": 0.77,
+          "poids": 0.72,
           "statut": "mesurée"
         },
         {
           "id": "mm",
           "nom": "MétéoMédia (cm publiés)",
           "cm": 0.0,
-          "poids": 0.48,
+          "poids": 0.45,
           "statut": "non mesurée"
         }
       ]
@@ -3068,42 +3152,42 @@
       "time": "2026-11-26T19:00:00-05:00",
       "snow_cm": 0.0,
       "lo": 0.0,
-      "hi": 0.0,
+      "hi": 0.02,
       "n": 7
     },
     {
       "time": "2026-11-26T20:00:00-05:00",
       "snow_cm": 0.0,
       "lo": 0.0,
-      "hi": 0.0,
+      "hi": 0.02,
       "n": 7
     },
     {
       "time": "2026-11-26T21:00:00-05:00",
       "snow_cm": 0.0,
       "lo": 0.0,
-      "hi": 0.0,
+      "hi": 0.02,
       "n": 7
     },
     {
       "time": "2026-11-26T22:00:00-05:00",
       "snow_cm": 0.0,
       "lo": 0.0,
-      "hi": 0.0,
+      "hi": 0.02,
       "n": 7
     },
     {
       "time": "2026-11-26T23:00:00-05:00",
       "snow_cm": 0.0,
       "lo": 0.0,
-      "hi": 0.0,
+      "hi": 0.02,
       "n": 7
     },
     {
       "time": "2026-11-27T00:00:00-05:00",
       "snow_cm": 0.0,
       "lo": 0.0,
-      "hi": 0.0,
+      "hi": 0.02,
       "n": 7
     },
     {
@@ -3153,21 +3237,21 @@
       "snow_cm": 0.0,
       "lo": 0.0,
       "hi": 0.75,
-      "n": 5
+      "n": 6
     },
     {
       "time": "2026-11-27T08:00:00-05:00",
       "snow_cm": 0.0,
       "lo": 0.0,
-      "hi": 0.0,
-      "n": 4
+      "hi": 0.23,
+      "n": 5
     },
     {
       "time": "2026-11-27T09:00:00-05:00",
       "snow_cm": 0.0,
       "lo": 0.0,
-      "hi": 0.0,
-      "n": 4
+      "hi": 0.23,
+      "n": 5
     },
     {
       "time": "2026-11-27T10:00:00-05:00",
@@ -6222,6 +6306,24 @@
           "precip_mm": 1.94,
           "temp": 0.5,
           "snow_cm": 1.94
+        },
+        {
+          "time": "2026-11-27T12:00:00Z",
+          "precip_mm": 0.51,
+          "temp": 1.2,
+          "snow_cm": 0.23
+        },
+        {
+          "time": "2026-11-27T13:00:00Z",
+          "precip_mm": 0.51,
+          "temp": 1.2,
+          "snow_cm": 0.23
+        },
+        {
+          "time": "2026-11-27T14:00:00Z",
+          "precip_mm": 0.51,
+          "temp": 1.2,
+          "snow_cm": 0.23
         }
       ]
     },
