@@ -106,6 +106,18 @@ class PlanTests(unittest.TestCase):
         q = self.plan(series(at(10, 22), [0.6] * 6, spread=0.4))[0]
         self.assertEqual(q['statut'], 'possible')
 
+    def test_one_model_alone_is_not_possible(self):
+        # Médiane ≈ 0, un seul modèle à 6 cm : sous le seuil, avec une note.
+        hours = [{'time': at(10, 22) + dt.timedelta(hours=i), 'snow_cm': 0.0, 'lo': 0.0, 'hi': 1.0, 'n': 3,
+                  'models': {'ifs': 1.0, 'aifs': 0.0, 'mm': 0.0}} for i in range(6)]
+        q = self.plan(hours)[0]
+        self.assertEqual(q['statut'], 'sous_seuil')
+        self.assertTrue(any('IFS' in n for n in q['notes']))
+        # Deux modèles à 6 cm : possible.
+        for h in hours:
+            h['models']['aifs'] = 1.0
+        self.assertEqual(self.plan(hours)[0]['statut'], 'possible')
+
     def test_short_break_keeps_one_event(self):
         rates = [2, 2, 0, 0, 0, 2, 2]
         self.assertEqual(len(p.events(series(at(10, 22), rates), self.cfg)), 1)

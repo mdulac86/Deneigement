@@ -202,6 +202,13 @@ def plan_event(ev, cfg, now, carry=0.0):
     if carry >= 0.5:
         base['notes'].append(f'≈ {carry:g} cm déjà accumulés depuis le dernier nettoyage : il suffit de {need:g} cm de plus pour atteindre {seuil} cm.')
     if t5 is None:
+        # « Possible » seulement si au moins 2 modèles atteignent le seuil, ou si la médiane en atteint la moitié :
+        # un seul modèle à 5 cm quand les autres sont à 0 ne déclenche rien (il est nommé dans une note).
+        over = sorted(k for k, v in totals.items() if v >= need and k not in iso_models)
+        if t5_early is not None and len(over) < 2 and total < need / 2:
+            if over:
+                base['notes'].append(f'Seul {over[0].upper()} prévoit ≈ {totals[over[0]]:g} cm; les autres modèles restent loin sous {seuil} cm.')
+            t5_early = None
         if t5_early is None:
             au_sol = round(carry + total, 1)
             return {**base, 'statut': 'sous_seuil', 'au_sol_apres_cm': au_sol,
