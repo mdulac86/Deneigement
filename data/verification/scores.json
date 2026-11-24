@@ -1,8 +1,29 @@
 {
- "genere": "2026-11-24T12:43:23.010381+00:00",
+ "genere": "2026-11-24T13:28:41.548306+00:00",
  "seuil_cm": 5,
  "methode": "Prévision de la veille comparée à la neige mesurée par Climat Québec (station 7027660). Écart moyen = écart sur le total de chaque épisode de neige (une tempête qui chevauche minuit compte une seule fois). La neige de la station est calculée à partir des précipitations et de la température : les précipitations (mm d’eau) sont la mesure la plus sûre.",
  "historique": [
+  {
+   "id": "nbm",
+   "nom": "NOAA NBM (synthèse américaine)",
+   "jours": 181,
+   "episodes": 22,
+   "ecart_moyen_cm": 4.0,
+   "biais_cm": 2.6,
+   "ecart_jour_cm": 2.6,
+   "ecart_precip_mm": 3.1,
+   "total_prevu_cm": 238.1,
+   "total_mesure_cm": 148.0,
+   "tempetes": {
+    "detectees": 10,
+    "manquees": 0,
+    "fausses_alertes": 1
+   },
+   "periode": [
+    "2025-11-01",
+    "2026-04-30"
+   ]
+  },
   {
    "id": "aifs",
    "nom": "ECMWF AIFS (européen, IA)",
@@ -39,6 +60,27 @@
     "detectees": 9,
     "manquees": 1,
     "fausses_alertes": 2
+   },
+   "periode": [
+    "2025-11-01",
+    "2026-04-30"
+   ]
+  },
+  {
+   "id": "hrrr",
+   "nom": "NOAA HRRR (américain 3 km)",
+   "jours": 181,
+   "episodes": 22,
+   "ecart_moyen_cm": 5.0,
+   "biais_cm": 3.9,
+   "ecart_jour_cm": 2.8,
+   "ecart_precip_mm": 3.4,
+   "total_prevu_cm": 291.9,
+   "total_mesure_cm": 148.0,
+   "tempetes": {
+    "detectees": 10,
+    "manquees": 0,
+    "fausses_alertes": 4
    },
    "periode": [
     "2025-11-01",
