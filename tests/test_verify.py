@@ -98,7 +98,9 @@ class HistoryTests(unittest.TestCase):
 
     def test_stale_reruns_old_versions(self):
         fc = {'ifs': {'snow_cm': 1}, 'aifs': {'snow_cm': 900}, 'gfs': {'error': 'x'}}
-        self.assertEqual(h.stale(fc), ['aifs', 'gfs'])
+        self.assertEqual(h.stale(fc), ['aifs', 'gfs', 'nbm', 'hrrr'])  # sources ajoutées : à calculer
+        fc.update({'nbm': {'snow_cm': 2, 'v': 1}, 'hrrr': {'snow_cm': 3, 'v': 1}})
+        self.assertEqual(h.stale(fc), ['aifs', 'gfs'])  # déjà calculées : pas retéléchargées
 
 
 if __name__ == '__main__':

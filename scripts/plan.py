@@ -51,10 +51,25 @@ def day_rules(day, cfg):
     return cfg['fin_de_semaine'] if weekend(day) else cfg['semaine']
 
 
-def hourly_consensus(series, tz):
+FOURCHETTE_POIDS = 0.4  # la fourchette (min / max) ne retient que les modèles assez fiables
+
+
+def weighted_median(pairs):
+    pairs = sorted((v, w) for v, w in pairs if w > 0)
+    half, cum = sum(w for _, w in pairs) / 2, 0.0
+    for v, w in pairs:
+        cum += w
+        if cum >= half - 1e-9:
+            return v
+    return pairs[-1][0]
+
+
+def hourly_consensus(series, tz, weights=None):
     """series : [{'id', 'hours': [{'time': ISO, 'snow_cm': float|None}]}] -> heures locales.
 
     Chaque heure couvre [time, time + 1 h). Une valeur absente n'est pas un zéro.
+    weights : {id: poids} tiré du tableau de fiabilité (trust.py). Sans poids, médiane simple.
+    Avec poids : médiane pondérée, et fourchette limitée aux modèles de poids ≥ 0,4 (s'il y en a 2).
     """
     by_hour = {}
     for s in series:
@@ -65,9 +80,16 @@ def hourly_consensus(series, tz):
             by_hour.setdefault(t, {})[s['id']] = h['snow_cm']
     out = []
     for t in sorted(by_hour):
-        vals = list(by_hour[t].values())
-        out.append({'time': t, 'snow_cm': round(statistics.median(vals), 2), 'lo': min(vals), 'hi': max(vals),
-                    'n': len(vals), 'models': by_hour[t]})
+        vals = by_hour[t]
+        if weights:
+            w = {k: weights.get(k, 1.0) for k in vals}
+            med = weighted_median([(v, w[k]) for k, v in vals.items()])
+            sure = [v for k, v in vals.items() if w[k] >= FOURCHETTE_POIDS]
+            rng = sure if len(sure) >= 2 else list(vals.values())
+        else:
+            med, rng = statistics.median(vals.values()), list(vals.values())
+        out.append({'time': t, 'snow_cm': round(med, 2), 'lo': min(rng), 'hi': max(rng),
+                    'n': len(vals), 'models': vals})
     return out
 
 

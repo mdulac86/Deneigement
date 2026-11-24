@@ -90,6 +90,27 @@ ne publie que la profondeur de gel (déjà lue par `frost.py`).
 Écartés : CoCoRaHS (un seul observateur à moins de 120 km, à Sainte-Foy), Open-Meteo (gratuit
 seulement pour un usage non commercial), MyRadar (API payante, couverture surtout américaine).
 
+## Confiance automatique dans les sources
+
+`scripts/trust.py` transforme le tableau de fiabilité en **poids**, recalculés à chaque passage
+du robot (aucune intervention) :
+
+1. `verify.py` compare, pour chaque épisode de neige mesuré par Climat Québec, ce que chaque
+   source prévoyait la veille (base historique + archives du robot cet hiver).
+2. Erreur retenue = écart moyen par épisode + 2 cm par tempête de 5 cm manquée ou fausse alerte.
+   Les épisodes de cet hiver comptent 1,5 fois plus. Une source peu mesurée part d'une erreur
+   par défaut de 7 cm (6 épisodes fictifs) et s'en détache à mesure que les épisodes s'accumulent.
+3. Poids = (meilleure erreur / erreur de la source)², entre 0,15 et 1.
+
+Utilisation :
+- **Plan de sortie** : médiane pondérée des modèles; la fourchette ne retient que les modèles de
+  poids 0,4 et plus. Les alertes de sortie citent les modèles mesurés les plus fiables.
+- **Alertes de risque** (verglas, pluie sur la neige) : envoyées seulement si le risque vient
+  d'Environnement Canada, d'au moins 2 sources, ou d'une source « mesurée » (5 épisodes et plus)
+  de poids 0,6 et plus. Sinon il est affiché « à confirmer », sans alerte. La pluie verglaçante
+  HRRR suit la même règle.
+- Onglet Sources : tableau « Poids accordé à chaque source en ce moment ».
+
 ## Fiabilité : qui voit juste ?
 
 `scripts/history.py` compare la prévision de la veille des modèles archivés

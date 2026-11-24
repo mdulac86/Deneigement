@@ -55,8 +55,10 @@ def value(url, entry, lat, lon):
     return v, unit
 
 
-def to_cm(v, unit):
-    return v * 100 if unit.strip() == 'm' else v
+def to_cm(v, unit=None):
+    """ASNOW (neige tombée, paramètre local NCEP) est toujours en mètres. eccodes ne connaît pas ce
+    paramètre et annonce l'unité « unknown » : on ne se fie donc pas à l'unité lue."""
+    return v * 100
 
 
 def cycles(now, step=1, back=8):

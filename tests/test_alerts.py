@@ -78,6 +78,24 @@ class AlertTests(unittest.TestCase):
         self.assertIn('Pluie sur la neige jeudi 10 déc.', self.titles())
         self.assertEqual(self.sent[-1]['priority'], 3)
 
+    def test_unconfirmed_risk_sends_no_alert(self):
+        w = weather(depart=None, risks=['Verglas / grésil'])
+        w['consensus'][0]['risques_confirmes'] = []  # annoncé par une seule source non mesurée
+        self.run_once(w)
+        self.assertNotIn('Risque de verglas jeudi 10 déc.', self.titles())
+        w['consensus'][0]['risques_confirmes'] = ['Verglas / grésil']
+        self.run_once(w)
+        self.assertIn('Risque de verglas jeudi 10 déc.', self.titles())
+
+    def test_plan_names_the_most_reliable_models(self):
+        w = weather()
+        w['plan'][0]['fiables'] = [{'nom': 'ECMWF AIFS (européen, IA)', 'cm': 7.2, 'statut': 'mesurée'},
+                                   {'nom': 'NBM 2,5 km · NOAA (synthèse)', 'cm': 9.0, 'statut': 'non mesurée'}]
+        self.run_once(w)
+        msg = next(m['message'] for m in self.sent if m['title'].startswith('Sortie prévue'))
+        self.assertIn('Modèles les plus fiables : ECMWF AIFS 7.2 cm', msg)
+        self.assertNotIn('NBM', msg)  # pas encore mesuré : pas cité comme fiable
+
 
 if __name__ == '__main__':
     unittest.main()

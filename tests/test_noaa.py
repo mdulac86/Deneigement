@@ -40,7 +40,7 @@ class NoaaTests(unittest.TestCase):
         def fake_field(url, entry, lat, lon, units=False):
             k = entry['key']
             v = 0.06 if k.startswith('ASNOW') and 'prob' not in k else 3.0 if k.startswith('APCP') else 270.15 if k.startswith('TMP') else 40.0
-            return (v, 'm' if k.startswith('ASNOW') and 'prob' not in k else 'K') if units else v
+            return (v, 'unknown' if k.startswith('ASNOW') and 'prob' not in k else 'K') if units else v  # unité réelle lue par eccodes
 
         with mock.patch.object(noaa.grib, 'get', side_effect=fake_get), mock.patch.object(noaa.grib, 'field', side_effect=fake_field), \
                 mock.patch.object(noaa.grib, 'warmup'), mock.patch.object(noaa, 'nbm_run', return_value=RUN):
@@ -63,7 +63,7 @@ class NoaaTests(unittest.TestCase):
             f = int(url.split('wrfsfcf')[-1][:2])
             k = entry['key']
             v = f * 0.01 if k.startswith('ASNOW') else f * 1.0 if k.startswith('APCP') else 272.15 if k.startswith('TMP') else float(f == 30)
-            return (v, 'm') if units else v
+            return (v, 'unknown' if k.startswith('ASNOW') else 'kg m**-2') if units else v
 
         with mock.patch.object(noaa.grib, 'get', side_effect=fake_get), mock.patch.object(noaa.grib, 'field', side_effect=fake_field), \
                 mock.patch.object(noaa.grib, 'warmup'), mock.patch.object(noaa, 'hrrr_run', return_value=RUN):

@@ -23,6 +23,7 @@ import snowdepth  # noqa: E402
 import frost  # noqa: E402
 import noaa  # noqa: E402
 import routes  # noqa: E402
+import trust  # noqa: E402
 import alerts as notifier  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -374,9 +375,13 @@ def consensus(sources):
         mids = [sum(d['snow_cm'])/2 for d in comparable]
         quantities = {'mean_cm': round(statistics.mean(mids),1) if len(mids)>=2 else None, 'median_cm': round(statistics.median(mids),1) if len(mids)>=2 else None, 'min_cm': min(d['snow_cm'][0] for d in comparable) if mids else None, 'max_cm': max(d['snow_cm'][1] for d in comparable) if mids else None, 'count': len(mids)}
         types = sorted({d['risk'] for d in compared if d.get('risk')})
+        support = {}
+        for d in compared:
+            if d.get('risk'):
+                support.setdefault(d['risk'], []).append(d['source'])
         highs = [d['high'] for d in compared if d.get('high') is not None]
         lows = [d['low'] for d in compared if d.get('low') is not None]
-        result.append({'date':day, 'sources':compared, 'snow':quantities, 'risks':types, 'high_mean':round(statistics.mean(highs),1) if highs else None,'low_mean':round(statistics.mean(lows),1) if lows else None, 'high_range':[min(highs),max(highs)] if highs else None, 'low_range':[min(lows),max(lows)] if lows else None, 'confidence':'Faible' if offset>=3 or len(types)>1 or len(compared)<3 else 'Moyenne', 'confidence_reason':'Accord qualitatif et couverture des sources; précision non encore validée. Fiabilité des cm au sol indéterminée.'})
+        result.append({'date':day, 'sources':compared, 'snow':quantities, 'risks':types, 'risk_sources':support, 'high_mean':round(statistics.mean(highs),1) if highs else None,'low_mean':round(statistics.mean(lows),1) if lows else None, 'high_range':[min(highs),max(highs)] if highs else None, 'low_range':[min(lows),max(lows)] if lows else None, 'confidence':'Faible' if offset>=3 or len(types)>1 or len(compared)<3 else 'Moyenne', 'confidence_reason':'Accord qualitatif et couverture des sources; précision non encore validée. Fiabilité des cm au sol indéterminée.'})
     return result
 
 def changes(old, new):
@@ -538,11 +543,48 @@ def nbm_days(days, models):
         d['nbm'] = {'p_5cm': max(t['p_5cm'] for t in tr), 'p_2_5cm': max(t['p_2_5cm'] or 0 for t in tr),
                     'snow_cm': round(sum(t['snow_cm'] or 0 for t in tr), 1)} if tr else None
 
+def trusted_view(p, hours, models, table):
+    """Ce que disent les modèles les plus fiables sur l'épisode : total prévu par chacun, du plus fiable au moins fiable."""
+    a = dt.datetime.fromisoformat(p['debut']) if p.get('debut') else None
+    b = dt.datetime.fromisoformat(p['fin']) if p.get('fin') else None
+    if not a or not b:
+        return []
+    names = {m['id']: m['name'] for m in models}
+    tot = {}
+    for h in hours:
+        if a <= h['time'] < b:
+            for k, v in h['models'].items():
+                tot[k] = tot.get(k, 0) + v
+    rows = [{'id': k, 'nom': names.get(k, k), 'cm': round(v, 1), 'poids': (table.get(k) or {}).get('poids'),
+             'statut': (table.get(k) or {}).get('statut')} for k, v in tot.items()]
+    return sorted(rows, key=lambda r: -(r['poids'] or 0))[:4]
+
+def confirm_risks(result):
+    """Risques qui déclenchent une alerte : annoncés par Environnement Canada (source officielle),
+    par au moins 2 sources, ou par une source mesurée et fiable (trust.py). Les risques ajoutés par les
+    modèles (vent, verglas HRRR confirmé, tendance) sont déjà filtrés à la source.
+    Tous les risques restent affichés; seuls les confirmés déclenchent une alerte."""
+    table = result.get('confiance') or {}
+    for d in result['consensus']:
+        sup = d.get('risk_sources') or {}
+        ok, doubt = [], []
+        for r in d['risks']:
+            srcs = sup.get(r)
+            if not srcs or 'eccc' in srcs or len(set(srcs)) >= 2 or any(trust.reliable(table, s) for s in srcs):
+                ok.append(r)
+            else:
+                doubt.append({'risque': r, 'source': srcs[0]})
+        d['risques_confirmes'] = ok
+        d['risques_a_confirmer'] = doubt
+
 def freezing_rain(result):
-    """Pluie verglaçante prévue par HRRR (2 h ou plus dans la journée) : ajoutée aux risques du jour."""
+    """Pluie verglaçante prévue par HRRR (2 h ou plus dans la journée).
+    Ajoutée aux risques (donc aux alertes) seulement si HRRR est une source mesurée et fiable;
+    sinon elle reste affichée « à confirmer », sans alerte."""
     hrrr = next((m for m in result.get('models') or [] if m['id'] == 'hrrr' and m['status'] == 'ok'), None)
     if not hrrr:
         return
+    sure = trust.reliable(result.get('confiance') or {}, 'hrrr')
     per = {}
     for h in hrrr.get('hours', []):
         if h.get('verglas'):
@@ -550,7 +592,11 @@ def freezing_rain(result):
     for d in result['consensus']:
         n = per.get(d['date'], 0)
         d['verglas_hrrr_h'] = n or None
-        if n >= 2 and 'Verglas / grésil' not in d['risks']:
+        if n < 2:
+            continue
+        confirmed = 'Verglas / grésil' in d['risks']  # déjà annoncé par une autre source
+        d['verglas_hrrr_confirme'] = confirmed or sure
+        if sure and not confirmed:
             d['risks'] = [r for r in d['risks'] if r != 'Sans risque hivernal identifié'] + ['Verglas / grésil']
 
 def forecast_plan(sources, days):
@@ -590,7 +636,11 @@ def forecast_plan(sources, days):
         models.append({'id': 'mm', 'name': 'MétéoMédia (cm publiés)', 'status': 'ok', 'fetched_at': mm_src['fetched_at'],
                        'note': 'cm publiés par MétéoMédia par période de 6 h, répartis également sur chaque heure.', 'hours': mm_src['hours']})
     ok = [x for x in models if x['status'] == 'ok']
-    hours = planner.hourly_consensus(ok, TZ)
+    # Poids de confiance recalculés à chaque passage à partir du tableau de fiabilité (prévu vs mesuré).
+    table = trust.weights(read(DATA / 'verification' / 'scores.json', {}), [m['id'] for m in models])
+    for m in models:
+        m['confiance'] = table.get(m['id'])
+    hours = planner.hourly_consensus(ok, TZ, {k: v['poids'] for k, v in table.items()})
     cfg = planner.load_config()
     # Petites chutes déjà au sol : relevés publiés + neige des modèles depuis le dernier relevé.
     records = read(DATA / f'season-{season_year(TODAY)}.json', {}).get('records', [])
@@ -613,7 +663,8 @@ def forecast_plan(sources, days):
     for p in plan:
         t = p.get('seuil_atteint') or (p.get('seuil_fourchette') or [None])[0] or p.get('debut')
         p['ensemble'] = by_day.get(t[:10]) if t else None
-    return {'ensemble': ensemble, 'precip_probability': pop, 'models': models, 'hourly_snow': serial_hours([{k: h[k] for k in ('time', 'snow_cm', 'lo', 'hi', 'n')} for h in hours]),
+        p['fiables'] = trusted_view(p, hours, models, table)
+    return {'confiance': table, 'ensemble': ensemble, 'precip_probability': pop, 'models': models, 'hourly_snow': serial_hours([{k: h[k] for k in ('time', 'snow_cm', 'lo', 'hi', 'n')} for h in hours]),
             'plan': plan, 'plan_config': cfg, 'neige_depuis_nettoyage_cm': round(carry, 1)}
 
 def main():
@@ -665,6 +716,10 @@ def main():
         freezing_rain(result)
     except Exception as e:
         print('pluie verglaçante :', e)
+    try:
+        confirm_risks(result)
+    except Exception as e:
+        print('risques confirmés :', e)
     try:
         nbm = next((m for m in result.get('models') or [] if m['id'] == 'nbm' and m['status'] == 'ok'), None)
         result['nbm_proba'] = {'run': nbm['run'], 'tranches': nbm['tranches']} if nbm else None

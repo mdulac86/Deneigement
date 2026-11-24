@@ -32,6 +32,25 @@ class CollectorTests(unittest.TestCase):
         self.assertEqual(q['max_cm'],12)
         self.assertIsNone(m.consensus([s('a',[5,5])])[0]['snow']['mean_cm'])
 
+    def test_risk_alerts_need_official_two_sources_or_trusted(self):
+        day=str(m.TODAY)
+        def s(key,risk):
+            return {'id':key,'status':'ok','days':[{'date':day,'risk':risk,'high':0,'low':-2}]}
+        def confirmed(rows,table=None,extra=()):
+            r={'consensus':m.consensus(rows),'confiance':table or {}}
+            r['consensus'][0]['risks']+=list(extra)
+            m.confirm_risks(r)
+            return r['consensus'][0]
+        d=confirmed([s('mb','Verglas / grésil'),s('met','Neige')])
+        self.assertEqual(d['risques_confirmes'],[])  # une seule source non mesurée par risque
+        self.assertEqual({x['source'] for x in d['risques_a_confirmer']},{'mb','met'})
+        self.assertIn('Verglas / grésil',d['risks'])  # toujours affiché
+        self.assertEqual(confirmed([s('eccc','Verglas / grésil')])['risques_confirmes'],['Verglas / grésil'])
+        self.assertEqual(confirmed([s('mb','Neige'),s('mm','Neige')])['risques_confirmes'],['Neige'])
+        sure={'mm':{'poids':0.9,'statut':'mesurée'}}
+        self.assertEqual(confirmed([s('mm','Neige')],sure)['risques_confirmes'],['Neige'])
+        self.assertEqual(confirmed([s('mb','Neige')],extra=['Poudrerie'])['risques_confirmes'],['Poudrerie'])  # issu des modèles
+
     def test_climate_columns_and_incomplete(self):
         def row(day,snow,flag=''):
             cells=[day,'1','','0','','-1','','','2','',snow,flag,'4','','8','','-']

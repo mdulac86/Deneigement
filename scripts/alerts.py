@@ -7,6 +7,8 @@ Déclencheurs choisis par Martin :
 - sortie prévue par le plan, puis changement d'heure de départ d'une heure ou plus, ou annulation;
 - probabilité de 5 cm et plus (ensemble européen) de 50 % ou plus pour aujourd'hui ou demain;
 - risque de verglas, ou pluie sur la neige au sol (fonte) : prévoir l'abrasif;
+  seulement si le risque est confirmé (Environnement Canada, 2 sources, ou une source mesurée
+  fiable : voir trust.py et confirm_risks dans collect.py);
 - poudrerie ou glace par grand vent (rafales de 50 km/h et plus avec de la neige au sol);
 - d'avril à novembre : forte pluie ou orage pendant la journée de chantier (heure de début).
 """
@@ -76,6 +78,9 @@ def plans(weather, state, today):
             lines.append(('2e tournée' if final.get('type') == 'deuxieme_tournee' else 'Nettoyage final') + f" {hhmm(final['heure'])}")
         if p.get('ensemble'):
             lines.append(f"Ensemble européen : {p['ensemble']['prob_5cm']} % de chances de 5 cm+")
+        sure = [f"{r['nom'].split(' (')[0].split(' ·')[0]} {r['cm']:g} cm" for r in (p.get('fiables') or []) if r.get('statut') == 'mesurée'][:3]
+        if sure:
+            lines.append('Modèles les plus fiables : ' + ', '.join(sure))
         word = 'Sortie prévue' if p['statut'] == 'sortie' else 'Sortie possible'
         if prev is None:
             msgs.append({'key': f'plan:{day}:{p["depart"]}', 'title': f'{word} {day_label(p["depart"])} à {hhmm(p["depart"])}',
@@ -116,7 +121,8 @@ def snow_on_ground(weather):
 def ice_melt(weather, today):
     msgs, ground = [], snow_on_ground(weather)
     for d in (weather.get('consensus') or [])[:2]:
-        risks = d.get('risks', [])
+        # Seuls les risques confirmés (source officielle, 2 sources ou source mesurée fiable) déclenchent une alerte.
+        risks = d.get('risques_confirmes', d.get('risks', []))
         if 'Poudrerie' in risks or 'Glace (vent)' in risks:
             kind = 'Poudrerie probable' if 'Poudrerie' in risks else 'Grand vent : glace au sol'
             msgs.append({'key': f'vent:{d["date"]}', 'title': f'{kind} {day_label(d["date"])}',
