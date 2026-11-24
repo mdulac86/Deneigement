@@ -83,10 +83,35 @@ def nbm_run(now):
     raise ValueError('Aucun cycle NBM récent disponible')
 
 
+def nbm_runs(now, n=3):
+    """Cycles NBM publiés jusqu'à 72 h, du plus récent au plus ancien."""
+    out = []
+    for run in cycles(now):
+        try:
+            grib.get(nbm_url(run, NBM_HORIZON) + '.idx', tries=2)
+            out.append(run)
+        except Exception:
+            continue
+        if len(out) >= n:
+            break
+    return out
+
+
 def nbm(lat, lon, now):
-    """Neige NBM par tranche de 6 h et probabilités de 2,5 cm et 5 cm."""
+    """Neige NBM par tranche de 6 h et probabilités de 2,5 cm et 5 cm.
+    Le cycle le plus récent peut être en cours de publication (fichiers du milieu manquants) :
+    s'il est incomplet, on prend le précédent."""
     grib.warmup()
-    run = nbm_run(now)
+    errors = []
+    for run in nbm_runs(now):
+        try:
+            return nbm_for(run, lat, lon)
+        except ValueError as e:
+            errors.append(f'{run:%H} UTC : {e}')
+    raise ValueError('Aucun cycle NBM complet · ' + ' · '.join(errors) if errors else 'Aucun cycle NBM récent disponible')
+
+
+def nbm_for(run, lat, lon):
     # Les tranches de 6 h (quantités et probabilités) se terminent à 00, 06, 12 ou 18 UTC.
     first = 6 + (-(run.hour + 6)) % 6
     steps = list(range(first, NBM_HORIZON + 1, 6))

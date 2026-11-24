@@ -43,7 +43,7 @@ class NoaaTests(unittest.TestCase):
             return (v, 'unknown' if k.startswith('ASNOW') and 'prob' not in k else 'K') if units else v  # unité réelle lue par eccodes
 
         with mock.patch.object(noaa.grib, 'get', side_effect=fake_get), mock.patch.object(noaa.grib, 'field', side_effect=fake_field), \
-                mock.patch.object(noaa.grib, 'warmup'), mock.patch.object(noaa, 'nbm_run', return_value=RUN):
+                mock.patch.object(noaa.grib, 'warmup'), mock.patch.object(noaa, 'nbm_runs', return_value=[RUN]):
             out = noaa.nbm(46.2, -70.5, RUN)
         self.assertEqual(min(seen), 9)
         self.assertTrue(all((9 + f) % 6 == 0 for f in seen))
@@ -67,10 +67,32 @@ class NoaaTests(unittest.TestCase):
             return (v, 'unknown') if units else v
 
         with mock.patch.object(noaa.grib, 'get', side_effect=fake_get), mock.patch.object(noaa.grib, 'field', side_effect=fake_field), \
-                mock.patch.object(noaa.grib, 'warmup'), mock.patch.object(noaa, 'nbm_run', return_value=RUN):
+                mock.patch.object(noaa.grib, 'warmup'), mock.patch.object(noaa, 'nbm_runs', return_value=[RUN]):
             out = noaa.nbm(46.2, -70.5, RUN)
         missing = [t for t in out['tranches'] if t['snow_cm'] is None]
         self.assertEqual(len(missing), 1)  # la tranche f015 manque, les autres sont lues
+        self.assertGreater(len(out['hours']), 24)
+
+    def test_nbm_falls_back_to_previous_cycle_when_incomplete(self):
+        """Cycle de 15 UTC en cours de publication (presque tout manque) : on prend celui de 14 UTC."""
+        new, old = RUN.replace(hour=15), RUN.replace(hour=14)
+
+        def fake_get(url, byte_range=None, tries=6):
+            f = int(url.split('.f')[-1][:3])
+            if 't15z' in url and f < 60:
+                raise FileNotFoundError(url)
+            w = f'{f - 6}-{f} hour acc fcst'
+            return idx([f'ASNOW:surface:{w}', f'APCP:surface:{w}', f'TMP:2 m above ground:{f} hour fcst'])
+
+        def fake_field(url, entry, lat, lon, units=False):
+            k = entry['key']
+            v = 0.01 if k.startswith('ASNOW') else 1.0 if k.startswith('APCP') else 270.15
+            return (v, 'unknown') if units else v
+
+        with mock.patch.object(noaa.grib, 'get', side_effect=fake_get), mock.patch.object(noaa.grib, 'field', side_effect=fake_field), \
+                mock.patch.object(noaa.grib, 'warmup'), mock.patch.object(noaa, 'nbm_runs', return_value=[new, old]):
+            out = noaa.nbm(46.2, -70.5, new)
+        self.assertEqual(out['run'], old.isoformat())
         self.assertGreater(len(out['hours']), 24)
 
     def test_hrrr_day_keys_and_differences(self):
