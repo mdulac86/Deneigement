@@ -119,12 +119,12 @@
   "projection": [
     {
       "date": "2026-11-24",
-      "gel_m": 0.1,
+      "gel_m": 0.12,
       "degel_haut": false
     },
     {
       "date": "2026-11-25",
-      "gel_m": 0.15,
+      "gel_m": 0.16,
       "degel_haut": false
     },
     {
