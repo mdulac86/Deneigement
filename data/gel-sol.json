@@ -119,52 +119,52 @@
   "projection": [
     {
       "date": "2026-11-24",
-      "gel_m": 0.1,
+      "gel_m": 0.09,
       "degel_haut": false
     },
     {
       "date": "2026-11-25",
-      "gel_m": 0.15,
+      "gel_m": 0.14,
       "degel_haut": false
     },
     {
       "date": "2026-11-26",
-      "gel_m": 0.17,
+      "gel_m": 0.16,
       "degel_haut": false
     },
     {
       "date": "2026-11-27",
-      "gel_m": 0.17,
+      "gel_m": 0.16,
       "degel_haut": true
     },
     {
       "date": "2026-11-28",
-      "gel_m": 0.17,
+      "gel_m": 0.16,
       "degel_haut": true
     },
     {
       "date": "2026-11-29",
-      "gel_m": 0.17,
+      "gel_m": 0.16,
       "degel_haut": true
     },
     {
       "date": "2026-11-30",
-      "gel_m": 0.17,
+      "gel_m": 0.16,
       "degel_haut": true
     },
     {
       "date": "2026-12-01",
-      "gel_m": 0.17,
+      "gel_m": 0.16,
       "degel_haut": false
     },
     {
       "date": "2026-12-02",
-      "gel_m": 0.17,
+      "gel_m": 0.16,
       "degel_haut": false
     },
     {
       "date": "2026-12-03",
-      "gel_m": 0.2,
+      "gel_m": 0.16,
       "degel_haut": false
     }
   ],
