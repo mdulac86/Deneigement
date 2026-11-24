@@ -474,6 +474,13 @@ function renderTransport(){
  $('travaux-rows').innerHTML=tw.map(t=>'<tr><td><b>'+esc(t.travaux||'Travaux')+'</b><small>'+(t.route?'Route '+esc(t.route)+' · ':'')+n(t.km)+' km</small></td><td>'+esc(t.lieu||'')+'</td><td>'+(t.charge?'<span class="tag amber">'+esc(t.charge)+'</span> ':'')+esc(t.entrave||'')+'</td><td>'+per(t)+'</td></tr>').join('')||'<tr><td colspan="4" class="muted">Aucun chantier routier publié dans le secteur.</td></tr>';
 }
 // Aperçu rapide (haut de l'onglet Déneigement) : conditions actuelles, plan, radar, neige heure par heure, routes, 5 jours.
+// Pluie par jour (mm) : médiane des modèles pondérée par leur fiabilité mesurée pour la pluie; les heures de neige ne comptent pas.
+function rainByDay(){const key=t=>new Intl.DateTimeFormat('en-CA',{timeZone:'America/Toronto'}).format(t),out={},vals={};
+ for(const m of state.models||[]){if(m.status!=='ok'||!(m.hours||[]).some(h=>h.precip_mm!=null))continue;const w=m.confiance_pluie?.poids??1,per={};
+  for(const h of m.hours){const k=key(Date.parse(h.time)),e=per[k]=per[k]||{mm:0,n:0};e.mm+=(h.snow_cm>0?0:h.precip_mm||0);e.n++}
+  for(const k in per)if(per[k].n>=3)(vals[k]=vals[k]||[]).push([per[k].mm,w])}
+ for(const k in vals){const a=vals[k].sort((x,y)=>x[0]-y[0]),tot=a.reduce((t,p)=>t+p[1],0);let c=0;for(const [v,w] of a){c+=w;if(c>=tot/2-1e-9){out[k]=v;break}}}
+ return out}
 function renderQuick(){
  const e=state.sources.find(s=>s.id==='eccc'&&s.status==='ok'),cur=e?.current||{},h0=(e?.hourly||[])[0];
  const v=x=>x?.value?.fr??x?.value?.en??x?.value??null,temp=v(cur.temperature),chill=v(cur.windChill),wind=v(cur.wind?.speed),cond=h0?.condition||'';
@@ -494,7 +501,8 @@ function renderQuick(){
  $('q-roads').textContent=r?(r.resume?.texte||'État non publié')+' · '+(r.evenements?.length||0)+' avertissement'+((r.evenements?.length||0)>1?'s':'')+' · '+(r.cameras?.length||0)+' caméras à proximité':'Données routières non disponibles.';
  // Prévisions 5 jours
  const r0=x=>x==null?null:Math.round(x)+0; // +0 : pas de « -0 »
- $('q-days').innerHTML=(state.consensus||[]).slice(0,5).map(d=>{const sn=d.snow?.mean_cm??d.model_snow?.median_cm;return '<div class="q-day"><b>'+esc(new Intl.DateTimeFormat('fr-CA',{timeZone:'America/Toronto',weekday:'short',day:'numeric'}).format(new Date(d.date+'T12:00:00-05:00')))+'</b><span class="q-ico">'+symbol(d.risks)+'</span><strong>'+n(r0(d.high_mean))+'°</strong><small>'+n(r0(d.low_mean))+'°'+(sn>=0.5?' · ❄ '+n(sn)+' cm':'')+'</small></div>'}).join('');
+ const rd=rainByDay();
+ $('q-days').innerHTML=(state.consensus||[]).slice(0,5).map(d=>{const sn=d.snow?.mean_cm??d.model_snow?.median_cm;return '<div class="q-day"><b>'+esc(new Intl.DateTimeFormat('fr-CA',{timeZone:'America/Toronto',weekday:'short',day:'numeric'}).format(new Date(d.date+'T12:00:00-05:00')))+'</b><span class="q-ico">'+symbol(d.risks)+'</span><strong>'+n(r0(d.high_mean))+'°</strong><small>'+n(r0(d.low_mean))+'°'+(sn>=0.5?' · ❄ '+n(sn)+' cm':'')+'</small><small class="pop">'+(d.pop?.value!=null?'💧 '+d.pop.value+' %':'💧 —')+(rd[d.date]>=0.5?' · '+n(Math.round(rd[d.date]))+' mm':'')+'</small></div>'}).join('');
  bindOpeners();initMini();
 }
 let mini=null,miniLayer=null;
