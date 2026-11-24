@@ -284,3 +284,34 @@ table.chantier th,table.chantier td{padding-left:6px;padding-right:6px}table.cha
 table.chantier small.storm{color:var(--orange);font-weight:700}table.chantier small.hot{color:var(--orange)}
 .sap-why{margin:10px 0 0;padding-left:18px;color:var(--soft);font-size:14px;line-height:1.5}
 #status-chantier:empty{display:none}
+/* Probabilités NBM */
+table.nbm td{white-space:nowrap}
+.pbar{display:inline-block;vertical-align:middle;width:70px;height:8px;border-radius:999px;background:var(--panel2);border:1px solid var(--line2);overflow:hidden;margin-right:8px}
+.pbar i{display:block;height:100%;background:var(--blue)}
+table.nbm b.hi{color:var(--yellow)}table.nbm td b{font-weight:700}
+/* Routes et caméras */
+table.routes td small{display:block;color:var(--muted);font-size:11.5px}
+table.routes td:last-child{white-space:nowrap}
+@media(max-width:600px){
+  table.routes thead{display:none}
+  table.routes,table.routes tbody{display:block}
+  table.routes tr{display:grid;grid-template-columns:1fr auto;gap:4px 10px;padding:12px 0;border-bottom:1px solid var(--line)}
+  table.routes td{display:block;border:0;padding:0}
+  table.routes td:nth-child(2),table.routes td:nth-child(3){grid-column:1/-1}
+  table.routes td:nth-child(2){color:var(--soft);font-size:13px}
+  table.routes td:nth-child(4){color:var(--muted);font-size:12px}
+  table.routes td:nth-child(4)::before{content:'Visibilité : '}
+  table.routes td:nth-child(5){color:var(--muted);font-size:12px;text-align:right}
+  table.routes td small{display:inline;margin-left:6px}
+}
+table.routes .tag{font-size:10px;padding:3px 8px;margin:2px 0}
+.route-events{list-style:none;margin:0 0 12px;padding:0;display:grid;gap:6px;font-size:14px}
+.cams-title{margin:18px 0 10px;font:800 15px var(--title)}
+.cameras{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
+.cam{margin:0;background:var(--panel2);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.cam video,.cam-play{display:block;width:100%;aspect-ratio:16/9;border:0;background:#000}
+.cam-play{color:var(--yellow);font:700 15px var(--body);cursor:pointer}
+.cam-play:hover{background:#111}
+.cam figcaption{padding:8px 10px;font-size:13px;color:var(--soft)}
+.cam figcaption small{display:block;color:var(--muted);font-size:11.5px;margin-top:2px}
+.cam figcaption a{color:var(--yellow)}

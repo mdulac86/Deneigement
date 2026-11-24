@@ -25,7 +25,8 @@ MIN_VERSION = {'aifs': 2}  # AIFS v1 : unités mal converties
 
 LIVE_NAMES = {
     'mm': 'MétéoMédia', 'wu': 'Weather Underground', 'hrdps': 'HRDPS (canadien 2,5 km)', 'rdps': 'RDPS (canadien 10 km)',
-    'gfs-live': 'NOAA GFS (américain)', 'met': 'MET Norway', 'ifs-live': 'ECMWF IFS (européen)', 'aifs-live': 'ECMWF AIFS (européen, IA)', 'consensus': 'Consensus du plan (médiane)',
+    'gfs-live': 'NOAA GFS (américain)', 'met': 'MET Norway', 'ifs-live': 'ECMWF IFS (européen)', 'aifs-live': 'ECMWF AIFS (européen, IA)',
+    'nbm': 'NOAA NBM (synthèse américaine)', 'hrrr': 'NOAA HRRR (américain 3 km)', 'consensus': 'Consensus du plan (médiane)',
 }
 
 

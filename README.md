@@ -64,6 +64,32 @@ tombée aux 3 h, 72 h) et le modèle AIFS à intelligence artificielle (aux 6 h)
 plan de sortie, et l'ensemble de 51 versions donne,
 pour chaque jour, la probabilité d'avoir 5 cm ou plus et la fourchette 10-90 %.
 
+## Modèles américains NBM et HRRR
+
+`scripts/noaa.py` lit deux produits NOAA (domaine public) sur Amazon Open Data, par plages
+d'octets comme GFS et ECMWF. Saint-Prosper est dans leur grille (point le plus proche à ≈ 1 km).
+
+- **NBM** (National Blend of Models, 2,5 km) : synthèse corrigée d'une trentaine de modèles.
+  Neige tombée par tranche de 6 h jusqu'à 72 h, et **probabilité de dépasser 2,5 cm et 5 cm**
+  par tranche de 6 h jusqu'à 48 h (panneau « Chances de neige par tranche de 6 h »). Les tranches
+  se terminent à 00, 06, 12 et 18 UTC, quel que soit le cycle lu.
+- **HRRR** (3 km) : neige tombée heure par heure jusqu'à 24 h, puis par 3 h jusqu'à 48 h
+  (runs de 00, 06, 12 et 18 UTC), température et **pluie verglaçante** prévue. Deux heures et
+  plus de pluie verglaçante dans la journée ajoutent le risque « Verglas / grésil ».
+
+Les deux entrent dans le plan de sortie et dans le tableau de fiabilité.
+
+## Routes autour de Saint-Prosper
+
+`scripts/routes.py` lit le service WFS du ministère des Transports (Québec 511, CC BY 4.0)
+dans un rayon de 45 km : état des routes en hiver (chaussée, visibilité, lames de neige, noté par
+les patrouilleurs), avertissements routiers en cours et caméras de circulation (courte vidéo
+chargée depuis Québec 511 quand on touche « Voir »). La station météoroutière de Saint-Georges
+ne publie que la profondeur de gel (déjà lue par `frost.py`).
+
+Écartés : CoCoRaHS (un seul observateur à moins de 120 km, à Sainte-Foy), Open-Meteo (gratuit
+seulement pour un usage non commercial), MyRadar (API payante, couverture surtout américaine).
+
 ## Fiabilité : qui voit juste ?
 
 `scripts/history.py` compare la prévision de la veille des modèles archivés

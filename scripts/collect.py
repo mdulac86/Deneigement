@@ -21,6 +21,8 @@ import plan as planner  # noqa: E402
 import ecmwf  # noqa: E402
 import snowdepth  # noqa: E402
 import frost  # noqa: E402
+import noaa  # noqa: E402
+import routes  # noqa: E402
 import alerts as notifier  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -525,10 +527,43 @@ def enrich_days(days, sources, models, pop):
             if d.get('model_snow') is None and snow:
                 d['model_snow'] = {'median_cm': round(sn, 1), 'min_cm': round(min(snow), 1), 'max_cm': round(max(snow), 1), 'estimated': True}
 
+def local_day(iso):
+    return dt.datetime.fromisoformat(iso.replace('Z', '+00:00')).astimezone(TZ).date().isoformat()
+
+def nbm_days(days, models):
+    """Plus forte probabilité NBM de 5 cm (et de 2,5 cm) en 6 h parmi les tranches qui commencent ce jour-là."""
+    nbm = next((m for m in models if m['id'] == 'nbm' and m['status'] == 'ok'), None)
+    for d in days:
+        tr = [t for t in (nbm or {}).get('tranches', []) if local_day(t['debut']) == d['date'] and t.get('p_5cm') is not None]
+        d['nbm'] = {'p_5cm': max(t['p_5cm'] for t in tr), 'p_2_5cm': max(t['p_2_5cm'] or 0 for t in tr),
+                    'snow_cm': round(sum(t['snow_cm'] or 0 for t in tr), 1)} if tr else None
+
+def freezing_rain(result):
+    """Pluie verglaçante prévue par HRRR (2 h ou plus dans la journée) : ajoutée aux risques du jour."""
+    hrrr = next((m for m in result.get('models') or [] if m['id'] == 'hrrr' and m['status'] == 'ok'), None)
+    if not hrrr:
+        return
+    per = {}
+    for h in hrrr.get('hours', []):
+        if h.get('verglas'):
+            per[local_day(h['time'])] = per.get(local_day(h['time']), 0) + 1
+    for d in result['consensus']:
+        n = per.get(d['date'], 0)
+        d['verglas_hrrr_h'] = n or None
+        if n >= 2 and 'Verglas / grésil' not in d['risks']:
+            d['risks'] = [r for r in d['risks'] if r != 'Sans risque hivernal identifié'] + ['Verglas / grésil']
+
 def forecast_plan(sources, days):
     """Modèles horaires -> neige heure par heure (médiane) -> plan de sortie."""
     met_src = next((s for s in sources if s['id'] == 'met' and s['status'] == 'ok'), {})
-    models = nwp.collect_models(fetch, met_src, LAT, LON, NOW)
+    with futures.ThreadPoolExecutor(max_workers=2) as pool:  # NBM et HRRR : ~1 min chacun, en parallèle
+        us = {k: pool.submit(fn, LAT, LON, NOW) for k, fn in (('nbm', noaa.nbm), ('hrrr', noaa.hrrr))}
+        models = nwp.collect_models(fetch, met_src, LAT, LON, NOW)
+        for k, name in (('nbm', 'NBM 2,5 km · NOAA (synthèse)'), ('hrrr', 'HRRR 3 km · NOAA')):
+            try:
+                models.append({'id': k, 'name': name, 'status': 'ok', 'fetched_at': stamp(), **us[k].result()})
+            except Exception as e:
+                models.append({'id': k, 'name': name, 'status': 'unavailable', 'fetched_at': stamp(), 'hours': [], 'error': str(e)[:200]})
     cache = read(DATA / 'ecmwf-cache.json', {})
     try:
         ifs, _ = ecmwf.cached(cache, 'ifs', NOW, lambda: ecmwf.deterministic(LAT, LON, NOW))
@@ -573,6 +608,7 @@ def forecast_plan(sources, days):
     by_day = {d['date']: d for d in ensemble.get('jours', [])}
     for d in days:
         d['ensemble'] = by_day.get(d['date'])
+    nbm_days(days, models)
     enrich_days(days, sources, models, pop)
     for p in plan:
         t = p.get('seuil_atteint') or (p.get('seuil_fourchette') or [None])[0] or p.get('debut')
@@ -625,6 +661,19 @@ def main():
         heavy_rain(result)
     except Exception as e:
         print('forte pluie :', e)
+    try:
+        freezing_rain(result)
+    except Exception as e:
+        print('pluie verglaçante :', e)
+    try:
+        nbm = next((m for m in result.get('models') or [] if m['id'] == 'nbm' and m['status'] == 'ok'), None)
+        result['nbm_proba'] = {'run': nbm['run'], 'tranches': nbm['tranches']} if nbm else None
+    except Exception as e:
+        print('NBM :', e)
+    try:
+        result['routes'] = routes.collect(lambda u: fetch(u, True), LAT, LON, stamp(), previous.get('routes'))
+    except Exception as e:
+        result['routes'] = {'status': 'unavailable', 'error': str(e)[:150]}
     try:
         prev_gel=read(DATA/'gel-sol.json',None)
         if prev_gel and prev_gel.get('fetched')==str(TODAY) and prev_gel.get('status')=='ok':
