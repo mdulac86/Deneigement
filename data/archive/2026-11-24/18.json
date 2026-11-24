@@ -1,11 +1,11 @@
 {
-  "updated_at": "2026-11-24T18:37:43.812397+00:00",
+  "updated_at": "2026-11-24T18:41:31.415584+00:00",
   "sources": [
     {
       "id": "eccc",
       "status": "ok",
       "issued_at": "2026-11-24T16:30:00Z",
-      "fetched_at": "2026-11-24T18:37:43.812397+00:00",
+      "fetched_at": "2026-11-24T18:41:31.415584+00:00",
       "days": [
         {
           "date": "2026-11-24",
@@ -189,7 +189,7 @@
       "id": "met",
       "status": "ok",
       "issued_at": "2026-11-24T17:18:56Z",
-      "fetched_at": "2026-11-24T18:37:43.812397+00:00",
+      "fetched_at": "2026-11-24T18:41:31.415584+00:00",
       "days": [
         {
           "date": "2026-11-24",
@@ -297,7 +297,7 @@
       "id": "mb",
       "status": "ok",
       "issued_at": null,
-      "fetched_at": "2026-11-24T18:37:43.812397+00:00",
+      "fetched_at": "2026-11-24T18:41:31.415584+00:00",
       "days": [
         {
           "date": "2026-11-24",
@@ -2632,17 +2632,18 @@
       "modeles": 3,
       "notes": [
         "Le seuil de 5 cm n’est atteint que par le modèle le plus enneigé.",
+        "Moins de 10 cm pendant la journée : nettoyage le lendemain matin.",
         "Commercial propre pour 7 h 45. Résidentiel et locatif : acte de présence pendant la tournée, nettoyage complet plus tard."
       ],
       "deja_au_sol_cm": 0,
       "isoles": {},
       "statut": "possible",
-      "mode": "jour",
-      "echeance": null,
-      "depart": "2026-11-28T10:00:00-05:00",
+      "mode": "matin",
+      "echeance": "2026-11-29T07:45:00-05:00",
+      "depart": "2026-11-29T03:30:00-05:00",
       "duree_h": 4,
-      "fin_tournee": "2026-11-28T14:00:00-05:00",
-      "neige_a_echeance_cm": null,
+      "fin_tournee": "2026-11-29T07:30:00-05:00",
+      "neige_a_echeance_cm": 0.1,
       "final": null,
       "fin_de_semaine": true,
       "ensemble": null,
