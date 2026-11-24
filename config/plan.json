@@ -22,5 +22,10 @@
   "debut_nuit": "20:00",
   "neige_min_cm_h": 0.1,
   "pause_max_h": 3,
-  "final_min_cm": 1
+  "final_min_cm": 1,
+  "jour": {
+    "seuil_soir_cm": 10,
+    "soir": "16:30",
+    "note": "Neige de jour : moins de 10 cm, nettoyage le lendemain matin; 10 cm et plus en fin de journée, passage rapide le soir puis reprise le lendemain matin."
+  }
 }

@@ -85,10 +85,20 @@ class PlanTests(unittest.TestCase):
         self.assertEqual(q['depart'], at(14, 3, 30).isoformat())
         self.assertTrue(any('acte de présence' in n for n in q['notes']))
 
-    def test_daytime_storm_goes_at_threshold(self):
+    def test_light_daytime_snow_waits_for_next_morning(self):
+        # 1 cm/h de 13 h à 21 h : 5 cm vers 18 h, 3,5 cm à 16 h 30 -> lendemain matin, propre pour 7 h 45.
         q = self.plan(series(at(10, 13), [1] * 8))[0]
-        self.assertEqual(q['mode'], 'jour')
-        self.assertEqual(q['depart'], at(10, 18).isoformat())
+        self.assertEqual(q['mode'], 'matin')
+        self.assertEqual(q['echeance'], at(11, 7, 45).isoformat())
+        self.assertEqual(q['depart'], at(11, 3, 30).isoformat())
+
+    def test_heavy_daytime_snow_evening_run_then_morning(self):
+        # 2 cm/h de 8 h à 16 h : 16 cm -> passage rapide à 16 h 30, reprise le lendemain matin.
+        q = self.plan(series(at(11, 8), [2] * 8))[0]
+        self.assertEqual(q['mode'], 'soir')
+        self.assertEqual(q['depart'], at(11, 16, 30).isoformat())
+        self.assertEqual(q['final']['type'], 'reprise_matin')
+        self.assertEqual(q['final']['heure'], at(12, 3, 30).isoformat())
 
     def test_below_threshold_and_possible(self):
         q = self.plan(series(at(10, 22), [0.5] * 6))[0]

@@ -4,7 +4,9 @@ Règles de l'équipe (config/plan.json) :
 - seuil de sortie : 5 cm de nouvelle neige;
 - 4 h par machine jusqu'à 10 cm, +1,5 h par tranche de 10 cm de plus;
 - semaine et fin de semaine : commercial propre pour 7 h 45, résidentiel/locatif en acte
-  de présence; nettoyage final à 9 h 00 ou à la fin de la tempête.
+  de présence; nettoyage final à 9 h 00 ou à la fin de la tempête;
+- neige de jour : moins de 10 cm, nettoyage le lendemain matin; 10 cm et plus en fin de journée,
+  passage rapide à 16 h 30 puis reprise le lendemain matin.
 
 Fonctions pures, sans réseau, testées dans tests/test_plan.py.
 """
@@ -225,12 +227,35 @@ def plan_event(ev, cfg, now, carry=0.0):
         if finish > deadline:
             base['notes'].append(f'Le seuil arrive tard : la tournée finirait vers {fr_time(finish)}, après l’échéance de {fr_time(deadline)}.')
     else:
-        deadline = None
-        dep = ceil30(t5)
-        dur = duration_h(min(cum_at(ev, dep + dt.timedelta(hours=4)), total), cfg)
+        # Neige de jour (règle de l'équipe) : moins de 10 cm au sol en fin de journée -> nettoyage le lendemain
+        # matin; 10 cm et plus -> passage rapide en fin de journée, puis reprise le lendemain matin.
+        J = cfg.get('jour') or {'seuil_soir_cm': 10, 'soir': '16:30'}
+        evening = dt.datetime.combine(t5.date(), hm(J['soir']), t5.tzinfo)
+        snow_eve = round(cum_at(ev, evening) + carry, 1)
+        day = t5.date() + dt.timedelta(days=1)
+        rules = day_rules(day, cfg)
+        deadline = dt.datetime.combine(day, rules['echeance_t'], t5.tzinfo)
+        if snow_eve >= J['seuil_soir_cm'] and t5 <= evening:
+            mode = 'soir'
+            dep = evening
+            dur = duration_h(snow_eve, cfg)
+            finish = dep + dt.timedelta(hours=dur)
+            after = round(cum_at(ev, deadline) - cum_at(ev, evening), 1)
+            mdur = duration_h(after, cfg)
+            base['notes'].append(f'≈ {snow_eve:g} cm au sol en fin de journée : passage rapide à {fr_time(dep)}, puis reprise le lendemain matin.')
+            if rules.get('note'):
+                base['notes'].append(rules['note'])
+            return {**base, 'mode': mode, 'echeance': None, 'depart': iso(dep), 'duree_h': dur,
+                    'fin_tournee': iso(finish), 'neige_a_echeance_cm': None,
+                    'final': {'heure': iso(floor30(deadline - dt.timedelta(hours=mdur))), 'type': 'reprise_matin',
+                              'neige_cm': after, 'duree_h': mdur, 'echeance': iso(deadline)},
+                    'fin_de_semaine': weekend(t5.date())}
+        mode = 'matin'
+        snow_dl = cum_at(ev, deadline) + carry
+        dur = duration_h(snow_dl, cfg)
+        dep = floor30(deadline - dt.timedelta(hours=dur))
         finish = dep + dt.timedelta(hours=dur)
-        rules = day_rules(dep.date(), cfg)
-        mode = 'jour'
+        base['notes'].append(f'Moins de {J["seuil_soir_cm"]:g} cm pendant la journée : nettoyage le lendemain matin.')
     residual = round(total - cum_at(ev, dep), 1)
     final = None
     if residual >= cfg['final_min_cm'] and end > dep + dt.timedelta(minutes=30):
@@ -244,7 +269,7 @@ def plan_event(ev, cfg, now, carry=0.0):
         base['notes'].append(rules['note'])
     return {**base, 'mode': mode, 'echeance': iso(deadline), 'depart': iso(dep), 'duree_h': dur,
             'fin_tournee': iso(finish), 'neige_a_echeance_cm': round(cum_at(ev, deadline) + carry, 1) if deadline else None,
-            'final': final, 'fin_de_semaine': weekend(day if mode == 'matin' else dep.date())}
+            'final': final, 'fin_de_semaine': weekend(day)}
 
 
 def build_plan(hours, cfg, now, carry=0.0, melt_days=()):

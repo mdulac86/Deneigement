@@ -94,10 +94,10 @@ def plans(weather, state, today, now=None, pending=None):
         seen[day] = p['depart']
         prev = state.get('plans', {}).get(day)
         final = p.get('final') or {}
-        lines = [f"Départ {hhmm(p['depart'])}" + (f" · propre pour {hhmm(p['echeance'])}" if p.get('echeance') else ''),
+        lines = [('Passage rapide en fin de journée ' if p.get('mode') == 'soir' else 'Départ ') + f"{hhmm(p['depart'])}" + (f" · propre pour {hhmm(p['echeance'])}" if p.get('echeance') else ''),
                  f"≈ {p['total_cm']:g} cm (de {p['fourchette_cm'][0]:g} à {p['fourchette_cm'][1]:g})" + (f" · fin vers {hhmm(p['fin'])}" if p.get('fin') else '')]
         if final.get('heure'):
-            lines.append(('2e tournée' if final.get('type') == 'deuxieme_tournee' else 'Nettoyage final') + f" {hhmm(final['heure'])}")
+            lines.append({'deuxieme_tournee': '2e tournée', 'reprise_matin': 'Reprise le lendemain matin'}.get(final.get('type'), 'Nettoyage final') + f" {hhmm(final['heure'])}")
         if p.get('ensemble'):
             lines.append(f"Ensemble européen : {p['ensemble']['prob_5cm']} % de chances de 5 cm+")
         sure = [f"{r['nom'].split(' (')[0].split(' ·')[0]} {r['cm']:g} cm" for r in (p.get('fiables') or []) if r.get('statut') == 'mesurée'][:3]
