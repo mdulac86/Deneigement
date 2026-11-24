@@ -1,7 +1,7 @@
 {
-  "fetched_at": "2026-11-24T15:00:37.145105+00:00",
+  "fetched_at": "2026-11-24T18:33:10.448232+00:00",
   "result": {
-    "issued_at": "2026-11-24T13:17:50Z",
+    "issued_at": "2026-11-24T17:18:56Z",
     "days": [
       {
         "date": "2026-11-24",
@@ -105,27 +105,6 @@
       }
     ],
     "hourly": [
-      {
-        "time": "2026-11-24T15:00:00Z",
-        "temp": -3.1,
-        "condition": "clearsky_day",
-        "wind": 22,
-        "precip_mm": 0.0
-      },
-      {
-        "time": "2026-11-24T16:00:00Z",
-        "temp": -2.4,
-        "condition": "fair_day",
-        "wind": 23,
-        "precip_mm": 0.0
-      },
-      {
-        "time": "2026-11-24T17:00:00Z",
-        "temp": -1.7,
-        "condition": "partlycloudy_day",
-        "wind": 24,
-        "precip_mm": 0.0
-      },
       {
         "time": "2026-11-24T18:00:00Z",
         "temp": -1.4,
