@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-24T18:55:22.719436+00:00",
+  "updated_at": "2026-11-24T19:01:23.986054+00:00",
   "location": {
     "name": "Saint-Prosper · Beauce",
     "lat": 46.214,
@@ -13,7 +13,7 @@
       "name": "Environnement Canada",
       "url": "https://meteo.gc.ca/fr/location/index.html?coords=46.214,-70.486",
       "status": "ok",
-      "fetched_at": "2026-11-24T18:55:22.719436+00:00",
+      "fetched_at": "2026-11-24T19:01:23.986054+00:00",
       "issued_at": "2026-11-24T16:30:00Z",
       "days": [
         {
@@ -566,7 +566,7 @@
       "name": "MET Norway",
       "url": "https://api.met.no/weatherapi/locationforecast/2.0/compact?lat=46.214&lon=-70.486",
       "status": "ok",
-      "fetched_at": "2026-11-24T18:55:22.719436+00:00",
+      "fetched_at": "2026-11-24T19:01:23.986054+00:00",
       "issued_at": "2026-11-24T17:18:56Z",
       "days": [
         {
@@ -1295,7 +1295,7 @@
       "name": "meteoblue",
       "url": "https://www.meteoblue.com/fr/meteo/semaine/saint-prosper_canada_8672691",
       "status": "ok",
-      "fetched_at": "2026-11-24T18:55:22.719436+00:00",
+      "fetched_at": "2026-11-24T19:01:23.986054+00:00",
       "issued_at": null,
       "days": [
         {
@@ -3405,7 +3405,7 @@
   ],
   "official_alerts": {
     "status": "ok",
-    "fetched_at": "2026-11-24T18:55:22.719436+00:00",
+    "fetched_at": "2026-11-24T19:01:23.986054+00:00",
     "items": []
   },
   "climate": {
@@ -4418,7 +4418,7 @@
       "model_snow": {
         "median_cm": 0.0,
         "min_cm": 0.0,
-        "max_cm": 0.8,
+        "max_cm": 0.3,
         "hours": 24,
         "estimated": true
       },
@@ -5363,7 +5363,7 @@
       }
     }
   ],
-  "previous_at": "2026-11-24T18:49:22.697008+00:00",
+  "previous_at": "2026-11-24T18:55:22.719436+00:00",
   "confiance_temperatures": {
     "mb": {
       "poids": 1.0,
@@ -5454,18 +5454,18 @@
       }
     },
     "normale": {
-      "tempetes_5cm": 12,
-      "tempetes_15cm": 5,
+      "tempetes_5cm": 11.8,
+      "tempetes_15cm": 4.8,
       "tempetes_25cm": 2,
-      "neige_cm": 228,
-      "periode": "1964-2023, 53 hivers, station ST PROSPER 7027660",
-      "jours_deneigement": 21,
-      "sorties_fonte": 2.7,
-      "jours_verglas": 2.6,
+      "neige_cm": 210.1,
+      "periode": "15 hivers récents aux relevés complets (2006-2007 à 2025-2026), station ST PROSPER 7027660 (scripts/normales.py); grosses tempêtes de 25 cm, poudrerie et glace par grand vent : normale 1964-2023",
+      "jours_deneigement": 18.7,
+      "sorties_fonte": 2.3,
+      "jours_verglas": 2.0,
       "jours_pluie": 8.3,
       "sorties_poudrerie": 5,
       "jours_glace_vent": 3,
-      "sorties_total": 26
+      "sorties_total": 23.7
     },
     "par_mois": {
       "11": 1,
@@ -5545,13 +5545,6 @@
         "status": "ok",
         "series": [
           {
-            "time": "2026-11-21T18:00:00Z",
-            "depth_cm": 0.0,
-            "temp": 10.8,
-            "gust": 31.8,
-            "pcpn": 0.0
-          },
-          {
             "time": "2026-11-21T19:00:00Z",
             "depth_cm": 0.0,
             "temp": 11.5,
@@ -5562,7 +5555,7 @@
             "time": "2026-11-21T20:00:00Z",
             "depth_cm": 0.0,
             "temp": 11.0,
-            "gust": 34.2,
+            "gust": 34.1,
             "pcpn": 0.0
           },
           {
@@ -6054,17 +6047,24 @@
             "temp": -3.2,
             "gust": 34.2,
             "pcpn": 0.0
+          },
+          {
+            "time": "2026-11-24T19:00:00Z",
+            "depth_cm": 0.0,
+            "temp": -3.3,
+            "gust": 39.3,
+            "pcpn": 0.0
           }
         ],
         "latest": {
-          "time": "2026-11-24T18:00:00Z",
+          "time": "2026-11-24T19:00:00Z",
           "depth_cm": 0.0,
-          "temp": -3.2,
-          "gust": 34.2,
+          "temp": -3.3,
+          "gust": 39.3,
           "pcpn": 0.0
         },
         "change_24h": 0.0,
-        "temp": -3.2,
+        "temp": -3.3,
         "gust_24h": 54.7
       },
       {
@@ -6074,15 +6074,8 @@
         "status": "ok",
         "series": [
           {
-            "time": "2026-11-21T18:00:00Z",
-            "depth_cm": 0.0,
-            "temp": 11.6,
-            "gust": 30.7,
-            "pcpn": 0.0
-          },
-          {
             "time": "2026-11-21T19:00:00Z",
-            "depth_cm": 0.0,
+            "depth_cm": null,
             "temp": 11.6,
             "gust": 29.5,
             "pcpn": 0.0
@@ -6603,13 +6596,6 @@
         "status": "ok",
         "series": [
           {
-            "time": "2026-11-21T18:00:00Z",
-            "depth_cm": 0.0,
-            "temp": 11.8,
-            "gust": 24.9,
-            "pcpn": 0.0
-          },
-          {
             "time": "2026-11-21T19:00:00Z",
             "depth_cm": 0.0,
             "temp": 12.1,
@@ -6814,7 +6800,7 @@
           },
           {
             "time": "2026-11-23T00:00:00Z",
-            "depth_cm": 0.0,
+            "depth_cm": null,
             "temp": 8.7,
             "gust": 14.0,
             "pcpn": 0.0
@@ -7190,12 +7176,20 @@
     },
     "2026-11-24": {
       "mm": 0.0,
-      "h": 14,
+      "h": 15,
       "st": "Saint-Camille-de-Lellis",
       "km": 38
     }
   },
   "confiance": {
+    "gfs": {
+      "poids": 0.24,
+      "erreur_cm": 9.6,
+      "episodes": 22,
+      "historique": 22,
+      "cet_hiver": 0,
+      "statut": "mesurée"
+    },
     "hrdps": {
       "poids": 0.45,
       "erreur_cm": 7.0,
@@ -7212,29 +7206,13 @@
       "cet_hiver": 0,
       "statut": "mesurée"
     },
-    "hrrr": {
-      "poids": 0.68,
-      "erreur_cm": 5.7,
-      "episodes": 22,
-      "historique": 22,
+    "rdps": {
+      "poids": 0.45,
+      "erreur_cm": 7.0,
+      "episodes": 0,
+      "historique": 0,
       "cet_hiver": 0,
-      "statut": "mesurée"
-    },
-    "nbm": {
-      "poids": 1.0,
-      "erreur_cm": 4.7,
-      "episodes": 22,
-      "historique": 22,
-      "cet_hiver": 0,
-      "statut": "mesurée"
-    },
-    "gfs": {
-      "poids": 0.24,
-      "erreur_cm": 9.6,
-      "episodes": 22,
-      "historique": 22,
-      "cet_hiver": 0,
-      "statut": "mesurée"
+      "statut": "non mesurée"
     },
     "met": {
       "poids": 0.45,
@@ -7260,31 +7238,47 @@
       "cet_hiver": 0,
       "statut": "non mesurée"
     },
-    "rdps": {
-      "poids": 0.45,
-      "erreur_cm": 7.0,
+    "hrrr": {
+      "poids": 0.68,
+      "erreur_cm": 5.7,
+      "episodes": 22,
+      "historique": 22,
+      "cet_hiver": 0,
+      "statut": "mesurée"
+    },
+    "nbm": {
+      "poids": 1.0,
+      "erreur_cm": 4.7,
+      "episodes": 22,
+      "historique": 22,
+      "cet_hiver": 0,
+      "statut": "mesurée"
+    }
+  },
+  "confiance_pluie": {
+    "met": {
+      "poids": 0.63,
+      "erreur_mm": 4.0,
       "episodes": 0,
       "historique": 0,
       "cet_hiver": 0,
       "statut": "non mesurée"
-    }
-  },
-  "confiance_pluie": {
-    "hrdps": {
-      "poids": 0.7,
-      "erreur_mm": 3.8,
-      "episodes": 1,
-      "historique": 0,
-      "cet_hiver": 1,
-      "statut": "en rodage"
     },
-    "aifs": {
-      "poids": 1.0,
-      "erreur_mm": 3.2,
-      "episodes": 107,
-      "historique": 105,
-      "cet_hiver": 2,
+    "ifs": {
+      "poids": 0.72,
+      "erreur_mm": 3.7,
+      "episodes": 97,
+      "historique": 97,
+      "cet_hiver": 0,
       "statut": "mesurée"
+    },
+    "mm": {
+      "poids": 0.63,
+      "erreur_mm": 4.0,
+      "episodes": 0,
+      "historique": 0,
+      "cet_hiver": 0,
+      "statut": "non mesurée"
     },
     "hrrr": {
       "poids": 0.83,
@@ -7310,29 +7304,21 @@
       "cet_hiver": 2,
       "statut": "mesurée"
     },
-    "met": {
-      "poids": 0.63,
-      "erreur_mm": 4.0,
-      "episodes": 0,
+    "hrdps": {
+      "poids": 0.7,
+      "erreur_mm": 3.8,
+      "episodes": 1,
       "historique": 0,
-      "cet_hiver": 0,
-      "statut": "non mesurée"
+      "cet_hiver": 1,
+      "statut": "en rodage"
     },
-    "ifs": {
-      "poids": 0.72,
-      "erreur_mm": 3.7,
-      "episodes": 97,
-      "historique": 97,
-      "cet_hiver": 0,
+    "aifs": {
+      "poids": 1.0,
+      "erreur_mm": 3.2,
+      "episodes": 107,
+      "historique": 105,
+      "cet_hiver": 2,
       "statut": "mesurée"
-    },
-    "mm": {
-      "poids": 0.63,
-      "erreur_mm": 4.0,
-      "episodes": 0,
-      "historique": 0,
-      "cet_hiver": 0,
-      "statut": "non mesurée"
     },
     "rdps": {
       "poids": 0.81,
@@ -7470,7 +7456,7 @@
       "id": "hrdps",
       "name": "HRDPS 2,5 km · ECCC",
       "status": "ok",
-      "fetched_at": "2026-11-24T18:55:22Z",
+      "fetched_at": "2026-11-24T19:01:23Z",
       "note": "cm estimés à partir des mm d’eau et de la température (rapport 10:1 près de 0 °C, plus léger au froid). Pas de fonte ni de tassement.",
       "issued_at": "2026-11-24T12:00:00Z",
       "layers": [
@@ -7478,12 +7464,6 @@
         "HRDPS.CONTINENTAL_TT"
       ],
       "hours": [
-        {
-          "time": "2026-11-24T17:00:00Z",
-          "precip_mm": 0.0,
-          "temp": -1.6799988,
-          "snow_cm": 0.0
-        },
         {
           "time": "2026-11-24T18:00:00Z",
           "precip_mm": 0.0,
@@ -7758,7 +7738,7 @@
       "id": "rdps",
       "name": "RDPS 10 km · ECCC",
       "status": "ok",
-      "fetched_at": "2026-11-24T18:55:22Z",
+      "fetched_at": "2026-11-24T19:01:23Z",
       "note": "cm estimés à partir des mm d’eau et de la température (rapport 10:1 près de 0 °C, plus léger au froid). Pas de fonte ni de tassement.",
       "issued_at": "2026-11-24T12:00:00Z",
       "layers": [
@@ -7766,12 +7746,6 @@
         "RDPS_10km_AirTemp_2m"
       ],
       "hours": [
-        {
-          "time": "2026-11-24T17:00:00Z",
-          "precip_mm": 0.0,
-          "temp": -2.2145753,
-          "snow_cm": 0.0
-        },
         {
           "time": "2026-11-24T18:00:00Z",
           "precip_mm": 0.0,
@@ -8203,6 +8177,12 @@
           "precip_mm": 0.14,
           "temp": 1.5920349,
           "snow_cm": 0.03
+        },
+        {
+          "time": "2026-11-27T18:00:00Z",
+          "precip_mm": 0.17,
+          "temp": 1.6986634,
+          "snow_cm": 0.03
         }
       ],
       "confiance": {
@@ -8226,7 +8206,7 @@
       "id": "gfs",
       "name": "GFS 0,25° · NOAA",
       "status": "ok",
-      "fetched_at": "2026-11-24T18:55:22Z",
+      "fetched_at": "2026-11-24T19:01:23Z",
       "note": "cm estimés à partir des mm d’eau et de la température (rapport 10:1 près de 0 °C, plus léger au froid). Pas de fonte ni de tassement.",
       "issued_at": null,
       "units": [
@@ -8688,7 +8668,7 @@
       "id": "met",
       "name": "MET Norway",
       "status": "ok",
-      "fetched_at": "2026-11-24T18:55:22Z",
+      "fetched_at": "2026-11-24T19:01:23Z",
       "note": "cm estimés à partir des mm d’eau et de la température (rapport 10:1 près de 0 °C, plus léger au froid). Pas de fonte ni de tassement.",
       "issued_at": "2026-11-24T17:18:56Z",
       "hours": [
@@ -9218,9 +9198,9 @@
       "id": "nbm",
       "name": "NBM 2,5 km · NOAA (synthèse)",
       "status": "ok",
-      "fetched_at": "2026-11-24T18:55:22.719436+00:00",
-      "issued_at": "2026-11-24T15:00:00Z",
-      "run": "2026-11-24T15:00:00+00:00",
+      "fetched_at": "2026-11-24T19:01:23.986054+00:00",
+      "issued_at": "2026-11-24T18:00:00Z",
+      "run": "2026-11-24T18:00:00+00:00",
       "hours": [
         {
           "time": "2026-11-24T18:00:00Z",
@@ -9617,6 +9597,42 @@
           "snow_cm": 0.0,
           "precip_mm": 0.8,
           "temp": -0.2
+        },
+        {
+          "time": "2026-11-27T12:00:00Z",
+          "snow_cm": 0.0,
+          "precip_mm": 0.72,
+          "temp": 2.2
+        },
+        {
+          "time": "2026-11-27T13:00:00Z",
+          "snow_cm": 0.0,
+          "precip_mm": 0.72,
+          "temp": 2.2
+        },
+        {
+          "time": "2026-11-27T14:00:00Z",
+          "snow_cm": 0.0,
+          "precip_mm": 0.72,
+          "temp": 2.2
+        },
+        {
+          "time": "2026-11-27T15:00:00Z",
+          "snow_cm": 0.0,
+          "precip_mm": 0.72,
+          "temp": 2.2
+        },
+        {
+          "time": "2026-11-27T16:00:00Z",
+          "snow_cm": 0.0,
+          "precip_mm": 0.72,
+          "temp": 2.2
+        },
+        {
+          "time": "2026-11-27T17:00:00Z",
+          "snow_cm": 0.0,
+          "precip_mm": 0.72,
+          "temp": 2.2
         }
       ],
       "tranches": [
@@ -9689,8 +9705,8 @@
           "snow_cm": 0.0,
           "precip_mm": 0.0,
           "temp": 3.9,
-          "p_2_5cm": null,
-          "p_5cm": null
+          "p_2_5cm": 0,
+          "p_5cm": 0
         },
         {
           "debut": "2026-11-26T18:00:00Z",
@@ -9718,6 +9734,15 @@
           "temp": -0.2,
           "p_2_5cm": null,
           "p_5cm": null
+        },
+        {
+          "debut": "2026-11-27T12:00:00Z",
+          "fin": "2026-11-27T18:00:00Z",
+          "snow_cm": 0.0,
+          "precip_mm": 4.3,
+          "temp": 2.2,
+          "p_2_5cm": null,
+          "p_5cm": null
         }
       ],
       "note": "NBM (NOAA) : synthèse corrigée d’une trentaine de modèles. Neige fournie par tranche de 6 h, répartie également sur chaque heure. Probabilités de 2,5 cm et 5 cm par tranche de 6 h jusqu’à 48 h.",
@@ -9742,7 +9767,7 @@
       "id": "hrrr",
       "name": "HRRR 3 km · NOAA",
       "status": "ok",
-      "fetched_at": "2026-11-24T18:55:22.719436+00:00",
+      "fetched_at": "2026-11-24T19:01:23.986054+00:00",
       "issued_at": "2026-11-24T12:00:00Z",
       "run": "2026-11-24T12:00:00+00:00",
       "hours": [
@@ -10106,7 +10131,7 @@
       "id": "ifs",
       "name": "ECMWF IFS (européen)",
       "status": "ok",
-      "fetched_at": "2026-11-24T18:55:22.719436+00:00",
+      "fetched_at": "2026-11-24T19:01:23.986054+00:00",
       "issued_at": "2026-11-24T00:00:00Z",
       "run": "2026-11-24T00:00:00+00:00",
       "hours": [
@@ -12293,7 +12318,7 @@
       "id": "aifs",
       "name": "ECMWF AIFS (européen, IA)",
       "status": "ok",
-      "fetched_at": "2026-11-24T18:55:22.719436+00:00",
+      "fetched_at": "2026-11-24T19:01:23.986054+00:00",
       "issued_at": "2026-11-24T12:00:00Z",
       "run": "2026-11-24T12:00:00+00:00",
       "hours": [
@@ -15827,7 +15852,7 @@
       "snow_cm": 0.0,
       "lo": 0.0,
       "hi": 0.0,
-      "n": 6
+      "n": 4
     },
     {
       "time": "2026-11-24T13:00:00-05:00",
@@ -16295,50 +16320,50 @@
       "time": "2026-11-27T07:00:00-05:00",
       "snow_cm": 0.0,
       "lo": 0.0,
-      "hi": 0.21,
-      "n": 6
+      "hi": 0.06,
+      "n": 7
     },
     {
       "time": "2026-11-27T08:00:00-05:00",
       "snow_cm": 0.0,
       "lo": 0.0,
-      "hi": 0.21,
-      "n": 6
+      "hi": 0.06,
+      "n": 7
     },
     {
       "time": "2026-11-27T09:00:00-05:00",
       "snow_cm": 0.0,
       "lo": 0.0,
-      "hi": 0.21,
-      "n": 6
+      "hi": 0.06,
+      "n": 7
     },
     {
       "time": "2026-11-27T10:00:00-05:00",
       "snow_cm": 0.0,
       "lo": 0.0,
       "hi": 0.06,
-      "n": 6
+      "n": 7
     },
     {
       "time": "2026-11-27T11:00:00-05:00",
       "snow_cm": 0.0,
       "lo": 0.0,
       "hi": 0.06,
-      "n": 6
+      "n": 7
     },
     {
       "time": "2026-11-27T12:00:00-05:00",
       "snow_cm": 0.0,
       "lo": 0.0,
       "hi": 0.03,
-      "n": 6
+      "n": 7
     },
     {
       "time": "2026-11-27T13:00:00-05:00",
       "snow_cm": 0.0,
       "lo": 0.0,
       "hi": 0.0,
-      "n": 4
+      "n": 5
     },
     {
       "time": "2026-11-27T14:00:00-05:00",
@@ -18397,16 +18422,16 @@
     "echeance": "07:45",
     "debut_nuit": "20:00",
     "duree_h": 2,
-    "pluie_min_mm": 1,
-    "fonte_min_h": 4,
-    "fonte_temp_c": 1,
-    "regel_temp_c": -0.5,
+    "pluie_min_mm": 2,
+    "fonte_min_h": 6,
+    "fonte_temp_c": 2,
+    "regel_temp_c": -1,
     "beaucoup_eau_mm": 10,
     "horizon_h": 72,
-    "note": "Sel + calcium efficace jusqu'à environ -18 °C; plus froid : abrasif. Départ calculé pour être prêt à 7 h 45 quand le regel ou le verglas arrive la nuit. Réglable ici; le robot relit ce fichier à chaque passage."
+    "note": "Stationnements : seuils moins sensibles qu'une route (2 mm de pluie, ou 6 h de fonte à +2 °C avec neige au sol, puis regel à -1 °C et moins). Sel + calcium efficace jusqu'à environ -18 °C; plus froid : abrasif. Départ calculé pour être prêt à 7 h 45 quand le regel ou le verglas arrive la nuit. Réglable ici; le robot relit ce fichier à chaque passage."
   },
   "nbm_proba": {
-    "run": "2026-11-24T15:00:00+00:00",
+    "run": "2026-11-24T18:00:00+00:00",
     "tranches": [
       {
         "debut": "2026-11-24T18:00:00Z",
@@ -18477,8 +18502,8 @@
         "snow_cm": 0.0,
         "precip_mm": 0.0,
         "temp": 3.9,
-        "p_2_5cm": null,
-        "p_5cm": null
+        "p_2_5cm": 0,
+        "p_5cm": 0
       },
       {
         "debut": "2026-11-26T18:00:00Z",
@@ -18506,11 +18531,20 @@
         "temp": -0.2,
         "p_2_5cm": null,
         "p_5cm": null
+      },
+      {
+        "debut": "2026-11-27T12:00:00Z",
+        "fin": "2026-11-27T18:00:00Z",
+        "snow_cm": 0.0,
+        "precip_mm": 4.3,
+        "temp": 2.2,
+        "p_2_5cm": null,
+        "p_5cm": null
       }
     ]
   },
   "routes": {
-    "fetched_at": "2026-11-24T18:55:22.719436+00:00",
+    "fetched_at": "2026-11-24T19:01:23.986054+00:00",
     "rayon_km": 45,
     "source": "https://www.quebec511.info/fr/",
     "note": "Données ouvertes du MTQ (Québec 511, CC BY 4.0). État des routes noté par les patrouilleurs; vidéos des caméras servies par Québec 511.",
@@ -19063,7 +19097,7 @@
   "motoneige": {
     "status": "ok",
     "run_nbm": "2026-11-24T18:00:00+00:00",
-    "mis_a_jour": "2026-11-24T18:55:22.719436+00:00",
+    "mis_a_jour": "2026-11-24T19:01:23.986054+00:00",
     "endroits": [
       {
         "id": "st-zacharie",
@@ -19103,27 +19137,27 @@
           {
             "date": "2026-11-26",
             "base_cm": 0,
-            "fraiche_48h_cm": 0,
+            "fraiche_48h_cm": 0.1,
             "surface": "Pas de neige",
             "note": 0,
-            "tmax": null,
+            "tmax": 4.9,
             "pluie_mm": 0.0,
-            "rafales_kmh": null
+            "rafales_kmh": 22
           },
           {
             "date": "2026-11-27",
             "base_cm": 0,
-            "fraiche_48h_cm": 0,
+            "fraiche_48h_cm": 0.3,
             "surface": "Pas de neige",
             "note": 0,
-            "tmax": null,
-            "pluie_mm": 0.0,
-            "rafales_kmh": null
+            "tmax": 3.2,
+            "pluie_mm": 5.3,
+            "rafales_kmh": 33
           },
           {
             "date": "2026-11-28",
             "base_cm": 0,
-            "fraiche_48h_cm": 0.2,
+            "fraiche_48h_cm": 0.8,
             "surface": "Pas de neige",
             "note": 0,
             "tmax": 2.1,
@@ -19133,7 +19167,7 @@
           {
             "date": "2026-11-29",
             "base_cm": 0,
-            "fraiche_48h_cm": 0.3,
+            "fraiche_48h_cm": 0.7,
             "surface": "Pas de neige",
             "note": 0,
             "tmax": 3.6,
@@ -19143,17 +19177,17 @@
           {
             "date": "2026-11-30",
             "base_cm": 0,
-            "fraiche_48h_cm": 0.2,
+            "fraiche_48h_cm": 0.4,
             "surface": "Pas de neige",
             "note": 0,
             "tmax": 3.9,
-            "pluie_mm": 0.3,
-            "rafales_kmh": 27
+            "pluie_mm": 0.8,
+            "rafales_kmh": 28
           },
           {
             "date": "2026-12-01",
             "base_cm": 0,
-            "fraiche_48h_cm": 0.2,
+            "fraiche_48h_cm": 0.4,
             "surface": "Pas de neige",
             "note": 0,
             "tmax": 0.2,
@@ -19165,7 +19199,7 @@
           {
             "date": "2026-11-28",
             "base_cm": 0,
-            "fraiche_48h_cm": 0.2,
+            "fraiche_48h_cm": 0.8,
             "surface": "Pas de neige",
             "note": 0,
             "tmax": 2.1,
@@ -19175,7 +19209,7 @@
           {
             "date": "2026-11-29",
             "base_cm": 0,
-            "fraiche_48h_cm": 0.3,
+            "fraiche_48h_cm": 0.7,
             "surface": "Pas de neige",
             "note": 0,
             "tmax": 3.6,
@@ -19223,27 +19257,27 @@
           {
             "date": "2026-11-26",
             "base_cm": 0,
-            "fraiche_48h_cm": 0,
+            "fraiche_48h_cm": 0.1,
             "surface": "Pas de neige",
             "note": 0,
-            "tmax": null,
+            "tmax": 4.6,
             "pluie_mm": 0.0,
-            "rafales_kmh": null
+            "rafales_kmh": 26
           },
           {
             "date": "2026-11-27",
             "base_cm": 0,
-            "fraiche_48h_cm": 0,
+            "fraiche_48h_cm": 0.2,
             "surface": "Pas de neige",
             "note": 0,
-            "tmax": null,
-            "pluie_mm": 0.0,
-            "rafales_kmh": null
+            "tmax": 3.8,
+            "pluie_mm": 5.3,
+            "rafales_kmh": 33
           },
           {
             "date": "2026-11-28",
             "base_cm": 0,
-            "fraiche_48h_cm": 0.2,
+            "fraiche_48h_cm": 0.7,
             "surface": "Pas de neige",
             "note": 0,
             "tmax": 2.0,
@@ -19253,7 +19287,7 @@
           {
             "date": "2026-11-29",
             "base_cm": 0,
-            "fraiche_48h_cm": 0.3,
+            "fraiche_48h_cm": 0.7,
             "surface": "Pas de neige",
             "note": 0,
             "tmax": 3.5,
@@ -19263,17 +19297,17 @@
           {
             "date": "2026-11-30",
             "base_cm": 0,
-            "fraiche_48h_cm": 0.2,
+            "fraiche_48h_cm": 0.5,
             "surface": "Pas de neige",
             "note": 0,
             "tmax": 3.6,
-            "pluie_mm": 0.3,
+            "pluie_mm": 0.8,
             "rafales_kmh": 28
           },
           {
             "date": "2026-12-01",
             "base_cm": 0,
-            "fraiche_48h_cm": 0.2,
+            "fraiche_48h_cm": 0.5,
             "surface": "Pas de neige",
             "note": 0,
             "tmax": -0.2,
@@ -19285,7 +19319,7 @@
           {
             "date": "2026-11-28",
             "base_cm": 0,
-            "fraiche_48h_cm": 0.2,
+            "fraiche_48h_cm": 0.7,
             "surface": "Pas de neige",
             "note": 0,
             "tmax": 2.0,
@@ -19295,7 +19329,7 @@
           {
             "date": "2026-11-29",
             "base_cm": 0,
-            "fraiche_48h_cm": 0.3,
+            "fraiche_48h_cm": 0.7,
             "surface": "Pas de neige",
             "note": 0,
             "tmax": 3.5,
@@ -19347,34 +19381,34 @@
             "fraiche_48h_cm": 0,
             "surface": "Pas de neige",
             "note": 0,
-            "tmax": null,
+            "tmax": 2.3,
             "pluie_mm": 0.0,
-            "rafales_kmh": null
+            "rafales_kmh": 22
           },
           {
             "date": "2026-11-27",
             "base_cm": 0,
-            "fraiche_48h_cm": 0,
+            "fraiche_48h_cm": 0.6,
             "surface": "Pas de neige",
             "note": 0,
-            "tmax": null,
-            "pluie_mm": 0.0,
-            "rafales_kmh": null
+            "tmax": 0.6,
+            "pluie_mm": 7.9,
+            "rafales_kmh": 35
           },
           {
             "date": "2026-11-28",
-            "base_cm": 1,
-            "fraiche_48h_cm": 1.6,
+            "base_cm": 2,
+            "fraiche_48h_cm": 3.3,
             "surface": "Pas de neige",
             "note": 0,
             "tmax": -0.8,
             "pluie_mm": 0.0,
-            "rafales_kmh": 24
+            "rafales_kmh": 26
           },
           {
             "date": "2026-11-29",
-            "base_cm": 1,
-            "fraiche_48h_cm": 2.4,
+            "base_cm": 2,
+            "fraiche_48h_cm": 3.7,
             "surface": "Pas de neige",
             "note": 0,
             "tmax": 1.2,
@@ -19384,17 +19418,17 @@
           {
             "date": "2026-11-30",
             "base_cm": 1,
-            "fraiche_48h_cm": 1.1,
+            "fraiche_48h_cm": 2.3,
             "surface": "Pas de neige",
             "note": 0,
             "tmax": 1.0,
-            "pluie_mm": 0.5,
-            "rafales_kmh": 33
+            "pluie_mm": 1.5,
+            "rafales_kmh": 39
           },
           {
             "date": "2026-12-01",
             "base_cm": 1,
-            "fraiche_48h_cm": 0.8,
+            "fraiche_48h_cm": 2.0,
             "surface": "Pas de neige",
             "note": 0,
             "tmax": -3.0,
@@ -19405,18 +19439,18 @@
         "fin_de_semaine": [
           {
             "date": "2026-11-28",
-            "base_cm": 1,
-            "fraiche_48h_cm": 1.6,
+            "base_cm": 2,
+            "fraiche_48h_cm": 3.3,
             "surface": "Pas de neige",
             "note": 0,
             "tmax": -0.8,
             "pluie_mm": 0.0,
-            "rafales_kmh": 24
+            "rafales_kmh": 26
           },
           {
             "date": "2026-11-29",
-            "base_cm": 1,
-            "fraiche_48h_cm": 2.4,
+            "base_cm": 2,
+            "fraiche_48h_cm": 3.7,
             "surface": "Pas de neige",
             "note": 0,
             "tmax": 1.2,
@@ -19465,27 +19499,27 @@
           {
             "date": "2026-11-26",
             "base_cm": 0,
-            "fraiche_48h_cm": 0,
+            "fraiche_48h_cm": 0.1,
             "surface": "Pas de neige",
             "note": 0,
-            "tmax": null,
+            "tmax": 4.0,
             "pluie_mm": 0.0,
-            "rafales_kmh": null
+            "rafales_kmh": 34
           },
           {
             "date": "2026-11-27",
             "base_cm": 0,
-            "fraiche_48h_cm": 0,
+            "fraiche_48h_cm": 0.4,
             "surface": "Pas de neige",
             "note": 0,
-            "tmax": null,
-            "pluie_mm": 0.0,
-            "rafales_kmh": null
+            "tmax": 2.9,
+            "pluie_mm": 5.3,
+            "rafales_kmh": 40
           },
           {
             "date": "2026-11-28",
             "base_cm": 0,
-            "fraiche_48h_cm": 0.7,
+            "fraiche_48h_cm": 1.6,
             "surface": "Pas de neige",
             "note": 0,
             "tmax": 1.3,
@@ -19495,7 +19529,7 @@
           {
             "date": "2026-11-29",
             "base_cm": 0,
-            "fraiche_48h_cm": 1.0,
+            "fraiche_48h_cm": 1.6,
             "surface": "Pas de neige",
             "note": 0,
             "tmax": 2.6,
@@ -19505,17 +19539,17 @@
           {
             "date": "2026-11-30",
             "base_cm": 0,
-            "fraiche_48h_cm": 0.4,
+            "fraiche_48h_cm": 0.8,
             "surface": "Pas de neige",
             "note": 0,
             "tmax": 2.8,
-            "pluie_mm": 0.3,
-            "rafales_kmh": 33
+            "pluie_mm": 0.8,
+            "rafales_kmh": 41
           },
           {
             "date": "2026-12-01",
             "base_cm": 0,
-            "fraiche_48h_cm": 0.3,
+            "fraiche_48h_cm": 0.7,
             "surface": "Pas de neige",
             "note": 0,
             "tmax": -1.0,
@@ -19527,7 +19561,7 @@
           {
             "date": "2026-11-28",
             "base_cm": 0,
-            "fraiche_48h_cm": 0.7,
+            "fraiche_48h_cm": 1.6,
             "surface": "Pas de neige",
             "note": 0,
             "tmax": 1.3,
@@ -19537,7 +19571,7 @@
           {
             "date": "2026-11-29",
             "base_cm": 0,
-            "fraiche_48h_cm": 1.0,
+            "fraiche_48h_cm": 1.6,
             "surface": "Pas de neige",
             "note": 0,
             "tmax": 2.6,
@@ -19587,27 +19621,27 @@
           {
             "date": "2026-11-26",
             "base_cm": 0,
-            "fraiche_48h_cm": 0,
+            "fraiche_48h_cm": 0.1,
             "surface": "Pas de neige",
             "note": 0,
-            "tmax": null,
+            "tmax": 4.2,
             "pluie_mm": 0.0,
-            "rafales_kmh": null
+            "rafales_kmh": 18
           },
           {
             "date": "2026-11-27",
             "base_cm": 0,
-            "fraiche_48h_cm": 0,
+            "fraiche_48h_cm": 0.2,
             "surface": "Pas de neige",
             "note": 0,
-            "tmax": null,
-            "pluie_mm": 0.0,
-            "rafales_kmh": null
+            "tmax": 3.2,
+            "pluie_mm": 5.3,
+            "rafales_kmh": 27
           },
           {
             "date": "2026-11-28",
             "base_cm": 0,
-            "fraiche_48h_cm": 0.2,
+            "fraiche_48h_cm": 0.6,
             "surface": "Pas de neige",
             "note": 0,
             "tmax": 2.7,
@@ -19617,7 +19651,7 @@
           {
             "date": "2026-11-29",
             "base_cm": 0,
-            "fraiche_48h_cm": 0.2,
+            "fraiche_48h_cm": 0.5,
             "surface": "Pas de neige",
             "note": 0,
             "tmax": 4.1,
@@ -19631,8 +19665,8 @@
             "surface": "Pas de neige",
             "note": 0,
             "tmax": 4.1,
-            "pluie_mm": 0.3,
-            "rafales_kmh": 30
+            "pluie_mm": 0.8,
+            "rafales_kmh": 35
           },
           {
             "date": "2026-12-01",
@@ -19649,7 +19683,7 @@
           {
             "date": "2026-11-28",
             "base_cm": 0,
-            "fraiche_48h_cm": 0.2,
+            "fraiche_48h_cm": 0.6,
             "surface": "Pas de neige",
             "note": 0,
             "tmax": 2.7,
@@ -19659,7 +19693,7 @@
           {
             "date": "2026-11-29",
             "base_cm": 0,
-            "fraiche_48h_cm": 0.2,
+            "fraiche_48h_cm": 0.5,
             "surface": "Pas de neige",
             "note": 0,
             "tmax": 4.1,
@@ -19709,57 +19743,57 @@
           {
             "date": "2026-11-26",
             "base_cm": 0,
-            "fraiche_48h_cm": 0,
+            "fraiche_48h_cm": 0.1,
             "surface": "Pas de neige",
             "note": 0,
-            "tmax": null,
+            "tmax": 1.1,
             "pluie_mm": 0.0,
-            "rafales_kmh": null
+            "rafales_kmh": 31
           },
           {
             "date": "2026-11-27",
             "base_cm": 0,
-            "fraiche_48h_cm": 0,
+            "fraiche_48h_cm": 0.4,
             "surface": "Pas de neige",
             "note": 0,
-            "tmax": null,
-            "pluie_mm": 0.0,
-            "rafales_kmh": null
+            "tmax": 1.0,
+            "pluie_mm": 5.6,
+            "rafales_kmh": 37
           },
           {
             "date": "2026-11-28",
             "base_cm": 1,
-            "fraiche_48h_cm": 0.9,
+            "fraiche_48h_cm": 1.9,
             "surface": "Pas de neige",
             "note": 0,
             "tmax": -0.5,
             "pluie_mm": 0.2,
-            "rafales_kmh": 31
+            "rafales_kmh": 32
           },
           {
             "date": "2026-11-29",
             "base_cm": 1,
-            "fraiche_48h_cm": 1.4,
+            "fraiche_48h_cm": 2.2,
             "surface": "Pas de neige",
             "note": 0,
             "tmax": 0.4,
             "pluie_mm": 0.0,
-            "rafales_kmh": 27
+            "rafales_kmh": 28
           },
           {
             "date": "2026-11-30",
-            "base_cm": 1,
-            "fraiche_48h_cm": 0.7,
+            "base_cm": 0,
+            "fraiche_48h_cm": 1.4,
             "surface": "Pas de neige",
             "note": 0,
-            "tmax": 0.5,
-            "pluie_mm": 0.3,
-            "rafales_kmh": 37
+            "tmax": 0.8,
+            "pluie_mm": 0.8,
+            "rafales_kmh": 46
           },
           {
             "date": "2026-12-01",
-            "base_cm": 1,
-            "fraiche_48h_cm": 0.4,
+            "base_cm": 0,
+            "fraiche_48h_cm": 1.1,
             "surface": "Pas de neige",
             "note": 0,
             "tmax": -3.1,
@@ -19771,22 +19805,22 @@
           {
             "date": "2026-11-28",
             "base_cm": 1,
-            "fraiche_48h_cm": 0.9,
+            "fraiche_48h_cm": 1.9,
             "surface": "Pas de neige",
             "note": 0,
             "tmax": -0.5,
             "pluie_mm": 0.2,
-            "rafales_kmh": 31
+            "rafales_kmh": 32
           },
           {
             "date": "2026-11-29",
             "base_cm": 1,
-            "fraiche_48h_cm": 1.4,
+            "fraiche_48h_cm": 2.2,
             "surface": "Pas de neige",
             "note": 0,
             "tmax": 0.4,
             "pluie_mm": 0.0,
-            "rafales_kmh": 27
+            "rafales_kmh": 28
           }
         ],
         "vaut_la_route": -1.1
@@ -19833,34 +19867,34 @@
             "fraiche_48h_cm": 0,
             "surface": "Pas de neige",
             "note": 0,
-            "tmax": null,
+            "tmax": 3.5,
             "pluie_mm": 0.0,
-            "rafales_kmh": null
+            "rafales_kmh": 15
           },
           {
             "date": "2026-11-27",
             "base_cm": 0,
-            "fraiche_48h_cm": 0,
+            "fraiche_48h_cm": 1.8,
             "surface": "Pas de neige",
             "note": 0,
-            "tmax": null,
-            "pluie_mm": 0.0,
-            "rafales_kmh": null
+            "tmax": -0.7,
+            "pluie_mm": 5.9,
+            "rafales_kmh": 18
           },
           {
             "date": "2026-11-28",
-            "base_cm": 1,
-            "fraiche_48h_cm": 1.0,
+            "base_cm": 2,
+            "fraiche_48h_cm": 4.2,
             "surface": "Pas de neige",
             "note": 0,
             "tmax": -0.4,
             "pluie_mm": 0.0,
-            "rafales_kmh": 10
+            "rafales_kmh": 14
           },
           {
             "date": "2026-11-29",
-            "base_cm": 2,
-            "fraiche_48h_cm": 2.0,
+            "base_cm": 3,
+            "fraiche_48h_cm": 3.7,
             "surface": "Pas de neige",
             "note": 0,
             "tmax": -0.2,
@@ -19869,19 +19903,19 @@
           },
           {
             "date": "2026-11-30",
-            "base_cm": 2,
-            "fraiche_48h_cm": 1.7,
+            "base_cm": 5,
+            "fraiche_48h_cm": 3.2,
             "surface": "Pas de neige",
             "note": 0,
             "tmax": -0.2,
             "pluie_mm": 0.0,
-            "rafales_kmh": 24
+            "rafales_kmh": 36
           },
           {
             "date": "2026-12-01",
-            "base_cm": 2,
-            "fraiche_48h_cm": 1.3,
-            "surface": "Pas de neige",
+            "base_cm": 5,
+            "fraiche_48h_cm": 2.8,
+            "surface": "Base mince",
             "note": 0,
             "tmax": -5.1,
             "pluie_mm": 0.0,
@@ -19891,18 +19925,18 @@
         "fin_de_semaine": [
           {
             "date": "2026-11-28",
-            "base_cm": 1,
-            "fraiche_48h_cm": 1.0,
+            "base_cm": 2,
+            "fraiche_48h_cm": 4.2,
             "surface": "Pas de neige",
             "note": 0,
             "tmax": -0.4,
             "pluie_mm": 0.0,
-            "rafales_kmh": 10
+            "rafales_kmh": 14
           },
           {
             "date": "2026-11-29",
-            "base_cm": 2,
-            "fraiche_48h_cm": 2.0,
+            "base_cm": 3,
+            "fraiche_48h_cm": 3.7,
             "surface": "Pas de neige",
             "note": 0,
             "tmax": -0.2,
@@ -19953,34 +19987,34 @@
             "fraiche_48h_cm": 0,
             "surface": "Pas de neige",
             "note": 0,
-            "tmax": null,
+            "tmax": 1.7,
             "pluie_mm": 0.0,
-            "rafales_kmh": null
+            "rafales_kmh": 18
           },
           {
             "date": "2026-11-27",
             "base_cm": 0,
-            "fraiche_48h_cm": 0,
+            "fraiche_48h_cm": 2.2,
             "surface": "Pas de neige",
             "note": 0,
-            "tmax": null,
-            "pluie_mm": 0.0,
-            "rafales_kmh": null
+            "tmax": -1.7,
+            "pluie_mm": 3.9,
+            "rafales_kmh": 21
           },
           {
             "date": "2026-11-28",
-            "base_cm": 1,
-            "fraiche_48h_cm": 1.1,
+            "base_cm": 2,
+            "fraiche_48h_cm": 4.4,
             "surface": "Pas de neige",
             "note": 0,
             "tmax": -1.8,
             "pluie_mm": 0.0,
-            "rafales_kmh": 14
+            "rafales_kmh": 22
           },
           {
             "date": "2026-11-29",
-            "base_cm": 1,
-            "fraiche_48h_cm": 1.8,
+            "base_cm": 3,
+            "fraiche_48h_cm": 3.1,
             "surface": "Pas de neige",
             "note": 0,
             "tmax": -1.1,
@@ -19989,19 +20023,19 @@
           },
           {
             "date": "2026-11-30",
-            "base_cm": 2,
-            "fraiche_48h_cm": 1.6,
+            "base_cm": 5,
+            "fraiche_48h_cm": 3.1,
             "surface": "Pas de neige",
             "note": 0,
             "tmax": -1.2,
             "pluie_mm": 0.0,
-            "rafales_kmh": 26
+            "rafales_kmh": 48
           },
           {
             "date": "2026-12-01",
-            "base_cm": 2,
-            "fraiche_48h_cm": 1.4,
-            "surface": "Pas de neige",
+            "base_cm": 5,
+            "fraiche_48h_cm": 2.9,
+            "surface": "Ventée / tapée",
             "note": 0,
             "tmax": -5.7,
             "pluie_mm": 0.0,
@@ -20011,18 +20045,18 @@
         "fin_de_semaine": [
           {
             "date": "2026-11-28",
-            "base_cm": 1,
-            "fraiche_48h_cm": 1.1,
+            "base_cm": 2,
+            "fraiche_48h_cm": 4.4,
             "surface": "Pas de neige",
             "note": 0,
             "tmax": -1.8,
             "pluie_mm": 0.0,
-            "rafales_kmh": 14
+            "rafales_kmh": 22
           },
           {
             "date": "2026-11-29",
-            "base_cm": 1,
-            "fraiche_48h_cm": 1.8,
+            "base_cm": 3,
+            "fraiche_48h_cm": 3.1,
             "surface": "Pas de neige",
             "note": 0,
             "tmax": -1.1,
@@ -20074,24 +20108,24 @@
             "fraiche_48h_cm": 0,
             "surface": "Pas de neige",
             "note": 0,
-            "tmax": null,
+            "tmax": 0.7,
             "pluie_mm": 0.0,
-            "rafales_kmh": null
+            "rafales_kmh": 8
           },
           {
             "date": "2026-11-27",
             "base_cm": 0,
-            "fraiche_48h_cm": 0,
+            "fraiche_48h_cm": 0.5,
             "surface": "Pas de neige",
             "note": 0,
-            "tmax": null,
-            "pluie_mm": 0.0,
-            "rafales_kmh": null
+            "tmax": 2.6,
+            "pluie_mm": 2.3,
+            "rafales_kmh": 13
           },
           {
             "date": "2026-11-28",
             "base_cm": 0,
-            "fraiche_48h_cm": 0.1,
+            "fraiche_48h_cm": 0.7,
             "surface": "Pas de neige",
             "note": 0,
             "tmax": 2.2,
@@ -20101,27 +20135,27 @@
           {
             "date": "2026-11-29",
             "base_cm": 0,
-            "fraiche_48h_cm": 0.4,
+            "fraiche_48h_cm": 0.6,
             "surface": "Pas de neige",
             "note": 0,
             "tmax": 2.6,
             "pluie_mm": 0.0,
-            "rafales_kmh": 16
+            "rafales_kmh": 17
           },
           {
             "date": "2026-11-30",
             "base_cm": 0,
-            "fraiche_48h_cm": 0.6,
+            "fraiche_48h_cm": 1.5,
             "surface": "Pas de neige",
             "note": 0,
             "tmax": 2.5,
-            "pluie_mm": 0.8,
-            "rafales_kmh": 22
+            "pluie_mm": 2.1,
+            "rafales_kmh": 31
           },
           {
             "date": "2026-12-01",
             "base_cm": 0,
-            "fraiche_48h_cm": 0.6,
+            "fraiche_48h_cm": 1.5,
             "surface": "Pas de neige",
             "note": 0,
             "tmax": -0.6,
@@ -20133,7 +20167,7 @@
           {
             "date": "2026-11-28",
             "base_cm": 0,
-            "fraiche_48h_cm": 0.1,
+            "fraiche_48h_cm": 0.7,
             "surface": "Pas de neige",
             "note": 0,
             "tmax": 2.2,
@@ -20143,12 +20177,12 @@
           {
             "date": "2026-11-29",
             "base_cm": 0,
-            "fraiche_48h_cm": 0.4,
+            "fraiche_48h_cm": 0.6,
             "surface": "Pas de neige",
             "note": 0,
             "tmax": 2.6,
             "pluie_mm": 0.0,
-            "rafales_kmh": 16
+            "rafales_kmh": 17
           }
         ],
         "vaut_la_route": -3.8
