@@ -1,17 +1,16 @@
 {
  "depart": {"nom": "Saint-Prosper", "lat": 46.2117, "lon": -70.4811},
  "saison": {"debut": "11-15", "fin": "04-30"},
- "note": "Coordonnées : OpenStreetMap. Temps de route : OSRM depuis Saint-Prosper, vitesses d'été (prévoir plus l'hiver). Modifier un endroit ici; le robot relit ce fichier à chaque passage.",
+ "note": "Québec : chaque endroit est un point sur une terre publique, vérifié le 24 novembre 2026 (Plan d'affectation du territoire public du MRNF), hors des parcs nationaux (registre des aires protégées, MELCCFP). Maine : forêt commerciale privée, ouverte à la motoneige par tradition sauf terrain affiché (terres de l'État : PAD-US, USGS). Temps de route : OSRM depuis Saint-Prosper, vitesses d'été (prévoir plus l'hiver). Le robot relit ce fichier à chaque passage.",
  "endroits": [
-  {"id": "st-zacharie", "nom": "Saint-Zacharie", "lat": 46.1266, "lon": -70.3640, "route_min": 13, "km": 14},
-  {"id": "st-robert", "nom": "Saint-Robert-Bellarmin", "lat": 45.7498, "lon": -70.5865, "route_min": 69, "km": 65},
-  {"id": "st-philemon", "nom": "Saint-Philémon", "lat": 46.6829, "lon": -70.4546, "route_min": 72, "km": 76},
-  {"id": "massif-du-sud", "nom": "Massif du Sud", "lat": 46.6292, "lon": -70.4659, "route_min": 76, "km": 79, "note": "Terres publiques seulement."},
-  {"id": "jackman", "nom": "Jackman (Maine)", "lat": 45.6238, "lon": -70.2540, "route_min": 72, "km": 75, "note": "Passage de la frontière à Armstrong."},
-  {"id": "bald-mountain", "nom": "Boundary Bald Mountain (Maine)", "lat": 45.7667, "lon": -70.2045, "route_min": 124, "km": 71, "note": "Chemins forestiers; souvent plus court en motoneige depuis Jackman."},
-  {"id": "zec-jaro", "nom": "ZEC Jaro", "lat": 45.8923, "lon": -70.3310, "route_min": 84, "km": 45, "note": "Chemins forestiers."},
-  {"id": "grands-jardins", "nom": "Secteur des Grands-Jardins", "lat": 47.6873, "lon": -70.8284, "route_min": 233, "km": 265, "note": "Terres publiques seulement (hors du parc national)."},
-  {"id": "zec-des-martres", "nom": "ZEC des Martres", "lat": 47.7749, "lon": -70.6321, "route_min": 286, "km": 273},
-  {"id": "monts-valins", "nom": "Monts Valins", "lat": 48.6131, "lon": -70.7968, "route_min": 324, "km": 365}
+  {"id": "st-zacharie", "nom": "Saint-Zacharie (terres publiques au sud)", "lat": 46.0366, "lon": -70.3640, "route_min": 48, "km": 28, "terre": "Terre publique du Québec · zone 12-61, utilisation multiple"},
+  {"id": "st-robert", "nom": "Saint-Robert-Bellarmin (terres publiques)", "lat": 45.7798, "lon": -70.5435, "route_min": 81, "km": 70, "terre": "Terre publique du Québec · zone 05-39, utilisation multiple modulée"},
+  {"id": "massif-du-sud", "nom": "Massif du Sud (terres publiques)", "lat": 46.6292, "lon": -70.4222, "route_min": 83, "km": 74, "terre": "Terre publique du Québec · zone 12-54, utilisation multiple modulée", "note": "Parc régional : vérifier ses règles pour le hors-piste. Éviter la zone 12-01 au sud (protection stricte)."},
+  {"id": "zec-jaro", "nom": "ZEC Jaro", "lat": 45.8923, "lon": -70.3310, "route_min": 84, "km": 45, "terre": "Terre publique du Québec · ZEC · zone 12-53, utilisation multiple modulée", "note": "Chemins forestiers."},
+  {"id": "jackman", "nom": "Jackman (Maine)", "lat": 45.6238, "lon": -70.2540, "route_min": 72, "km": 75, "terre": "Forêt commerciale privée (Maine) : motoneige tolérée par tradition, sauf terrain affiché", "note": "Passage de la frontière à Armstrong. Respecter les affiches des propriétaires; sentiers ITS et conditions : Maine Snowmobile Association.", "lien": "https://www.mainesnowmobileassociation.com/the-its-map/"},
+  {"id": "bald-mountain", "nom": "Boundary Bald Mountain (Maine)", "lat": 45.7667, "lon": -70.2045, "route_min": 124, "km": 71, "terre": "Forêt commerciale privée (Maine) : motoneige tolérée par tradition, sauf terrain affiché", "note": "Chemins forestiers; souvent plus court en motoneige depuis Jackman. Terre publique de l'État la plus proche : Sandy Bay Township.", "lien": "https://www.mainesnowmobileassociation.com/the-its-map/"},
+  {"id": "grands-jardins", "nom": "Grands-Jardins (hors du parc national)", "lat": 47.6000, "lon": -70.8500, "route_min": 301, "km": 243, "terre": "Terre publique du Québec · zone 03-402, protection · aucune aire protégée", "note": "Le parc national des Grands-Jardins, au nord, et le refuge biologique voisin sont interdits au hors-piste. Temps de route par chemins forestiers."},
+  {"id": "zec-des-martres", "nom": "ZEC des Martres", "lat": 47.7749, "lon": -70.6321, "route_min": 286, "km": 273, "terre": "Terre publique du Québec · ZEC · zone 03-402, protection"},
+  {"id": "monts-valins", "nom": "Monts Valins (ZEC Martin-Valin)", "lat": 48.5300, "lon": -71.0500, "route_min": 287, "km": 343, "terre": "Terre publique du Québec · ZEC · zone 02-074, utilisation multiple modulée", "note": "Le parc national des Monts-Valin, au nord-est, est interdit au hors-piste."}
  ]
 }

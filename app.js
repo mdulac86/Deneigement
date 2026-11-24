@@ -49,7 +49,7 @@ function render(){
   try{renderQuick()}catch(err){console.warn('aperçu',err)}
   $('status').className='signal '+(hasOfficial?'alert':ice||mixed||snow||threshold?'watch':'calm');$('status').innerHTML='<div><span class="tag '+(hasOfficial?'':ice||mixed||snow||threshold?'amber':'green')+'">'+label+'</span><h2>'+title+'</h2><p>Seuil opérationnel : 5 cm de nouvelle neige au sol. '+(threshold?'Les cm annoncés concernent la neige tombée; le seuil réel au sol reste à vérifier.':'Les quantités comparables ne permettent pas de confirmer l’atteinte des 5 cm au sol.')+'</p></div>';
   let ch=null;try{ch=chantiers()}catch(err){console.warn('chantiers',err)}
-  try{const sm=summary72();if(ch)sm.text+='\nPaver : '+ch.pave+'\nExcavation : '+ch.exc;
+  try{const sm=summary72();if(ch)sm.text+=(ch.pave?'\nPaver : '+ch.pave:'')+'\nExcavation : '+ch.exc;
    $('status').insertAdjacentHTML('beforeend',sm.html);$('status-chantier').innerHTML=sm.html;
    document.querySelectorAll('.copy72').forEach(b=>b.onclick=async e=>{try{await navigator.clipboard.writeText(sm.text);e.target.textContent='Copié ✓'}catch{if(navigator.share)navigator.share({text:sm.text})}})}catch(err){console.warn('résumé 72 h',err)}
   try{erabliere()}catch(err){console.warn('érablière',err)}
@@ -133,6 +133,9 @@ function chantiers(){
 const G=state.gel_sol&&state.gel_sol.gel_m!=null?state.gel_sol:null,proj=Object.fromEntries((G?.projection||[]).map(p=>[p.date,p.gel_m]));
  const gelDay=k=>G?(k<=G.date?G.gel_m:proj[k]??null):null,cm=m=>Math.round(m*100)+' cm';
  const rows=[],goodPave=[],goodExc=[],goodSap=[];
+ // Usine d'asphalte ouverte de la mi-mai à la mi-novembre : pas de pavage le reste de l'année.
+ const paveOn=k=>{const md=+k.slice(5).replace('-','');return md>=515&&md<=1115},anyPave=days.some(d=>paveOn(d.date));
+ $('th-pave').hidden=!anyPave;
  // Saison des sucres (15 févr. au 30 avril) : coulée quand il gèle la nuit (idéal -2 °C et moins) et dégèle le jour (idéal 3 à 10 °C).
  const sugar=false;
  // Gel du sol : indice de gel cumulé (degrés-jours sous 0 °C, qui se perd au dégel).
@@ -146,17 +149,17 @@ const G=state.gel_sol&&state.gel_sol.gel_m!=null?state.gel_sol:null,proj=Object.
   const night=[prevLow,d.low_mean].filter(v=>v!=null),lo=night.length?Math.min(...night):null;prevLow=d.low_mean;
   const sap=hi==null||lo==null?['—','']:lo<=-2&&hi>=3&&hi<=10?['Bonne','green']:lo<=0&&hi>0&&hi<=14?['Possible','amber']:hi<=0?['Gel (rien)','']:['Nuit douce','red'];
   if(sap[1]==='green')goodSap.push(d);
-  let pave=rain>=2||(pop??0)>=60||hi==null||hi<5||soil>=40?['À éviter','red']:rain<0.5&&(pop??0)<40&&hi>=10&&soil<25&&(dh==null||dh>=8)?['Bon','green']:['Moyen','amber'];
+  let pave=!paveOn(d.date)?['Usine fermée','']:rain>=2||(pop??0)>=60||hi==null||hi<5||soil>=40?['À éviter','red']:rain<0.5&&(pop??0)<40&&hi>=10&&soil<25&&(dh==null||dh>=8)?['Bon','green']:['Moyen','amber'];
   if(exc[0]==='Bon')goodExc.push(d);if(pave[0]==='Bon')goodPave.push(d);
-  rows.push('<tr'+(d.tendance?' class="trend"':'')+'><td>'+esc(dayLabel(d.date).replace(/ \S+\.?$/,''))+'</td><td class="ico">'+symbol(d.risks)+'</td><td>'+badge(exc)+'</td><td>'+badge(pave)+'</td>'+(sugar?'<td>'+badge(sap)+'</td>':'')+'<td>'+n(hi==null?null:Math.round(hi))+'° / '+n(d.low_mean==null?null:Math.round(d.low_mean))+'°'+(hi>=30?'<br><small class="hot">🥵 Chaleur : apporter de l’eau</small>':'')+'</td><td>'+(mm!=null?n(Math.round(mm*10)/10)+' mm':'—')+(pop!=null?' @ '+pop+' %':'')+(d.forte_pluie?'<br><small class="storm">'+(d.forte_pluie.orage?'⛈ Orage':'🌧 Forte pluie')+' vers '+hhmm(d.forte_pluie.heure)+'</small>':'')+(d.foudre_hrrr&&!d.forte_pluie?.orage?'<br><small class="storm" title="Menace d’éclairs prévue par le modèle HRRR, non confirmée par Environnement Canada">⚡ Foudre possible vers '+hhmm(d.foudre_hrrr)+'</small>':'')+'</td><td>'+(dh!=null?dh+' / '+seen[d.date]+' h':'—')+'</td><td>'+badge(soilLbl(soil))+(gp>=0.05?'<br><small>Gel ≈ '+cm(gp)+'</small>':'')+'</td></tr>');
+  rows.push('<tr'+(d.tendance?' class="trend"':'')+'><td>'+esc(dayLabel(d.date).replace(/ \S+\.?$/,''))+'</td><td class="ico">'+symbol(d.risks)+'</td><td>'+badge(exc)+'</td>'+(anyPave?'<td>'+badge(pave)+'</td>':'')+(sugar?'<td>'+badge(sap)+'</td>':'')+'<td>'+n(hi==null?null:Math.round(hi))+'° / '+n(d.low_mean==null?null:Math.round(d.low_mean))+'°'+(hi>=30?'<br><small class="hot">🥵 Chaleur : apporter de l’eau</small>':'')+'</td><td>'+(mm!=null?n(Math.round(mm*10)/10)+' mm':'—')+(pop!=null?' @ '+pop+' %':'')+(d.forte_pluie?'<br><small class="storm">'+(d.forte_pluie.orage?'⛈ Orage':'🌧 Forte pluie')+' vers '+hhmm(d.forte_pluie.heure)+'</small>':'')+(d.foudre_hrrr&&!d.forte_pluie?.orage?'<br><small class="storm" title="Menace d’éclairs prévue par le modèle HRRR, non confirmée par Environnement Canada">⚡ Foudre possible vers '+hhmm(d.foudre_hrrr)+'</small>':'')+'</td><td>'+(dh!=null?dh+' / '+seen[d.date]+' h':'—')+'</td><td>'+badge(soilLbl(soil))+(gp>=0.05?'<br><small>Gel ≈ '+cm(gp)+'</small>':'')+'</td></tr>');
   S=S*0.85+rain}
  S=0;for(let i=0;i<14;i++){const k=key(start.getTime()+i*86400e3);S=S*0.85+(obs[k]||0)}
  $('chantier-rows').innerHTML=rows.join('');
  const sl=soilLbl(S);$('chantier-sol').className='tag '+sl[1];$('chantier-sol').textContent='Sol aujourd’hui : '+sl[0];
  const list=a=>a.length?a.map(d=>dayLabel(d.date).replace(/ \S+\.?$/,'')).join(', '):'aucun';
- $('chantier-best').innerHTML='<b>Bons jours pour paver :</b> '+esc(list(goodPave))+'<br><b>Bons jours pour l’excavation :</b> '+esc(list(goodExc))+(sugar?'<br><b>Bonnes coulées (érablière) :</b> '+esc(list(goodSap)):'')+(G?'<span class="gel-card"><b>Gel dans le sol</b> (MTQ '+esc(G.station)+', '+esc(dateOnly(G.date))+') : <strong>'+(G.gel_m>0?cm(G.gel_m):'aucun')+'</strong>'+(G.degel_m>0?' · dégelé sur '+cm(G.degel_m)+' en surface':'')+(G.normale_m!=null?' · normale à cette date '+cm(G.normale_m):'')+((G.projection||[]).length?' · dans '+G.projection.length+' jours ≈ '+cm(G.projection[G.projection.length-1].gel_m):'')+(G.hiver_passe_max_m!=null?' · hiver passé : '+n(G.hiver_passe_max_m)+' m au plus creux':'')+(G.max_moyen_m!=null?' (moyenne '+n(G.max_moyen_m)+' m)':'')+(G.status==='stale'?' · données non mises à jour':'')+'</span>':'');
+ $('chantier-best').innerHTML=(anyPave?'<b>Bons jours pour paver :</b> '+esc(list(goodPave)):'<b>Pavage :</b> usine d’asphalte fermée (ouverte de la mi-mai à la mi-novembre)')+'<br><b>Bons jours pour l’excavation :</b> '+esc(list(goodExc))+(sugar?'<br><b>Bonnes coulées (érablière) :</b> '+esc(list(goodSap)):'')+(G?'<span class="gel-card"><b>Gel dans le sol</b> (MTQ '+esc(G.station)+', '+esc(dateOnly(G.date))+') : <strong>'+(G.gel_m>0?cm(G.gel_m):'aucun')+'</strong>'+(G.degel_m>0?' · dégelé sur '+cm(G.degel_m)+' en surface':'')+(G.normale_m!=null?' · normale à cette date '+cm(G.normale_m):'')+((G.projection||[]).length?' · dans '+G.projection.length+' jours ≈ '+cm(G.projection[G.projection.length-1].gel_m):'')+(G.hiver_passe_max_m!=null?' · hiver passé : '+n(G.hiver_passe_max_m)+' m au plus creux':'')+(G.max_moyen_m!=null?' (moyenne '+n(G.max_moyen_m)+' m)':'')+(G.status==='stale'?' · données non mises à jour':'')+'</span>':'');
  $('chantier-note').textContent='Pluie : médiane des modèles pondérée par leur fiabilité mesurée pour la pluie @ probabilité la plus haute des sources. Heures sèches : heures de 7 h à 18 h sans pluie selon la médiane pondérée des modèles heure par heure (NBM et MétéoMédia, donnés par tranches de 6 h, n’y comptent pas). Foudre : menace d’éclairs prévue par le modèle HRRR (à confirmer par Environnement Canada). Sol : pluie des 14 derniers jours (Climat Québec ou pluviomètre le plus proche) qui sèche d’environ 15 % par jour, plus la pluie prévue. Pavage « Bon » : moins de 0,5 mm, moins de 40 %, 10 °C et plus, 8 h sèches et sol pas détrempé. Excavation « Bon » : moins de 3 mm, moins de 50 % et sol sec. Gel dans le sol : sonde du MTQ sous la chaussée déneigée de Saint-Georges (≈ 2 jours de décalage), prolongée avec les températures prévues; sous un terrain enneigé, le gel est moins creux. « Sol gelé » à 30 cm et plus. Forte pluie : début de 1,5 mm/h ou 4 mm en 3 h (médiane des modèles) ou orage annoncé par Environnement Canada. Érable (15 févr. au 30 avril) : « Bonne » coulée = nuit à -2 °C ou moins puis jour entre 3 et 10 °C; « Possible » = gel la nuit et dégel le jour hors de ces valeurs; « Nuit douce » = pas de gel, la coulée s’arrête. Les jours éloignés (en pâle) sont une tendance.';
- return {pave:list(goodPave),exc:list(goodExc),sap:sugar?list(goodSap):null};
+ return {pave:anyPave?list(goodPave):null,exc:list(goodExc),sap:sugar?list(goodSap):null};
 }
 function sapDays(){
  // Coulée d'érable : nuit à -2 °C ou moins (la nuit d'avant, ou celle du jour) puis journée entre 3 et 10 °C.
@@ -237,7 +240,7 @@ function renderWinter(){renderSeason();
 }
 function renderWinterRows(){if(!state)return;const month=$('month-filter').value;const rows=state.climate.records.filter(r=>month==='all'||r.date.startsWith(month)).slice().reverse();$('winter-rows').innerHTML=rows.map(r=>'<tr><td>'+esc(r.date)+'</td><td>'+n(r.snow_cm)+(r.snow_cm!=null?' cm':'')+'</td><td>'+n(r.rain_mm)+(r.rain_mm!=null?' mm':'')+'</td><td>'+n(r.depth_cm)+(r.depth_cm!=null?' cm':'')+'</td><td>'+esc(r.snow_cm==null?'Non disponible':r.snow_flag||'Valeur publiée')+'</td></tr>').join('')||'<tr><td colspan="5">Aucun relevé disponible.</td></tr>'}
 function csv(){if(!state)return;const lines=['Date;Neige_cm;Pluie_mm;Neige_au_sol_cm;Indicateur;Source',...state.climate.records.map(r=>[r.date,r.snow_cm??'',r.rain_mm??'',r.depth_cm??'',r.snow_flag,r.source].map(x=>'"'+String(x).replaceAll('"','""')+'"').join(';'))];const blob=new Blob(['\ufeff'+lines.join('\r\n')],{type:'text/csv;charset=utf-8'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='Saint-Prosper-hiver-'+state.climate.season+'.csv';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)}
-function tab(name){document.querySelectorAll('.view').forEach(e=>e.hidden=e.id!==name);document.querySelectorAll('[data-tab]').forEach(e=>{e.classList.toggle('active',e.dataset.tab===name);e.setAttribute('aria-current',e.dataset.tab===name?'page':'false')});if(name==='radar'){initRadar();setTimeout(()=>map?.invalidateSize(),100)}if(name==='operations'&&state){initMini()}}
+function tab(name){document.querySelectorAll('.view').forEach(e=>e.hidden=e.id!==name);document.querySelectorAll('[data-tab]').forEach(e=>{e.classList.toggle('active',e.dataset.tab===name);e.setAttribute('aria-current',e.dataset.tab===name?'page':'false')});if(name==='radar'){initRadar();setTimeout(()=>map?.invalidateSize(),100)}if(name==='operations'&&state){initMini()}if(name==='motoneige'&&state){initMotoMap()}}
 const GEOMET='https://geo.weather.gc.ca/geomet',IEM='https://mesonet.agron.iastate.edu';
 const RADAR_SETS={
  RADAR_1KM_RRAI:{obs:'RADAR_1KM_RRAI',extrap:'Radar_1km_RainPrecipRate-Extrapolation',cover:'RADAR_COVERAGE_RRAI.INV',model:'HRDPS.CONTINENTAL_RT'},
@@ -420,8 +423,30 @@ function renderRoutes(){
  $('routes-note').textContent='État des routes noté par les patrouilleurs du ministère des Transports (Québec 511, données ouvertes), lu à '+hhmm(r.fetched_at)+'. « Lames de neige » : bandes de neige soufflée sur la chaussée. Les vidéos sont chargées en direct depuis Québec 511.';
 }
 const SURF_C={'Poudreuse':'green','Neige fraîche':'green','Bonne base':'green','Ventée / tapée':'amber','Base mince':'amber','Lourde (redoux)':'amber','Croûte / glacée':'red','Pas de neige':''};
+const motoSeason=()=>{const md=mmdd(new Date());return md>=1115||md<=430}; // motoneige : 15 novembre au 30 avril seulement
+let motoMap=null,motoMarkers=null;
+function initMotoMap(){
+ const M=state?.motoneige;if(!M||typeof L==='undefined')return;
+ const spots=M.endroits||[],noteOf=s=>Math.max(0,...(s.fin_de_semaine||[]).map(d=>d.note));
+ if(!motoMap){
+  motoMap=L.map('moto-map',{scrollWheelZoom:false}).setView([46.6,-70.6],7);
+  L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}',{maxZoom:14,attribution:'Fond © Esri'}).addTo(motoMap);
+  // Terres publiques (PATP) : le service WMS ne dessine pas les zones; on passe par l'export ArcGIS, tuile par tuile.
+  const Export=L.TileLayer.extend({getTileUrl(c){const s=this.getTileSize(),nw=L.CRS.EPSG3857.project(this._map.unproject([c.x*s.x,c.y*s.y],c.z)),se=L.CRS.EPSG3857.project(this._map.unproject([(c.x+1)*s.x,(c.y+1)*s.y],c.z));
+   return 'https://servicescarto.mrnf.gouv.qc.ca/pes/rest/services/Territoire/PATP_prov_WMS/MapServer/export?'+new URLSearchParams({bbox:[nw.x,se.y,se.x,nw.y].join(','),bboxSR:3857,imageSR:3857,size:s.x+','+s.y,layers:'show:1',format:'png32',transparent:'true',f:'image'})}});
+  new Export('',{opacity:.42,attribution:'Terres publiques © MRNF Québec'}).addTo(motoMap);
+  L.tileLayer.wms('https://geo.environnement.gouv.qc.ca/donnees/services/Biodiversite/Aires_protegees/MapServer/WMSServer',{layers:'AP_-_Parcs_nationaux_du_Québec_-_MELCCFP_Parcs5969',format:'image/png',transparent:true,version:'1.3.0',opacity:.6,attribution:'Parcs nationaux © MELCCFP'}).addTo(motoMap);
+  fetch('terres-maine.geojson').then(r=>r.ok?r.json():null).then(g=>{if(g)L.geoJSON(g,{style:{color:'#5FCB8E',weight:1,fillColor:'#5FCB8E',fillOpacity:.35},onEachFeature:(f,l)=>l.bindPopup('<b>'+esc(f.properties.nom)+'</b><br>Terre publique de l’État du Maine · '+f.properties.ha+' ha')}).addTo(motoMap)}).catch(()=>{});
+  L.circleMarker([46.214,-70.486],{radius:6,color:'#fff',weight:2,fillColor:'#FFB81C',fillOpacity:1}).addTo(motoMap).bindPopup('Saint-Prosper (départ)');
+ }
+ if(motoMarkers)motoMap.removeLayer(motoMarkers);
+ const col=n=>n>=6?'#5FCB8E':n>=4?'#FFB81C':'#8394B0',drive=m=>Math.floor(m/60)+' h '+String(m%60).padStart(2,'0');
+ motoMarkers=L.layerGroup(spots.map(s=>L.circleMarker([s.lat,s.lon],{radius:9,color:'#0B1322',weight:2,fillColor:col(noteOf(s)),fillOpacity:1}).bindPopup('<b>'+esc(s.nom)+'</b><br>'+esc(s.terre||'')+'<br>Route : '+drive(s.route_min)+' · '+s.km+' km<br>Fin de semaine : '+noteOf(s)+'/10'+(s.note?'<br><small>'+esc(s.note)+'</small>':'')+(s.lien?'<br><a href="'+esc(s.lien)+'" target="_blank" rel="noopener">Carte des sentiers ITS ↗</a>':'')))).addTo(motoMap);
+ motoMap.fitBounds(L.latLngBounds(spots.map(s=>[s.lat,s.lon]).concat([[46.214,-70.486]])),{padding:[24,24]});
+ setTimeout(()=>motoMap.invalidateSize(),60);
+}
 function renderMoto(){
- const M=state.motoneige;$('tab-motoneige').hidden=!M;if(!M)return;
+ const M=state.motoneige,on=!!M&&motoSeason();$('tab-motoneige').hidden=!on;if(!on){if(!$('motoneige').hidden)tab('operations');return}
  const spots=M.endroits||[],byId=Object.fromEntries(spots.map(s=>[s.id,s])),drive=m=>Math.floor(m/60)+' h '+String(m%60).padStart(2,'0');
  const we=spots[0]?.fin_de_semaine||[];if(we[0])$('moto-sat').textContent=dayLabel(we[0].date).replace(/ \S+\.?$/,'');if(we[1])$('moto-sun').textContent=dayLabel(we[1].date).replace(/ \S+\.?$/,'');
  const cell=d=>d?'<b class="moto-note n'+Math.min(10,Math.round(d.note))+'">'+d.note+'/10</b> <span class="tag '+(SURF_C[d.surface]??'')+'">'+esc(d.surface)+'</span><small>base ≈ '+d.base_cm+' cm'+(d.fraiche_48h_cm>=1?' · +'+n(d.fraiche_48h_cm)+' cm en 48 h':'')+(d.pluie_mm>=0.5?' · pluie '+n(d.pluie_mm)+' mm':'')+'</small>':'—';
@@ -432,7 +457,7 @@ function renderMoto(){
  $('moto-tag').textContent=M.status==='stale'?'Données anciennes':'NBM · HRDPS · HRRR';$('moto-tag').className='tag '+(M.status==='stale'?'amber':'');
  const order=ranked.length?ranked:spots;
  $('moto-rows').innerHTML=order.map(s=>{const sat=s.fin_de_semaine[0],sun=s.fin_de_semaine[1],sol=s.neige_sol?.cm,v=s.variation_72h_cm;
-  return '<tr><td><b>'+esc(s.nom)+'</b>'+(s.note?'<small>'+esc(s.note)+'</small>':'')+'</td><td>'+drive(s.route_min)+'<small>'+s.km+' km</small></td><td>'+(sol==null?'—':n(sol)+' cm')+(v!=null?'<small class="'+(v>=2?'gain':v<=-2?'melt':'')+'">'+(v>0?'+':'')+n(v)+' cm en 72 h</small>':'')+'</td><td>'+cell(sat)+'</td><td>'+cell(sun)+'</td><td><b>'+(s.vaut_la_route==null?'—':n(s.vaut_la_route))+'</b></td></tr>'}).join('');
+  return '<tr><td><b>'+esc(s.nom)+'</b>'+(s.terre?'<small>'+esc(s.terre)+'</small>':'')+(s.note?'<small>'+esc(s.note)+'</small>':'')+(s.lien?'<small><a href="'+esc(s.lien)+'" target="_blank" rel="noopener">Carte des sentiers ITS ↗</a></small>':'')+'</td><td>'+drive(s.route_min)+'<small>'+s.km+' km</small></td><td>'+(sol==null?'—':n(sol)+' cm')+(v!=null?'<small class="'+(v>=2?'gain':v<=-2?'melt':'')+'">'+(v>0?'+':'')+n(v)+' cm en 72 h</small>':'')+'</td><td>'+cell(sat)+'</td><td>'+cell(sun)+'</td><td><b>'+(s.vaut_la_route==null?'—':n(s.vaut_la_route))+'</b></td></tr>'}).join('');
  $('moto-details').innerHTML=order.map(s=>'<details class="moto-days"><summary>'+esc(s.nom)+' · 7 jours</summary><div class="table-scroll"><table class="moto"><tbody>'+s.jours.map(d=>'<tr><td>'+esc(dayLabel(d.date).replace(/ \S+\.?$/,''))+'</td><td>'+cell(d)+'</td><td>'+n(d.tmax)+'°'+(d.rafales_kmh>=40?'<small>💨 '+d.rafales_kmh+' km/h</small>':'')+'</td></tr>').join('')+'</tbody></table></div></details>').join('');
  $('moto-note').textContent='Note de 0 à 10 : base de neige (0 à 5 points : 15, 25, 35, 50, 70 cm) + surface (poudreuse +4, neige fraîche +2, bonne base +1, ventée 0, lourde −1, croûte −2) − pluie. Moins de 15 cm de base : 2/10 au plus (roches et souches). « Vaut la route » : la meilleure note de la fin de semaine moins 1 point par heure de route au-delà de la première. Croûte : dégel ou pluie dans les 72 h puis regel, sans 5 cm de neige fraîche par-dessus. '+(M.note||'')+' Temps de route : vitesses d’été, depuis Saint-Prosper.';
 }

@@ -93,7 +93,10 @@ def nbm(lat, lon, now):
 
     def read(f):
         url = nbm_url(run, f)
-        rows = index(url)
+        try:
+            rows = index(url)
+        except FileNotFoundError:  # cycle en cours de publication : tranche pas encore en ligne
+            return {'f': f, 'snow_cm': None, 'precip_mm': None, 'temp': None}
         win = f'{f - 6}-{f} hour acc fcst'
         out = {'f': f}
         e = pick(rows, f'ASNOW:surface:{win}')

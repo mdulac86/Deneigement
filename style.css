@@ -375,6 +375,11 @@ table.moto td small.gain{color:var(--blue)}table.moto td small.melt{color:var(--
 table.moto .tag{font-size:10px;padding:3px 8px}
 .moto-note{font:900 15px var(--title);color:var(--muted)}
 .moto-note.n4,.moto-note.n5{color:var(--yellow)}.moto-note.n6,.moto-note.n7,.moto-note.n8,.moto-note.n9,.moto-note.n10{color:var(--green)}
+#moto-map{height:460px;border-radius:var(--r);border:1px solid var(--line);z-index:1;background:var(--bg2)}
+.moto-legend{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:10px;font-size:12.5px;color:var(--soft)}
+.moto-legend i{display:inline-block;width:14px;height:14px;border-radius:3px;margin-right:6px;vertical-align:-2px}
+.lg-public{background:linear-gradient(90deg,#FFA500 50%,#B5C584 50%);opacity:.8}.lg-park{background:#d45a5a}.lg-maine{background:#5FCB8E;opacity:.7}.lg-spot{background:#FFB81C;border-radius:50%!important}
+@media(max-width:700px){#moto-map{height:340px}}
 .moto-days{margin-top:10px;border:1px solid var(--line);border-radius:var(--r);padding:8px 12px;background:var(--panel2)}
 .moto-days summary{cursor:pointer;font-weight:700;color:var(--soft)}
 @media(max-width:600px){
