@@ -1,10 +1,10 @@
 {
-  "fetched_at": "2026-11-24T10:45:07.148224+00:00",
+  "fetched_at": "2026-11-24T16:45:14.539942+00:00",
   "host": "poste du bureau",
   "sources": {
     "mm": {
       "status": "ok",
-      "fetched_at": "2026-11-24T10:45:07.148224+00:00",
+      "fetched_at": "2026-11-24T16:45:14.539942+00:00",
       "result": {
         "issued_at": null,
         "days": [
@@ -15,7 +15,7 @@
             "snow_cm": null,
             "rain_mm": null,
             "ice_mm": null,
-            "condition": "Ensoleillé · Généralement ensoleillé · Dégagé",
+            "condition": "Généralement ensoleillé · Dégagé",
             "risk": "Sans risque hivernal identifié"
           },
           {
@@ -146,33 +146,16 @@
           },
           {
             "date": "2026-12-04",
-            "high": -1.0,
+            "high": 0.0,
             "low": -1.0,
             "snow_cm": null,
             "rain_mm": null,
             "ice_mm": null,
-            "condition": "Averses de neige isolées",
+            "condition": "Averses de neige isolées · Averses de neige isolées",
             "risk": "Neige"
           }
         ],
         "periods": [
-          {
-            "date": "2026-11-24",
-            "label": "Matin",
-            "start_h": 6,
-            "text": "Ensoleillé",
-            "snow_cm": [
-              0.0,
-              0.0
-            ],
-            "rain_mm": [
-              0.0,
-              0.0
-            ],
-            "temp": -4.0,
-            "pop": "10%",
-            "risk": "Sans risque hivernal identifié"
-          },
           {
             "date": "2026-11-24",
             "label": "Après-midi",
@@ -814,39 +797,26 @@
             "temp": -1.0,
             "pop": "60%",
             "risk": "Neige"
+          },
+          {
+            "date": "2026-12-04",
+            "label": "Matin",
+            "start_h": 6,
+            "text": "Averses de neige isolées",
+            "snow_cm": [
+              0.0,
+              1.0
+            ],
+            "rain_mm": [
+              0.0,
+              0.0
+            ],
+            "temp": 0.0,
+            "pop": "40%",
+            "risk": "Neige"
           }
         ],
         "hours": [
-          {
-            "time": "2026-11-24T11:00:00Z",
-            "snow_cm": 0.0,
-            "temp": -4.0
-          },
-          {
-            "time": "2026-11-24T12:00:00Z",
-            "snow_cm": 0.0,
-            "temp": -4.0
-          },
-          {
-            "time": "2026-11-24T13:00:00Z",
-            "snow_cm": 0.0,
-            "temp": -4.0
-          },
-          {
-            "time": "2026-11-24T14:00:00Z",
-            "snow_cm": 0.0,
-            "temp": -4.0
-          },
-          {
-            "time": "2026-11-24T15:00:00Z",
-            "snow_cm": 0.0,
-            "temp": -4.0
-          },
-          {
-            "time": "2026-11-24T16:00:00Z",
-            "snow_cm": 0.0,
-            "temp": -4.0
-          },
           {
             "time": "2026-11-24T17:00:00Z",
             "snow_cm": 0.0,
@@ -2016,6 +1986,36 @@
             "time": "2026-12-04T10:00:00Z",
             "snow_cm": 0.08,
             "temp": -1.0
+          },
+          {
+            "time": "2026-12-04T11:00:00Z",
+            "snow_cm": 0.08,
+            "temp": 0.0
+          },
+          {
+            "time": "2026-12-04T12:00:00Z",
+            "snow_cm": 0.08,
+            "temp": 0.0
+          },
+          {
+            "time": "2026-12-04T13:00:00Z",
+            "snow_cm": 0.08,
+            "temp": 0.0
+          },
+          {
+            "time": "2026-12-04T14:00:00Z",
+            "snow_cm": 0.08,
+            "temp": 0.0
+          },
+          {
+            "time": "2026-12-04T15:00:00Z",
+            "snow_cm": 0.08,
+            "temp": 0.0
+          },
+          {
+            "time": "2026-12-04T16:00:00Z",
+            "snow_cm": 0.08,
+            "temp": 0.0
           }
         ],
         "note": "Tableau de données structurées publié par MétéoMédia (périodes nuit, matin, après-midi, soir). Quantités en fourchette; heure d’émission non publiée. Découpage horaire des périodes supposé 0-6-12-18 h."
