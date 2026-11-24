@@ -1,11 +1,11 @@
 {
-  "updated_at": "2026-11-24T18:49:22.697008+00:00",
+  "updated_at": "2026-11-24T18:55:22.719436+00:00",
   "sources": [
     {
       "id": "eccc",
       "status": "ok",
       "issued_at": "2026-11-24T16:30:00Z",
-      "fetched_at": "2026-11-24T18:49:22.697008+00:00",
+      "fetched_at": "2026-11-24T18:55:22.719436+00:00",
       "days": [
         {
           "date": "2026-11-24",
@@ -189,7 +189,7 @@
       "id": "met",
       "status": "ok",
       "issued_at": "2026-11-24T17:18:56Z",
-      "fetched_at": "2026-11-24T18:49:22.697008+00:00",
+      "fetched_at": "2026-11-24T18:55:22.719436+00:00",
       "days": [
         {
           "date": "2026-11-24",
@@ -297,7 +297,7 @@
       "id": "mb",
       "status": "ok",
       "issued_at": null,
-      "fetched_at": "2026-11-24T18:49:22.697008+00:00",
+      "fetched_at": "2026-11-24T18:55:22.719436+00:00",
       "days": [
         {
           "date": "2026-11-24",
@@ -2600,8 +2600,8 @@
   ],
   "changes": [
     {
-      "text": "meteoblue · 2026-11-29 : Neige → Sans risque hivernal identifié.",
-      "important": true
+      "text": "Aucun changement important dans les données comparables depuis la dernière collecte.",
+      "important": false
     }
   ],
   "plan": [
@@ -2621,7 +2621,7 @@
       "confiance": "Faible",
       "modeles": 3,
       "notes": [
-        "Seul IFS prévoit ≈ 5.13 cm; les autres modèles restent loin sous 5 cm."
+        "Seul IFS prévoit ≈ 5.1 cm; les autres modèles restent loin sous 5 cm."
       ],
       "deja_au_sol_cm": 0,
       "isoles": {},
