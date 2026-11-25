@@ -6,7 +6,9 @@ Règles (config/epandage.json) :
 - stationnements, moins exigeants qu'une route : pluie (2 mm et plus) ou fonte (6 h à +2 °C et plus avec
   de la neige au sol), puis regel à -1 °C et moins :
   épandage au regel, ou prêt pour 7 h 45 si le regel arrive la nuit;
-- produit : sel + calcium jusqu'à -18 °C, abrasif plus froid; abrasif en plus après beaucoup d'eau.
+- produit : sel + calcium jusqu'à -18 °C, abrasif plus froid; abrasif en plus après beaucoup d'eau;
+- le texte d'un jour couvre aussi la nuit suivante : le verglas est cherché jusqu'à midi le lendemain;
+- probabilité (%) : modèles qui donnent eux-mêmes la glace, sites, et NBM; sous min_pct (30 %), rien n'est annoncé.
 
 Séries horaires : médianes des modèles pondérées par leur fiabilité mesurée (pluie : confiance_pluie);
 une heure compte seulement si au moins 2 modèles la couvrent. Fonctions pures, testées dans tests/test_epandage.py.
@@ -119,18 +121,99 @@ def refreezes(hours, ground_cm, cfg):
 
 
 def freezing(hours, consensus):
-    """Jours où le verglas ou le grésil est confirmé -> première heure humide entre -6 et +1 °C ce jour-là."""
+    """Jours où le verglas ou le grésil est confirmé -> (première heure humide entre -6 et +1 °C, mm, date).
+    Le texte d'un jour couvre aussi la nuit suivante (« pluie verglaçante au cours de la nuit ») :
+    on cherche de 0 h ce jour-là à midi le lendemain."""
     out = []
     for d in consensus or []:
         if 'Verglas / grésil' not in (d.get('risques_confirmes') or []):
             continue
-        hs = [h for h in hours if str(h['time'].date()) == d['date']]
+        day = dt.date.fromisoformat(d['date'])
+        hs = [h for h in hours if h['time'].date() == day
+              or (h['time'].date() == day + dt.timedelta(days=1) and h['time'].hour < 12)]
         wet = [h for h in hs if (h['rain'] >= 0.1 or h['snow'] >= 0.1) and -6 <= h['temp'] <= 1]
         if wet:
-            out.append((wet[0]['time'], round(sum(h['rain'] for h in wet), 1)))
-        elif hs:
-            out.append((hs[0]['time'].replace(hour=max(hs[0]['time'].hour, 6)), 0.0))
+            out.append((wet[0]['time'], round(sum(h['rain'] for h in wet), 1), d['date']))
+        elif hs:  # aucun modèle ne montre de précipitations près de 0 °C : probabilité faible (voir probability)
+            out.append((hs[0]['time'], 0.0, d['date']))
     return out
+
+
+def model_hours(models, tz):
+    """{id: (poids pluie, [(heure locale, temp, précip mm, neige cm)])} pour les modèles horaires."""
+    out = {}
+    for m in models:
+        if m.get('status') != 'ok' or not m.get('hours'):
+            continue
+        rows = []
+        for h in m['hours']:
+            if h.get('temp') is None or h.get('precip_mm') is None:
+                continue
+            t = dt.datetime.fromisoformat(h['time'].replace('Z', '+00:00')).astimezone(tz)
+            rows.append((t, h['temp'], h['precip_mm'], h.get('snow_cm') or 0))
+        if rows:
+            out[m['id']] = ((m.get('confiance_pluie') or {}).get('poids') or 0.45, rows)
+    return out
+
+
+def pop_between(pop12, a, b):
+    vals = []
+    for w in (pop12 or {}).get('fenetres') or []:
+        if w.get('pop') is None:
+            continue
+        wa = dt.datetime.fromisoformat(w['debut'].replace('Z', '+00:00'))
+        wb = dt.datetime.fromisoformat(w['fin'].replace('Z', '+00:00'))
+        if wa < b and wb > a:
+            vals.append(w['pop'])
+    return max(vals) if vals else None
+
+
+def probability(item, mh, consensus, pop12, cfg):
+    """Probabilité (%) que l'épandage soit nécessaire : moyenne de ce qui est disponible.
+    - part des modèles (pondérés par leur fiabilité pour la pluie) qui donnent eux-mêmes la glace;
+    - verglas : part des sites qui l'annoncent ce jour-là (Environnement Canada compte double);
+    - probabilité de précipitation NBM (12 h) sur la période mouillée (pas pour une fonte seule)."""
+    t = dt.datetime.fromisoformat(item['glace'])
+    H = dt.timedelta(hours=1)
+    parts = {}
+    yes = tot = 0.0
+    for w, rows in mh.values():
+        if item['type'] == 'verglas':
+            hit = any(t - 6 * H <= h < t + 6 * H and p >= 0.1 and -6 <= tp <= 1 for h, tp, p, _ in rows)
+        else:
+            a = dt.datetime.fromisoformat(item['debut_mouille']) - 3 * H
+            rain = sum(p for h, tp, p, sn in rows if a <= h <= t and tp > 0 and not sn)
+            melt = sum(1 for h, tp, p, sn in rows if a <= h <= t and tp >= cfg['fonte_temp_c'])
+            cold = any(t - 3 * H <= h <= t + 8 * H and tp <= cfg['regel_temp_c'] for h, tp, p, sn in rows)
+            cause = item.get('cause')
+            if cause == 'pluie':
+                wet = rain >= cfg['pluie_min_mm']
+            elif cause == 'fonte':
+                wet = melt >= cfg['fonte_min_h']
+            else:
+                wet = rain >= cfg['pluie_min_mm'] or melt >= cfg['fonte_min_h']
+            hit = wet and cold
+        tot += w
+        yes += w if hit else 0
+    if tot:
+        parts['modeles'] = 100 * yes / tot
+    if item['type'] == 'verglas':
+        d = next((x for x in consensus or [] if x['date'] == item.get('jour')), None)
+        if d:
+            src = [(s['source'], 'Verglas' in (s.get('risk') or '')) for s in d.get('sources') or []]
+            wsum = sum(2 if k == 'eccc' else 1 for k, _ in src)
+            if wsum:
+                parts['sites'] = 100 * sum((2 if k == 'eccc' else 1) for k, v in src if v) / wsum
+        pp = pop_between(pop12, t - 6 * H, t + 6 * H)
+    elif item.get('cause') != 'fonte':
+        pp = pop_between(pop12, dt.datetime.fromisoformat(item['debut_mouille']), t)
+    else:
+        pp = None
+    if pp is not None:
+        parts['precipitation'] = pp
+    if not parts:
+        return None, {}
+    return round(sum(parts.values()) / len(parts)), {k: round(v) for k, v in parts.items()}
 
 
 def tmin_after(hours, t, h=8):
@@ -142,16 +225,16 @@ def iso(t):
     return t.isoformat() if t else None
 
 
-def plan(models, consensus, ground_cm, now, tz, cfg, snow_plan=()):
+def plan(models, consensus, ground_cm, now, tz, cfg, snow_plan=(), pop12=None):
     hours = hourly(models, tz, now, cfg['horizon_h'])
     items = []
-    for t, mm in freezing(hours, consensus):
+    for t, mm, jour in freezing(hours, consensus):
         dep, dl = schedule(t, cfg)
         tmin = tmin_after(hours, t)
         prod, why = product(tmin, mm, cfg)
         items.append({'type': 'verglas', 'glace': iso(t), 'depart': iso(dep), 'echeance': iso(dl), 'produit': prod,
-                      'temp_min_c': tmin, 'eau_mm': mm,
-                      'raison': 'Verglas ou grésil confirmé' + (f' · {why}' if why else '')})
+                      'temp_min_c': tmin, 'eau_mm': mm, 'jour': jour,
+                      'raison': 'Verglas ou grésil annoncé' + (f' · {why}' if why else '')})
     for start, t, mm, melt in refreezes(hours, ground_cm, cfg):
         dep, dl = schedule(t, cfg)
         tmin = tmin_after(hours, t)
@@ -160,7 +243,14 @@ def plan(models, consensus, ground_cm, now, tz, cfg, snow_plan=()):
                 (f'{melt} h de fonte de la neige au sol' if melt >= cfg['fonte_min_h'] else '')
         items.append({'type': 'regel', 'debut_mouille': iso(start), 'glace': iso(t), 'depart': iso(dep), 'echeance': iso(dl),
                       'produit': prod, 'temp_min_c': tmin, 'eau_mm': mm,
+                      'cause': 'pluie' if melt < cfg['fonte_min_h'] else 'fonte' if mm < cfg['pluie_min_mm'] else 'les deux',
                       'raison': f'{cause[:1].upper()}{cause[1:]}, puis regel sous 0 °C' + (f' · {why}' if why else '')})
+    # Probabilité de chaque épandage; sous min_pct (config), il n'est pas annoncé.
+    mh = model_hours(models, tz)
+    for it in items:
+        it['probabilite'], it['probabilite_detail'] = probability(it, mh, consensus, pop12, cfg)
+    lim = cfg.get('min_pct', 30)
+    items = [it for it in items if it['probabilite'] is None or it['probabilite'] >= lim]
     # Un seul épandage par sortie : deux glaces à moins de 6 h d'intervalle sont regroupées (la première l'emporte).
     items.sort(key=lambda x: x['depart'])
     merged = []

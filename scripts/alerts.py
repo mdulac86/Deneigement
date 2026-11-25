@@ -176,7 +176,7 @@ def spreading(weather):
     for it in weather.get('epandage') or []:
         dep = it['depart']
         title = f"Épandage {day_label(dep[:10])} {hhmm(dep)}"
-        msg = f"{it['produit']} · {it['raison']}" + (f" · prêt pour {hhmm(it['echeance'])}" if it.get('echeance') else '') +               (' · avec la tournée de déneigement' if it.get('avec_deneigement') else '')
+        msg = f"{it['produit']} · {it['raison']}" + (f" · probabilité {it['probabilite']} %" if it.get('probabilite') is not None else '') + (f" · prêt pour {hhmm(it['echeance'])}" if it.get('echeance') else '') +               (' · avec la tournée de déneigement' if it.get('avec_deneigement') else '')
         msgs.append({'key': f"epandage:{it['glace'][:10]}:{it['type']}", 'title': title, 'message': msg, 'priority': 4, 'tags': ['warning']})
     return msgs
 

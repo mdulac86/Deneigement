@@ -70,6 +70,28 @@ class EpandageTests(unittest.TestCase):
         cons = [{'date': '2026-12-02', 'risques_confirmes': []}]
         self.assertEqual(e.plan(models(at(1, 10), temps, rains), cons, 10, self.now, TZ, self.cfg), [])
 
+    def test_freezing_rain_in_the_night_text_goes_to_the_next_morning(self):
+        # 26 nov. 2026 : ECCC annonce « pluie verglaçante au cours de la nuit » pour jeudi; les modèles sont au sec
+        # jeudi (-9 °C) et mouillés vendredi à 2 h près de 0 °C -> épandage vendredi matin, pas jeudi à 6 h.
+        temps = [-9] * 14 + [-1] * 12
+        rains = [0] * 16 + [0.5] * 6 + [0] * 4
+        cons = [{'date': '2026-12-01', 'risques_confirmes': ['Verglas / grésil'],
+                 'sources': [{'source': 'eccc', 'risk': 'Verglas / grésil'}, {'source': 'met', 'risk': 'Sans risque'},
+                             {'source': 'mb', 'risk': 'Pluie / neige'}]}]
+        pop = {'fenetres': [{'debut': '2026-12-02T00:00:00Z', 'fin': '2026-12-02T12:00:00Z', 'pop': 90}]}
+        out = e.plan(models(at(1, 10), temps, rains), cons, 10, self.now, TZ, self.cfg, (), pop)
+        self.assertEqual(out[0]['glace'], at(2, 2).isoformat())
+        self.assertEqual(out[0]['echeance'], at(2, 7, 45).isoformat())
+        self.assertGreaterEqual(out[0]['probabilite'], 70)
+        self.assertEqual(out[0]['probabilite_detail'], {'modeles': 100, 'sites': 50, 'precipitation': 90})
+
+    def test_announced_but_models_dry_is_not_planned(self):
+        cons = [{'date': '2026-12-01', 'risques_confirmes': ['Verglas / grésil'],
+                 'sources': [{'source': 'eccc', 'risk': 'Verglas / grésil'}, {'source': 'met', 'risk': 'Sans risque'},
+                             {'source': 'mb', 'risk': 'Sans risque'}, {'source': 'mm', 'risk': 'Sans risque'}]}]
+        pop = {'fenetres': [{'debut': '2026-12-01T12:00:00Z', 'fin': '2026-12-02T00:00:00Z', 'pop': 0}]}
+        self.assertEqual(e.plan(models(at(1, 10), [-9] * 30, [0] * 30), cons, 10, self.now, TZ, self.cfg, (), pop), [])
+
     def test_single_model_hours_do_not_count(self):
         temps = [2] * 8 + [-3] * 8
         out = e.plan(models(at(1, 10), temps, [2] * 6 + [0] * 10, ids=('gfs',)), [], 10, self.now, TZ, self.cfg)

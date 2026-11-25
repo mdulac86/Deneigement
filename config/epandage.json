@@ -10,5 +10,6 @@
   "regel_temp_c": -1,
   "beaucoup_eau_mm": 10,
   "horizon_h": 72,
-  "note": "Stationnements : seuils moins sensibles qu'une route (2 mm de pluie, ou 6 h de fonte à +2 °C avec neige au sol, puis regel à -1 °C et moins). Sel + calcium efficace jusqu'à environ -18 °C; plus froid : abrasif. Départ calculé pour être prêt à 7 h 45 quand le regel ou le verglas arrive la nuit. Réglable ici; le robot relit ce fichier à chaque passage."
+  "note": "Stationnements : seuils moins sensibles qu'une route (2 mm de pluie, ou 6 h de fonte à +2 °C avec neige au sol, puis regel à -1 °C et moins). Sel + calcium efficace jusqu'à environ -18 °C; plus froid : abrasif. Départ calculé pour être prêt à 7 h 45 quand le regel ou le verglas arrive la nuit. Réglable ici; le robot relit ce fichier à chaque passage.",
+  "min_pct": 30
 }

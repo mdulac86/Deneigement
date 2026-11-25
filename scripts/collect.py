@@ -783,6 +783,20 @@ def forecast_plan(sources, days, previous=None):
     return {'confiance': table, 'confiance_pluie': table_pluie, 'ensemble': ensemble, 'precip_probability': pop, 'models': models, 'hourly_snow': serial_hours([{k: h[k] for k in ('time', 'snow_cm', 'lo', 'hi', 'n')} for h in hours]),
             'plan': plan, 'plan_config': cfg, 'neige_depuis_nettoyage_cm': round(carry, 1)}
 
+_POP12 = []
+
+
+def pop12_now(previous):
+    """Probabilité de précipitation NBM jour (7 h-19 h) et nuit (19 h-7 h), au pour cent près (lue une fois par passage)."""
+    if not _POP12:
+        try:
+            _POP12.append(previous.get('pop12') if RAPIDE and previous.get('pop12') else noaa.nbm_pop12(LAT, LON, NOW))
+        except Exception as e:
+            print('NBM 12 h :', e)
+            _POP12.append(previous.get('pop12'))
+    return _POP12[0]
+
+
 def main():
     DATA.mkdir(exist_ok=True)
     previous = read(DATA/'weather.json',{})
@@ -851,7 +865,7 @@ def main():
     try:  # épandage sel + calcium / abrasif : verglas confirmé, ou pluie / fonte puis regel (config/epandage.json)
         cfg_ep = epandage.load_config()
         result['epandage'] = epandage.plan(result.get('models') or [], result['consensus'], ground_snow(result),
-                                           NOW.astimezone(TZ), TZ, cfg_ep, result.get('plan') or [])
+                                           NOW.astimezone(TZ), TZ, cfg_ep, result.get('plan') or [], pop12_now(previous))
         result['epandage_config'] = cfg_ep
     except Exception as e:
         print('épandage :', e)
@@ -864,11 +878,7 @@ def main():
         result['nbm_proba'] = {'run': nbm['run'], 'tranches': nbm['tranches']} if nbm else None
     except Exception as e:
         print('NBM :', e)
-    try:  # probabilité de précipitation jour (7 h-19 h) et nuit (19 h-7 h), au pour cent près
-        result['pop12'] = previous.get('pop12') if RAPIDE and previous.get('pop12') else noaa.nbm_pop12(LAT, LON, NOW)
-    except Exception as e:
-        print('NBM 12 h :', e)
-        result['pop12'] = previous.get('pop12')
+    result['pop12'] = pop12_now(previous)
     try:
         result['routes'] = routes.collect(lambda u: fetch(u, True), LAT, LON, stamp(), previous.get('routes'))
     except Exception as e:
