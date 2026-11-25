@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-25T15:16:05.664588+00:00",
+  "updated_at": "2026-11-25T15:20:50.236996+00:00",
   "location": {
     "name": "Saint-Prosper · Beauce",
     "lat": 46.214,
@@ -13,7 +13,7 @@
       "name": "Environnement Canada",
       "url": "https://meteo.gc.ca/fr/location/index.html?coords=46.214,-70.486",
       "status": "ok",
-      "fetched_at": "2026-11-25T15:16:05.664588+00:00",
+      "fetched_at": "2026-11-25T15:20:50.236996+00:00",
       "issued_at": "2026-11-25T10:00:00Z",
       "days": [
         {
@@ -566,7 +566,7 @@
       "name": "MET Norway",
       "url": "https://api.met.no/weatherapi/locationforecast/2.0/compact?lat=46.214&lon=-70.486",
       "status": "ok",
-      "fetched_at": "2026-11-25T15:16:05.664588+00:00",
+      "fetched_at": "2026-11-25T15:20:50.236996+00:00",
       "issued_at": "2026-11-25T13:16:35Z",
       "days": [
         {
@@ -1316,7 +1316,7 @@
       "name": "meteoblue",
       "url": "https://www.meteoblue.com/fr/meteo/semaine/saint-prosper_canada_8672691",
       "status": "ok",
-      "fetched_at": "2026-11-25T15:16:05.664588+00:00",
+      "fetched_at": "2026-11-25T15:20:50.236996+00:00",
       "issued_at": null,
       "days": [
         {
@@ -3438,7 +3438,7 @@
   ],
   "official_alerts": {
     "status": "ok",
-    "fetched_at": "2026-11-25T15:16:05.664588+00:00",
+    "fetched_at": "2026-11-25T15:20:50.236996+00:00",
     "items": []
   },
   "climate": {
@@ -5397,11 +5397,16 @@
       }
     }
   ],
-  "previous_at": "2026-11-25T15:09:57.322965+00:00",
+  "previous_at": "2026-11-25T15:16:05.664588+00:00",
   "confiance_temperatures": {
     "eccc": {
       "poids": 0.83,
       "erreur_c": 1.9,
+      "jours": 15
+    },
+    "mb": {
+      "poids": 1.0,
+      "erreur_c": 1.7,
       "jours": 15
     },
     "mm": {
@@ -5412,11 +5417,6 @@
     "met": {
       "poids": 0.93,
       "erreur_c": 1.8,
-      "jours": 15
-    },
-    "mb": {
-      "poids": 1.0,
-      "erreur_c": 1.7,
       "jours": 15
     }
   },
@@ -6708,7 +6708,7 @@
           },
           {
             "time": "2026-11-23T00:00:00Z",
-            "depth_cm": null,
+            "depth_cm": 0.0,
             "temp": 8.7,
             "gust": 14.0,
             "pcpn": 0.0
@@ -7244,6 +7244,15 @@
     }
   },
   "confiance": {
+    "hrdps": {
+      "poids": 0.45,
+      "erreur_cm": 7.0,
+      "episodes": 0,
+      "historique": 0,
+      "cet_hiver": 0,
+      "a_mesurer": 5,
+      "statut": "non mesurée"
+    },
     "rdps": {
       "poids": 0.45,
       "erreur_cm": 7.0,
@@ -7262,6 +7271,15 @@
       "a_mesurer": 5,
       "statut": "mesurée"
     },
+    "hrrr": {
+      "poids": 0.68,
+      "erreur_cm": 5.7,
+      "episodes": 22,
+      "historique": 22,
+      "cet_hiver": 0,
+      "a_mesurer": 5,
+      "statut": "mesurée"
+    },
     "mm": {
       "poids": 0.45,
       "erreur_cm": 7.0,
@@ -7281,36 +7299,18 @@
       "statut": "à confirmer",
       "base": "ifs"
     },
-    "aifs": {
-      "poids": 0.94,
-      "erreur_cm": 4.9,
-      "episodes": 22,
-      "historique": 22,
-      "cet_hiver": 0,
-      "a_mesurer": 5,
-      "statut": "mesurée"
-    },
-    "hrrr": {
-      "poids": 0.68,
-      "erreur_cm": 5.7,
-      "episodes": 22,
-      "historique": 22,
-      "cet_hiver": 0,
-      "a_mesurer": 5,
-      "statut": "mesurée"
-    },
-    "hrdps": {
-      "poids": 0.45,
-      "erreur_cm": 7.0,
-      "episodes": 0,
-      "historique": 0,
-      "cet_hiver": 0,
-      "a_mesurer": 5,
-      "statut": "non mesurée"
-    },
     "nbm": {
       "poids": 1.0,
       "erreur_cm": 4.7,
+      "episodes": 22,
+      "historique": 22,
+      "cet_hiver": 0,
+      "a_mesurer": 5,
+      "statut": "mesurée"
+    },
+    "aifs": {
+      "poids": 0.94,
+      "erreur_cm": 4.9,
       "episodes": 22,
       "historique": 22,
       "cet_hiver": 0,
@@ -7328,6 +7328,15 @@
     }
   },
   "confiance_pluie": {
+    "hrdps": {
+      "poids": 0.7,
+      "erreur_mm": 3.8,
+      "episodes": 1,
+      "historique": 0,
+      "cet_hiver": 1,
+      "a_mesurer": 15,
+      "statut": "en rodage"
+    },
     "rdps": {
       "poids": 0.81,
       "erreur_mm": 3.5,
@@ -7346,15 +7355,6 @@
       "a_mesurer": 15,
       "statut": "mesurée"
     },
-    "mm": {
-      "poids": 0.63,
-      "erreur_mm": 4.0,
-      "episodes": 0,
-      "historique": 0,
-      "cet_hiver": 0,
-      "a_mesurer": 15,
-      "statut": "non mesurée"
-    },
     "met": {
       "poids": 0.72,
       "erreur_mm": 3.7,
@@ -7365,15 +7365,6 @@
       "statut": "à confirmer",
       "base": "ifs"
     },
-    "aifs": {
-      "poids": 1.0,
-      "erreur_mm": 3.2,
-      "episodes": 107,
-      "historique": 105,
-      "cet_hiver": 2,
-      "a_mesurer": 15,
-      "statut": "mesurée"
-    },
     "hrrr": {
       "poids": 0.83,
       "erreur_mm": 3.5,
@@ -7383,14 +7374,23 @@
       "a_mesurer": 15,
       "statut": "mesurée"
     },
-    "hrdps": {
-      "poids": 0.7,
-      "erreur_mm": 3.8,
-      "episodes": 1,
+    "mm": {
+      "poids": 0.63,
+      "erreur_mm": 4.0,
+      "episodes": 0,
       "historique": 0,
-      "cet_hiver": 1,
+      "cet_hiver": 0,
       "a_mesurer": 15,
-      "statut": "en rodage"
+      "statut": "non mesurée"
+    },
+    "ifs": {
+      "poids": 0.72,
+      "erreur_mm": 3.7,
+      "episodes": 97,
+      "historique": 97,
+      "cet_hiver": 0,
+      "a_mesurer": 15,
+      "statut": "mesurée"
     },
     "nbm": {
       "poids": 0.96,
@@ -7401,12 +7401,12 @@
       "a_mesurer": 15,
       "statut": "mesurée"
     },
-    "ifs": {
-      "poids": 0.72,
-      "erreur_mm": 3.7,
-      "episodes": 97,
-      "historique": 97,
-      "cet_hiver": 0,
+    "aifs": {
+      "poids": 1.0,
+      "erreur_mm": 3.2,
+      "episodes": 107,
+      "historique": 105,
+      "cet_hiver": 2,
       "a_mesurer": 15,
       "statut": "mesurée"
     }
@@ -7541,7 +7541,7 @@
       "id": "hrdps",
       "name": "HRDPS 2,5 km · ECCC",
       "status": "ok",
-      "fetched_at": "2026-11-25T15:16:05Z",
+      "fetched_at": "2026-11-25T15:20:50Z",
       "note": "cm estimés à partir des mm d’eau et de la température (rapport 10:1 près de 0 °C, plus léger au froid). Pas de fonte ni de tassement.",
       "issued_at": "2026-11-25T06:00:00Z",
       "layers": [
@@ -7813,7 +7813,7 @@
       "id": "rdps",
       "name": "RDPS 10 km · ECCC",
       "status": "ok",
-      "fetched_at": "2026-11-25T15:16:05Z",
+      "fetched_at": "2026-11-25T15:20:50Z",
       "note": "cm estimés à partir des mm d’eau et de la température (rapport 10:1 près de 0 °C, plus léger au froid). Pas de fonte ni de tassement.",
       "issued_at": "2026-11-25T06:00:00Z",
       "layers": [
@@ -8283,7 +8283,7 @@
       "id": "gfs",
       "name": "GFS 0,25° · NOAA",
       "status": "ok",
-      "fetched_at": "2026-11-25T15:16:05Z",
+      "fetched_at": "2026-11-25T15:20:50Z",
       "note": "cm estimés à partir des mm d’eau et de la température (rapport 10:1 près de 0 °C, plus léger au froid). Pas de fonte ni de tassement.",
       "issued_at": null,
       "units": [
@@ -8747,7 +8747,7 @@
       "id": "met",
       "name": "MET Norway",
       "status": "ok",
-      "fetched_at": "2026-11-25T15:16:05Z",
+      "fetched_at": "2026-11-25T15:20:50Z",
       "note": "cm estimés à partir des mm d’eau et de la température (rapport 10:1 près de 0 °C, plus léger au froid). Pas de fonte ni de tassement.",
       "issued_at": "2026-11-25T13:16:35Z",
       "hours": [
@@ -9281,7 +9281,7 @@
       "id": "nbm",
       "name": "NBM 2,5 km · NOAA (synthèse)",
       "status": "ok",
-      "fetched_at": "2026-11-25T15:16:05.664588+00:00",
+      "fetched_at": "2026-11-25T15:20:50.236996+00:00",
       "issued_at": "2026-11-25T13:00:00Z",
       "run": "2026-11-25T13:00:00+00:00",
       "hours": [
@@ -9807,7 +9807,7 @@
       "id": "hrrr",
       "name": "HRRR 3 km · NOAA",
       "status": "ok",
-      "fetched_at": "2026-11-25T15:16:05.664588+00:00",
+      "fetched_at": "2026-11-25T15:20:50.236996+00:00",
       "issued_at": "2026-11-25T12:00:00Z",
       "run": "2026-11-25T12:00:00+00:00",
       "hours": [
@@ -10173,7 +10173,7 @@
       "id": "ifs",
       "name": "ECMWF IFS (européen)",
       "status": "ok",
-      "fetched_at": "2026-11-25T15:16:05.664588+00:00",
+      "fetched_at": "2026-11-25T15:20:50.236996+00:00",
       "issued_at": "2026-11-25T00:00:00Z",
       "run": "2026-11-25T00:00:00+00:00",
       "hours": [
@@ -12362,7 +12362,7 @@
       "id": "aifs",
       "name": "ECMWF AIFS (européen, IA)",
       "status": "ok",
-      "fetched_at": "2026-11-25T15:16:05.664588+00:00",
+      "fetched_at": "2026-11-25T15:20:50.236996+00:00",
       "issued_at": "2026-11-25T00:00:00Z",
       "run": "2026-11-25T00:00:00+00:00",
       "hours": [
@@ -18672,7 +18672,7 @@
     "note": "NBM (NOAA) : probabilité de 0,25 mm et plus en 12 h, 7 h -> 19 h et 19 h -> 7 h (heure normale)."
   },
   "routes": {
-    "fetched_at": "2026-11-25T15:16:05.664588+00:00",
+    "fetched_at": "2026-11-25T15:20:50.236996+00:00",
     "rayon_km": 45,
     "source": "https://www.quebec511.info/fr/",
     "note": "Données ouvertes du MTQ (Québec 511, CC BY 4.0). État des routes noté par les patrouilleurs; vidéos des caméras servies par Québec 511.",
@@ -19230,7 +19230,7 @@
   "motoneige": {
     "status": "ok",
     "run_nbm": "2026-11-25T13:00:00+00:00",
-    "mis_a_jour": "2026-11-25T15:16:05.664588+00:00",
+    "mis_a_jour": "2026-11-25T15:20:50.236996+00:00",
     "endroits": [
       {
         "id": "st-zacharie",
