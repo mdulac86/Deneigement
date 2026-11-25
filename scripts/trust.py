@@ -9,7 +9,8 @@ Le tableau de fiabilité (verify.py -> data/verification/scores.json) compare, p
 - les épisodes de l'hiver en cours (suivi en direct) comptent 1,5 fois plus que ceux de la base
   historique : ils reflètent la version actuelle des modèles;
 - une source peu mesurée est tirée vers une erreur « par défaut » de 7 cm (6 épisodes fictifs),
-  puis s'en détache à mesure que les épisodes réels s'accumulent;
+  puis s'en détache à mesure que les épisodes réels s'accumulent; une source dérivée d'un modèle
+  mesuré (PARENTS : MET Norway <- ECMWF IFS) part plutôt de l'erreur de ce modèle (« à confirmer »);
 - poids = (meilleure erreur / erreur de la source)², entre 0,15 et 1.
 
 Aucune source n'est jamais exclue : le poids règle son influence sur le plan et les alertes.
@@ -17,6 +18,10 @@ Fonctions pures, testées dans tests/test_trust.py.
 """
 ALIASES = {'ifs-live': 'ifs', 'aifs-live': 'aifs', 'gfs-live': 'gfs'}
 IGNORE = {'consensus', 'wu'}
+# Source sans archive publique, dérivée d'un modèle mesuré : elle part de l'erreur de ce modèle au lieu
+# des 7 cm par défaut, puis s'en détache avec ses propres épisodes. MET Norway, hors Scandinavie,
+# reprend essentiellement ECMWF IFS (même modèle, interpolé et corrigé à 2 m).
+PARENTS = {'met': 'ifs'}
 PRIOR_CM = 7.0
 PRIOR_EPISODES = 6
 LIVE_FACTOR = 1.5
@@ -52,10 +57,10 @@ def pooled(scores, kind='neige'):
     return out
 
 
-def effective(p, kind='neige'):
+def effective(p, kind='neige', prior=None):
     K = KINDS[kind]
     n, err = (p['n'], p['err']) if p else (0.0, 0.0)
-    return (err + K['pseudo'] * K['prior']) / (n + K['pseudo'])
+    return (err + K['pseudo'] * (K['prior'] if prior is None else prior)) / (n + K['pseudo'])
 
 
 def weights(scores, ids=(), kind='neige'):
@@ -64,6 +69,12 @@ def weights(scores, ids=(), kind='neige'):
     K = KINDS[kind]
     pool = pooled(scores, kind)
     eff = {k: effective(p, kind) for k, p in pool.items()}
+    base = {}  # source dérivée : départ = erreur mesurée du modèle parent
+    for k, parent in PARENTS.items():
+        own = pool.get(k)
+        if parent in pool and pool[parent]['episodes'] >= K['mesuree'] and not (own and own['episodes'] >= K['mesuree']):
+            base[k] = parent
+            eff[k] = effective(own, kind, eff[parent])
     best = min(list(eff.values()) + [K['prior']])
     out = {}
     for k in set(eff) | set(ids):
@@ -71,8 +82,11 @@ def weights(scores, ids=(), kind='neige'):
         p = pool.get(k)
         out[k] = {'poids': round(max(FLOOR, min(1.0, (best / e) ** 2)), 2), ('erreur_cm' if kind == 'neige' else 'erreur_mm'): round(e, 1),
                   'episodes': p['episodes'] if p else 0, 'historique': p['hist'] if p else 0,
-                  'cet_hiver': p['live'] if p else 0,
-                  'statut': 'mesurée' if p and p['episodes'] >= K['mesuree'] else 'en rodage' if p else 'non mesurée'}
+                  'cet_hiver': p['live'] if p else 0, 'a_mesurer': K['mesuree'],
+                  'statut': 'mesurée' if p and p['episodes'] >= K['mesuree'] else 'à confirmer' if k in base
+                  else 'en rodage' if p else 'non mesurée'}
+        if k in base:
+            out[k]['base'] = base[k]
     return out
 
 

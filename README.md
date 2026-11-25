@@ -100,6 +100,9 @@ du robot (aucune intervention) :
 2. Erreur retenue = écart moyen par épisode + 2 cm par tempête de 5 cm manquée ou fausse alerte.
    Les épisodes de cet hiver comptent 1,5 fois plus. Une source peu mesurée part d'une erreur
    par défaut de 7 cm (6 épisodes fictifs) et s'en détache à mesure que les épisodes s'accumulent.
+   MET Norway (dérivé d'ECMWF IFS hors Scandinavie) part plutôt de l'erreur mesurée d'IFS, « à confirmer ».
+   HRDPS, RDPS, MétéoMédia et MET Norway n'ont pas d'archive publique : le robot garde leurs prévisions
+   depuis le 11 novembre 2026; elles deviennent « mesurées » après 5 épisodes de neige.
 3. Poids = (meilleure erreur / erreur de la source)², entre 0,15 et 1.
 
 Utilisation :

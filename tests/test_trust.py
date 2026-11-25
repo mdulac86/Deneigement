@@ -63,6 +63,20 @@ class TrustTests(unittest.TestCase):
         self.assertEqual(w['snow_cm'], 1.2)
         self.assertEqual(w['n'], 4)
 
+    def test_met_norway_starts_from_ifs_until_measured(self):
+        w = trust.weights(SCORES, ['met', 'hrdps'])
+        self.assertEqual((w['met']['statut'], w['met']['base']), ('à confirmer', 'ifs'))
+        self.assertEqual(w['met']['erreur_cm'], w['ifs']['erreur_cm'])
+        self.assertGreater(w['met']['poids'], w['hrdps']['poids'])
+        self.assertFalse(trust.reliable(w, 'met'))  # ne confirme pas seule un risque
+        self.assertEqual(w['hrdps']['statut'], 'non mesurée')
+        bad = {**SCORES, 'en_direct': [row('met', 14.0, 3)]}  # ses propres épisodes l'en détachent
+        self.assertLess(trust.weights(bad, ['met'])['met']['poids'], w['met']['poids'])
+        done = {**SCORES, 'en_direct': [row('met', 3.0, 6)]}
+        m = trust.weights(done, ['met'])['met']
+        self.assertEqual(m['statut'], 'mesurée')
+        self.assertNotIn('base', m)
+
     def test_rain_weights_use_precip_error_without_storm_penalty(self):
         sc = {'historique': [{**row('nbm', 4.0, 22, 0, 9), 'ecart_precip_mm': 2.0, 'jours_precip': 60},
                              {**row('gfs', 9.8, 22, 0, 6), 'ecart_precip_mm': 5.0, 'jours_precip': 60}]}
