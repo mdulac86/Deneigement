@@ -598,3 +598,9 @@ document.querySelectorAll('#nav [data-tab]').forEach(b=>b.addEventListener('clic
 bindOpeners();
 tab(homeTab());
 load();
+
+// Android (Chrome, Edge, Samsung) : bouton d'installation directe quand le navigateur le permet.
+let installEvt=null;
+window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();installEvt=e;const b=$('install-btn');if(b)b.hidden=false});
+window.addEventListener('appinstalled',()=>{const b=$('install-btn');if(b)b.hidden=true});
+document.addEventListener('click',async e=>{if(e.target.id!=='install-btn'||!installEvt)return;installEvt.prompt();await installEvt.userChoice.catch(()=>{});installEvt=null;e.target.hidden=true});
