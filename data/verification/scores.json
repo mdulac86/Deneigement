@@ -1,5 +1,5 @@
 {
- "genere": "2026-11-25T04:49:25.888786+00:00",
+ "genere": "2026-11-25T10:53:01.812803+00:00",
  "seuil_cm": 5,
  "methode": "Prévision de la veille comparée à la neige mesurée par Climat Québec (station 7027660). Écart moyen = écart sur le total de chaque épisode de neige (une tempête qui chevauche minuit compte une seule fois). La neige de la station est calculée à partir des précipitations et de la température : les précipitations (mm d’eau) sont la mesure la plus sûre.",
  "historique": [
@@ -118,7 +118,7 @@
   {
    "id": "mm",
    "nom": "MétéoMédia",
-   "jours": 12,
+   "jours": 13,
    "episodes": 0,
    "ecart_moyen_cm": null,
    "biais_cm": null,
@@ -134,13 +134,13 @@
    },
    "periode": [
     "2026-11-11",
-    "2026-11-22"
+    "2026-11-23"
    ]
   },
   {
    "id": "hrdps",
    "nom": "HRDPS (canadien 2,5 km)",
-   "jours": 12,
+   "jours": 13,
    "episodes": 0,
    "ecart_moyen_cm": null,
    "biais_cm": null,
@@ -156,13 +156,13 @@
    },
    "periode": [
     "2026-11-11",
-    "2026-11-22"
+    "2026-11-23"
    ]
   },
   {
    "id": "rdps",
    "nom": "RDPS (canadien 10 km)",
-   "jours": 12,
+   "jours": 13,
    "episodes": 0,
    "ecart_moyen_cm": null,
    "biais_cm": null,
@@ -178,13 +178,13 @@
    },
    "periode": [
     "2026-11-11",
-    "2026-11-22"
+    "2026-11-23"
    ]
   },
   {
    "id": "gfs-live",
    "nom": "NOAA GFS (américain)",
-   "jours": 12,
+   "jours": 13,
    "episodes": 0,
    "ecart_moyen_cm": null,
    "biais_cm": null,
@@ -200,13 +200,13 @@
    },
    "periode": [
     "2026-11-11",
-    "2026-11-22"
+    "2026-11-23"
    ]
   },
   {
    "id": "met",
    "nom": "MET Norway",
-   "jours": 12,
+   "jours": 13,
    "episodes": 0,
    "ecart_moyen_cm": null,
    "biais_cm": null,
@@ -222,13 +222,13 @@
    },
    "periode": [
     "2026-11-11",
-    "2026-11-22"
+    "2026-11-23"
    ]
   },
   {
    "id": "consensus",
    "nom": "Consensus du plan (médiane)",
-   "jours": 12,
+   "jours": 13,
    "episodes": 0,
    "ecart_moyen_cm": null,
    "biais_cm": null,
@@ -244,13 +244,13 @@
    },
    "periode": [
     "2026-11-11",
-    "2026-11-22"
+    "2026-11-23"
    ]
   },
   {
    "id": "ifs-live",
    "nom": "ECMWF IFS (européen)",
-   "jours": 11,
+   "jours": 12,
    "episodes": 0,
    "ecart_moyen_cm": null,
    "biais_cm": null,
@@ -266,13 +266,13 @@
    },
    "periode": [
     "2026-11-12",
-    "2026-11-22"
+    "2026-11-23"
    ]
   },
   {
    "id": "aifs-live",
    "nom": "ECMWF AIFS (européen, IA)",
-   "jours": 11,
+   "jours": 12,
    "episodes": 0,
    "ecart_moyen_cm": null,
    "biais_cm": null,
@@ -288,7 +288,7 @@
    },
    "periode": [
     "2026-11-12",
-    "2026-11-22"
+    "2026-11-23"
    ]
   },
   {
@@ -318,34 +318,34 @@
   {
    "id": "mb",
    "nom": "meteoblue",
-   "jours": 14,
+   "jours": 15,
    "ecart_max_c": 1.5,
-   "ecart_min_c": 1.6,
-   "ecart_c": 1.54
+   "ecart_min_c": 1.5,
+   "ecart_c": 1.48
   },
   {
    "id": "met",
    "nom": "MET Norway",
-   "jours": 14,
+   "jours": 15,
    "ecart_max_c": 1.5,
-   "ecart_min_c": 1.8,
-   "ecart_c": 1.65
-  },
-  {
-   "id": "eccc",
-   "nom": "Environnement Canada",
-   "jours": 14,
-   "ecart_max_c": 1.1,
-   "ecart_min_c": 2.4,
-   "ecart_c": 1.74
+   "ecart_min_c": 1.7,
+   "ecart_c": 1.59
   },
   {
    "id": "mm",
    "nom": "MétéoMédia",
-   "jours": 13,
+   "jours": 14,
    "ecart_max_c": 1.5,
-   "ecart_min_c": 2.0,
-   "ecart_c": 1.75
+   "ecart_min_c": 1.8,
+   "ecart_c": 1.67
+  },
+  {
+   "id": "eccc",
+   "nom": "Environnement Canada",
+   "jours": 15,
+   "ecart_max_c": 1.2,
+   "ecart_min_c": 2.4,
+   "ecart_c": 1.76
   }
  ]
 }
