@@ -123,6 +123,11 @@ la nomme (« HRRR prévoit ≈ 30 cm, très au-dessus des autres modèles : mis 
 d'accord sur un gros total ne sont jamais mises de côté. Heure par heure, la fourchette est le
 20 % – 80 % pondéré des modèles (dès 3 modèles) au lieu du minimum – maximum.
 
+**Probabilité de sortie** (`plan.probability`) : moyenne de la part des modèles (pondérés par leur fiabilité)
+qui atteignent le seuil sur l'épisode, de l'ensemble européen (part des 51 versions à 2 cm et plus) et
+du NBM (probabilité de 2,5 cm et plus en 6 h). Une « sortie possible » sous 30 % (`possible_min_pct`
+dans config/plan.json) redevient « sous le seuil » : un seul modèle enneigé ne suffit plus.
+
 ## Fréquence du robot (adaptative)
 
 Le workflow est lancé toutes les heures et décide :

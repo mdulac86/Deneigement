@@ -301,6 +301,51 @@ def build_plan(hours, cfg, now, carry=0.0, melt_days=()):
     return [p for p in plans if p['statut'] != 'sous_seuil' or p['fourchette_cm'][1] >= 2 or p.get('au_sol_apres_cm', 0) >= 2]
 
 
+def probability(p, hours, weights, ens_days=(), nbm_tranches=(), cfg=None):
+    """Probabilité (%) qu'il tombe assez de neige pour une sortie sur cet épisode, moyenne de ce qui est disponible :
+    - part des modèles (pondérée par leur fiabilité) dont le total de l'épisode atteint le seuil;
+    - ensemble ECMWF : part des 51 versions à 2 cm et plus (5 cm si le seuil est plus haut), jour de l'épisode;
+    - NBM (NOAA) : probabilité de 2,5 cm et plus en 6 h, tranches qui touchent l'épisode.
+    Le modèle isolé compte pour son poids : une seule voix, pas une sortie."""
+    cfg = cfg or {}
+    a, b = dt.datetime.fromisoformat(p['debut']), dt.datetime.fromisoformat(p['fin'])
+    need = max(0.1, cfg.get('seuil_cm', 2) - (p.get('deja_au_sol_cm') or 0))
+    tot = {}
+    for h in hours:
+        if a <= h['time'] < b:
+            for k, v in (h.get('models') or {}).items():
+                tot[k] = tot.get(k, 0) + v
+    parts = {}
+    w = {k: (weights.get(k) or 0.45) for k in tot}
+    if tot and sum(w.values()):
+        parts['modeles'] = 100 * sum(w[k] for k, v in tot.items() if v >= need) / sum(w.values())
+    key = 'prob_2cm' if need <= 3.5 else 'prob_5cm'
+    days = {str((a + dt.timedelta(hours=i)).date()) for i in range(int((b - a).total_seconds() // 3600) + 1)}
+    ens = [d.get(key) for d in ens_days if d.get('date') in days and d.get(key) is not None]
+    if ens:
+        parts['ensemble'] = max(ens)
+    nb = [t['p_2_5cm'] for t in nbm_tranches if t.get('p_2_5cm') is not None
+          and dt.datetime.fromisoformat(t['debut'].replace('Z', '+00:00')) < b and dt.datetime.fromisoformat(t['fin'].replace('Z', '+00:00')) > a]
+    if nb:
+        parts['nbm'] = max(nb)
+    if not parts:
+        return None, {}
+    return round(sum(parts.values()) / len(parts)), {k: round(v) for k, v in parts.items()}
+
+
+def apply_probability(plans, cfg):
+    """Une sortie « possible » sous la probabilité minimale (config possible_min_pct) redevient « sous le seuil »."""
+    lim = cfg.get('possible_min_pct', 30)
+    for p in plans:
+        if p.get('statut') == 'possible' and p.get('probabilite') is not None and p['probabilite'] < lim:
+            p['statut'] = 'sous_seuil'
+            p['au_sol_apres_cm'] = round((p.get('deja_au_sol_cm') or 0) + p['total_cm'], 1)
+            p['notes'] = [x for x in p['notes'] if 'n’est atteint que par' not in x and 'Le seuil arrive tard' not in x]
+            p['notes'].append(f"Probabilité de sortie {p['probabilite']} % (sous {lim} %) : pas de sortie annoncée.")
+            p['resume'] = f"Environ {p['total_cm']:g} cm prévus, probabilité de sortie {p['probabilite']} % : sous le seuil de {cfg['seuil_cm']} cm."
+    return plans
+
+
 def carry_from_records(records, cfg):
     """Neige au sol depuis le dernier nettoyage, d'après les relevés quotidiens publiés : on additionne
     les chutes; remise à zéro après une sortie (5 cm atteints), un redoux (max ≥ 4 °C) ou de la pluie."""

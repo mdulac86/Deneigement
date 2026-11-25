@@ -167,5 +167,38 @@ class PlanTests(unittest.TestCase):
         self.assertEqual(h['time'], at(11, 0))
 
 
+class ProbabilityTests(unittest.TestCase):
+    """Vendredi 27 nov. 2026 : pluie, un seul modèle (RDPS) à 14 cm, ensemble 4 %, NBM 0 % -> pas de « possible »."""
+    def setUp(self):
+        self.cfg = p.load_config()
+        start = dt.datetime(2026, 11, 27, 3, tzinfo=TZ)
+        others = {'aifs': 0.0, 'ifs': 0.0, 'hrdps': 0.0, 'gfs': 0.0, 'hrrr': 0.0, 'met': 0.0}
+        self.hours = [{'time': start + dt.timedelta(hours=i), 'snow_cm': 0.0, 'lo': 0.0, 'hi': 2.8, 'n': 7,
+                       'models': {**others, 'rdps': 2.8}} for i in range(5)]
+        self.w = {'nbm': 1.0, 'aifs': 0.94, 'ifs': 0.72, 'met': 0.72, 'hrrr': 0.68, 'hrdps': 0.45, 'rdps': 0.45, 'gfs': 0.24}
+        self.ens = [{'date': '2026-11-27', 'prob_2cm': 4, 'prob_5cm': 2}]
+        self.nbm = [{'debut': '2026-11-27T06:00:00Z', 'fin': '2026-11-27T12:00:00Z', 'p_2_5cm': 0}]
+
+    def test_lone_model_gives_low_probability_and_no_flag(self):
+        plan = {'debut': '2026-11-27T03:00:00-05:00', 'fin': '2026-11-27T08:00:00-05:00', 'statut': 'possible',
+                'total_cm': 0.0, 'notes': ['Le seuil de 2 cm n’est atteint que par le modèle le plus enneigé.']}
+        pct, detail = p.probability(plan, self.hours, self.w, self.ens, self.nbm, self.cfg)
+        self.assertLess(pct, 10)
+        self.assertEqual(set(detail), {'modeles', 'ensemble', 'nbm'})
+        p.apply_probability([{**plan, 'probabilite': pct}], self.cfg)
+        out = p.apply_probability([dict(plan, probabilite=pct)], self.cfg)[0]
+        self.assertEqual(out['statut'], 'sous_seuil')
+        self.assertTrue(any('Probabilité de sortie' in x for x in out['notes']))
+
+    def test_real_snow_gives_high_probability(self):
+        hours = [{**h, 'models': {k: 1.0 for k in h['models']}} for h in self.hours]
+        plan = {'debut': '2026-11-27T03:00:00-05:00', 'fin': '2026-11-27T08:00:00-05:00'}
+        pct, _ = p.probability(plan, hours, self.w, [{'date': '2026-11-27', 'prob_2cm': 85}],
+                               [{**self.nbm[0], 'p_2_5cm': 70}], self.cfg)
+        self.assertGreaterEqual(pct, 80)
+        keep = p.apply_probability([dict(plan, statut='possible', probabilite=45, total_cm=1.5, notes=[])], self.cfg)[0]
+        self.assertEqual(keep['statut'], 'possible')
+
+
 if __name__ == '__main__':
     unittest.main()

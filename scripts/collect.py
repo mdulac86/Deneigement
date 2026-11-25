@@ -776,6 +776,10 @@ def forecast_plan(sources, days, previous=None):
         t = p.get('seuil_atteint') or (p.get('seuil_fourchette') or [None])[0] or p.get('debut')
         p['ensemble'] = by_day.get(t[:10]) if t else None
         p['fiables'] = trusted_view(p, hours, models, table)
+        nbm_m = next((m for m in models if m['id'] == 'nbm' and m['status'] == 'ok'), None)
+        p['probabilite'], p['probabilite_detail'] = planner.probability(
+            p, hours, {k: v['poids'] for k, v in table.items()}, ensemble.get('jours', []), (nbm_m or {}).get('tranches', []), cfg)
+    planner.apply_probability(plan, cfg)
     return {'confiance': table, 'confiance_pluie': table_pluie, 'ensemble': ensemble, 'precip_probability': pop, 'models': models, 'hourly_snow': serial_hours([{k: h[k] for k in ('time', 'snow_cm', 'lo', 'hi', 'n')} for h in hours]),
             'plan': plan, 'plan_config': cfg, 'neige_depuis_nettoyage_cm': round(carry, 1)}
 

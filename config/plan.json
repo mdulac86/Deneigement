@@ -28,5 +28,7 @@
     "soir": "16:30",
     "note": "Neige de jour : moins de 10 cm, nettoyage le lendemain matin; 10 cm et plus en fin de journée, passage rapide le soir puis reprise le lendemain matin."
   },
-  "seuil_note": "2 cm prévus (tolérance zéro, ex. l'école) : selon le journal 2025-2026, 2 cm prévus la veille retrouvent 21 des 25 sorties réelles, 5 cm seulement 10."
+  "seuil_note": "2 cm prévus (tolérance zéro, ex. l'école) : selon le journal 2025-2026, 2 cm prévus la veille retrouvent 21 des 25 sorties réelles, 5 cm seulement 10.",
+  "possible_min_pct": 30,
+  "possible_note": "« Sortie possible » seulement si la probabilité de sortie atteint 30 % : moyenne des modèles (pondérés par leur fiabilité), de l'ensemble européen et du NBM."
 }

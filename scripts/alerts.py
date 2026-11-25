@@ -98,8 +98,10 @@ def plans(weather, state, today, now=None, pending=None):
                  f"≈ {p['total_cm']:g} cm (de {p['fourchette_cm'][0]:g} à {p['fourchette_cm'][1]:g})" + (f" · fin vers {hhmm(p['fin'])}" if p.get('fin') else '')]
         if final.get('heure'):
             lines.append({'deuxieme_tournee': '2e tournée', 'reprise_matin': 'Reprise le lendemain matin'}.get(final.get('type'), 'Nettoyage final') + f" {hhmm(final['heure'])}")
-        if p.get('ensemble'):
-            lines.append(f"Ensemble européen : {p['ensemble']['prob_5cm']} % de chances de 5 cm+")
+        if p.get('probabilite') is not None:
+            lines.append(f"Probabilité de sortie : {p['probabilite']} %")
+        elif p.get('ensemble'):
+            lines.append(f"Ensemble européen : {p['ensemble'].get('prob_2cm', p['ensemble']['prob_5cm'])} % de chances de 2 cm+")
         sure = [f"{r['nom'].split(' (')[0].split(' ·')[0]} {r['cm']:g} cm" for r in (p.get('fiables') or []) if r.get('statut') == 'mesurée'][:3]
         if sure:
             lines.append('Modèles les plus fiables : ' + ', '.join(sure))
