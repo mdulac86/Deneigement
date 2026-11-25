@@ -525,12 +525,28 @@ function halves(){const tz='America/Toronto',key=t=>new Intl.DateTimeFormat('en-
  return out}
 const MOON='<svg viewBox="0 0 48 48" aria-hidden="true"><path d="M30 8a16 16 0 1 0 12 26A14 14 0 0 1 30 8z" fill="#FFD166"/></svg>';
 const finalLbl=f=>f.type==='reprise_matin'?'Reprise le matin':f.type==='deuxieme_tournee'?'2e tournée':'Nettoyage final';
-function renderQuick(){
- const e=state.sources.find(s=>s.id==='eccc'&&s.status==='ok'),cur=e?.current||{},h0=(e?.hourly||[])[0];
- const v=x=>x?.value?.fr??x?.value?.en??x?.value??null,temp=v(cur.temperature),chill=v(cur.windChill),wind=v(cur.wind?.speed),cond=h0?.condition||'';
+// Conditions actuelles (coin du haut) : lues directement chez Environnement Canada par le téléphone,
+// toutes les 15 min (observation horaire de Beauceville), sans attendre le robot; sinon, données du robot.
+const ECCC_NOW='https://api.weather.gc.ca/collections/citypageweather-realtime/items/qc-b6?f=json';
+function paintNow(cur,h0,obs){
+ const v=x=>x?.value?.fr??x?.value?.en??x?.value??null,temp=v(cur.temperature),chill=v(cur.windChill),wind=v(cur.wind?.speed);
+ const c=x=>typeof x==='string'?x:x?.fr||x?.en||'',cond=c(cur.condition)||c(h0?.condition);
  $('now-temp').textContent=temp==null?'—':(Math.round(temp)+0)+' °C';$('now-cond').textContent=cond||'—';
- $('now-extra').textContent=[chill!=null&&chill<temp-1?'ressenti '+Math.round(chill)+' °C':'',wind!=null?'vent '+Math.round(wind)+' km/h':''].filter(Boolean).join(' · ');
+ $('now-extra').textContent=[chill!=null&&chill<temp-1?'ressenti '+Math.round(chill)+' °C':'',wind!=null?'vent '+Math.round(wind)+' km/h':'',obs?'observé à '+hhmm(obs):''].filter(Boolean).join(' · ');
  $('now-icon').innerHTML=cond?symbol([riskOf(cond)]):'';
+}
+async function liveNow(){
+ try{const r=await fetch(ECCC_NOW,{cache:'no-store'});if(!r.ok)throw 0;const p=(await r.json()).properties||{},cur=p.currentConditions||{};
+  const now=Date.now(),hs=p.hourlyForecastGroup?.hourlyForecasts||[],h0=hs.find(h=>Date.parse(h.timestamp)+3600e3>now)||hs[0];
+  const obs=cur.timestamp?.fr||cur.timestamp?.en||cur.timestamp;
+  if(cur.temperature==null)throw 0;liveNow.ok=true;paintNow(cur,h0,obs);
+ }catch(_){/* hors ligne : on garde les données du robot */}
+}
+liveNow();setInterval(liveNow,15*60e3);
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')liveNow()});
+function renderQuick(){
+ const e=state.sources.find(s=>s.id==='eccc'&&s.status==='ok');
+ if(!liveNow.ok)paintNow(e?.current||{},(e?.hourly||[])[0]);
  // Plan de sortie
  const p=(state.plan||[]).find(x=>x.statut==='sortie'||x.statut==='possible');
  if(p&&EQ){const go=p.statut==='sortie',d=new Intl.DateTimeFormat('fr-CA',{weekday:'long',day:'numeric',month:'long',timeZone:'America/Toronto'}).format(new Date(p.depart));
