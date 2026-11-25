@@ -1,23 +1,13 @@
 {
-  "fetched_at": "2026-11-24T22:45:05.707627+00:00",
+  "fetched_at": "2026-11-25T04:45:04.876723+00:00",
   "host": "poste du bureau",
   "sources": {
     "mm": {
       "status": "ok",
-      "fetched_at": "2026-11-24T22:45:05.707627+00:00",
+      "fetched_at": "2026-11-25T04:45:04.876723+00:00",
       "result": {
         "issued_at": null,
         "days": [
-          {
-            "date": "2026-11-24",
-            "high": -5.0,
-            "low": -5.0,
-            "snow_cm": null,
-            "rain_mm": null,
-            "ice_mm": null,
-            "condition": "Dégagé",
-            "risk": "Sans risque hivernal identifié"
-          },
           {
             "date": "2026-11-25",
             "high": 1.0,
@@ -148,31 +138,18 @@
             "date": "2026-12-04",
             "high": 3.0,
             "low": -1.0,
-            "snow_cm": null,
+            "snow_cm": [
+              0.0,
+              2.0
+            ],
             "rain_mm": null,
             "ice_mm": null,
-            "condition": "Averses de neige isolées · Averses de neige isolées · Ensoleillé",
-            "risk": "Neige"
+            "condition": "Averses de neige isolées · Averses de neige isolées · Ensoleillé · Dégagé",
+            "risk": "Neige",
+            "snow_period": "00-24-local"
           }
         ],
         "periods": [
-          {
-            "date": "2026-11-24",
-            "label": "Soir",
-            "start_h": 18,
-            "text": "Dégagé",
-            "snow_cm": [
-              0.0,
-              0.0
-            ],
-            "rain_mm": [
-              0.0,
-              0.0
-            ],
-            "temp": -5.0,
-            "pop": "10%",
-            "risk": "Sans risque hivernal identifié"
-          },
           {
             "date": "2026-11-25",
             "label": "Nuit",
@@ -814,39 +791,26 @@
             "temp": 3.0,
             "pop": "10%",
             "risk": "Sans risque hivernal identifié"
+          },
+          {
+            "date": "2026-12-04",
+            "label": "Soir",
+            "start_h": 18,
+            "text": "Dégagé",
+            "snow_cm": [
+              0.0,
+              0.0
+            ],
+            "rain_mm": [
+              0.0,
+              0.0
+            ],
+            "temp": 0.0,
+            "pop": "10%",
+            "risk": "Sans risque hivernal identifié"
           }
         ],
         "hours": [
-          {
-            "time": "2026-11-24T23:00:00Z",
-            "snow_cm": 0.0,
-            "temp": -5.0
-          },
-          {
-            "time": "2026-11-25T00:00:00Z",
-            "snow_cm": 0.0,
-            "temp": -5.0
-          },
-          {
-            "time": "2026-11-25T01:00:00Z",
-            "snow_cm": 0.0,
-            "temp": -5.0
-          },
-          {
-            "time": "2026-11-25T02:00:00Z",
-            "snow_cm": 0.0,
-            "temp": -5.0
-          },
-          {
-            "time": "2026-11-25T03:00:00Z",
-            "snow_cm": 0.0,
-            "temp": -5.0
-          },
-          {
-            "time": "2026-11-25T04:00:00Z",
-            "snow_cm": 0.0,
-            "temp": -5.0
-          },
           {
             "time": "2026-11-25T05:00:00Z",
             "snow_cm": 0.0,
@@ -2016,6 +1980,36 @@
             "time": "2026-12-04T22:00:00Z",
             "snow_cm": 0.0,
             "temp": 3.0
+          },
+          {
+            "time": "2026-12-04T23:00:00Z",
+            "snow_cm": 0.0,
+            "temp": 0.0
+          },
+          {
+            "time": "2026-12-05T00:00:00Z",
+            "snow_cm": 0.0,
+            "temp": 0.0
+          },
+          {
+            "time": "2026-12-05T01:00:00Z",
+            "snow_cm": 0.0,
+            "temp": 0.0
+          },
+          {
+            "time": "2026-12-05T02:00:00Z",
+            "snow_cm": 0.0,
+            "temp": 0.0
+          },
+          {
+            "time": "2026-12-05T03:00:00Z",
+            "snow_cm": 0.0,
+            "temp": 0.0
+          },
+          {
+            "time": "2026-12-05T04:00:00Z",
+            "snow_cm": 0.0,
+            "temp": 0.0
           }
         ],
         "note": "Tableau de données structurées publié par MétéoMédia (périodes nuit, matin, après-midi, soir). Quantités en fourchette; heure d’émission non publiée. Découpage horaire des périodes supposé 0-6-12-18 h."
