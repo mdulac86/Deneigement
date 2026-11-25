@@ -452,3 +452,8 @@ table.cmp td{text-align:right;white-space:nowrap}table.cmp td:first-child{text-a
 table.cmp td.up b{color:var(--orange)}table.cmp td.down b{color:var(--green)}
 
 .btn-map{background:var(--blue);color:#0B1322!important;border-radius:999px;padding:7px 12px;font-weight:700;font-size:13.5px;text-decoration:none;white-space:nowrap}
+
+/* Version équipe (equipe.html) : sans heures de départ, routes, pavage, excavation, érablière ni motoneige */
+html[data-mode="equipe"] .owner-only{display:none!important}
+.q-day-only{font-size:34px!important;text-transform:capitalize}
+.ep-when strong.ep-day{font-size:16px;text-transform:capitalize}
