@@ -1,5 +1,5 @@
 {
- "genere": "2026-11-26T10:51:26.996551+00:00",
+ "genere": "2026-11-26T16:49:37.629013+00:00",
  "seuil_cm": 5,
  "methode": "Prévision de la veille comparée à la neige mesurée par Climat Québec (station 7027660). Écart moyen = écart sur le total de chaque épisode de neige (une tempête qui chevauche minuit compte une seule fois). La neige de la station est calculée à partir des précipitations et de la température : les précipitations (mm d’eau) sont la mesure la plus sûre.",
  "historique": [
