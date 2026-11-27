@@ -159,27 +159,27 @@
     },
     {
       "date": "2026-12-02",
-      "gel_m": 0.14,
+      "gel_m": 0.15,
       "degel_haut": false
     },
     {
       "date": "2026-12-03",
-      "gel_m": 0.14,
-      "degel_haut": true
+      "gel_m": 0.15,
+      "degel_haut": false
     },
     {
       "date": "2026-12-04",
-      "gel_m": 0.14,
+      "gel_m": 0.15,
       "degel_haut": true
     },
     {
       "date": "2026-12-05",
-      "gel_m": 0.14,
+      "gel_m": 0.15,
       "degel_haut": true
     },
     {
       "date": "2026-12-06",
-      "gel_m": 0.14,
+      "gel_m": 0.15,
       "degel_haut": false
     }
   ],
