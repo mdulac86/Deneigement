@@ -1,22 +1,22 @@
 {
-  "fetched_at": "2026-11-27T10:45:06.030822+00:00",
+  "fetched_at": "2026-11-27T16:45:08.633294+00:00",
   "host": "poste du bureau",
   "sources": {
     "mm": {
       "status": "ok",
-      "fetched_at": "2026-11-27T10:45:06.030822+00:00",
+      "fetched_at": "2026-11-27T16:45:08.633294+00:00",
       "result": {
         "issued_at": null,
         "days": [
           {
             "date": "2026-11-27",
             "high": 3.0,
-            "low": 1.0,
+            "low": 2.0,
             "snow_cm": null,
             "rain_mm": null,
             "ice_mm": null,
-            "condition": "Pluie verglaçante · Nuageux avec averses · Pluie",
-            "risk": "Verglas / grésil"
+            "condition": "Nuageux avec averses · Pluie",
+            "risk": "Pluie"
           },
           {
             "date": "2026-11-28",
@@ -146,33 +146,16 @@
           },
           {
             "date": "2026-12-07",
-            "high": -4.0,
+            "high": -2.0,
             "low": -4.0,
             "snow_cm": null,
             "rain_mm": null,
             "ice_mm": null,
-            "condition": "Averses de neige isolées",
+            "condition": "Averses de neige isolées · Averses de neige isolées",
             "risk": "Neige"
           }
         ],
         "periods": [
-          {
-            "date": "2026-11-27",
-            "label": "Matin",
-            "start_h": 6,
-            "text": "Pluie verglaçante",
-            "snow_cm": [
-              0.0,
-              1.0
-            ],
-            "rain_mm": [
-              2.0,
-              4.0
-            ],
-            "temp": 1.0,
-            "pop": "90%",
-            "risk": "Verglas / grésil"
-          },
           {
             "date": "2026-11-27",
             "label": "Après-midi",
@@ -182,9 +165,12 @@
               0.0,
               0.0
             ],
-            "rain_mm": null,
+            "rain_mm": [
+              0.0,
+              1.0
+            ],
             "temp": 3.0,
-            "pop": "70%",
+            "pop": "40%",
             "risk": "Pluie"
           },
           {
@@ -814,39 +800,26 @@
             "temp": -4.0,
             "pop": "40%",
             "risk": "Neige"
+          },
+          {
+            "date": "2026-12-07",
+            "label": "Matin",
+            "start_h": 6,
+            "text": "Averses de neige isolées",
+            "snow_cm": [
+              0.0,
+              1.0
+            ],
+            "rain_mm": [
+              0.0,
+              0.0
+            ],
+            "temp": -2.0,
+            "pop": "40%",
+            "risk": "Neige"
           }
         ],
         "hours": [
-          {
-            "time": "2026-11-27T11:00:00Z",
-            "snow_cm": 0.08,
-            "temp": 1.0
-          },
-          {
-            "time": "2026-11-27T12:00:00Z",
-            "snow_cm": 0.08,
-            "temp": 1.0
-          },
-          {
-            "time": "2026-11-27T13:00:00Z",
-            "snow_cm": 0.08,
-            "temp": 1.0
-          },
-          {
-            "time": "2026-11-27T14:00:00Z",
-            "snow_cm": 0.08,
-            "temp": 1.0
-          },
-          {
-            "time": "2026-11-27T15:00:00Z",
-            "snow_cm": 0.08,
-            "temp": 1.0
-          },
-          {
-            "time": "2026-11-27T16:00:00Z",
-            "snow_cm": 0.08,
-            "temp": 1.0
-          },
           {
             "time": "2026-11-27T17:00:00Z",
             "snow_cm": 0.0,
@@ -2016,6 +1989,36 @@
             "time": "2026-12-07T10:00:00Z",
             "snow_cm": 0.08,
             "temp": -4.0
+          },
+          {
+            "time": "2026-12-07T11:00:00Z",
+            "snow_cm": 0.08,
+            "temp": -2.0
+          },
+          {
+            "time": "2026-12-07T12:00:00Z",
+            "snow_cm": 0.08,
+            "temp": -2.0
+          },
+          {
+            "time": "2026-12-07T13:00:00Z",
+            "snow_cm": 0.08,
+            "temp": -2.0
+          },
+          {
+            "time": "2026-12-07T14:00:00Z",
+            "snow_cm": 0.08,
+            "temp": -2.0
+          },
+          {
+            "time": "2026-12-07T15:00:00Z",
+            "snow_cm": 0.08,
+            "temp": -2.0
+          },
+          {
+            "time": "2026-12-07T16:00:00Z",
+            "snow_cm": 0.08,
+            "temp": -2.0
           }
         ],
         "note": "Tableau de données structurées publié par MétéoMédia (périodes nuit, matin, après-midi, soir). Quantités en fourchette; heure d’émission non publiée. Découpage horaire des périodes supposé 0-6-12-18 h."
