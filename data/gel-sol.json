@@ -154,7 +154,7 @@
     },
     {
       "date": "2026-12-01",
-      "gel_m": 0.1,
+      "gel_m": 0.11,
       "degel_haut": false
     },
     {
@@ -165,7 +165,7 @@
     {
       "date": "2026-12-03",
       "gel_m": 0.15,
-      "degel_haut": false
+      "degel_haut": true
     },
     {
       "date": "2026-12-04",
@@ -179,7 +179,7 @@
     },
     {
       "date": "2026-12-06",
-      "gel_m": 0.15,
+      "gel_m": 0.17,
       "degel_haut": false
     }
   ],
