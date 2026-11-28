@@ -533,6 +533,20 @@
         "zec-des-martres": 1.6,
         "monts-valins": 0.0
       }
+    },
+    {
+      "time": "2026-11-28T10:45:48.527322+00:00",
+      "cm": {
+        "st-zacharie": 0.0,
+        "st-robert": 0.0,
+        "massif-du-sud": 2.8,
+        "zec-jaro": 0.5,
+        "jackman": 1.1,
+        "bald-mountain": 1.8,
+        "grands-jardins": 4.0,
+        "zec-des-martres": 4.7,
+        "monts-valins": 0.6
+      }
     }
   ]
 }
